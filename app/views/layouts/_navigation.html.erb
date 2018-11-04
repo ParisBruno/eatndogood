@@ -57,8 +57,15 @@
               <li><%= link_to "Log out", logout_path, method: :delete %></li>
             </ul>
           </li>
+        <% end %>
+        <% if user_signed_in? %>
+          <div>
+            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+          </div>
         <% else %>
-          <li><%= link_to "Log in", login_path %></li>  
+          <div>
+            <%= link_to "Log in", new_user_session_path, class: "btn btn-success"%>
+          </div>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
