@@ -1,0 +1,23 @@
+<div class="row">
+  <%= form_for(@page) do |f| %>
+    <div class="well col-md-5 col-md-offset-4 login-sec">
+      <div class="">
+        <%= f.label :destination %>
+        <%= f.text_field :destination %>
+      </div>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.cktext_area :title %>
+      </div>
+    </div>
+    <div class="well col-md-5 col-md-offset-4 login-sec">
+      <div class="field">
+        <%= f.label :content %>
+        <%= f.cktext_area :content %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

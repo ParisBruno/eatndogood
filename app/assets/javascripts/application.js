@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require ckeditor/init
 //= require_tree .
 
 function scrollToBottom(){
@@ -43,7 +44,3 @@ $(document).on('turbolinks:load', function() {
   })
   scrollToBottom();
 });
-
-
-
-

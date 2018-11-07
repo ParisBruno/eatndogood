@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
   root "pages#home"
   get 'pages/home', to: 'pages#home'
@@ -11,12 +12,17 @@ Rails.application.routes.draw do
   end
 
   resources :chefs, except: [:new]
-
   resources :ingredients, except: [:destroy]
-
-  mount ActionCable.server => '/cable'
-  get '/chat', to: 'chatrooms#show'
-
   resources :messages, only: [:create]
+  resources :pages do
+    collection do
+      post 'welcome/edit'
+      post 'about/edit'
+      get 'welcome', to: 'welcome'
+      get 'about',   to: 'about'
+    end
+  end
+  mount ActionCable.server => '/cable'
 
+  get '/chat', to: 'chatrooms#show'
 end
