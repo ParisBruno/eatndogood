@@ -1,40 +1,73 @@
-<nav class="navbar navbar-default">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "MyRecipes", root_path, class: "navbar-brand", id: "logo" %>
+<% if user_signed_in? %>
+  <div class="header">
+    <div class="background-image">
+      <%= image_tag("header.png") %>
     </div>
-  <div class="menu">
-    <% if user_signed_in? %>
-      <div class="dropdown">
+    <div class="button-menu">
+      <% if current_user.guest? %>
+        <div class="recipes-button">
+          <%= link_to "Recipes", recipes_path, class: "btn btn-success dropdown-toggle custom-dropdown" %>
+        </div>
+        <div class="log-out">
+          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+        </div>
+      <% else %>
+      <div class="recipes-button">
+        <%= link_to "Recipes", recipes_path, class: "btn btn-success dropdown-toggle custom-dropdown" %>
+      </div>
+      <div class="recipes-button">
         <%= button_tag(type: 'button', class: "btn btn-primary dropdown-toggle custom-dropdown", "data-toggle" => "dropdown") do %>
-          <%= current_user.first_name %>
+          <%= "Styles" %>
         <% end %>
-        <ul class="dropdown-menu">
-          <% if current_user.admin? %>
+      </div>
+      <div class="recipes-button">
+        <%= button_tag(type: 'button', class: "btn btn-primary dropdown-toggle custom-dropdown", "data-toggle" => "dropdown") do %>
+          <%= "Ingredients" %>
+          <ul class="dropdown-menu">
+            <% Ingredient.all.each do |ingredient| %>
             <li>
               <%= link_to "Edit welcome page", welcome_edit_pages_path %>
             </li>
             <li>
               <%= link_to "Edit about page", about_edit_pages_path %>
             </li>
+          </ul>
           <% end %>
+        <% end %>
+      </div>
+      <div class="recipes-button">
+        <%= link_to "New Recipe", new_recipe_path, class: "btn btn-success dropdown-toggle custom-dropdown" %>
+      </div>
+      <div class="dropdown">
+        <%= button_tag(type: 'button', class: "btn btn-primary dropdown-toggle custom-dropdown", "data-toggle" => "dropdown") do %>
+          <%= current_user.first_name %>
+        <% end %>
+        <ul class="dropdown-menu">
+          <% if current_user.admin? %>
           <li>
-            <a href="#">JavaScript</a>
+            <%= link_to "Edit welcome page", welcome_edit_pages_path %>
           </li>
+          <li>
+            <%= link_to "Edit about page", about_edit_pages_path %>
+          </li>
+          <% end %>
         </ul>
       </div>
-      <div>
+      <div class="log-out">
         <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
       </div>
-    <% else %>
-      <div>
-        <%= link_to "Log in", new_user_session_path, class: "btn btn-success"%>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+</div>
+<% else %>
+<div class="navbar-default">
+  <div class="auth_buttons">
+    <div class="login">
+      <%= link_to "Log in", new_user_session_path, class: "btn btn-success" %>
+    </div>
+    <div class="registration">
+      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success" %>
+    </div>
   </div>
-</nav>
+</div>
+<% end %>
