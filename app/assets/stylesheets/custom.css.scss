@@ -1,4 +1,3 @@
-$navbar-default-bg: #073B15;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -275,14 +274,278 @@ footer ul li {
 
 .menu {
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .menu div {
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px;
 }
 
 .welcome-page {
   align: center;
+}
+
+.navbar-default {
+  width: 100%;
+  background-color: #0c2b5e;
+  height: 70px;
+}
+
+.header img {
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+
+.button-menu {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 5%;
+  left: 40%;
+}
+
+.button-menu div {
+  display: inline-block;
+  margin-right: 20%;
+}
+
+.auth_buttons div {
+  display: inline-block;
+}
+
+.auth_buttons div {
+  margin-top: 1%;
+  float: right;
+  margin-right: 1%;
+}
+
+.welcome-content {
+  position: absolute;
+  top: 100%;
+  right: 35%;
+  color: #fff;
+  text-align: center;
+}
+
+.custom-select {
+  position: absolute;
+  top: 145%;
+  right: 45%;
+  color: #fff;
+  padding: 20px 17px;
+  background: none;
+  border: none;
+  background: rgba(97, 148, 85, 0.62);
+  border-radius: 0;
+  color: #fff;
+  font-family: 'Merriweather', serif;
+}
+
+.welcome-enter-button input {
+  position: absolute;
+  right: 40%;
+  top: 170%;
+  font-size: 50px !important;
+  text-shadow: none !important;
+  color: #fff !important;
+  text-transform: capitalize;
+  font-weight: 400;
+  width: 280px;
+  line-height: 80px;
+  height: 80px;
+  background: rgba(97, 148, 85, 0.62);
+  border: 1px solid #fff;
+  border-radius: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Merriweather', serif;
+}
+
+.enter-sec a {
+  font-size: 50px !important;
+  text-shadow: none !important;
+  color: #fff !important;
+  display: inline-block;
+  text-transform: capitalize;
+  font-weight: 400;
+  width: 280px;
+  line-height: 80px;
+  height: 80px;
+  background: rgba(97, 148, 85, 0.62);
+  border: 1px solid #fff;
+  border-radius: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Merriweather', serif;
+}
+
+.about-tour {
+  position: absolute;
+  right: 40%;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.about-private-info p {
+  font-size: 20px;
+  text-align: center;
+}
+
+.about-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.about-buttons div {
+  margin-right: 1%;
+  padding: 5px;
+}
+
+.about-buttons a {
+  font-size: 20px;
+}
+
+.welcome-locale-selector .btn {
+    padding: 10px 17px;
+    background: rgba(97, 148, 85, 0.62);
+    border-radius: 0px;
+    color: #fff;
+    font-family: 'Merriweather', serif;
+}
+
+.welcome-locale-selector .btn:hover, .welcome-locale-selector .btn:focus, .welcome-locale-selector .btn:active {
+
+    color: #fff;
+    background: rgba(97, 148, 85, 0.62);
+
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.dropdown .dropdown-menu {
+    left: inherit;
+    right: 0;
+}
+
+.welcome-locale-selector .dropdown-menu {
+    border-radius: 0px;
+    background: rgba(97, 148, 85, 0.62);
+}
+
+.open > .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+
+default.dropdown-toggle {
+    background-image: none;
+}
+
+.dropdown .dropdown-menu li a {
+    display: block !important;
+    text-align: left !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    border-radius: 0 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    font-size: 15px !important;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.welcome-title h2{
+    color: #fff;
+    font-size: 6em;
+    font-weight: 300;
+    line-height: 1.2;
+    word-wrap: break-word;
+    word-break: break-all;
+    display: block;
+    position: absolute;
+    top: 0;
+    margin-top: 0;
+    font-family: 'Merriweather', serif;
+}
+
+div#enter {
+    position: absolute;
+    bottom: -30%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    width: auto;
+}
+
+#enter a {
+  text-decoration: none;
+}
+
+#enter {
+
+}
+
+#enter :hover {
+  background: rgba(97, 148, 85, 0.8);
+}
+
+@media (max-width: 767px) {
+.enter-sec a {font-size: 36px !important; font-weight: 400; width: 220px; line-height: 60px; height: 60px;}
+.content-se h2 { font-size: 3em!important;}
+.well .img-sec img { object-fit: cover; height: 100%;min-height: 670px;}
+
+}
+
+@media (max-width: 480px) {
+    .content-se h2 { font-size: 2em!important; line-height: 1; margin-bottom: 15px;}
+    .enter-sec a { font-size: 26px !important; font-weight: 400; width: 180px; line-height: 50px; height: 50px;}
+/*    .well .img-sec img { height: 650px;}*/
+    .center.well {margin-bottom: 0px;}
 }

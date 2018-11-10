@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
+  layout :select_layout_header
+
   def index
-    @pages = Page.all
+    if params[:set_locale]
+      redirect_to about_pages_url(locale: params[:set_locale])
+    end
   end
 
   def welcome
@@ -25,6 +29,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def select_layout_header
+    params[:action] == destination ? '_without_header' : 'application'
+  end
 
   def destination
     Page.get_destination(request.path_info)

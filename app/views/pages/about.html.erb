@@ -3,8 +3,19 @@
     <div class="about-title">
       <%= raw @page.title %>
     </div>
-    <div class="about-content">
+    <div id="about-content" class="about-content">
       <%= raw @page.content %>
+    </div>
+    <div class="about-private-info">
+      <p> We don’t share your contact information No ads in your App.</p>
+    </div>
+    <div class="about-buttons">
+      <div class="">
+        <%= link_to t(".take_a_tour_as_guest"), new_user_registration_path, class: "btn btn-success" %>
+      </div>
+      <div class="about-sign-up">
+        <%= link_to "Sign in", new_user_session_path, class: "btn btn-success" %>
+      </div>
     </div>
   </div>
 </div>
