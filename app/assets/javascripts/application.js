@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require ckeditor/init
 //= require_tree .
 
@@ -38,7 +37,7 @@ $(document).on('click', '[data-send~=message]', function(event) {
    submitMessage(event);
 });
 
-$(document).on('turbolinks:load', function() {
+$(document).on('load', function() {
   $("#new_message").on("ajax:complete", function(e, data, status) {
     $('#message_content').val('');
   })
