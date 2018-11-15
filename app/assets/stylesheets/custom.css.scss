@@ -1,14 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.center {
-  text-align: center;
+html {
+  overflow-x: hidden;
 }
 
-.jumbotron {
-  background-image: asset-url('cover_image.png');
-  background-size: cover;
-  height: 300px;
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.center {
+  text-align: center;
 }
 
 #logo {
@@ -25,22 +28,6 @@
   text-decoration: none;
 }
 
-.jumbotron h1 {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 30px;
-  letter-spacing: -1px;
-  font-weight: bold;
-}
-
-.jumbotron h2 {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 30px;
-  letter-spacing: -1px;
-  font-weight: bold;
-}
-
 .btn-xlarge {
   background-color: #073B15;
 }
@@ -51,12 +38,10 @@
 }
 
 body {
-  height: 100%;
+  height: auto;
 }
 
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
   border-top: 1px solid #eaeaea;
   color: #777;
   padding-left: 10px;
@@ -319,14 +304,6 @@ footer ul li {
   margin-right: 1%;
 }
 
-.welcome-content {
-  position: absolute;
-  top: 100%;
-  right: 35%;
-  color: #fff;
-  text-align: center;
-}
-
 .custom-select {
   position: absolute;
   top: 145%;
@@ -338,44 +315,6 @@ footer ul li {
   background: rgba(97, 148, 85, 0.62);
   border-radius: 0;
   color: #fff;
-  font-family: 'Merriweather', serif;
-}
-
-.welcome-enter-button input {
-  position: absolute;
-  right: 40%;
-  top: 170%;
-  font-size: 50px !important;
-  text-shadow: none !important;
-  color: #fff !important;
-  text-transform: capitalize;
-  font-weight: 400;
-  width: 280px;
-  line-height: 80px;
-  height: 80px;
-  background: rgba(97, 148, 85, 0.62);
-  border: 1px solid #fff;
-  border-radius: 0;
-  text-align: center;
-  vertical-align: middle;
-  font-family: 'Merriweather', serif;
-}
-
-.enter-sec a {
-  font-size: 50px !important;
-  text-shadow: none !important;
-  color: #fff !important;
-  display: inline-block;
-  text-transform: capitalize;
-  font-weight: 400;
-  width: 280px;
-  line-height: 80px;
-  height: 80px;
-  background: rgba(97, 148, 85, 0.62);
-  border: 1px solid #fff;
-  border-radius: 0;
-  text-align: center;
-  vertical-align: middle;
   font-family: 'Merriweather', serif;
 }
 
@@ -407,145 +346,198 @@ footer ul li {
 }
 
 .welcome-locale-selector .btn {
-    padding: 10px 17px;
-    background: rgba(97, 148, 85, 0.62);
-    border-radius: 0px;
-    color: #fff;
-    font-family: 'Merriweather', serif;
+  padding: 10px 17px;
+  background: rgba(97, 148, 85, 0.62);
+  border-radius: 0;
+  color: #fff;
+  font-family: 'Merriweather', serif;
 }
 
-.welcome-locale-selector .btn:hover, .welcome-locale-selector .btn:focus, .welcome-locale-selector .btn:active {
-
-    color: #fff;
-    background: rgba(97, 148, 85, 0.62);
-
+.welcome-locale-selector .btn:active,
+.welcome-locale-selector .btn:focus,
+.welcome-locale-selector .btn:hover {
+  color: #fff;
+  background: rgba(97, 148, 85, 0.62);
 }
 
 .btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
 .caret {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 2px;
-    vertical-align: middle;
-    border-top: 4px dashed;
-    border-top: 4px solid \9;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
-}
-
-.dropdown .dropdown-menu {
-    left: inherit;
-    right: 0;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid \9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
 }
 
 .welcome-locale-selector .dropdown-menu {
-    border-radius: 0px;
-    background: rgba(97, 148, 85, 0.62);
+  border-radius: 0;
+  background: rgba(97, 148, 85, 0.62);
 }
 
-.open > .dropdown-menu {
-    display: block;
+div.dropdown {
+  position: relative;
+  padding-top: 70%;
+  padding-right: 1%;
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 160px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    list-style: none;
-    font-size: 14px;
-    text-align: left;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-clip: padding-box;
+@media screen and (min-width: 992px) {
+  div.dropdown {
+    width: 100%;
+    height: auto;
+    padding-top: 44%;
+    font-size: 38px;
+  }
 }
 
-default.dropdown-toggle {
-    background-image: none;
+.welcome-title h2 {
+  color: #fff;
+  font-size: 6em;
+  font-weight: 300;
+  line-height: 1.2;
+  word-wrap: break-word;
+  word-break: break-all;
+  display: block;
+  position: absolute;
+  top: 0;
+  font-family: 'Merriweather', serif;
 }
 
-.dropdown .dropdown-menu li a {
-    display: block !important;
-    text-align: left !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    border-radius: 0 !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.5px;
-    font-size: 15px !important;
+div.welcome-title {
+  position: relative !important;
 }
 
-.dropdown-menu > li > a {
-    display: block;
-    padding: 3px 20px;
-        padding-right: 20px;
-        padding-left: 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: 1.428571429;
-    color: #333333;
-    white-space: nowrap;
+img {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
-.welcome-title h2{
-    color: #fff;
-    font-size: 6em;
-    font-weight: 300;
-    line-height: 1.2;
-    word-wrap: break-word;
-    word-break: break-all;
-    display: block;
-    position: absolute;
-    top: 0;
-    margin-top: 0;
-    font-family: 'Merriweather', serif;
+.welcome-title {
+  width: 100%;
+  position: absolute;
+}
+
+.welcome-title img {
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  display: block;
+}
+
+.welcome-content {
+  width: 100%;
+  margin-top: 15%;
+  position: absolute;
+}
+
+.welcome-content span {
+  font-size: 7vw !important;
+  color: #848484;
+}
+
+@media screen and (min-width: 992px) {
+  .welcome-content span {
+    margin-top: 10%;
+    font-size: 38px;
+  }
 }
 
 div#enter {
-    position: absolute;
-    bottom: -30%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    width: auto;
+  position: absolute;
+  padding-top: 10%;
+  padding-left: 45%;
 }
 
-#enter a {
+.enter-sec a {
+  width: 100%;
+  height: 50px;
+  font-size: 50px;
+  padding: 5px;
+  text-shadow: none !important;
+  color: #fff !important;
+  text-transform: capitalize;
+  font-weight: 400;
+  line-height: 80px;
+  background: rgba(97, 148, 85, 0.62);
+  border: 1px solid #fff;
+  border-radius: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Merriweather', serif;
   text-decoration: none;
 }
 
-#enter {
-
+@media screen and (max-width: 992px) {
+  .enter-sec a {
+    width: 40%;
+    height: 40px;
+    font-size: 20px;
+    padding: 10px;
+    text-shadow: none;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: 400;
+    line-height: 80px;
+    background: rgba(97, 148, 85, 0.62);
+    border: 1px solid #fff;
+    border-radius: 0;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Merriweather', serif;
+    text-decoration: none;
+    padding: 5px;
+  }
 }
 
 #enter :hover {
   background: rgba(97, 148, 85, 0.8);
 }
 
-@media (max-width: 767px) {
-.enter-sec a {font-size: 36px !important; font-weight: 400; width: 220px; line-height: 60px; height: 60px;}
-.content-se h2 { font-size: 3em!important;}
-.well .img-sec img { object-fit: cover; height: 100%;min-height: 670px;}
-
+.take_a_tour_as_guest {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
 }
 
-@media (max-width: 480px) {
-    .content-se h2 { font-size: 2em!important; line-height: 1; margin-bottom: 15px;}
-    .enter-sec a { font-size: 26px !important; font-weight: 400; width: 180px; line-height: 50px; height: 50px;}
-/*    .well .img-sec img { height: 650px;}*/
-    .center.well {margin-bottom: 0px;}
+.take_a_tour_as_guest a {
+  font-size: 18px;
+  border-radius: 0;
+}
+
+.about-sign-up {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+.about-sign-up a {
+  font-size: 18px;
+  border-radius: 0;
+}
+
+footer {
+  width: 100%;
+  float: left;
+  background-color: #344a64!important;
+  padding: 5px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+}
+
+footer p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 14px;
 }
