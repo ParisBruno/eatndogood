@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_chef, :logged_in?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def current_chef
     @current_chef ||= Chef.find(session[:chef_id]) if session[:chef_id]
@@ -16,7 +17,6 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
 
