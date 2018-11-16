@@ -50,7 +50,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store, { url: 'redis://localhost:6379/0/cache' }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -83,6 +83,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.web_socket_server_url = "wss://mashrur-myrecipes.herokuapp.com/cable"
+  config.web_socket_server_url = 'wss://mashrur-myrecipes.herokuapp.com/cable'
   config.action_cable.allowed_request_origins = ['https://mashrur-myrecipes.herokuapp.com', 'http://mashrur-myrecipes.herokuapp.com']
 end
