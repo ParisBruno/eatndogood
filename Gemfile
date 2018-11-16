@@ -7,6 +7,7 @@ gem 'carrierwave'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
+gem 'dotenv-rails', '~> 2.5'
 gem 'dragonfly'
 gem 'pg'
 gem 'puma', '~> 3.0'
@@ -20,15 +21,19 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
+  gem 'capistrano', '~> 3.11', require: false
+  gem 'capistrano-bundler', '~> 1.3'
+  gem 'capistrano-rails', '~> 1.4'
+  gem 'capistrano-rake', require: false
+  gem 'capistrano-rvm', '~> 0.1.2'
+  gem 'capistrano-sidekiq', '~> 1.0', '>= 1.0.2'
+  gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
