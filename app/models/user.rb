@@ -8,4 +8,8 @@ class User < ApplicationRecord
   has_many :guests, class_name: 'User', foreign_key: 'chef_id'
 
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ?', Date.today - 60.days) }
+
+  def full_name
+    [first_name, last_name].join(' ')
+  end
 end

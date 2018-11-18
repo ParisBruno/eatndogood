@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   get 'guests', to: 'guests#index'
+  post 'guests', to: 'guests#send_emails'
 
   resources :chefs, except: [:new]
   resources :ingredients, except: [:destroy]
