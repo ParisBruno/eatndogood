@@ -1,5 +1,14 @@
+# frozen_string_literal: true
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   mount Ckeditor::Engine => '/ckeditor'
+
   devise_for :users
   root "pages#home"
   get 'pages/home', to: 'pages#home'
@@ -10,6 +19,9 @@ Rails.application.routes.draw do
       post 'like'
     end
   end
+
+  get 'guests', to: 'guests#index'
+  post 'guests', to: 'guests#send_emails'
 
   resources :chefs, except: [:new]
   resources :ingredients, except: [:destroy]

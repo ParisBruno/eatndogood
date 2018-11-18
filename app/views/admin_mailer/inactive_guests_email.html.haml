@@ -1,0 +1,20 @@
+%h1 List of inactive guests
+%p These guest was inactive for last 60 days.
+%table
+  %thead
+    %tr
+      %th{ scope: 'col' } #
+      %th{ scope: 'col' } First name
+      %th{ scope: 'col' } Last name
+      %th{ scope: 'col' } Email
+      %th{ scope: 'col' } Last login
+
+  %tbody
+    - @guests.each_with_index do |guest, index|
+      %tr
+        %td= index + 1
+        %td= guest.first_name
+        %td= guest.last_name
+        %td= guest.email
+        %td= guest.last_sign_in_at
+%p Thanks and have a great day!

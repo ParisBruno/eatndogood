@@ -12,6 +12,8 @@ module Myrecipes
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.action_cable.mount_path = '/cable'
-    I18n.available_locales = [:en, :it, :de, :fr]
+    I18n.available_locales = %i[en it de fr]
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

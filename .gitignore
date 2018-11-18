@@ -22,3 +22,13 @@
 
 # Ignore uploaded test images.
 /public/uploads
+
+# Ignore local rvm config files
+.ruby-version
+.ruby-gemset
+.env
+
+# Ignore RubyMine idea
+.idea
+
+/config/database.yml

@@ -20,7 +20,7 @@ App.chatroom = App.cable.subscriptions.create "ChatroomChannel",
     scrollToBottom()
     return    
    
-  jQuery(document).on 'turbolinks:load', ->
+  jQuery(document).on 'load', ->
     scrollToBottom()
     return   
     # Called when there's incoming data on the websocket for this channel

@@ -1,0 +1,10 @@
+List of inactive guests
+===============================================
+
+These guests was inactive for last 60 days.
+
+<% @guests.each_with_index do |guest, index| %>
+  <%= "##{index} | #{guest.first_name} | #{guest.last_name} | #{guest.email}" %>
+<% end %>
+
+Thanks and have a great day!
