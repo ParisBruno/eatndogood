@@ -30,3 +30,5 @@
 
 # Ignore RubyMine idea
 .idea
+
+/config/database.yml
