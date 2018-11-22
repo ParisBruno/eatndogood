@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Chef < ApplicationRecord
   before_save { self.email = email.downcase }
   validates :chefname, presence: true, length: { maximum: 30 }

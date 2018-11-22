@@ -1,19 +1,17 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    identified_by :current_chef
+    identified_by :current_user
+
+    # TODO: make normal connect
+    def connect; end
     
-    def connect
-      self.current_chef = find_current_user
-    end
+    def disconnect; end
     
-    def disconnect
-      
-    end
-    
-    protected
+    private
+
     def find_current_user
-      if current_chef = Chef.find_by(id: cookies.signed[:chef_id])
-        current_chef
+      if current_user
+        current_user
       else
         reject_unauthorized_connection
       end
