@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 redis_config = if Rails.env.production?
-                 { url: 'redis://redis.example.com:7372/0' }
+                 { url: 'redis://localhost:6379/0/cache' }
                else
                  { url: 'redis://127.0.0.1:6379/0' }
                end
