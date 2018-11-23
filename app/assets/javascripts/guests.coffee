@@ -23,3 +23,24 @@ $ ->
       , error: (data) -> console.log(data, form)
       })
   )
+
+  @send_to_one.on('click', (e) =>
+    e.preventDefault()
+    text = @email_textarea.val()
+    email = @guest_email.val()
+    url = '/guests'
+
+    if (text.length > 0 && email.length > 0)
+      $.ajax({
+        method: "POST",
+        url: url,
+        data: {
+          _method: 'POST',
+          text: text,
+          emails: [email]
+        },
+        dataType: 'JSON',
+        success: ->
+      , error: (data) -> console.log(data, form)
+      })
+  )
