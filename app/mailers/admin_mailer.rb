@@ -5,7 +5,7 @@ class AdminMailer < ApplicationMailer
   def notification_email(chef_name, receiver, text)
     @receiver = receiver
     @text = text
-    mail(to: receiver.email, subject: "Hi! You have message from #{chef_name}")
+    mail(to: receiver, subject: "Hi! You have message from #{chef_name}")
   end
 
   def inactive_guests_email(receiver, guests)

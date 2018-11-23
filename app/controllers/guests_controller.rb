@@ -9,8 +9,8 @@ class GuestsController < ApplicationController
 
   def send_emails
     text = params[:text]
-    receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
-    return redirect_to root_path unless current_user.chef?
+    receivers = params[:emails].present? ? params[:emails] : current_user.guests
+    return redirect_to root_path if current_user.guest?
 
     return unless text.present?
 
