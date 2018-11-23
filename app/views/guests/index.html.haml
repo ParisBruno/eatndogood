@@ -22,7 +22,7 @@
       %thead
         %tr
           %th{ scope: 'col' }
-            %button{ class: 'primary', data: { role: 'send_email_to_selected' } }
+            %button{ class: 'primary', data: { role: 'send_email_to_selected' } } Send to selected
           %th{ scope: 'col' } #
           %th{ scope: 'col' } First name
           %th{ scope: 'col' } Last name
@@ -35,7 +35,7 @@
           %tr
             %th
               .form-check
-                %input{ type: 'checkbox', class: "form-check-input guest_#{guest.id}" }
+                %input.form-check-input{ type: 'checkbox', data: { email: guest.email } }
             %td= index + 1
             %td= guest.first_name
             %td= guest.last_name
