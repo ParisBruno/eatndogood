@@ -114,6 +114,14 @@ footer ul li {
   margin-right: 10px;
 }
 
+.recipes-q {
+  margin-top: 250px;
+}
+
+.without-heading {
+  margin-top: 50px;
+}
+
 .top-space .img-inner {
   display: block;
   margin-right: 0;
@@ -121,6 +129,10 @@ footer ul li {
 
 .margin-sec .image-box-shadow {
   height: 220px;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6 !important;
 }
 
 
@@ -471,6 +483,16 @@ img {
 
 .login-sec.reply-answer textarea {
   padding: 20px;
+}
+
+.login {
+  float:right;
+  padding: 5px;
+}
+
+.registration {
+  float:right;
+  padding: 5px;
 }
 
 .login-sec.reply-answer textarea:focus {

@@ -1,0 +1,237 @@
+
+
+  <style>
+  table.table {
+      width: 98%;
+      max-width: 100%;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  table.table ul li {
+        list-style: none;
+  }
+  table.table ul {padding-left: 0px;}
+  .search-sec {
+      float: right;
+      margin: 0 0 20px 0;
+      padding: 0;
+      box-shadow: none;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+  }
+  .search-sec input[type="text"] {
+        height: 36px!important;
+      padding: 0 12px;
+      line-height: 36px;
+      border: 1px solid #d2d2d2;
+  }
+  .search-sec input[type="submit"] {    width: 100px!important;
+      height: 36px!important;
+          padding: 0 12px;
+      line-height: 36px;
+      text-align: center;}
+  .search-sec a.clear {     width: auto;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      padding: 0 15px}
+  .search-sec input[type="text"]:focus {outline: none; border-color: green;}
+  .pagination-bottom ul.pagination {margin-bottom: 70px;}
+  .content-header table.table thead tr th {min-width: 120px;}
+  .search-sec:hover {box-shadow: none!important;}
+  .content-header table.table {margin-bottom: 80px;}
+  .row {margin-left: 0px; margin-right: 0px;}
+  .table-responsive {
+      overflow-x: auto;
+      min-height: 0.01%;
+      width: 100%;
+  }
+
+
+  </style>
+  <div class="content-header">
+    <div class="login-header">
+      <h1><%= t 'guests.guests_list' %></h1>
+      <hr>
+    </div>
+
+   
+      <div class="row">
+          <div class="col-md-8"></div>
+          <div class="col-md-4">
+            <form method="GET" action="">
+              <div class="row" style="padding: 10px;">
+                <div class="col-md-8">
+                  <input class="form-control" type="text" name="keyword" placeholder="<%= t 'guests.search_guest' %>" value="<%= @keyword %>">
+                </div>
+                
+                <div class="col-md-4">
+                  <input type="submit" name="submit" value="GO" class="btn btn-success btn-lg" style="width: 80%;">
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+  
+  </div>
+
+   <!--  <div class="col-md-12 margin-sec">
+      <div class="row">
+        <div class=" col-md-12 pagination-tab">
+          <%= will_paginate @guests %>
+        </div>
+      </div>
+    </div> -->
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>
+          <button type="button" class="btn btn-primary sendEmails"><%= t 'forms.send_emails' %></button>
+        </th>
+        <th><%= t 'forms.s_no' %></th>
+        <th><%= t 'forms.first_name' %></th>
+        <th><%= t 'forms.last_name' %></th>
+        <th><%= t 'forms.email' %></th>
+        <th><%= t 'forms.admin' %></th>
+        <th><%= t 'forms.created' %></th>
+        <th><%= t 'forms.action' %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% i=1 %>
+    <% @guests.each do |guest| %>
+
+      <tr>
+        <td><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
+        <td> <a href="<%= guestlist_path(keywordL: guest.email) %>"><%= i %></a></td>
+        <td> <%= guest.first_name.capitalize %></td>
+        <td> <%= guest.last_name.capitalize %></td>
+        <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
+        <td>
+          <a href="<%= (guest.chef.present?) ? chef_path(guest.chef): '#' %>"><%= (guest.chef.present?) ? guest.chef.chefname.capitalize : '-' %>
+          </a>
+        </td>
+        <td> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
+        <td>
+          <%= link_to t('guests.delete_guest'), guestdestroy_path(guest.id), data: { confirm: t('guests.are_you_sure_delete_user') } %>
+        </td>
+      </tr>
+
+      <% i= i+1 %>
+    <% end %>
+
+    <% if @guests.blank? %>
+      <tr>
+        <td colspan="8" style="color:red;text-align:center">
+          <%= t 'guests.guest_not_found' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="col-md-12 margin-sec pagination">
+    <div class="row">
+      <div class=" col-md-12 pagination-tab">
+        <%= will_paginate @guests %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><%= t 'guests.send_email' %></h4>
+        </div>
+        <div class="modal-body">
+           <p><%= t 'guests.email_content' %></p>
+           <textarea rows="6" cols="60" id="email_content"></textarea> <input type="hidden" value="" id="sender_email_hdn">
+           <span id="error_span" style="display:none;color:red;"></span>
+           <span id="suc_span" style="display:none;color:green;"><%= t 'guests.email_sent_success' %></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="sendEmailContent()" class="btn btn-primary" id="send_btn"><%= t 'guests.send_email' %></button>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t 'forms.close' %></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  $('.sendEmails').on('click', function() {
+    var emails = $("input[type=checkbox]:checked").map(function () {
+        return $(this).data('email');
+    }).get();
+    if (emails.length > 0) {
+        sendEmail(emails);
+    } else {
+        $('#error_span').text('');
+        $('#error_span').text('<%= t 'no_selected_guests' %>');
+        $('#error_span').show();
+    }
+  });
+
+  function sendEmail(email) {
+    $('#email_content').val('');
+    $('#sender_email_hdn').val('');
+    $('#sender_email_hdn').val(email);
+    $('#error_span').text('');
+    $('#myModal').modal('show');
+
+  }
+
+  function sendEmailContent() {
+    var content = $("#email_content").val();
+    var email = $("#sender_email_hdn").val();
+    $('#error_span').text('');
+     $('#error_span').hide();
+
+     $("#send_btn").attr("disabled", true);
+     $("#send_btn").attr("text", "Loading..");
+    if(content) {
+       $.ajax({
+        type: "POST",
+        url: "<%= @root_url%>/sendUserEmailContent",
+        data: {"content": content, "email": email},
+        cache: false,
+        success: function(data){
+          //console.log(data);
+          if(data.status == 'success') {
+            $("#email_content").val('');
+            $("#suc_span").show();
+            setInterval(function() {
+                $('#myModal').modal('hide');
+                location.reload();
+            }, 2000);
+
+          }
+           //$("#resultarea").text(data);
+        }
+      });
+    } else {
+      $("#send_btn").attr("disabled", false);
+      $("#send_btn").attr("text", "Send Email");
+      $('#error_span').text('');
+      $('#error_span').text('<%= t 'errors.email_content_blank' %>');
+      $('#error_span').show();
+    }
+
+
+  }
+
+
+  </script>
+
+

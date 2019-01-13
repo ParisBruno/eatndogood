@@ -1,87 +1,89 @@
-<%= render 'shared/page_title', title: @recipe.name %>
 
-<div class="well col-md-8 col-md-offset-2">
-  <div align="center">
-    <%= image_tag @recipe.image.url if @recipe.image? %>
-  </div>
-  <h4 class="center description"><strong>Steps: </strong></h4>
-  <hr />
-  <%= simple_format(@recipe.description) %>
-  <hr />
-  <% if @recipe.ingredients.any? %>
-    <p>Ingredients: <%= render @recipe.ingredients %></p>
-  <% end %>
-  <div class="pull-right">
-    <p class="center">
-      <em>Created by:</em>
-    </p>
-    <p class="center">
-      <%= link_to @recipe.image.blank? ? image_tag(@recipe.image.url) : gravatar_for(@recipe.chef.user), chef_path(@recipe.chef) %>
-    </p>
-    <p class="center">
-      <small><%= @recipe.chef.user.full_name.capitalize %></small>
-      <div class="pull-right"><%= time_ago_in_words(@recipe.created_at) %> ago</div>
-    </p>
-  </div>
-  <div class="recipe-actions">
-    <% if logged_in? && (current_chef == @recipe.chef || current_chef.admin?) %>
-      <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-xs btn-warning" %>
-      <%= link_to "Delete this recipe", recipe_path(@recipe), method: :delete,
-                                        data: { confirm: "Are you sure you want to delete this recipe?" },
-                                        class: "btn btn-xs btn-danger" %>
-    <% end %>                                  
-    <%= link_to "Return to recipes listing", recipes_path, class: "btn btn-xs btn-primary" %>
-  </div>
-</div>
-<div class="row">
-  <div class="row col-md-8 col-md-offset-2">
-    <%= link_to like_recipe_path(@recipe, like: true), method: :post do %>
-      <i class="glyphicon glyphicon-thumbs-up"></i> 
-    <% end %> <%= @recipe.thumbs_up_total %> || 
-    <%= link_to like_recipe_path(@recipe, like: false), method: :post do %>
-      <i class="glyphicon glyphicon-thumbs-down"></i>
-    <% end %> <%= @recipe.thumbs_down_total %>
-  </div>
-</div>
-<% if logged_in? %>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h3>Comments: </h3>
-      <hr />
-      <%= form_for([@recipe, @comment], remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-        <div class="form-group">
-          <div class="control-label col-md-2">
-            <%= f.label :description, "Comment" %>
-          </div>
-          <div class="col-md-8">
-            <%= f.text_area :description, rows: 8, class: "form-control", placeholder: "Enter Comment Here" %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
-            <%= f.submit "Submit Comment", class: "btn btn-primary btn-lg btn-xlarge" %>
-          </div>
-        </div>
+  <div class="margin-sec top-space without-heading">
+     <div class="col-md-12 margin-sec top-space recipe-detail">
+     <div class="row">
+      <div class="col-md-8 col-sm-12 col-xs-12 detail-sec">
+      <div class="box-inner-sec well box-content">
+      <div class="detail-list">
+      <% if current_user and (@recipe.chef.id == current_user.id) %>
+        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right delete-btn",  method: :delete, data: { confirm: t('common.confirm') } %>
       <% end %>
-      <hr />
-    </div>
-  </div>
-<% end %>
 
+      <% if (session[:user_role] == 'admin') %>
+        <% if current_user and (@recipe.chef.id == current_user.id) %>
+          <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
+        <% end %>
+      <% end %>
 
-<% if @recipe.comments != 0 %>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h3>Prior Comments: </h3>
-        <div id="messages">
-          <%= render partial: 'comments/comments', object: @comments %>
+      <center>
+        <h2>
+          <%= link_to @recipe.name, recipe_path(@recipe) %>
+        </h2>
+      </center>
+
+      <h2>
+        <%= @recipe.description %>
+      </h2>
+
+      <div class="well-sec">
+        <p>
+          <strong><%= t 'recipes.tips_ingredients_preparation' %></strong>
+        </p>
+        <p style="font-family: Garamond; font-size:18px;">
+          <%= simple_format(@recipe.description) %>
+        </p>
+        <div class="chef_info center">
+          <h2 style="text-align:right">
+            <a href="/chefs/<%= @recipe.chef.id%>" class="btn btn-success btn-lg">
+              <%= t('recipes.crafted_by') %> <%= @recipe.chef.user.full_name.capitalize %>
+            </a>
+          </h2>
         </div>
-    </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
+        <div class="img-inner image-box-shadow">
+          <%=image_tag(@recipe.image.url, class:'img-responsive', alt: t('common.no_image')) if @recipe.image? %>
+        </div>
+       
+      </div>
+
+      </div>
+      </div>
   </div>
-<% else %>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h3>No Comments Yet!</h3>
-    </div>
+
+
+<br>
+
+<% if current_user.present? && session[:user_role] != 'super_admin' %>
+  <div class="recipes-q">
+ 
+    <center>
+      
+          <%= link_to like_recipe_path(@recipe, like: true), method: :post, :style => "font-size:35px;" do %>
+            <i class="glyphicon glyphicon-thumbs-up" ></i>
+            &nbsp;
+            <%= @recipe.thumbs_up_total %>
+          <% end %>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to like_recipe_path(@recipe, like: false), method: :post,:style => "font-size:35px;" do %>
+              <i class="glyphicon glyphicon-thumbs-down"></i>
+              &nbsp;
+              <%= @recipe.thumbs_down_total %>
+          <% end %>
+     
+    </center>
   </div>
 <% end %>
+
+<center>
+  <h5>
+    <% if session[:user_role] == 'super_admin' %>
+      <%= link_to t('recipes.return_to_recipes_listing'), allrecipe_path, class: 'btn btn-primary btn-lg' %>
+    <% else %>
+      <%= link_to t('recipes.return_to_recipes_listing'), recipes_path, class: 'btn btn-primary btn-lg' %>
+    <% end %>
+  </h5>
+</center>
