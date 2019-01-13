@@ -16,10 +16,10 @@
       <em>Created by:</em>
     </p>
     <p class="center">
-      <%= link_to gravatar_for(@recipe.chef), chef_path(@recipe.chef) %>
+      <%= link_to @recipe.image.blank? ? image_tag(@recipe.image.url) : gravatar_for(@recipe.chef.user), chef_path(@recipe.chef) %>
     </p>
     <p class="center">
-      <small><%= @recipe.chef.chefname.capitalize %></small>
+      <small><%= @recipe.chef.user.full_name.capitalize %></small>
       <div class="pull-right"><%= time_ago_in_words(@recipe.created_at) %> ago</div>
     </p>
   </div>

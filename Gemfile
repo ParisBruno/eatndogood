@@ -17,7 +17,9 @@ gem 'mini_magick'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'rails', '~> 5.1', '>= 5.1.6'
+gem 'rails-i18n', '~> 5.1'
 gem 'redis', '~> 4.0'
+gem "paperclip", "~> 6.0.0"
 gem 'redis-rails'
 gem 'rufus-scheduler', '~> 3.4.0'
 gem 'sass-rails', '~> 5.0'
@@ -25,6 +27,7 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.3'
 gem 'sidekiq-cron', '~> 0.6.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.0'
+gem 'sqlite3'
 
 group :development, :test do
   gem 'byebug', platform: :mri

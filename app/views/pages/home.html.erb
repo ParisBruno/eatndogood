@@ -1,7 +1,9 @@
 <div class="jumbotron center">
   <h1>Welcome to MyRecipes</h1>
   <h2>The best recipe sharing app!</h2>
-  <p><%= link_to "Sign up for the app", new_user_registration_path, class: "btn btn-danger btn-lg btn-xlarge" %></p>
+  <% if !user_signed_in? %>
+    <p><%= link_to "Sign up for the app", new_user_registration_path, class: "btn btn-danger btn-lg btn-xlarge" %></p>
+  <% end %>
 </div>
 
 <div class="row">

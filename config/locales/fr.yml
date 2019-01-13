@@ -154,7 +154,7 @@ fr:
     delete: Supprimer l'ingrédient
     submit: Write the name of your new ingredient then click or tap to save
     title: Créer un nouvel ingrédient
-  language_name: Français
+  language_name: français
   logins:
     back_to_login: Back to Login
     forgot_password: Forgot Password

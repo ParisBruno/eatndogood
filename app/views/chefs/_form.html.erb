@@ -1,50 +1,86 @@
 <%= render 'shared/errors', obj: @chef %>
 
 <div class="row">
-  <div class="col-md-12">
-    <%= form_for(@chef, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :chefname, "Choose Chefname" %>
+  
+    <%= form_for(@chef, :html => {class: "form-horizontal", role: "form",  multipart: true }) do |f| %>
+    <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
+      <div class="col-md-5 well box-content">
+      <%= f.fields_for :user do |u| %>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= u.label :first_name, "First Name" %>
+          </div>
+          <div class="col-md-8">
+            <%= u.text_field :first_name, class: "form-control", placeholder: "Enter first your first name", autofocus: true %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.text_field :chefname, class: "form-control", placeholder: "Enter your name", autofocus: true %>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= u.label :last_name, "Last Name" %>
+          </div>
+          <div class="col-md-8">
+            <%= u.text_field :last_name, class: "form-control", placeholder: "Enter last your name", autofocus: true %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= u.label :email %>
+          </div>
+          <div class="col-md-8">
+            <%= u.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= u.label :password %>
+          </div>
+          <div class="col-md-8">
+            <%= u.password_field :password, class: "form-control", placeholder: "Choose a password" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= u.label :password_confirmation, "Confirm Password" %>
+          </div>
+          <div class="col-md-8">
+            <%= u.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password" %>
+          </div>
+        </div>
+      <% end %>
+        <div class="form-group">
+          <div class="control-label col-md-2"><%= f.label :chef_avatar %></div>
+          <div class="col-md-2">
+            <%= image_tag( (!@chef.nil? && @chef.chef_avatar.url.present?) ? @chef.chef_avatar.url : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+          </div>
+          <div class="control-label col-md-8">
+            <%= f.file_field :chef_avatar, accept: 'image/jpeg,image/gif,image/png' %>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :email %>
+      <div class="col-md-5 well box-content">
+        
+        <div class="form-group">
+          <div class="col-md-12" style="font-weight:bold;">
+             <%= f.label :my_bio, "Add summary bio" %>
+          </div>
+          <div class="col-md-12">
+            <%= f.cktext_area :my_bio, class: "form-control", placeholder: "" %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :password %>
-        </div>
-        <div class="col-md-8">
-          <%= f.password_field :password, class: "form-control", placeholder: "Choose a password" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :password_confirmation, "Confirm Password" %>
-        </div>
-        <div class="col-md-8">
-          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password" %>
+
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <%= f.submit(@chef.new_record? ? "Create my account" : "Update my account", 
+                                                      class: "btn btn-primary btn-lg btn-xlarge", style: "float:right;") %>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit(@chef.new_record? ? "Create my account" : "Update my account", 
-                                                    class: "btn btn-primary btn-lg btn-xlarge") %>
-        </div>
-      </div>
+      
+    </div>
     <% end %>
     <div class="col-md-4 col-md-offset-4 colormatch">
       [ <%= link_to "Cancel request and return to recipes listing", recipes_path %> ]
     </div>
-  </div>
+  
 </div>
 

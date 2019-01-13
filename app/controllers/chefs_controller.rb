@@ -4,11 +4,12 @@ class ChefsController < ApplicationController
   before_action :require_admin, only: [:destroy]
   
   def index
-    @chefs = Chef.paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.includes(:user).paginate(page: params[:page], per_page: 5)
   end
   
   def new
     @chef = Chef.new
+    @chef.build_user
   end
   
   def create
@@ -16,11 +17,12 @@ class ChefsController < ApplicationController
     if @chef.save
       session[:chef_id] = @chef.id
       cookies.signed[:chef_id] = @chef.id
-      flash[:success] = "Welcome #{@chef.chefname} to MyRecipes App!"
+      flash[:success] = "Welcome #{@chef.user.full_name} to MyRecipes App!"
       redirect_to chef_path(@chef)
     else
-      render 'new'
+        render 'new'
     end
+    
   end
   
   def show
@@ -50,11 +52,16 @@ class ChefsController < ApplicationController
   private
   
   def chef_params
-    params.require(:chef).permit(:chefname, :email, :password, :password_confirmation)
+    params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
+                                  :password, :password_confirmation])
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
   
   def set_chef
-    @chef = Chef.find(params[:id])
+    @chef = Chef.includes(:user).find(params[:id])
   end
   
   def require_same_user

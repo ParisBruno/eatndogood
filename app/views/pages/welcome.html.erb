@@ -1,4 +1,4 @@
-<div class="row">
+<!--<div class="row">
   <div class="welcome-page">
     <div class="welcome-title">
       <%= raw @page.title %>
@@ -25,6 +25,185 @@
 
     <div id="enter" class="enter-sec">
       <%= link_to "Enter", about_pages_path, class: "enter-label"%>
+    </div>
+  </div>
+</div> -->
+
+<style>
+  body {
+    padding: 0;
+    background-color: #EDEDED;
+}
+.container {    margin: 0; padding: 0; overflow: hidden;}
+.home-main {
+    background-color: #EDEDED;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+.home-main .container {
+    margin: 0 auto;
+    padding: 0;
+    width: 1100px;
+    float: none;
+    overflow: hidden;
+}
+.home-main .well {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+    float: left;
+    padding: 0;
+    box-shadow: none;
+    border: 0;
+    margin-bottom: 0px;
+}
+.img-sec img {
+    max-width: 100%;
+}
+#enter {
+      position: static;
+    width: 100%;
+    float: left;
+    background: transparent;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: auto;
+    text-align: center;
+}
+.enter-sec a:hover {    background: rgba(97, 148, 85, 0.9); text-decoration: none;}
+.enter-sec a {
+font-size: 50px !important;
+text-shadow: none !important;
+color: #fff !important;
+display: inline-block;
+text-transform: capitalize;
+font-weight: 400;
+width: 280px;
+line-height: 80px;
+height: 80px;
+background: rgba(97, 148, 85, 0.62);
+border: 1px solid #fff;
+border-radius: 0;
+text-align: center;
+vertical-align: middle;
+font-family: 'Merriweather', serif;
+}
+#enter a:hover { background: rgba(97, 148, 85, 0.9)!important;}
+.well h2 {
+  margin-bottom: 20px;
+    color: #fff;
+    font-size: 6em;
+    font-weight: 300;
+    line-height: 1.2;
+    word-wrap: break-word;
+    word-break: break-all;
+    display: block;
+    margin-top: 0;
+    font-family: 'Merriweather', serif;
+}
+header.header {
+    width: 100%;
+    float: left;
+    padding: 20px 0!important;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+.content-se {
+    position: absolute;
+    left: 50%;
+    top: 14%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 99;
+}
+.home-main header {display: none;}
+.img-sec img {
+max-width: 100%!important;
+width: 100%;
+}
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.img-sec #enter {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 40px 0 0 0;
+  left: 28%;
+  width: auto;
+}
+.img-sec {position: relative;}
+
+@media (max-width: 767px) {
+.enter-sec a {font-size: 36px !important; font-weight: 400; width: 220px; line-height: 60px; height: 60px;}
+.content-se h2 { font-size: 3em!important;}
+.well .img-sec img { object-fit: cover; height: 100%;min-height: 670px;}
+
+}
+
+@media (max-width: 480px) {
+    .content-se h2 { font-size: 2em!important; line-height: 1; margin-bottom: 15px;}
+    .enter-sec a { font-size: 26px !important; font-weight: 400; width: 180px; line-height: 50px; height: 50px;}
+/*    .well .img-sec img { height: 650px;}*/
+    .center.well {margin-bottom: 0px;}
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans" rel="stylesheet">
+<div class="home-main">
+  <div class="container">
+    <header style="max-height:0px; margin:0;padding:0;" class="header">Hi</header>
+    <div class="row">
+      <div class="col-md-10 center well">
+                <div class="content-se">
+                    <h2>
+                        <%= @page.present? ? ((@page.title.blank?) ? 'A Taste Of' : @page.title.html_safe ) : 'A Taste Of' %>
+                    </h2>
+                    <% if current_user.present? && !current_user.guest %>
+                        <h2><%= current_user.full_name.capitalize %></h2>
+                    <% elsif current_user.present? && current_user.admin %>
+                        <h2><%= current_user.capitalize %></h2>
+                    <% else %>
+                        <h2> Bruno</h2>
+                    <%end%>
+
+                    <h2>
+                        <%= (@page.present?) ? ((@page.destination.blank?) ? 'iTopRecipes' : @page.destination ) : 'iTopRecipes!' %>
+                    </h2>
+
+                    <div class="text-center" style="color:white; font-size: 14px;">
+                      <%= (@page.present? && !@page.content.blank?) ? @page.content.html_safe : "" %>
+                    </div>
+
+                    <div class="welcome-locale-selector text-center">
+                        <%= render partial: 'shared/locale_selector' %>
+                    </div>
+
+                </div>
+
+
+
+                <% if @page.present? %>
+                    <div style="text-align:center" class="img-sec">
+                        <div id="enter" class="enter-sec">
+                            <% if current_user.blank? && @admin_id.blank? && @guest_email.blank? %>
+                                <%=link_to 'Enter',url_for({:controller => 'pages', :action => 'index'}) %>
+                                <% elsif current_user.present? %>
+                                <%= link_to "Enter", about_pages_path %>
+                            <% else %>
+                                <%= link_to "Enter", about_pages_path %>
+                            <% end %>
+                        </div>
+                        <%=image_tag( (@page.page_img.url.present?) ? @page.page_img.url : Page.where(id: 1).first.page_img.url)  %>
+                    </div>
+                <% end %>
+                <!-- , size: '840x680',class: 'gravatar' -->
+
+
+            </div>
     </div>
   </div>
 </div>

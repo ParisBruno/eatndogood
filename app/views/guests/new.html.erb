@@ -1,0 +1,34 @@
+<div class="login-header">
+  <h1><%= t 'guests.guest_registration' %></h1>
+  <hr>
+</div>
+
+<%= render 'shared/errors', obj: @guest %>
+<div class="row">
+  <div class="well col-md-5 col-md-offset-4 login-sec">
+
+    <%= form_for @guest, url: {action: "create"}, html: {class: ""} do |f| %>
+
+      <%= f.label :first_name, t('forms.first_name') %>
+      <%= f.text_field :first_name %>
+
+      <%= f.hidden_field :user_id, value: (@user_id.present?) ? @user_id : @guest.user_id  %>
+
+      <%= f.label :last_name, t('forms.last_name') %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :email, t('forms.email') %>
+      <% email_persist = (@email.present?) ? @email : @guest.email %>
+      <% email_persist = (email_persist == 'itr_guest') ? '' : email_persist %>
+      <%= f.email_field :email,value: email_persist, readonly: email_persist.present? %>
+
+      <%= f.label :password, t('forms.password') %>
+      <%= f.password_field :password %>
+
+      <%= f.submit t('forms.submit') , class: "btn btn-success" %>
+      <button type="button" class="btn btn-danger purpal" onclick="history.go(-1)" style="margin: 0px 0px 0px 10px;padding: 7px 25px !important;">
+        <%= t 'forms.cancel' %>
+      </button>
+    <% end %>
+  </div>
+</div>

@@ -21,6 +21,7 @@ class PagesController < ApplicationController
 
   def update
     @page = Page.where(destination: page_params[:destination]).first
+
     if @page.update(page_params)
       redirect_to "/pages/#{page_params[:destination]}"
     else
@@ -43,6 +44,6 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:title, :content, :destination)
+    params.require(:page).permit(:title, :content, :destination, :page_img)
   end
 end

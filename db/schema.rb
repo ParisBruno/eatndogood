@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181122231345) do
+ActiveRecord::Schema.define(version: 20190113071157) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "chefs", id: :serial, force: :cascade do |t|
-    t.string "chefname"
-    t.string "email"
+  create_table "chefs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
     t.boolean "admin", default: false
+    t.integer "user_id"
+    t.text "my_bio"
+    t.string "chef_avatar_file_name"
+    t.string "chef_avatar_content_type"
+    t.integer "chef_avatar_file_size"
+    t.datetime "chef_avatar_updated_at"
   end
 
-  create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
+  create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_uid", null: false
     t.string "data_name", null: false
     t.string "data_mime_type"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20181122231345) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table "comments", id: :serial, force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.text "description"
     t.integer "chef_id"
     t.integer "recipe_id"
@@ -45,11 +45,11 @@ ActiveRecord::Schema.define(version: 20181122231345) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ingredients", id: :serial, force: :cascade do |t|
+  create_table "ingredients", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "likes", id: :serial, force: :cascade do |t|
+  create_table "likes", force: :cascade do |t|
     t.boolean "like"
     t.integer "chef_id"
     t.integer "recipe_id"
@@ -57,20 +57,24 @@ ActiveRecord::Schema.define(version: 20181122231345) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "messages", id: :serial, force: :cascade do |t|
+  create_table "messages", force: :cascade do |t|
     t.text "content"
     t.integer "chef_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "pages", id: :serial, force: :cascade do |t|
+  create_table "pages", force: :cascade do |t|
     t.string "name"
     t.string "title"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "destination"
+    t.string "page_img_file_name"
+    t.string "page_img_content_type"
+    t.integer "page_img_file_size"
+    t.datetime "page_img_updated_at"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -81,21 +85,24 @@ ActiveRecord::Schema.define(version: 20181122231345) do
     t.index ["title"], name: "index_plans_on_title"
   end
 
-  create_table "recipe_ingredients", id: :serial, force: :cascade do |t|
+  create_table "recipe_ingredients", force: :cascade do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
   end
 
-  create_table "recipes", id: :serial, force: :cascade do |t|
+  create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chef_id"
-    t.string "image"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
@@ -114,11 +121,10 @@ ActiveRecord::Schema.define(version: 20181122231345) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.bigint "plan_id"
+    t.integer "plan_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["plan_id"], name: "index_users_on_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "users", "plans"
 end

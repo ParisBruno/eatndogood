@@ -1,21 +1,68 @@
 <%= render 'shared/page_title', title: "showing all chefs" %>
 
-<div align="center">
-  <%= will_paginate %>
-  <% @chefs.each do |chef| %>
-    <ul class="listing">
-      <div class="row">
-        <div class="well col-md-4 col-md-offset-4">
-          <li><%= link_to gravatar_for(chef), chef_path(chef) %></li>
-          <li class="chef-title"><%= link_to chef.chefname.capitalize, chef_path(chef) %></li>
-          <li><small><%= pluralize(chef.recipes.count, "recipe") if chef.recipes %></small></li>
-          <% if logged_in? && current_chef.admin? && !chef.admin? %>
-            <li><%= link_to "Delete this chef", chef_path(chef), method: :delete,
-                  data: {confirm: "Are you sure you want to delete the chef and all associated recipes?"} %></li>
-          <% end %>
-        </div>
-      </div>
-    </ul>
-  <% end %>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<br>
+
+<div class=" col-md-12 pagination-tab pagination-top">
   <%= will_paginate %>
 </div>
+
+
+<div class="col-md-12 margin-sec pagination-top page-sec">
+  <% if @chef_plan.present? %>
+    <% unless @chef_plan.downcase.include?("Professionals".downcase) || @chef_plan.downcase.include?("Amateur".downcase) %>
+      <div class="btn-success"><%= link_to t('chefs.add_chef_contributor'), addchef_path %></div>
+    <% end %>
+  <% end %>
+
+  <ul class="nav nav-tabs">
+    <li>
+      <%= link_to t('common.recipes'), recipes_path, {:style=>'font-size:16px'} %>
+    </li>
+    <li class="active">
+      <%= link_to t('common.chefs'), chefs_path, {:style=>'font-size:16px'} %>
+    </li>
+  </ul>
+</div>
+
+<% @chefs.each do |chef| %>
+  <div class="col-lg-12 chef-main chef-full bio-section chef-bio">
+    <div class="col-md-3">
+      <div class="image-box-shadow">
+        <div class="custom-profile-detail">
+          <% if chef.chef_avatar.blank? %>
+            <%= link_to gravatar_for(chef.user, size: 300), chef_path(chef) %>
+          <% else %>
+            <%= link_to image_tag(chef.chef_avatar.url, size: 300), chef_path(chef) %>
+          <% end %>
+
+          <div class="user-profile">
+            <center>
+              <h3>
+                <%= chef.user.full_name.capitalize %>
+                &nbsp;
+                <%= (chef.admin) ? "(#{t('common.admin')})" : "(#{t('common.chef')})" %>
+                <% if (session[:user_role] == 'admin') && (current_member.admin?) %>
+                  <% if current_member.id != chef.id %>
+                    <%= link_to t('chefs.delete_profile'), chefdestroy_path(chef.id), data: { confirm: t('chefs.confirm_delete_account') } %>
+                  <% end %>
+                <% end %>
+              </h3>
+            </center>
+          </div>
+        </div>
+      </div>
+   </div>
+
+  <div class="col-md-9">
+    <div class="well box-content box-main">
+      <div class="bios">
+        <h3><%= t 'forms.bio' %></h3>
+        <p><%= !chef.my_bio.nil? ? chef.my_bio.html_safe : "" %> </p>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>
+
+<div class="btn-lg  btn-bottom">&nbsp;</div>

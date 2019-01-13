@@ -1,20 +1,164 @@
-<div class="container">
-  <div class="about-page">
-    <div class="about-title">
-      <%= raw @page.title %>
+
+<style>
+  .footer3 {
+    width: 100%;
+    float: left;
+    background-color: #344a64!important;
+    padding: 12px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    margin: 0 0 0 0;
+  }
+
+  .footer3 p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 14px;
+  }
+</style>
+<script>
+  function newDoc(a) {
+      window.location.assign(a);
+  }
+
+  $(document).ready(function(){
+
+    $("#btn_more").click(function(){
+      $('#read_less').hide();
+      $('#read_full').show();
+    });
+
+    $("#btn_less").click(function(){
+      $('#read_full').hide();
+      $('#read_less').show();
+    });
+
+  });
+
+</script>
+
+<div class="about-main">
+  <div class="row">
+    <div class="custom-image-one">
+        <% if @page.present? %>
+          <%= image_tag( (@page.page_img.url.present?) ? @page.page_img.url : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+        <% else %>
+          <%= image_tag('cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+         <% end %>
     </div>
-    <div id="about-content" class="about-content">
-    <%= truncate(@page.content, escape: false, length: 150) %>
-    <%= link_to '...Read more', '', class: "read-more" %>
+  </div>
+  <div class="row">
+  <div class="col-md-12 custom-second-sec">
+    <div id="message">
+        <% if @page.present? %>
+
+            <% upper_page_detail = @page.content.html_safe %>
+
+            <% if upper_page_detail.size > 130 %>
+              <div class="show-read-more" id="read_less"><%= raw upper_page_detail.slice(0,130)+'...' %>
+                &nbsp;
+                <a href="javascript:void(0)" id="btn_more">(<%= t('common.read_more_1_min') %>)</a>
+              </div>
+              <div class="show-read-more" style="display:none;" id="read_full">
+                <%= raw upper_page_detail %>
+                &nbsp;
+                <a id="btn_less" href="javascript:void(0)" >(<%= t('common.read_less') %>)</a>
+              </div>
+            <% else %>
+              <p class="show-read-more"><%= raw upper_page_detail %></p>
+            <% end %>
+
+        <% else %>
+          <p>
+            <%= t('pages.index.be_inspired_to_play') %>
+            <br/>
+            <%= t('pages.index.craft_your_shareable') %>
+            <br/>
+            <%= t('pages.index.be_my_guest_use_my_recipes') %>
+            <span class="read-more"  data-toggle="collapse" data-target="#demo">
+              <a href="#2min" data-toggle="collapse">(<%= t('common.read_more_1_min') %>)</a>
+            </span>
+          </p>
+          <div id="demo" class="collapse content-sec">
+            <p>
+              <%= t('pages.index.you_can_start_creating') %>
+            </p>
+            <p>
+              <%= t('pages.index.one_pot_and_one_skillet') %>
+            </p>
+            <br>
+            <p>
+              <%= t('pages.index.i_have_been_in_foods') %>
+            </p>
+            <p>
+              <%= t('pages.index.in_the_early_nineties') %>
+            </p>
+            <p>
+              <%= t('pages.index.cooking_is_action') %>
+              </br>
+              <%= t('pages.index.bruno') %>
+            </p> 
+          </div>
+        <% end %>
     </div>
-    <div class="take_a_tour_as_guest">
-      <%= link_to t(".take_a_tour_as_guest"), new_user_registration_path, class: "btn btn-success" %>
-    </div>
-    <div class="about-private-info">
-      <p>
-        We don’t share your contact information No ads in your App.</p>
-    </div>
-      <div class="about-sign-up">
-        <%= link_to "Sign in", new_user_session_path, class: "btn btn-success" %>
+  </div>
+  </div>
+
+<hr>
+  <div class="row">
+    <div class="col-md-12 text-center custom-second-sec">
+    <%# <div id="move-right">
+      <div id="btn"> %>
+        <div class="row">
+          <div class="col-md-12 text-center button-success">
+          <!--button class="btn-success" onclick='newDoc("<%= newguestwithoutid_path %>")'-->
+            <% if current_user.blank? || current_user.guest? %>
+               <%= link_to t('common.take_a_tour_as_guest'), newguestwithoutid_path, {:style=>'position:center;', :id => "btn btn-lg"} %>
+            <% else %>
+              <% if current_user.present? %>
+                <%= link_to(t('common.take_a_tour_as_guest'), new_user_session_path,{ :class => 'btn btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>
+              <% else %>
+                <%= link_to(t('common.take_a_tour_as_guest'), @root_url+'newguest/'+@admin_id.to_s+'/'+@guest_email,{ :class => 'btn-success',:style=>'position:center;', :id => "btn"}) %>
+              <% end %>
+            <% end %>
+            <!--/button-->
+          </div>
+        </div>
+
+      <%# </div> %>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <% if @page.present? %>
+              <%= raw @page.title.html_safe %>
+            <% else %>
+              <p id="lgp">
+                <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
+                <center>*<%= t('pages.index.we_never_share_contact_info') %><br></center>
+                <center>** <%= t('pages.index.we_do_no_place_banners') %></center>
+                <center><%= t('pages.index.or_ads_of_any_kind') %><br></center>
+              </p>
+             <% end %>
+          </div>
+        </div>
+        <hr>
+      <%# <div id="btn"> %>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button class="btn btn-success btn-lg" onclick='newDoc("<%= new_user_session_path+'?is_guest=yes' %>")'><%= link_to t('navigation.login'), new_user_session_path(is_guest: :yes), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
+        </div>
       </div>
+      <%# </div> %>
+         <hr>
+
+    <%# </div> %>
+    </div>
+  </div>
+
+<div class="footer3">
+  <p>Powered by <a href="https://itoprecipes.com/" style="color: #fff;" target="_blank">iTopRecipes.com</a> &copy; 2017 – 2018</p>
+</div>
 </div>

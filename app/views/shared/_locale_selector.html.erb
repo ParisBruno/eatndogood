@@ -1,0 +1,17 @@
+<div class="text-center" style="display: inline-block; margin: 40px">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span id="dropdown-languag-current">Select Language</span>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="language-dropdown">
+            <% I18n.available_locales.each do |locale| %>
+                <li>
+                    <a href="#" class="js-language-dropdown" data-target="dropdown-languag-current" data-language="<%= locale %>">
+                        <%= t('language_name', locale: locale) %>
+                    </a>
+                </li>
+            <% end %>
+        </ul> 
+    </div>
+</div>

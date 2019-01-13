@@ -6,14 +6,37 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag Ckeditor.cdn_url %>
   </head>
 
   <body>
-    <%= render 'layouts/navigation' %>
-    <%= render 'layouts/messages' %>
-    <%= yield %>
+    <div id="wrapper">
+
+      <div class="header" style="background-image: url(/assets/header.png);"> 
+        <img src="https://via.placeholder.com/800x137">
+        <%= render 'layouts/navigation' %>
+      </div> 
+      
+      <%= render 'layouts/messages' %>
+      <div class="">
+        <%= yield %>
+      </div>
+      
+
+    </div>
     <%= render 'layouts/footer' %>
+
+    <script>
+      $(document).ready(function() {
+        if ($(document).height() > $("footer").offset().top+44) {
+          console.log($("footer").offset().top+44);
+          console.log($(document).height());
+                $("footer").addClass('fixed-footer');
+        }
+      });
+    </script>
+    
   </body>
 </html>

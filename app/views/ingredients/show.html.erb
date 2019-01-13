@@ -1,13 +1,26 @@
 <%= render 'shared/page_title', title: "#{@ingredient.name}" %>
 <% if @ingredient.recipes.count != 0 %>
-  <h4 align="center">Recipe's containing <%= @ingredient.name %></h4>
-  <div align="center">
+  
+  	<center><h1 align="center">Recipe's containing <%= @ingredient.name %></h1></center>
+  
+  <div class="row">
+  	<div class="col-md-4"></div>
+  	<div class="col-md-4" align="center">
     <%= will_paginate @ingredient_recipes %>
+    </div>
+    <div class="col-md-4"></div>
   </div>
+  
   <%= render 'recipes/recipe', obj: @ingredient_recipes %>
-  <div align="center">
+  <div class="row">
+  	<div class="col-md-4"></div>
+  	<div class="col-md-4" align="center">
     <%= will_paginate @ingredient_recipes %>
+    </div>
+    <div class="col-md-4"></div>
   </div>
 <% else %>
-  <h4 align="center">No recipes yet!</h4>
+  <div class="row">
+    <h4 align="center">No recipes yet!</h4>
+  </div>
 <% end %>

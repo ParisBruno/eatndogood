@@ -38,7 +38,11 @@ html {
 }
 
 body {
-  height: auto;
+  height: 100%;
+}
+
+#wrapper {
+  min-height: 100%; height: auto !important; height: 100%; margin: 0 auto;
 }
 
 footer {
@@ -46,6 +50,14 @@ footer {
   color: #777;
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 0px;
+}
+
+.fixed-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 footer a {
@@ -70,13 +82,15 @@ footer ul li {
   margin-left: 15px;
 }
 
+.container {
+  width: 100%;
+  min-height: 90%;
+}
+
 .description {
   margin-top: 0;
 }
 
-.well a {
-  color: #073B15;
-}
 
 .chef_info {
   margin-top: 10px;
@@ -93,6 +107,22 @@ footer ul li {
     color: #fff;
   }
 }
+
+.thumb {
+  width: 220px;
+  margin-top: 0!important;
+  margin-right: 10px;
+}
+
+.top-space .img-inner {
+  display: block;
+  margin-right: 0;
+}
+
+.margin-sec .image-box-shadow {
+  height: 220px;
+}
+
 
 .listing {
   list-style: none;
@@ -121,6 +151,119 @@ footer ul li {
   width: 80;
 }
 
+.chef-main-detail .chef-left {
+  min-height: 320px;
+  max-height: 320px;
+  height: auto;
+  overflow: hidden;
+}
+.chef-bio.bio-section {
+  clear: both;
+  width: 100%;
+  float: left;
+  margin-bottom: 15px;
+}
+.image-box-shadow {
+  padding: 5px;
+  margin-right: 0px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  min-height: 155px;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+.chef-main-detail .chef-left img {
+  height: 310px;
+  object-fit: contain;
+}
+
+.image-box-shadow img {
+  object-fit: cover;
+  object-position: center center;
+  height: 100%;
+  width: 100%;
+}
+
+.img-inner img {
+  height: 220px !important;
+}
+
+.chef-full .box-content.box-main {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 0;
+  border: 1px solid #9999994f;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+  min-height: 340px;
+}
+
+.chef-main-detail .chef-right {
+  min-height: 320px!important;
+  height: auto;
+  max-height: 320px;
+}
+
+.chef-full .bios {
+  text-align: left;
+  font-size: 20px!important;
+  font-weight: 600;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+
+.chef-full .bios p {
+  font-size: 17px!important;
+}
+
+.chef-full .bios h3 {
+  color: #337ab7;
+}
+
+.well.box-content .pull-right {
+  float: right !important;
+  margin-top: 10px;
+}
+
+.box-content .pull-right {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  margin: 0;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+.margin-sec .box-content .pull-right > a {
+  transition: all 0.5s ease 0s;
+}
+
+.margin-sec .box-content .pull-right > a i {
+  font-size: 20px;
+}
+
+.chef-main-detail .chef-right .bios h2 {
+  font-size: 16px;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  border: 0;
+  text-align: left;
+  text-transform: none;
+  color: #333333;
+  font-weight: 500;
+}
+
 .message-container {
   .form-control {
     float: left;
@@ -145,6 +288,145 @@ footer ul li {
   height: 16em;
   position: relative;
   overflow: auto;
+}
+
+#message {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  margin-top: 30px;
+  font-size: 18px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.5;
+}
+
+.row > form {
+  width: 100%;
+  padding: 50px;
+}
+
+.full-width-sec.edit-chef {
+  margin: 0;
+  display: block;
+  text-align: center;
+  width: 100%;
+  float: left;
+  padding: 0;
+}
+
+.full-width-sec .box-content {
+  float: none;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  margin: 0 1%;
+}
+
+.margin-sec .box-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 0;
+  border: 1px solid #9999994f;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+.detail {
+  width: calc(100% - 460px);
+}
+
+.top-space .box-inner-sec {
+  display: block;
+  margin-right: 0px;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.margin-sec .box-content  p {
+  font-size: 16px;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  border: 0;
+  text-align: left;
+}
+
+.well.box-content .chef_info {
+  float: left;
+  width: auto;
+  margin-top: 10px;
+}
+
+.margin-sec .box-content h2 {
+  text-align: left;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 10px!important;
+  text-transform: capitalize;
+  color: #337ab7;
+}
+
+section.chef_info h2 a {
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+section.chef_info h2 a {
+  width: auto!important;
+  padding: 0px 15px!important;
+  margin: 0 auto;
+  text-align: center;
+  border: 0;
+  height: 36px!important;
+  line-height: 36px!important;
+  float: right;
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+section.chef_info {
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.margin-sec .box-content {
+  min-height: 220px;
+}
+
+.custom-second-sec {
+  margin-bottom: 25px;
+}
+.custom-second-sec p {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.custom-image-one img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  height: auto;
+  object-position: top center;
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  vertical-align: middle;
 }
 
 .liking {
@@ -271,14 +553,48 @@ footer ul li {
 
 .navbar-default {
   width: 100%;
-  background-color: #0c2b5e;
-  height: 70px;
+  background-color: rgba(0,0,0,.6) !important;
+  border: none !important;
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e794;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+   background-color: #e7e7e794;
+}
+
+.nav  > li {
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    line-height: 3;
+    font-weight: bold;
+    text-transform: uppercase;
+    /*margin-right: 1px;*/
+}
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+  font-size: 15px;
+}
+
+
+.header {
+    
+    width: 100%;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .header img {
   width: 100%;
-  height: 100px;
-  position: relative;
+  opacity: 0;
+
 }
 
 .button-menu {
@@ -530,7 +846,7 @@ footer {
   background-color: #344a64!important;
   padding: 5px 0;
   text-align: center;
-  position: fixed;
+  /*position: fixed;*/
   bottom: 0;
 }
 

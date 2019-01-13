@@ -1,41 +1,93 @@
-<% obj.each do |recipe| %>
-  <div class="row">
-    <div class="col-md-2">
-      <section class="chef_info center">
-        <%= gravatar_for(recipe.chef, size: 120) %>
-      </section>
-    </div>
-    <div class="col-md-8 well">
-      <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
-      <p><%= truncate(recipe.description, length: 150) %></p>
-      <% if recipe.ingredients.any? %>
-        <p>Ingredients: <%= render recipe.ingredients %></p>
-      <% end %>
-      <p>
-        <span class="quiet"><small>Created <%= time_ago_in_words(recipe.created_at) %> ago by <%= recipe.chef.chefname.capitalize %>
-                                                          | <%= pluralize(recipe.comments.count, 'Comment') %></small></span>
-      </p>
-      <% if logged_in? && (current_chef == recipe.chef || current_chef.admin?) %>
-        <div class="recipe-actions">
-          <%= link_to "Edit this recipe", edit_recipe_path(recipe), class: "btn btn-xs btn-warning" %>
-          <%= link_to "Delete this recipe", recipe_path(recipe), method: :delete,
-                                        data: { confirm: "Are you sure you want to delete this recipe?" },
-                                        class: "btn btn-xs btn-danger" %>
-        </div>
-      <% end %>
-      <div class="row">
-        <div class="pull-right liking">
-          <%= link_to like_recipe_path(recipe, like: true), method: :post do %>
-            <i class="glyphicon glyphicon-thumbs-up"></i> 
-          <% end %> <%= recipe.thumbs_up_total %> || 
-          <%= link_to like_recipe_path(recipe, like: false), method: :post do %>
-            <i class="glyphicon glyphicon-thumbs-down"></i>
-          <% end %> <%= recipe.thumbs_down_total %>
-        </div>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--div class="login-header">< render 'shared/page_title', title: "All Recipes" ></div-->
+<% 
+@hide_chef_tab = '';
+if @recipes.nil? 
+  @recipes = !@chef_recipes.nil? ? @chef_recipes : @ingredient_recipes
+  @hide_chef_tab = 'none';
+end
+
+%>
+<div class="col-md-12 margin-sec pagin-top">
+  <div class="pagination-tab">
+    <%= will_paginate @recipes  %>
+  </div>
+</div>
+
+<div class="col-md-12 margin-sec">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <%= link_to t('common.all_recipes'), recipes_path, {:style=>'font-size:20px'} %>
+    </li>
+    <li style="display: <%= @hide_chef_tab %>">
+      <%= link_to t('common.chefs'), chefs_path, {:style=>'font-size:20px'} %>
+    </li>
+  </ul>
+</div>
+
+<div class="">
+  <% if @recipes.blank? %>
+    <div class="row">
+      <div class="col-sm-12" style="text-align:center;">
+        <% if session[:user_role] == 'admin' %>
+          <span style="color:red;text-align:center;">
+            <%=
+              t('common.no_recipes_found_admin_html',
+                  link: link_to(t('common.here'), new_recipe_path))
+            %>
+          </span>
+        <% else %>
+          <span style="color:red;text-align:center;">
+            <%= t('common.no_recipes_found') %>
+          </span>
+        <% end %>
       </div>
     </div>
-    <div class="col-md-2">
-      <%= image_tag(recipe.image.url, size: "150x100") if recipe.image? %>
+<% end %>
+
+<% @recipes.each do |recipe| %>
+  <div class="col-md-12 margin-sec">
+  <div class="margin-sec top-recepi top-space">
+  <div class="row">
+    <div class="col-md-9 detail">
+    <div class="box-inner-sec well box-content">
+      <h2><%= link_to recipe.name, recipe_path(recipe) %></h2>
+      <p><%= (recipe.description.size > 100) ? recipe.description.slice(0,100) + '...' : recipe.description %></p>
+
+      <div class="pull-right">
+        <%= link_to like_recipe_path(recipe, like: true), method: :post do %>
+          <i class="glyphicon glyphicon-thumbs-up"></i> <%= recipe.thumbs_up_total %>
+        <% end %> &nbsp;
+        <%= link_to like_recipe_path(recipe, like: false), method: :post do %>
+          <i class="glyphicon glyphicon-thumbs-down"></i> <%= recipe.thumbs_down_total %>
+        <% end %>
+      </div>
+      <section class="chef_info center">
+        <h2 style="text-align:right">
+          <%= link_to t('recipes.crafted_by') + ' ' + recipe.chef.user.full_name, chef_path(recipe.chef), class: "btn btn-success btn-lg" %>
+        </h2>
+        
+      </section>
+      </div>
+    </div>
+    <div class="col-md-2 thumb">
+      <div class="img-inner image-box-shadow">
+        <%=image_tag(recipe.image.url, class:'img-responsive', alt: t('common.no_image')) if recipe.image? %>
+      </div>
+    </div>
+    <div class="col-md-2 thumb">
+      
     </div>
   </div>
+    <!-- '250x150'-->
+  </div>
+  </div>
 <% end %>
+</div>
+
+<div class="col-md-12 margin-sec bottom-pagination">
+  <div class="pagination-tab">
+    <%= will_paginate @recipes %>
+  </div>
+</div>

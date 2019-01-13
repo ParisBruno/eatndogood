@@ -22,12 +22,13 @@ Rails.application.routes.draw do
 
   get 'guests', to: 'guests#index'
   post 'guests', to: 'guests#send_emails'
+  get "signupguest" => "guests#new", :as=>"newguestwithoutid"
 
   scope ':user' do
     resources :guests, only: %i[index send_emails]
   end
 
-  resources :chefs, except: [:new]
+  resources :chefs #, except: [:new]
   resources :ingredients, except: [:destroy]
   resources :messages, only: [:create]
   resources :pages do

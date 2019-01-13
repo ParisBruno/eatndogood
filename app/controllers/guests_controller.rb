@@ -7,6 +7,13 @@ class GuestsController < ApplicationController
     @guests = current_user.guests.paginate(page: params[:page], per_page: 5)
   end
 
+  def new
+    @guest = Guest.new
+
+    @email = (params[:email].present?) ? Base64.decode64(params[:email]) : ''
+    @user_id = (params[:id].present?) ? params[:id] : ''
+  end
+
   def send_emails
     text = params[:text]
     receivers = params[:emails].present? ? params[:emails] : current_user.guests

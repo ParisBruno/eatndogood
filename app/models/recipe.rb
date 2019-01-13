@@ -9,7 +9,10 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  mount_uploader :image, ImageUploader
+  #mount_uploader :image, ImageUploader
+
+  has_attached_file :image, styles: { thumb: "300x300>" }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   
   def thumbs_up_total
     self.likes.where(like: true).size
