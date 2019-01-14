@@ -1,0 +1,42 @@
+<div class="login-header">
+  <%= render 'shared/page_title', title: t('common.recipes_with', name: @allergen.name) %>
+</div>
+
+<div class="col-md-12 margin-sec">
+  <div class="pagination-tab">
+    <%= will_paginate @recipes %>
+  </div>
+</div>
+
+<div class="col-md-12 margin-sec">
+  <p class="delete-btn-type" style="float:right;">
+     <% if ((current_user and @allergen.user_id == current_user.id)) %>
+        <%= link_to "[#{t('allergens.delete')}]", @allergen, method: :delete, data: { confirm: t('common.confirm') }, class: "btn btn-danger btn-lg" %>
+    <% end %>
+  </p>
+    
+</div>
+
+<% if @recipes.blank? %>
+  <br>
+  <p style="color:red;text-align:center;"><%= t('common.no_recipes_found') %></p>
+<% end %>
+
+<%= render 'recipes/recipe', obj: @recipes %>
+  <div class="col-md-12 margin-sec bottom-pagination">
+    <div class="pagination-tab">
+      <%= will_paginate @recipes %>
+    </div>
+  </div>
+
+<div class="col-md-12 margin-sec bottom-pagination">
+  <div class="pagination-tab">
+    <%= will_paginate @recipes %>
+  </div>
+</div>
+
+
+
+
+
+

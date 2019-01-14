@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    puts "==============="
-    puts @current_chef 
     if !logged_in?
       flash[:danger] = "You must be logged in to perform that action"
       redirect_to root_path
@@ -40,6 +38,6 @@ class ApplicationController < ActionController::Base
 
   def set_header_data
     @ingredients = Ingredient.all
-    
+    @allergens = Allergen.all
   end
 end

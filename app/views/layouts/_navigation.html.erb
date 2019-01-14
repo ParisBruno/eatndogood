@@ -41,12 +41,19 @@
             <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search By Allergens</a>
             <ul class="dropdown-menu">
-              <li class="nav-item"><a href="#">2</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">New Allergen</a></li>
+              <% @allergens.each do |allergen| %>
+              <li class="nav-item">
+                <%= link_to allergen.name, allergen_path(allergen.id) %>
+              </li>
+              
+              <% end %>
+
+              <% if current_user.admin?  || current_user.chef? %>
+                <li role="separator" class="divider"></li>
+                <li class="nav-item">
+                  <%= link_to "New Allergen", new_allergen_path %>
+                </li>
+                <% end %>
             </ul>
               <% if current_user.admin? || current_user.chef? %>
               <li>
