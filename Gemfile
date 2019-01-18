@@ -42,7 +42,7 @@ group :development do
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-sidekiq', '~> 1.0', '>= 1.0.2'
   gem 'capistrano3-puma', '~> 3.1', '>= 3.1.1'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '~> 3.1.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
