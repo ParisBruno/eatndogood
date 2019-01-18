@@ -607,7 +607,7 @@ img {
 
 
 .header {
-    background: url(header.png) center center no-repeat;
+    background: url(asset-path('header.png')) center center no-repeat;
     width: 100%;
     position: relative;
     background-size: cover;
