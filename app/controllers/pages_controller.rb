@@ -17,6 +17,7 @@ class PagesController < ApplicationController
 
   def edit
     @page = get_page
+    @page = Page.new if @page.nil?
   end
 
   def update
