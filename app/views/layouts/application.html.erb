@@ -21,20 +21,27 @@
       </div> 
       
       <%= render 'layouts/messages' %>
-      <div class="">
+      <div class="content">
         <%= yield %>
       </div>
       
 
-    </div>
+    
     <%= render 'layouts/footer' %>
+
+    </div>
 
     <script>
       $(document).ready(function() {
-        if ($(document).height() > $("footer").offset().top+44) {
-          console.log($("footer").offset().top+44);
-          console.log($(document).height());
-                $("footer").addClass('fixed-footer');
+        var windowHeiht = $(window).height();
+        var footerPosition = $("footer").position()['top'];
+        console.log(windowHeiht + " - " + footerPosition);
+
+        if (windowHeiht > footerPosition) {
+          
+          $("footer").addClass('fixed-footer');
+        } else {
+          $("footer").removeClass('fixed-footer');
         }
       });
     </script>

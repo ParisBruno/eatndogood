@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !!current_chef
+    current_user.chef? || current_user.admin?
   end
 
   def require_user
