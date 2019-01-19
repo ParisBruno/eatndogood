@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'guests', to: 'guests#index'
   post 'guests', to: 'guests#send_emails'
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
+  delete 'guest', to: 'guests#destroy', as: "destroy_guest"
 
   scope ':user' do
     resources :guests, only: %i[index send_emails]

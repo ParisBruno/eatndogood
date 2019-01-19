@@ -14,6 +14,12 @@ class GuestsController < ApplicationController
     @user_id = (params[:id].present?) ? params[:id] : ''
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "Recipe deleted successfully"
+    redirect_to guests_path
+  end
+
   def send_emails
     text = params[:text]
     receivers = params[:emails].present? ? params[:emails] : current_user.guests
