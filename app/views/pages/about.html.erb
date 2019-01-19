@@ -115,9 +115,8 @@
       <div id="btn"> %>
         <div class="row">
           <div class="col-md-12 text-center button-success">
-          <!--button class="btn-success" onclick='newDoc("<%= newguestwithoutid_path %>")'-->
             <% if current_user.blank? || current_user.guest? %>
-               <%= link_to t('common.take_a_tour_as_guest'), newguestwithoutid_path, {:style=>'position:center;', :id => "btn btn-lg"} %>
+               <%= link_to t('common.take_a_tour_as_guest'), new_user_registration_path, {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
             <% else %>
               <% if current_user.present? %>
                 <%= link_to(t('common.take_a_tour_as_guest'), new_user_session_path,{ :class => 'btn btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>

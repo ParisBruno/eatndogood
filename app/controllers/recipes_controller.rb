@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  before_action :require_logged_in
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like]
   before_action :require_user, except: [:index, :show, :like]
   before_action :require_same_user, only: [:edit, :update, :destroy]

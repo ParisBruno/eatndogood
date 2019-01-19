@@ -33,7 +33,7 @@
     max-width: 100%;
 }
 #enter {
-      position: static;
+    position: static;
     width: 100%;
     float: left;
     background: transparent;
@@ -100,7 +100,7 @@ width: 100%;
 }
 .img-sec #enter {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
   margin: 40px 0 0 0;
   left: 28%;
@@ -160,7 +160,7 @@ width: 100%;
                     <div style="text-align:center" class="img-sec">
                         <div id="enter" class="enter-sec">
                             <% if current_user.blank? && @admin_id.blank? && @guest_email.blank? %>
-                                <%=link_to 'Enter',url_for({:controller => 'pages', :action => 'index'}) %>
+                                <%=link_to 'Enter', about_pages_path %>
                                 <% elsif current_user.present? %>
                                 <%= link_to "Enter", about_pages_path %>
                             <% else %>

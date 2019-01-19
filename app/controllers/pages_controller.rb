@@ -37,7 +37,9 @@ class PagesController < ApplicationController
   end
 
   def destination
-    Page.get_destination(request.path_info)
+    path = request.path_info
+    path = "#{path}welcome" if (path.nil? || path.empty? || path == '/')
+    Page.get_destination(path)
   end
 
   def get_page

@@ -21,9 +21,16 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def require_logged_in
+    if current_user.nil?
+      flash[:danger] = "You must be logged in to perform that action"
+      redirect_to root_path
+    end
+  end
+
   def after_sign_in_path_for(resource)
     session[:chef_id] = current_user.chef_id
-    root_path
+    recipes_path
   end
 
   def configure_permitted_parameters
