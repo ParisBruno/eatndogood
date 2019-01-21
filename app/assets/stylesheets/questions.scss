@@ -1,0 +1,28 @@
+// Place all the styles related to the Questions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-header .right-header a {
+    float: right;
+    width: auto!important;
+    padding: 0px 25px!important;
+    margin: 0 auto;
+    display: table;
+    text-align: center;
+    border: 0;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    height: 36px!important;
+    line-height: 36px!important;
+    position: absolute;
+    right: 97px;
+    top: -10px;
+}
+.login-header {position: relative;}
+.login-header .right-header a:hover {
+            color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+    text-decoration: none;
+}

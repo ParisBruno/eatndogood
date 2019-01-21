@@ -22,6 +22,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.chef = current_chef
     if @recipe.save
+      upload_images
       flash[:success] = "Recipe was created successfully!"
       redirect_to recipe_path(@recipe)
     else
@@ -32,9 +33,18 @@ class RecipesController < ApplicationController
   def edit
     
   end
+
+  def email_question
+
+  end
+  
+  def send_email_question
+
+  end
   
   def update
     if @recipe.update(recipe_params)
+      upload_images
       flash[:success] = "Recipe was updated successfully!"
       redirect_to recipe_path(@recipe)
     else
@@ -60,13 +70,25 @@ class RecipesController < ApplicationController
   end
   
   private
+
+    def upload_images
+      if params[:images]
+        params[:images].each { |image|
+          @recipe.recipe_images.create(image: image)
+        }
+      end
+    end
   
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.includes(:recipe_images).find(params[:id])
     end
   
     def recipe_params
       params.require(:recipe).permit(:name, :description, :image, ingredient_ids: [])
+    end
+
+    def recipe_image_params
+      params.require(:recipe_images).permit(:image)
     end
     
     def require_same_user

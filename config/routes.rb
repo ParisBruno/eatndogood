@@ -3,6 +3,7 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  resources :questions
   resources :allergens
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
@@ -14,12 +15,16 @@ Rails.application.routes.draw do
   root "pages#welcome"
   get 'pages/welcome', to: 'pages#welcome'
 
+  get '/recipes/ask-question', to: "recipes#email_question", as: "askquestion"
+
   resources :recipes do
     resources :comments, only: [:create]
     member do
       post 'like'
     end
   end
+
+
 
   get 'guests', to: 'guests#index'
   post 'guests', to: 'guests#send_emails'

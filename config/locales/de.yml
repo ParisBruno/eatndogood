@@ -218,7 +218,7 @@ de:
     ask_question: Frage stellen
     asked_by: 'Gefragt von:'
     date: Date
-    email_to_colon: 'Email To: %{email}'
+    email_to_colon: 'Email To: '
     no_questions: Keine Fragen von irgendeinem Gast für dich!
     posted_on_date: 'Posted On Date: %{date}'
     question_colon: 'Question:'

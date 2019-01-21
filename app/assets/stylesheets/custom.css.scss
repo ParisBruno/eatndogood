@@ -114,9 +114,7 @@ footer ul li {
 }
 
 .thumb {
-  width: 220px;
   margin-top: 0!important;
-  margin-right: 10px;
 }
 
 .recipes-q {
@@ -189,6 +187,18 @@ footer ul li {
   -webkit-transition: all 0.5s ease 0s;
   -moz-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
+}
+
+.box-content .detail-list a.btn-edit {
+  position: absolute;
+  bottom: 20px;
+  right: 190px;
+}
+
+.box-content .detail-list a.delete-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .chef-main-detail .chef-left img {

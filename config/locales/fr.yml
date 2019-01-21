@@ -218,7 +218,7 @@ fr:
     ask_question: Poser une question
     asked_by: 'Demandé par:'
     date: Date
-    email_to_colon: 'Email To: %{email}'
+    email_to_colon: 'Email To: '
     no_questions: Aucune question posée par un invité
     posted_on_date: 'Posted On Date: %{date}'
     question_colon: 'Question:'

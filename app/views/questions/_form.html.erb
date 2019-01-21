@@ -1,0 +1,43 @@
+<div class="col-md-12">
+
+    <%= form_for @question, :html => {class: "form-horizontal", multipart: true, role: "form"} do |f| %>
+      <%= f.hidden_field :email, value:  (@question.email.present?) ? @question.email: @email %>
+      <%= f.hidden_field :user_id, value: (@question.user_id.present?) ? @question.user_id: @user_id   %>
+      <%= f.hidden_field :recipe_id, value: (@question.recipe_id.present?) ? @question.recipe_id: @recipe_id %>
+
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :subject, t('questions.email_to_colon') %>
+        </div>
+        <div class="col-md-8">
+          <%= @question.email.present? ? @question.email : @email %>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :subject, t('forms.subject') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field :subject, class: "form-control", placeholder: "Subject", autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :body, t('forms.body') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_area(:body, size: '50x10', class: "form-control") %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <%= f.submit t('forms.submit'), class: "btn btn-success btn-lg" %>
+        </div>
+      </div>
+
+      
+    <% end %>
+</div>

@@ -220,7 +220,7 @@ en:
     ask_question: Ask Question
     asked_by: 'Asked By:'
     date: Date
-    email_to_colon: 'Email To: %{email}'
+    email_to_colon: 'Email To: '
     no_questions: No Questions asked by any guest for you!
     posted_on_date: 'Posted On Date: %{date}'
     question_colon: 'Question:'

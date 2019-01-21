@@ -33,7 +33,7 @@
           <%= f.label :image, "Add Image" %>
         </div>
         <div class="col-md-8">
-          <%= f.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+          <%= file_field_tag "images[]", type: :file, multiple: true %>
         </div>
       </div>
       <div class="form-group">

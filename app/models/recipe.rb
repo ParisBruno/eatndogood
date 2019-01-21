@@ -9,13 +9,15 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :recipe_images, dependent: :destroy
   has_and_belongs_to_many :allergens
+  has_many :questions
   #has_many :recipe_allergens
   #has_many :allergens, through: :recipe_allergens
   #mount_uploader :image, ImageUploader
 
-  has_attached_file :image, styles: { thumb: "300x300>" }
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  accepts_nested_attributes_for :recipe_images
+
   
   def thumbs_up_total
     self.likes.where(like: true).size

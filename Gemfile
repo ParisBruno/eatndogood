@@ -28,6 +28,7 @@ gem 'sidekiq-cron', '~> 0.6.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.0'
 gem 'sqlite3'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platform: :mri

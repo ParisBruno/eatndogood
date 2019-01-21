@@ -218,7 +218,7 @@ it:
     ask_question: Fai una domanda
     asked_by: 'Chiesto da:'
     date: Date
-    email_to_colon: 'Email To: %{email}'
+    email_to_colon: 'Email To: '
     no_questions: Non ci sono domande per te!
     posted_on_date: 'Posted On Date: %{date}'
     question_colon: 'Question:'

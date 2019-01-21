@@ -5,15 +5,15 @@
       <div class="col-md-8 col-sm-12 col-xs-12 detail-sec">
       <div class="box-inner-sec well box-content">
       <div class="detail-list">
-      <% if current_user and (@recipe.chef.id == current_user.id) %>
-        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right delete-btn",  method: :delete, data: { confirm: t('common.confirm') } %>
+      <% if (current_user and (@recipe.chef.id == current_user.id) || current_user.admin?) %>
+        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right delete-btn btn-lg",  method: :delete, data: { confirm: t('common.confirm') } %>
       <% end %>
 
-      <% if (session[:user_role] == 'admin') %>
-        <% if current_user and (@recipe.chef.id == current_user.id) %>
-          <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
-        <% end %>
+      
+      <% if (current_user and (@recipe.chef.id == current_user.id)|| current_user.admin? ) %>
+        <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right btn-edit btn-lg" %>
       <% end %>
+ 
 
       <center>
         <h2>
@@ -44,11 +44,22 @@
       </div>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
-        <div class="img-inner image-box-shadow">
-          <%=image_tag(@recipe.image.url, class:'img-responsive', alt: t('common.no_image')) if @recipe.image? %>
+      <% if !@recipe.recipe_images.nil? 
+          @recipe.recipe_images.each do |re_img|
+      %>
+      
+        <div class="" style="margin-top: 10px;">
+          <%=image_tag(re_img.image.url, class:'img', alt: t('common.no_image')) if re_img.image? %>
         </div>
        
-      </div>
+     
+      <%
+        end 
+      %>
+       </div>
+      <%
+      end 
+      %>
 
       </div>
       </div>
@@ -61,7 +72,15 @@
   <div class="recipes-q">
  
     <center>
-      
+          <% if current_user.id != @recipe.chef.id %>
+            <h3>
+              <a href="<%= new_question_path(@recipe, user_id: current_user.id, email: @recipe.chef.user.email, recipe_id: @recipe.id) %>">
+                <%= t('recipes.question_about_this_recipe') %>
+              </a>
+            </h3>
+            <br>
+            <br>
+          <% end %>
           <%= link_to like_recipe_path(@recipe, like: true), method: :post, :style => "font-size:35px;" do %>
             <i class="glyphicon glyphicon-thumbs-up" ></i>
             &nbsp;

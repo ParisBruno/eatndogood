@@ -50,7 +50,7 @@ end
   <div class="col-md-12 margin-sec">
   <div class="margin-sec top-recepi top-space">
   <div class="row">
-    <div class="col-md-9 detail">
+    <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
       <h2><%= link_to recipe.name, recipe_path(recipe) %></h2>
       <p><%= (recipe.description.size > 100) ? recipe.description.slice(0,100) + '...' : recipe.description %></p>
@@ -71,14 +71,17 @@ end
       </section>
       </div>
     </div>
-    <div class="col-md-2 thumb">
-      <div class="img-inner image-box-shadow">
-        <%=image_tag(recipe.image.url, class:'img-responsive', alt: t('common.no_image')) if recipe.image? %>
+    <% if !recipe.recipe_images.nil? 
+        recipe.recipe_images.each do |re_img|
+    %>
+
+      <div class="col-md-2 thumb">
+        <div class="img-inner image-box-shadow">
+          <%=image_tag(re_img.image.url, class:'img-responsive', alt: t('common.no_image')) if re_img.image? %>
+        </div>
       </div>
-    </div>
-    <div class="col-md-2 thumb">
-      
-    </div>
+      <% end %>
+   <% end %>
   </div>
     <!-- '250x150'-->
   </div>
