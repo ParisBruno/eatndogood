@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190120180003) do
+ActiveRecord::Schema.define(version: 20190121185725) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -90,11 +90,24 @@ ActiveRecord::Schema.define(version: 20190120180003) do
     t.datetime "page_img_updated_at"
   end
 
+  create_table "plan_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string "title"
     t.integer "chefs_limit"
     t.integer "guests_limit"
     t.integer "recipes_limit"
+    t.integer "plan_category_id"
+    t.decimal "yearly_cost"
+    t.decimal "cost_per_user"
+    t.bigint "no_of_chefs"
+    t.string "status"
+    t.text "guest"
     t.index ["title"], name: "index_plans_on_title"
   end
 
@@ -130,6 +143,13 @@ ActiveRecord::Schema.define(version: 20190120180003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chef_id"
+  end
+
+  create_table "user_plans", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

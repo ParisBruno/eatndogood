@@ -24,7 +24,13 @@ Rails.application.routes.draw do
     end
   end
 
-
+  #woocommerce api
+  get '/fetchapi', to: "login#fetchapi"
+  get '/api/forgotpasswordwp', to: "login#forgotpasswordwp"
+  get '/api/deleteuserwp', to: "login#deleteuserwp"
+  get '/api/checkuserinrorapp', to: "login#checkuserinrorapp"
+  get '/api/updateplaninrorapp', to: "login#updateplaninrorapp"
+  #end woocommerce api
 
   get 'guests', to: 'guests#index'
   post 'guests', to: 'guests#send_emails'

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :chefs
 
   validates :plan, presence: true, if: :admin?
-
+  
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ?', Date.today - 60.days) }
 
   def full_name

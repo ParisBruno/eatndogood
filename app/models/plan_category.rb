@@ -1,0 +1,2 @@
+class PlanCategory < ApplicationRecord
+end
