@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include LocaleDefinition
   protect_from_forgery with: :exception
   helper_method :current_chef, :logged_in?
   before_action :configure_permitted_parameters, if: :devise_controller?
