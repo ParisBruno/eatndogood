@@ -108,9 +108,12 @@ header.header {
 .img-sec {position: relative;}
 
 @media (max-width: 767px) {
-.enter-sec a {font-size: 36px !important; font-weight: 400; width: 220px; line-height: 60px; height: 60px;}
-.content-se h2 { font-size: 3em!important;}
-.well .img-sec img { object-fit: cover; height: 100%;min-height: 670px;}
+    .enter-sec a {font-size: 36px !important; font-weight: 400; width: 220px; line-height: 60px; height: 60px;}
+    .content-se h2 { font-size: 3em!important;}
+    .well .img-sec img { object-fit: cover; height: 100%;min-height: 670px;}
+    .home-main .container {
+        max-width: 767px;
+    }
 
 }
 
@@ -136,9 +139,13 @@ header.header {
         padding-right: 1% !important;
     }
 
+    .home-main .container {
+        max-width: 480px;
+    }
+
     .img-sec #enter {
         position: absolute;
-        top: 45% !important;
+        top: 55% !important;
         transform: translate(-50%, -50%);
         margin: 40px 0 0 0;
         width: auto;
