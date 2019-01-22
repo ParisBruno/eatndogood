@@ -150,10 +150,10 @@ class LoginController < ApplicationController
 	  vars = request.query_parameters
 	  email = (vars[:email].present?) ? vars[:email] : ''
 
-	  chef = Chef.where(:email => email).first
+	  user = User.where(:email => email).first
 
-	  if chef.present?
-	    Chef.where(:email => email).destroy_all
+	  if user.present?
+	    User.where(:email => email).destroy_all
 	    render :json => {:status=>'success'}
 	  else
 	    render :json => {:status=>'failed'}
@@ -165,9 +165,9 @@ class LoginController < ApplicationController
 	  vars = request.query_parameters
 	  email = (vars[:email].present?) ? vars[:email] : ''
 
-	  chef = Chef.where(:email => email).first
+	  user = User.where(:email => email).first
 
-	  if chef.present?
+	  if user.present?
 	    render :json => {:status => 'success', :message => I18n.t('flash.user_already_registered')}
 	  else
 	    render :json => {:status => 'failed', :message => I18n.t('flash.user_not_registered')}
