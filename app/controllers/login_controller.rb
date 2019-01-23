@@ -385,7 +385,7 @@ class LoginController < ApplicationController
 	  #check for if plan already exist
 	  prod_name = prod_name.capitalize if prod_name.present?
 
-	  planExist = Plan.find_by(name: prod_name)
+	  planExist = Plan.find_by(title: prod_name)
 
 	  if planExist.present?
 	    planExist.name              = prod_name
@@ -399,7 +399,7 @@ class LoginController < ApplicationController
 	    return planExist
 	  else
 	    planObj = Plan.new()
-	    planObj.name              = prod_name
+	    planObj.title              = prod_name
 	    planObj.status            = 'yes'
 	    planObj.plan_category_id  = planCategoryObj.id
 	    planObj.yearly_cost       = yearly_cost
