@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   layout :select_layout_header
+  before_action :admin_param, only: ['welcome', 'about']
+  before_action :guest_email, only: ['welcome', 'about']
 
   def index
     if params[:set_locale]
@@ -8,6 +10,8 @@ class PagesController < ApplicationController
   end
 
   def welcome
+    user = User.find(@admin_id)
+    @admin_name = user.full_name if user
     @page = get_page
   end
 
@@ -32,6 +36,14 @@ class PagesController < ApplicationController
 
   private
 
+  def guest_email
+    @guest_email = params[:guest_email]
+  end
+
+  def admin_param
+    @admin_id = params[:admin_id].present? ? params[:admin_id] : User.where(admin: true).first.id
+  end
+
   def select_layout_header
     params[:action] == destination ? '_without_header' : 'application'
   end
@@ -43,7 +55,11 @@ class PagesController < ApplicationController
   end
 
   def get_page
-    Page.where(destination: destination).first
+    if @admin_id.present?
+      Page.where(destination: destination, user_id: @admin_id).first
+    else
+      Page.where(destination: destination).first
+    end
   end
 
   def page_params

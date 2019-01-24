@@ -7,28 +7,63 @@
 <div class="row">
   <div class="well col-md-5 col-md-offset-4 login-sec">
 
-    <%= form_for @guest, url: {action: "create"}, html: {class: ""} do |f| %>
+    <%= form_for @guest, url: {action: "create"}, html: {class: "form-horizontal"} do |f| %>
 
-      <%= f.label :first_name, t('forms.first_name') %>
-      <%= f.text_field :first_name %>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :first_name, t('forms.first_name') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field :first_name, class: "form-control", placeholder: "Enter First Name", autofocus: true %>
+        </div>
+      </div>
 
       <%= f.hidden_field :user_id, value: (@user_id.present?) ? @user_id : @guest.user_id  %>
 
-      <%= f.label :last_name, t('forms.last_name') %>
-      <%= f.text_field :last_name %>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :last_name, t('forms.last_name') %>
+        </div>
+        <div class="col-md-8">
+          <%= f.text_field :last_name, class: "form-control", placeholder: "Enter Last Name", autofocus: true %>
+        </div>
+      </div>
 
-      <%= f.label :email, t('forms.email') %>
-      <% email_persist = (@email.present?) ? @email : @guest.email %>
-      <% email_persist = (email_persist == 'itr_guest') ? '' : email_persist %>
-      <%= f.email_field :email,value: email_persist, readonly: email_persist.present? %>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :email, t('forms.email') %>
+        </div>
+        <div class="col-md-8">
+          <% email_persist = (@email.present?) ? @email : @guest.email %>
+          <% email_persist = (email_persist == 'itr_guest') ? '' : email_persist %>
+          <%= f.email_field :email,value: email_persist, readonly: email_persist.present?, class: "form-control", placeholder: "Enter Last Name" %>
+          
+        </div>
+      </div>
 
-      <%= f.label :password, t('forms.password') %>
-      <%= f.password_field :password %>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+          <%= f.label :password, t('forms.password') %>
+        </div>
+        <div class="col-md-8">
+          
+          <%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
+          
+        </div>
+      </div>
 
-      <%= f.submit t('forms.submit') , class: "btn btn-success" %>
-      <button type="button" class="btn btn-danger purpal" onclick="history.go(-1)" style="margin: 0px 0px 0px 10px;padding: 7px 25px !important;">
-        <%= t 'forms.cancel' %>
-      </button>
+      <div class="form-group">
+        <div class="control-label col-md-2">
+        </div>
+        <div class="col-md-8">
+          
+          <%= f.submit t('forms.submit') , class: "btn btn-success btn-lg" %>
+                <button type="button" class="btn btn-danger purpal" onclick="history.go(-1)" style="margin: 0px 0px 0px 10px;padding: 7px 25px !important;">
+                  <%= t 'forms.cancel' %>
+                </button>
+          
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

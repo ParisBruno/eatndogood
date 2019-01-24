@@ -5,55 +5,96 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Page.find_or_create_by(name: "Welcome", title: "Welcome!", content: "Lorem Ipsum", destination: "welcome")
-Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about")
+#Page.find_or_create_by(name: "Welcome", title: "Welcome!", content: "Lorem Ipsum", destination: "welcome")
+#Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about")
+
+plan_categories = [
+  {
+    name: 'Family & Friends',
+    status: 'yes'
+  },
+  {
+    name: 'Professionals',
+    status: 'yes'
+  },
+  {
+    name: 'Entrepreneurs',
+    status: 'yes'
+  },
+  {
+    name: 'Enterprise',
+    status: 'yes'
+  }
+]
+
+plan_categories.each do |cate|
+  PlanCategory.find_or_create_by!(cate)
+end
+
+family_cate = PlanCategory.where(name: 'Family & Friends').first
+professional_cate = PlanCategory.where(name: 'Professionals').first
+entrep_cate = PlanCategory.where(name: 'Entrepreneurs').first
+enterprise_cate = PlanCategory.where(name: 'Enterprise').first
 
 plans = [
+  
   {
-    title: 'base'
-  },
-  {
-    title: 'Family & Friends V1',
+    code: 'V1',
+    title: '10 Chefs',
     chefs_limit: 10,
     guests_limit: 0,
-    recipes_limit: 110
+    recipes_limit: 110,
+    plan_category_id: !family_cate.nil? ? family_cate.id : 0
   },
   {
-    title: 'Family & Friends V2',
+    code: 'V2',
+    title: '20 Chefs',
     chefs_limit: 20,
     guests_limit: 0,
-    recipes_limit: 220
+    recipes_limit: 220,
+    plan_category_id: !family_cate.nil? ? family_cate.id : 0
   },
   {
-      title: 'Professionals V1',
-      chefs_limit: 1,
-      guests_limit: 100,
-      recipes_limit: 110
+    code: 'V1',
+    title: '100 Guests',
+    chefs_limit: 1,
+    guests_limit: 100,
+    recipes_limit: 110,
+    plan_category_id: !professional_cate.nil? ? professional_cate.id : 0
   },
   {
-      title: 'Professionals V2',
-      chefs_limit: 1,
-      guests_limit: 250,
-      recipes_limit: 110
+    code: 'V2',
+    title: '250 Guests',
+    chefs_limit: 1,
+    guests_limit: 250,
+    recipes_limit: 110,
+    plan_category_id: !professional_cate.nil? ? professional_cate.id : 0
   },
   {
-      title: 'Entrepreneurs V1',
-      guests_limit: 250,
-      recipes_limit: 150
+    code: 'V1',
+    title: '250 Guests',
+    guests_limit: 250,
+    recipes_limit: 150,
+    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
   },
   {
-      title: 'Entrepreneurs V2',
-      guests_limit: 500,
-      recipes_limit: 150
+    code: 'V2',
+    title: '500 Guests',
+    guests_limit: 500,
+    recipes_limit: 150,
+    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
   },
   {
-      title: 'Entrepreneurs V3',
-      guests_limit: 1000,
-      recipes_limit: 150
+    code: 'V3',
+    title: '1000 Guests',
+    guests_limit: 1000,
+    recipes_limit: 150,
+    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
   },
   {
       title: 'Enterprise',
-      recipes_limit: 200
+      recipes_limit: 200,
+      plan_category_id: !enterprise_cate.nil? ? enterprise_cate.id : 0
   },
   {
       title: 'Free',

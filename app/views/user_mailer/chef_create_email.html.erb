@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1 style="font-size:14px">Welcome <%= @chef.chefname.capitalize %>, You are successfully registered to contribute your recipes.</h1>
+    <br>
+    <h1 style="font-size:14px">Click here to the app welcome page: <%= @app_url %></h1>
+    <!-- <p>
+     You are successfully registered as a chef on http://itoprecipes.com, By the admin (@admin.chefname.capitalize ) 
+     (@admin.email)
+      <br>
+    </p> -->
+    <p style="font-size:14px">
+     Here are your login information:
+    </p>
+    <ul>
+      <li style="font-size:14px">Login Email Id: <%= @chef.email %></li>
+      <li style="font-size:14px">Login Password: <%= @password %></li>
+      <li style="font-size:14px">Login Url: <%= @url+'login?is_guest=n&iden=Chef' %></li>
+    </ul>
+    
+  </body>
+</html>

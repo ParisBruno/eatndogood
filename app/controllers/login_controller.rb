@@ -74,31 +74,24 @@ class LoginController < ApplicationController
 	    user = User.find_by(email: email)
 
 	    #if chef is exist then login
-	    if chef && chef.check_password(pass)
+	    if user && user.valid_password?(pass)
 	      #call function to assign plan of the user
-	      assignPlan(chef.id,plan_id) if plan_id.present?
+	      assignPlan(user.id,plan_id) if plan_id.present?
 
-	      session[:chef_id] = chef.id
+	      session[:chef_id] = user.chef.id
 	      session[:user_role] = 'admin'
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
 	    else #if chef is not present then create new chef
+	      @user = User.create!({email: email, password: pass, plan: plan_id})
+
 	      @chef = Chef.new
-
-	      #create uniquename
-	      uniqu_str         = email.slice(0, 4)
-	      time_str          = (Time.now.to_f * 1000).to_i
-	      unique_user_name  = uniqu_str+time_str.to_s
-
-	      @chef.chefname        = unique_user_name
-	      @chef.password_digest = @chef.convert_password_hash(pass)
-	      @chef.email           = email
-	      @chef.plan_id         = plan_id
-	      @chef.admin           = true
+		  @chef.user_id = @user.id	     
+	      @chef.admin = true
 
 	      if @chef.save!(:validate => false)
 	        #call function to assign plan of the user
-	        assignPlan(@chef.id,plan_id) if plan_id.present?
+	        assignPlan(@user.id, plan_id) if plan_id.present?
 
 	        flash[:success] = I18n.t 'flash.your_account_created'
 	        session[:chef_id] = @chef.id
@@ -411,8 +404,8 @@ class LoginController < ApplicationController
 	  end
 	end
 
-	def assignPlan(chef_id, plan_id)
-	  user = User.where("user_id = ?", chef_id).first
+	def assignPlan(user_id, plan_id)
+	  user = User.where("user_id = ?", user_id).first
 
 	  if user.present? && user.plan_id != plan_id
 	    #update previous plan

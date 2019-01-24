@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to http://itoprecipes.com</h1>
+    <p>
+      A guest have successfully registered on http://itoprecipes.com,
+      <br>
+    </p>
+    <p>
+     Here are the guest information:
+    </p>
+    <br>
+    <ul>
+      <li>Guest First Name: <%= @guest.first_name.capitalize %></li>
+      <li>Guest Last Name: <%= @guest.last_name.capitalize %></li>
+      <li>Guest Email <%= @guest.email %></li>
+    </ul>
+    
+  </body>
+</html>

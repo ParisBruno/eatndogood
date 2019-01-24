@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get 'guests', to: 'guests#index'
   post 'guests', to: 'guests#send_emails'
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
+  get "newguest/:id/:email", to: "guests#new", as: "newguest"
+  post 'guests/create',to: "guests#create", as: 'guestCreation'
   delete 'guest', to: 'guests#destroy', as: "destroy_guest"
 
   scope ':user' do

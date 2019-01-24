@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190121185725) do
+ActiveRecord::Schema.define(version: 20190124181609) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20190121185725) do
     t.string "page_img_content_type"
     t.integer "page_img_file_size"
     t.datetime "page_img_updated_at"
+    t.integer "user_id"
   end
 
   create_table "plan_categories", force: :cascade do |t|
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(version: 20190121185725) do
     t.bigint "no_of_chefs"
     t.string "status"
     t.text "guest"
+    t.string "code"
     t.index ["title"], name: "index_plans_on_title"
   end
 
@@ -172,6 +174,7 @@ ActiveRecord::Schema.define(version: 20190121185725) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "plan_id"
+    t.integer "user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["plan_id"], name: "index_users_on_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -7,7 +8,7 @@ class User < ApplicationRecord
 
   belongs_to :host_chef, class_name: 'User', foreign_key: 'chef_id', optional: true
   belongs_to :plan, optional: true
-  has_many :guests, class_name: 'User', foreign_key: 'chef_id'
+  has_many :guests, class_name: 'User', foreign_key: 'user_id'
   has_many :chefs
 
   validates :plan, presence: true, if: :admin?
@@ -17,4 +18,5 @@ class User < ApplicationRecord
   def full_name
     [first_name, last_name].join(' ')
   end
+
 end

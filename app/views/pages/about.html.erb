@@ -19,6 +19,21 @@
     color: #fff;
     font-size: 14px;
   }
+  #message {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top: 30px;
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.5;
+  }
+  .page-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 </style>
 <script>
   function newDoc(a) {
@@ -108,20 +123,19 @@
   </div>
   </div>
 
-<hr>
   <div class="row">
     <div class="col-md-12 text-center custom-second-sec">
     <%# <div id="move-right">
       <div id="btn"> %>
         <div class="row">
           <div class="col-md-12 text-center button-success">
-            <% if current_user.blank? || current_user.guest? %>
+            <% if @admin_id.blank? || @guest_email.blank? %>
                <%= link_to t('common.take_a_tour_as_guest'), new_user_registration_path, {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
             <% else %>
               <% if current_user.present? %>
                 <%= link_to(t('common.take_a_tour_as_guest'), new_user_session_path,{ :class => 'btn btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>
               <% else %>
-                <%= link_to(t('common.take_a_tour_as_guest'), @root_url+'newguest/'+@admin_id.to_s+'/'+@guest_email,{ :class => 'btn-success',:style=>'position:center;', :id => "btn"}) %>
+                <%= link_to(t('common.take_a_tour_as_guest'), newguest_path(@admin_id.to_s, @guest_email), { :class => 'btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>
               <% end %>
             <% end %>
             <!--/button-->
@@ -129,7 +143,7 @@
         </div>
 
       <%# </div> %>
-        <div class="row">
+        <div class="row page-title">
           <div class="col-md-12 text-center">
             <% if @page.present? %>
               <%= raw @page.title.html_safe %>
@@ -143,7 +157,6 @@
              <% end %>
           </div>
         </div>
-        <hr>
       <%# <div id="btn"> %>
       <div class="row">
         <div class="col-md-12 text-center">
