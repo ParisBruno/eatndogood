@@ -73,7 +73,9 @@ namespace :deploy do
     end
   end
 
-  
+  task :seed do
+    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+  end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets

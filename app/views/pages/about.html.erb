@@ -71,7 +71,7 @@
     <div id="message">
         <% if @page.present? %>
 
-            <% upper_page_detail = @page.content.html_safe %>
+            <% upper_page_detail = @page.title.html_safe %>
 
             <% if upper_page_detail.size > 130 %>
               <div class="show-read-more" id="read_less"><%= raw upper_page_detail.slice(0,130)+'...' %>
@@ -146,7 +146,7 @@
         <div class="row page-title">
           <div class="col-md-12 text-center">
             <% if @page.present? %>
-              <%= raw @page.title.html_safe %>
+              <%= raw @page.content.html_safe %>
             <% else %>
               <p id="lgp">
                 <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
