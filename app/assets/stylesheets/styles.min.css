@@ -910,6 +910,7 @@ header#main_header #responsive-nav {  float: left;
         width: 100%;
         border-bottom: solid 1px;
     }
+}
 
 
 header#main_header #responsive-nav .one:last-child {padding-bottom: 20px;}
