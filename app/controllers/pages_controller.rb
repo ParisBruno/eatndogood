@@ -51,6 +51,7 @@ class PagesController < ApplicationController
   def destination
     path = request.path_info
     path = "#{path}welcome" if (path.nil? || path.empty? || path == '/')
+    path = "/welcome" if path == '/live'
     Page.get_destination(path)
   end
 

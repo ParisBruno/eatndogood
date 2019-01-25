@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   devise_for :users
   root "pages#welcome"
   get 'pages/welcome', to: 'pages#welcome'
-  get 'lives', to: 'pages#welcome'
+  get '/live', to: 'pages#welcome'
 
   get '/recipes/ask-question', to: "recipes#email_question", as: "askquestion"
 
