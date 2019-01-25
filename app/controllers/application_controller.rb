@@ -52,8 +52,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_data
-    @ingredients = Ingredient.where(user_id: current_user.id)
-    @allergens = Allergen.where(user_id: current_user.id)
-    @styles = Style.where(user_id: current_user.id)
+    user_id = !current_user.nil? ? current_user.id : User.where(admin: true).first
+    @ingredients = Ingredient.where(user_id: user_id)
+    @allergens = Allergen.where(user_id: user_id)
+    @styles = Style.where(user_id: user_id)
   end
 end
