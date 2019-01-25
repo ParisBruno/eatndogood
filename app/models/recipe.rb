@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Recipe < ApplicationRecord
   validates :name, presence: true
-  validates :description, presence: true, length: { minimum: 5, maximum: 500 }
+  validates :description, presence: true
   belongs_to :chef
   validates :chef_id, presence: true
   default_scope -> { order(updated_at: :desc)} 
@@ -11,6 +11,7 @@ class Recipe < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :recipe_images, dependent: :destroy
   has_and_belongs_to_many :allergens
+  has_and_belongs_to_many :styles
   has_many :questions
   #has_many :recipe_allergens
   #has_many :allergens, through: :recipe_allergens

@@ -53,8 +53,6 @@ body {
 footer {
   border-top: 1px solid #eaeaea;
   color: #777;
-  padding-left: 10px;
-  padding-right: 10px;
   margin-bottom: 0px;
 }
 
@@ -132,6 +130,57 @@ footer ul li {
 
 .margin-sec .image-box-shadow {
   height: 220px;
+}
+
+.recipe-detail .image-box-shadow {
+  height: 310px !important;
+}
+
+.image-box-shadow img {
+  height: 310px !important;
+}
+
+.detail-sec .detail-list center {
+width: 100%;
+float: left;
+margin-bottom: 10px;
+}
+
+.margin-sec .box-content center h2 {
+text-align: left;
+font-size: 17px;
+line-height: 1.4;
+font-weight: 600;
+margin-top: 0;
+margin-bottom: 10px!important;
+text-transform: capitalize;
+}
+
+.margin-sec .box-content h2 {
+text-align: left;
+font-size: 17px;
+font-weight: 600;
+margin-top: 0;
+margin-bottom: 10px!important;
+text-transform: capitalize;
+color: #337ab7;
+}
+
+.detail-sec .detail-list h2 a {
+  width: auto;
+  padding: 0px 15px;
+  margin: 0 auto;
+  text-align: center;
+  border: 0;
+  height: 36px;
+  line-height: 36px;
+  text-decoration: none;
+  float: left;
+  color: #fff!important;
+  background-color: #5cb85c;
+  font-size: 15px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
 }
 
 .table-bordered {
@@ -303,6 +352,16 @@ a {
     height: 54px !important;
     width: 18%;
   }
+}
+
+.radio-inline, .checkbox-inline {
+  position: relative;
+  display: inline-block;
+  padding-left: 20px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  font-weight: normal;
+  cursor: pointer;
 }
 
 .message {
@@ -598,12 +657,25 @@ img {
   left: 0;
 }
 
+.navbar-nav > li > a  {
+  color: white !important;
+} 
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #555;
     background-color: #e7e7e794;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
    background-color: #e7e7e794;
+}
+
+.top-recepi  .detail {
+  padding-left: 0 !important;
+}
+
+.modal-dialog {
+    max-width: 600px !important;
+    margin: 1.75rem auto;
 }
 
 .nav  > li {
@@ -616,8 +688,13 @@ img {
     /*margin-right: 1px;*/
 }
 .navbar-default .navbar-nav > li > a {
-  color: #fff;
+  color: #fff !important;
   font-size: 15px;
+}
+
+.navbar-nav .dropdown-menu{
+  position: relative;
+  z-index: 100000;
 }
 
 

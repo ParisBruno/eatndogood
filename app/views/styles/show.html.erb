@@ -1,0 +1,26 @@
+<%= render 'shared/page_title', title: "#{@style.name}" %>
+<% if @style.recipes.count != 0 %>
+  
+  	<center><h1 align="center">Recipe's containing <%= @style.name %></h1></center>
+  
+  <div class="row">
+  	<div class="col-md-4"></div>
+  	<div class="col-md-4" align="center">
+    <%= will_paginate @style_recipes %>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  
+  <%= render 'recipes/recipe', obj: @style_recipes %>
+  <div class="row">
+  	<div class="col-md-4"></div>
+  	<div class="col-md-4" align="center">
+    <%= will_paginate @style_recipes %>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+<% else %>
+  <div class="row">
+    <h4 align="center">No recipes yet!</h4>
+  </div>
+<% end %>

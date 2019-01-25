@@ -145,8 +145,9 @@
 </div>
 
   <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+  <div id="myModal" class="modal fade" role="dialog" style="margin-top:20px;">
+    <div class="modal-dialog" style="margin-top:150px;">
+      <%= form_tag('/sendUserEmailContent', method: :post, remote: true, multipart: true) do |f| %> 
 
       <!-- Modal content-->
       <div class="modal-content">
@@ -155,15 +156,27 @@
           <h4 class="modal-title"><%= t 'guests.send_email' %></h4>
         </div>
         <div class="modal-body">
+          
            <p><%= t 'guests.email_content' %></p>
-           <textarea rows="6" cols="60" id="email_content"></textarea> <input type="hidden" value="" id="sender_email_hdn">
+           
+           <%= cktext_area :email, :content,  {class: "form-control", placeholder: ""}%>
+           <%= hidden_field_tag :receivers, '' %>
            <span id="error_span" style="display:none;color:red;"></span>
            <span id="suc_span" style="display:none;color:green;"><%= t 'guests.email_sent_success' %></span>
+           <div class="form-group">
+             <div class="control-label col-md-8"><%= label_tag :attachments %></div>
+             
+             <div class="control-label col-md-8">
+               <%= file_field_tag "attachments[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
+             </div>
+           </div>
+           
         </div>
         <div class="modal-footer">
-          <button type="button" onclick="sendEmailContent()" class="btn btn-primary" id="send_btn"><%= t 'guests.send_email' %></button>
+          <button type="submit"  class="btn btn-primary" ><%= t 'guests.send_email' %></button>
           <button type="button" class="btn btn-default" data-dismiss="modal"><%= t 'forms.close' %></button>
         </div>
+        <% end %>
       </div>
 
     </div>
@@ -171,6 +184,7 @@
 
   <script>
   $('.sendEmails').on('click', function() {
+    console.log("Test");
     var emails = $("input[type=checkbox]:checked").map(function () {
         return $(this).data('email');
     }).get();
@@ -185,8 +199,8 @@
 
   function sendEmail(email) {
     $('#email_content').val('');
-    $('#sender_email_hdn').val('');
-    $('#sender_email_hdn').val(email);
+    $('#receivers').val('');
+    $('#receivers').val(email);
     $('#error_span').text('');
     $('#myModal').modal('show');
 

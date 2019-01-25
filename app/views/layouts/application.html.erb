@@ -35,14 +35,14 @@
       $(document).ready(function() {
         var windowHeiht = $(window).height();
         var footerPosition = $("footer").position()['top'];
-        console.log(windowHeiht + " - " + footerPosition);
+        console.log('doc heght: ' + windowHeiht + " - footer Pos: " + footerPosition);
 
-        if (windowHeiht > footerPosition) {
+        if (footerPosition < 600) {
           
           $("footer").addClass('fixed-footer');
-        } else {
-          $("footer").removeClass('fixed-footer');
-        }
+        } 
+
+        
       });
     </script>
     

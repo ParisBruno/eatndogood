@@ -8,6 +8,7 @@ class IngredientsController < ApplicationController
   
   def create
     @ingredient = Ingredient.new(ingredient_params)
+    @ingredient.user_id = current_user.id
     if @ingredient.save
       flash[:success] = "Ingredient was successfully created"
       redirect_to ingredient_path(@ingredient)
@@ -47,11 +48,6 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
   end
   
-  def require_admin
-    if !logged_in? || (logged_in? and !current_user.admin?)
-      flash[:danger] = "Only admin users can perform that action"
-      redirect_to ingredients_path
-    end
-  end
+  
   
 end

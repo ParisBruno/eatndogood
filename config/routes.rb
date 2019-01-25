@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   #end woocommerce api
 
   get 'guests', to: 'guests#index'
-  post 'guests', to: 'guests#send_emails'
+  post 'sendUserEmailContent', to: 'guests#send_emails'
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
   get "newguest/:id/:email", to: "guests#new", as: "newguest"
   post 'guests/create',to: "guests#create", as: 'guestCreation'
@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   resources :chefs #, except: [:new]
   resources :ingredients, except: [:destroy]
+  resources :styles, except: [:destroy]
   resources :messages, only: [:create]
   resources :pages do
     collection do

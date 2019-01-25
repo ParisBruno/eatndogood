@@ -1,19 +1,20 @@
-<nav class="navbar navbar-default">
+<!-- <nav class="navbar navbar-default"> -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
   <% if user_signed_in? %>
-    <div class="container-fluid">
+    <div class="container-fluid collapse navbar-collapse" id="responsive-nav">
 
       
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+          
           <%= link_to "Home", root_path, class: "navbar-brand", id: "logo", style: "display: flex; justify-content: center; align-items: center;" %>
         </div>
-        <ul class="nav navbar-nav flex-row">
+        <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
           <li class="active nav-item">
             <%= link_to recipes_path do %>
@@ -21,7 +22,7 @@
             <% end %>
           </li>
            <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search By Ingredients</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingredients</a>
             <ul class="dropdown-menu">
               <% @ingredients.each do |ingredient| %>
               <li class="nav-item">
@@ -38,8 +39,31 @@
               <% end %>
               
             </ul>
+          </li>
+
+           <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Styles</a>
+            <ul class="dropdown-menu">
+              <% @styles.each do |style| %>
+              <li class="nav-item">
+                <%= link_to style.name, style_path(style.id) %>
+              </li>
+              
+              <% end %>
+
+              <% if current_user.admin?  || current_user.chef? %>
+                <li role="separator" class="divider"></li>
+                <li class="nav-item">
+                  <%= link_to "New Style", new_style_path %>
+                </li>
+              <% end %>
+              
+            </ul>
+          </li>
+          
+
             <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search By Allergens</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Allergens</a>
             <ul class="dropdown-menu">
               <% @allergens.each do |allergen| %>
               <li class="nav-item">

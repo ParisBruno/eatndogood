@@ -1,50 +1,175 @@
+<style type="text/css">
+  .full-width-sec {    float: none;
+      margin: 0 auto;
+      display: inline-block;
+      text-align: center;
+    }
+  .full-width-sec .box-content {    float: none;
+      display: inline-block; text-align: left;
+      vertical-align: top;
+      margin: 0 1%;}
+  .full-width-sec .recepie-menu {width: 100%;}
+  .full-width-sec .label label {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px; font-weight: bold;
+      line-height: 1.428571429;
+      color: #333333;}
+  .recipi-main {margin-top: 60px;}
+</style>
 <%= render 'shared/errors', obj: @recipe %>
 
 <div class="row">
-  <div class="col-md-12">
-    <%= form_for(@recipe, :html => {class: "form-horizontal", multipart: true, role: "form"}) do |f| %>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :name %>
+  <div class="margin-sec receipy-top-sec custom-new-form">
+    <div class=" col-md-offset-4 login-sec margin-sec full-width-sec">
+    <%= form_for(@recipe, html: { multipart: true, class: "form-horizontal" }) do |f| %>
+      <div class="col-lg-6  col-md-5 col-ms-12 col-xs-12  well box-content">
+
+        <div class="form-group">
+          <div class=" col-md-12">
+            <%= f.label :name, t('forms.name') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field :name, class: "form-control", placeholder: t('recipes.write_name'), autofocus: true %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.text_field :name, class: "form-control", placeholder: "Name of recipe", autofocus: true %>
+
+        <div class="form-group">
+          <div class=" col-md-12">
+            <%= f.label :summary, t('forms.summary') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_area :summary, rows: '2', cols: 50, class: "form-control", placeholder: t('recipes.summary_placeholder'), autofocus: true %>
+            <p style="color:red;"><%= t('common.note_allow_chars', from: 10, to: 500) %></p>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :description %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_area :description, rows: 10, class: "form-control", placeholder: "Enter steps to create recipe" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-offset-2 col-md-8">
-            <%= f.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |cb| %>
-              <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
-            <% end %>
+
+        <div class="form-group">
+          <div class=" col-md-12">
+            <%= f.label :description, t('forms.description') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_area :description, cols: 50, class: "form-control", placeholder: t('recipes.description_placeholder'), autofocus: true %>
+            <p style="color:red;"><%= t('common.note_allow_chars', from: 20, to: 3000) %></p>
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :image, "Add Image" %>
+      <div class="col-lg-5  col-md-5 col-ms-12 col-xs-12 well box-content rht-box-sec">
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :style, t('common.styles') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.collection_check_boxes :style_ids, Style.where(:user_id => current_user.id).all, :id, :name do |cb| %>
+              <div class="col-md-12">
+                <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= file_field_tag "images[]", type: :file, multiple: true %>
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :ingredients, t('common.ingredients') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.collection_check_boxes :ingredient_ids, Ingredient.where(:user_id => current_user.id).all, :id, :name do |cb| %>
+              <div class="col-md-12">
+                <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit class: "btn btn-primary btn-lg btn-xlarge" %>
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :allergens, t('common.allergens') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.collection_check_boxes :allergen_ids, Allergen.where(:user_id => current_user.id).all, :id, :name do |cb| %>
+                        <div class="col-md-12">
+                          <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+                        </div>
+                      <% end %>
+          </div>
+        </div>
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :images, t('recipes.upload_food_pic') %>
+          </div>
+          <div class="col-md-12">
+            <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
+            <p style="color:red;">Choose 2 images</p>
+          </div>
+        </div>
+       
+        
+      
+        <div class="recepie-menu btn">
+          <bold><%= t('recipes.max_pic_size', mb: 5) %></bold>
+          <%= f.submit(t('recipes.save_submit'), class: "btn btn-success btn-lg") %>
         </div>
       </div>
     <% end %>
-    <div class="col-md-4 col-md-offset-4 colormatch">
-      [ <%= link_to "Cancel request and return to recipes listing", recipes_path %> ]
     </div>
   </div>
-</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $("footer").removeClass('fixed-footer');
+  });
+
+  $('#recipe_picture').bind('change', function(){
+   var _URL = window.URL || window.webkitURL;
+    size_in_megabytes = this.files[0].size/2048/2048;
+    if (size_in_megabytes > 1) {
+        $(this).val('');
+      alert('Maximum file size is 5MB. Please choose a smaller file.')
+    }
+
+    var file, img;
+    if ((file = this.files[0])) {
+        img = new Image();
+        img.onload = function () {
+            if(this.width < 500 && this.height < 600) {
+              //alert(this.width + " " + this.height);
+              alert('Please provide image atleast 500*600 dimensions!');
+              $('#recipe_picture').val('');
+            }
+        };
+        img.src = _URL.createObjectURL(file);
+
+    }
+
+  });
+
+  $('#recipe_drinkpic').bind('change', function(){
+
+    var _URL = window.URL || window.webkitURL;
+    size_in_megabytes = this.files[0].size/2048/2048;
+    if (size_in_megabytes > 1) {
+        $(this).val('');
+      alert('Maximum file size is 5MB. Please choose a smaller file.')
+    }
+
+    var file, img;
+    if ((file = this.files[0])) {
+        img = new Image();
+        img.onload = function () {
+            if(this.width < 500 && this.height < 600) {
+              //alert(this.width + " " + this.height);
+              alert('Please provide image atleast 500*600 dimensions!');
+              $('#recipe_drinkpic').val('');
+            }
+        };
+        img.src = _URL.createObjectURL(file);
+
+    }
+  });
+
+
+</script>
+
+
 

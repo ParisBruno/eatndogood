@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 class GuestsController < ApplicationController
 
+  protect_from_forgery with: :exception
+
   def index
-    return redirect_to root_path if current_user.guest? || current_user.chef?
+    return redirect_to root_path if current_user.guest?
 
     @guests = User.where(guest: true).paginate(page: params[:page], per_page: 5)
   end
@@ -47,13 +49,13 @@ class GuestsController < ApplicationController
   end
 
   def send_emails
-    text = params[:text]
-    receivers = params[:emails].present? ? params[:emails] : current_user.guests
+    text = params[:email][:content]
+    receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
     return redirect_to root_path if current_user.guest?
 
     return unless text.present?
 
-    receivers.each do |receiver|
+    receivers.split(',').each do |receiver|
       AdminMailer.notification_email(current_user.full_name, receiver, text).deliver_now
     end
   end

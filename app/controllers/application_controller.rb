@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin
+    if !logged_in? || (logged_in? and !current_user.admin?)
+      flash[:danger] = "Only admin users can perform that action"
+      redirect_to ingredients_path
+    end
+  end
+
   def after_sign_in_path_for(resource)
     session[:chef_id] = current_user.chef_id
     recipes_path
@@ -45,7 +52,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_data
-    @ingredients = Ingredient.all
-    @allergens = Allergen.all
+    @ingredients = Ingredient.where(user_id: current_user.id)
+    @allergens = Allergen.where(user_id: current_user.id)
+    @styles = Style.where(user_id: current_user.id)
   end
 end
