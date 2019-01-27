@@ -1,5 +1,6 @@
 class ChefsController < ApplicationController
-  before_action :set_chef, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update]
+  before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
   before_action :require_admin, only: [:destroy]
   
@@ -8,16 +9,14 @@ class ChefsController < ApplicationController
   end
   
   def new
-    @chef = Chef.new
-    @chef.build_user
+    @user = User.new
+    @user.build_chef_info
   end
   
   def create
-    @chef = Chef.new(chef_params)
-    if @chef.save
-      session[:chef_id] = @chef.id
-      cookies.signed[:chef_id] = @chef.id
-      flash[:success] = "Welcome #{@chef.user.full_name} to MyRecipes App!"
+    @user = User.new(chef_params)
+    if @user.save
+      flash[:success] = "Welcome #{@user.full_name} to MyRecipes App!"
       redirect_to chef_path(@chef)
     else
         render 'new'
@@ -33,9 +32,11 @@ class ChefsController < ApplicationController
   end
   
   def update
-    if @chef.update(chef_params)
+    params[:user].delete(:password) if params[:user][:password].blank?
+    if @user.update(chef_params)
+      sign_in(@user, :bypass => true)
       flash[:success] = "Your account was updated successfully"
-      redirect_to @chef
+      redirect_to @user.chef_info
     else
       render 'edit'
     end  
@@ -52,20 +53,22 @@ class ChefsController < ApplicationController
   private
   
   def chef_params
-    params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
-                                  :password, :password_confirmation])
+    # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
+    #                               :password, :password_confirmation])
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, chef_info_attributes: 
+                                    [:my_bio, :chef_avatar])
   end
 
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+  def set_user
+    @user = User.includes(:chef_info).find(params[:id])
   end
-  
+
   def set_chef
-    @chef = Chef.includes(:user).find(params[:id])
+    @chef = Chef.includes(:user).find params[:id]
   end
   
   def require_same_user
-    if current_chef != @chef and !current_chef.admin?
+    if current_user != @user.id and !current_user.admin?
       flash[:danger] = "You can only edit or delete your own account"
       redirect_to chefs_path
     end

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class GuestsController < ApplicationController
 
-  protect_from_forgery with: :exception
+  protect_from_forgery prepend: true, with: :exception
+  skip_before_action :verify_authenticity_token, only: [:send_emails]
 
   def index
     return redirect_to root_path if current_user.guest?
@@ -58,6 +59,7 @@ class GuestsController < ApplicationController
     receivers.split(',').each do |receiver|
       AdminMailer.notification_email(current_user.full_name, receiver, text).deliver_now
     end
+    #format.json { render json: {success: true}, status: :ok} 
   end
 
   def guest_params

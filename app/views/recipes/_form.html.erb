@@ -56,40 +56,16 @@
 
         <div class="form-group recepie-menu">
           <div class="col-md-12">
-            <%= f.label :style, t('common.styles') %>
-          </div>
-          <div class="col-md-12">
             <%= f.collection_check_boxes :style_ids, Style.where(:user_id => current_user.id).all, :id, :name do |cb| %>
-              <div class="col-md-12">
-                <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
-              </div>
+              <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
-          </div>
-        </div>
-
-        <div class="form-group recepie-menu">
-          <div class="col-md-12">
-            <%= f.label :ingredients, t('common.ingredients') %>
-          </div>
-          <div class="col-md-12">
             <%= f.collection_check_boxes :ingredient_ids, Ingredient.where(:user_id => current_user.id).all, :id, :name do |cb| %>
-              <div class="col-md-12">
-                <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
-              </div>
+              <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
-          </div>
-        </div>
 
-        <div class="form-group recepie-menu">
-          <div class="col-md-12">
-            <%= f.label :allergens, t('common.allergens') %>
-          </div>
-          <div class="col-md-12">
             <%= f.collection_check_boxes :allergen_ids, Allergen.where(:user_id => current_user.id).all, :id, :name do |cb| %>
-                        <div class="col-md-12">
-                          <%= cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
-                        </div>
-                      <% end %>
+              <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+            <% end %>
           </div>
         </div>
 
@@ -99,7 +75,7 @@
           </div>
           <div class="col-md-12">
             <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
-            <p style="color:red;">Choose 2 images</p>
+            <p style="color:red;"><%= t('recipes.choose_2_photo') %></p>
           </div>
         </div>
        

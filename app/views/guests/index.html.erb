@@ -90,6 +90,7 @@
       <tr>
         <th>
           <button type="button" class="btn btn-primary sendEmails"><%= t 'forms.send_emails' %></button>
+          <button type="button" class="btn btn-primary sendEmails" id="sendAll"><%= t 'forms.send_all_emails' %></button>
         </th>
         <th><%= t 'forms.s_no' %></th>
         <th><%= t 'forms.first_name' %></th>
@@ -147,7 +148,7 @@
   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog" style="margin-top:20px;">
     <div class="modal-dialog" style="margin-top:150px;">
-      <%= form_tag('/sendUserEmailContent', method: :post, remote: true, multipart: true) do |f| %> 
+      <%= form_tag('/sendUserEmailContent', method: :post, remote: true, multipart: true, id: "frmSendEmail") do |f| %> 
 
       <!-- Modal content-->
       <div class="modal-content">
@@ -161,6 +162,7 @@
            
            <%= cktext_area :email, :content,  {class: "form-control", placeholder: ""}%>
            <%= hidden_field_tag :receivers, '' %>
+           <%= hidden_field_tag :send_all, '' %>
            <span id="error_span" style="display:none;color:red;"></span>
            <span id="suc_span" style="display:none;color:green;"><%= t 'guests.email_sent_success' %></span>
            <div class="form-group">
@@ -183,6 +185,13 @@
   </div>
 
   <script>
+  $(document).ready(function() {
+    $('#frmSendEmail').on('ajax:success', function(e, data, status, xhr){
+       $('#myModal').modal('hide');
+     }).on('ajax:error',function(e, xhr, status, error){
+        console.log(error);
+      });
+  });
   $('.sendEmails').on('click', function() {
     console.log("Test");
     var emails = $("input[type=checkbox]:checked").map(function () {
@@ -195,6 +204,16 @@
         $('#error_span').text('<%= t 'no_selected_guests' %>');
         $('#error_span').show();
     }
+  });
+
+  
+  $('#sendAll').on('click', function() {
+    $('#send_all').val(1);
+    $("input[type=checkbox]").prop('checked',true);
+    var  emails = $("input[type=checkbox]:checked").map(function () {
+        return $(this).data('email');
+    }).get();
+    sendEmail(emails);
   });
 
   function sendEmail(email) {

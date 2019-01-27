@@ -103,11 +103,11 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.full_name %></a>
+              <%= current_user.first_name %></a>
             <ul class="dropdown-menu">
               
               <li>
-                <%= link_to "Edit Profile", !current_user.host_chef.nil? ? edit_chef_path(current_user.host_chef) : edit_user_registration_path(current_user) %>
+                <%= link_to "Edit Profile", current_user.chef? ? edit_chef_path(current_user) : edit_user_registration_path(current_user) %>
               </li>
               <% if current_user.admin? %>
                 <li>

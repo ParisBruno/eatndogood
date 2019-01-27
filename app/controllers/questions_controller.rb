@@ -17,7 +17,9 @@ class QuestionsController < ApplicationController
     @email = params[:email] if !params[:email].empty?
     @user_id = params[:user_id]
     @recipe_id = params[:recipe_id]
+    @make_reservation = params[:make_reservation]
     @question = Question.new
+    @question.subject = "Make Reservation" if @make_reservation
   end
 
   # GET /questions/1/edit
@@ -32,8 +34,13 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         ActionMailer::Base.mail(from: "info@itoprecipies.com", to: @question.email, subject: @question.subject, body: @question.body).deliver
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
+        if params[:question][:make_reservation]
+          format.html { redirect_to recipe_path(@question.recipe_id), notice: 'Make Reservation successfully.' }
+        else
+          format.html { redirect_to @question, notice: 'Question was successfully created.' }
+          format.json { render :show, status: :created, location: @question }
+        end
+        
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }

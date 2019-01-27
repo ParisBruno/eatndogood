@@ -21,13 +21,9 @@
 
 <% if @chef.recipes.count != 0 %>
   <h1 align="center"><%= @chef.user.full_name %>'s recipes</h1>
-  <div align="center">
-    <%= will_paginate @chef_recipes %>
-  </div>
+ 
   <%= render 'recipes/recipe', obj: @chef_recipes %>
-  <div align="center">
-    <%= will_paginate @chef_recipes %>
-  </div>
+  
 <% else %>
   <h4 align="center">No recipes yet!</h4>
 <% end %>

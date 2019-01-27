@@ -26,7 +26,7 @@ end
   </ul>
 </div>
 
-<div class="">
+<div class="list-recipes">
   <% if @recipes.blank? %>
     <div class="row">
       <div class="col-sm-12" style="text-align:center;">
@@ -53,8 +53,17 @@ end
     <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
       <h2><%= link_to recipe.name, recipe_path(recipe) %></h2>
-      <p><%= (recipe.description.size > 100) ? recipe.description.slice(0,100) + '...' : recipe.description %></p>
+      <p><%= (!recipe.summary.nil? && recipe.summary.size > 100) ? recipe.summary.slice(0,100) + '...' : recipe.summary %></p>
 
+      <% if recipe.styles.any? %>
+        <p><%= t('common.styles_colon') %> <%= render recipe.styles %></p>
+      <% end %>
+      <% if recipe.ingredients.any? %>
+        <p><%= t('common.ingredients_colon') %> <%= render recipe.ingredients %></p>
+      <% end %>
+      <% if recipe.allergens.any? %>
+        <p><%= t('common.allergens_colon') %> <%= render recipe.allergens %></p>
+      <% end %>
       <div class="pull-right">
         <%= link_to like_recipe_path(recipe, like: true), method: :post do %>
           <i class="glyphicon glyphicon-thumbs-up"></i> <%= recipe.thumbs_up_total %>

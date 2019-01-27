@@ -128,7 +128,7 @@
     <%# <div id="move-right">
       <div id="btn"> %>
         <div class="row">
-          <div class="col-md-12 text-center button-success">
+          <div class="col-md-12 text-center" style="width: 100%;">
             <% if @admin_id.blank? || @guest_email.blank? %>
                <%= link_to t('common.take_a_tour_as_guest'), new_user_registration_path, {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
             <% else %>
@@ -159,7 +159,7 @@
         </div>
       <%# <div id="btn"> %>
       <div class="row">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center" style="width: 100%;">
           <button class="btn btn-success btn-lg" onclick='newDoc("<%= new_user_session_path+'?is_guest=yes' %>")'><%= link_to t('navigation.login'), new_user_session_path(is_guest: :yes), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
         </div>
       </div>

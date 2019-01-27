@@ -130,6 +130,7 @@ fr:
     summary: le sommaire
     username: Nom d'utilisateur
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
+    send_all_emails: "Envoyer un courrier électronique à tous les invités"
   guests:
     are_you_sure_delete_user: Are you sure! You want  to delete guest user?
     clear_search: Effacer la recherche
@@ -235,7 +236,6 @@ fr:
     crafted_by: 'Crafted by:'
     delete_recipe: Delete Recipe
     description_placeholder: |2-
-
        For better recipe layout follow those guidelines, READ the tips then start typing your recipe.
        1) Write some tips to make this one a top of the line recipe
        2) Ingredients: (create a list from most to the least important items)
@@ -243,6 +243,7 @@ fr:
        4) Variables, if any:
        5) Select a style or ingredient, or create new style or ingredient in menu bar
        6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px Dont worry about making mistakes you can edit the recipes anytime.
+    choose_2_photo: Choisissez 2 images
     edit_recipe: Edit Recipe
     max_pic_size: Max picture size %{mb} megabytes
     new_title: Créer une nouvelle recette de chef-d'œuvre

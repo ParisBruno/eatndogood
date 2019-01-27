@@ -14,6 +14,12 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     border: none
 } */
 
+.alert-notice {
+    background-color: #99cc99;
+    font-size: 15px;
+    text-align: center;
+}
+
 @media (max-width: 1199px) {
 .box-content.rht-box-sec { margin-top: 30px;} 
 .row { margin-left: 0; margin-right: 0;}
@@ -29,7 +35,7 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     .update-section .box-content:last-child {margin-top: 20px;}
 .edit-chef .box-content { min-height: inherit;}
 .margin-sec .box-content {
-    min-height: 240px;
+    /*min-height: 240px;*/
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
@@ -176,6 +182,19 @@ section.testimonials {
     .site-footer h5 {
         text-align: left
     }
+
+    .detail-sec {
+        max-width: 61.666667%;
+    }
+
+    .col-md-4.col-sm-12.col-xs-12.thumb-sec {
+        max-width: 36.333333%;
+    }
+
+    .recipe-detail .image-box-shadow {
+        height: 400px !important;
+    }
+
 
     header#main_header > .container #responsive-nav > ul, header#main_header > .container #responsive-nav .nav_item {
         float: none;
@@ -450,7 +469,7 @@ section.chef_info.center h2 a:hover {
         display: block;
     margin-bottom: 8px;
 }
-.recepie-menu label {padding-left: 0px; width: 100%; margin-left: 0px!important;}
+.recepie-menu label {padding-left: 10px; margin-left: 0px!important; }
 .recepie-menu label input {    margin-left: 0!important;
     margin-right: 8px;
     float: left;
@@ -699,6 +718,14 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     margin: 0;
     width: 100%;
 }
+
+.navbar-nav {
+    text-align: center;
+}
+.navbar-expand-lg>.container-fluid {
+    padding-right: 23px;
+    padding-left: 22px;
+}
     .full-width-sec.edit-chef {
     float: left;
     margin: 0;
@@ -743,7 +770,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     white-space: normal;
     line-height: 2!important;}
 .login-sec.well { width: 100%; float: left; margin: 0; display: block!important; padding: 12px!important;}
-.dropdown .dropdown-menu li a {background: rgba(239, 234, 234, 0.6); border-bottom: 1px solid rgba(153, 153, 153, 0.31);}
+.dropdown .dropdown-menu li a {background: white; border-bottom: 1px solid rgba(153, 153, 153, 0.31);}
     .alert.alert-success {
     top: 80px!important;  margin-top: 0!important;
     margin: 0 0px!important; padding: 10px 10px 10px 10px!important;}
@@ -869,7 +896,7 @@ header#main_header #responsive-nav {  float: left;
     padding-right: 2%!important;  width: 30%; float: left; margin-left: 0!important; margin-top: 0; box-shadow: none; margin: 0;}
 .chef-bio.bio-section .col-md-9 { padding: 0; width: 70%; float: left; box-shadow: none; margin: 0;}
 .chef-full .custom-profile-detail img {min-height: inherit!important;}
-.margin-sec .detail .box-content {padding-bottom: 30px;} 
+.margin-sec .detail .box-content {padding-bottom: 10px;} 
 .margin-sec .detail .content-left-sec { padding-bottom: 30px;}
 .margin-sec .detail-sec { width: calc(100% - 300px);}
 .margin-sec .thumb-sec { float: left; width: 300px;}
@@ -880,9 +907,10 @@ header#main_header #responsive-nav {  float: left;
  .margin-sec .detail .pull-right {
     position: absolute; right: 22px!important; bottom: 30px!important; margin: 0!important;}
 .margin-sec .box-content .pull-right { position: absolute; right: 15px; bottom: 20px; margin: 0!important;}
-.margin-sec .detail { width: calc(100% - 420px); padding-right: 15px; float: left;}
+.margin-sec .detail { width: calc(100% - 420px); padding-right: 15px; float: left; flex: 0 0 43.666667%  !important;}
 .margin-sec .thumb { width: 200px; margin-top: 0!important; margin-right: 10px;
-    margin-left: 0; float: left;} 
+    margin-left: 0; float: left;     flex: 0 0 26.666667% !important;
+    max-width: 200px !important;} 
 .margin-sec .image-box-shadow { height: 200px; margin-top: 0px;}
 .margin-sec .box-content {padding: 15px;}
     header#main_header > .container #responsive-nav > ul li a,
@@ -893,6 +921,10 @@ header#main_header #responsive-nav {  float: left;
 .margin-sec.receipy-top-sec .rht-box-sec {  margin-top: 20px;}
 .return-receipi {margin-bottom: 20px!important;}
 .edit-chef .box-content { min-height: inherit!important; margin-top: 20px!important;}
+
+    .img-inner img {
+        height: 190px !important;
+    }
 }
 
 
@@ -909,6 +941,25 @@ header#main_header #responsive-nav {  float: left;
     .navbar-header, .container-fluid > .navbar-collapse > ul > li {
         width: 100%;
         border-bottom: solid 1px;
+    }
+
+    .navbar-expand-lg>.container-fluid {
+        padding-right: 23px !important;
+        padding-left: 22px !important;
+    }
+
+    .well.box-content .pull-right {
+        margin-right: -25px;
+        margin-bottom: -20px;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+    .margin-sec {
+        margin-top: 67px;
+    }
+    .list-recipes {
+        margin-top: -68px;
     }
 }
 

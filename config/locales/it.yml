@@ -130,6 +130,7 @@ it:
     summary: Sommario
     username: Nome utente
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
+    send_all_emails: "Invia email a tutti gli ospiti"
   guests:
     are_you_sure_delete_user: Sei sicuro! Vuoi cancellare l'utente ospite?
     clear_search: cancella la ricerca
@@ -235,7 +236,6 @@ it:
     crafted_by: 'Creata da: '
     delete_recipe: Elimina questa ricetta
     description_placeholder: |2-
-
        Per una migliore configurazione della ricetta segui queste linee guida, LEGGI i suggerimenti e inizia a scrivere la tua ricetta.
        1) Scrivi alcuni suggerimenti per rendere questa una ricetta preferita
        2) Ingredienti: (crea una lista con gli ingredienti piu, ai meno iimportanti)
@@ -243,6 +243,7 @@ it:
        4) Variabili, se presenti:
        5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.
+    choose_2_photo: Scegli 2 immagini
     edit_recipe: Modifica questa ricetta
     max_pic_size: Max picture size %{mb} megabytes
     new_title: Crea una nuovo capolavoro di  ricetta

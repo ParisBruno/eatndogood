@@ -130,6 +130,7 @@ es:
     summary: el resumen
     username: Nombre de usuario
     write_few_words_about_yourself: Escribe algunas palabras sobre ti
+    send_all_emails: "Sendu retpoŝton al ĉiuj gastoj"
   guests:
     are_you_sure_delete_user: ¡Estás seguro! ¿Desea eliminar el usuario invitado?
     clear_search: Borrar búsqueda
@@ -235,7 +236,6 @@ es:
     crafted_by: 'Creado por:'
     delete_recipe: eliminar receta
     description_placeholder: |2-
-
        Para un mejor diseño de recetas, siga estas pautas, LEA los consejos y comience a escribir su receta.
        1) Escribe algunos consejos para que esta sea una receta de primera línea
        2) Ingredientes: (crea una lista de la mayoría a los elementos menos importantes)
@@ -243,6 +243,7 @@ es:
        4) Variables, si las hay:
        5) Seleccione un estilo o ingrediente, o cree un nuevo estilo o ingrediente en la barra de menú
        6) Cargue la imagen de su obra maestra con el botón Elegir archivo, tamaño máximo de la imagen 300x400 px
+    choose_2_photo: Elektu 2 bildojn
     edit_recipe: editar esta receta
     max_pic_size: Max picture size %{mb} megabytes
     new_title: Create A New Masterpiece Recipe

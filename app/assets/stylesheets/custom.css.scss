@@ -133,11 +133,11 @@ footer ul li {
 }
 
 .recipe-detail .image-box-shadow {
-  height: 310px !important;
+  height: 400px !important;
 }
 
 .image-box-shadow img {
-  height: 310px !important;
+  height: 390px !important;
 }
 
 .detail-sec .detail-list center {
@@ -263,7 +263,7 @@ color: #337ab7;
 }
 
 .img-inner img {
-  height: 220px !important;
+    height: 210px !important;
 }
 
 .chef-full .box-content.box-main {
@@ -440,7 +440,7 @@ a {
   box-shadow: none;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1;
   border: 0;
   text-align: left;
 }
@@ -661,12 +661,17 @@ img {
   color: white !important;
 } 
 
+.navbar-nav > li > a:hover  {
+  color: #555;
+  background-color: #1fbd24 !important;
+} 
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #555;
-    background-color: #e7e7e794;
+    background-color: #1fbd24 !important;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-   background-color: #e7e7e794;
+   background-color: #1fbd24 !important;
 }
 
 .top-recepi  .detail {
@@ -686,10 +691,27 @@ img {
     font-weight: bold;
     text-transform: uppercase;
     /*margin-right: 1px;*/
+    font-size: 15px;
 }
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 2.5em !important;
+    height: 2.5em !important;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;    
+    background-color: #208620 !important;
+}  
+
+.navbar .navbar-toggle .navbar-toggler-icon { color: #ffffff; }
+.navbar-light .navbar-toggler {
+
+  border-color: rgba(49, 222, 54, 0.3);
+
+}
+
 .navbar-default .navbar-nav > li > a {
   color: #fff !important;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .navbar-nav .dropdown-menu{
@@ -816,7 +838,6 @@ img {
 
 div.dropdown {
   position: relative;
-  padding-top: 70%;
   padding-right: 1%;
 }
 

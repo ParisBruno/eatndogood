@@ -80,6 +80,15 @@
             </h3>
             <br>
             <br>
+            <% if @entrepreneur_plan_ids.include? @recipe.chef.user.plan_id %>
+              <h3>
+                <a href="<%= new_question_path(@recipe, user_id: current_user.id, email: User.where(admin: true).first.email, recipe_id: @recipe.id, make_reservation: 1) %>" class="btn btn-success">
+                  <%= "Make Reservation" %>
+                </a>
+              </h3>
+              <% end %>
+              <br/>
+              <br/>
           <% end %>
           <%= link_to like_recipe_path(@recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
             <i class="glyphicon glyphicon-thumbs-up" ></i>

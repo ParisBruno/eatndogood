@@ -1,3 +1,16 @@
+<style>
+  .margin-sec .box-content {
+    padding: 20px !important;
+  }
+  .wrapper {
+      margin-top: 50px;
+      width: 100%;
+      margin-bottom: 0px;
+  }
+  .box-content input.btn {
+      margin-top: 0px!important; 
+  }
+</style>
 <center><h2>Edit <%= resource_name.to_s.humanize %></h2></center>
 <div class="row">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -32,20 +45,6 @@
         <%= link_to "Back", :back, {:class => "btn btn-link", :style => "margin-left: 10px;"} %>
       </div>
     </div>
-
-    
-
   </div>
   <% end %>
-  <div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+<div>

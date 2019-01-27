@@ -6,10 +6,11 @@ class RecipesController < ApplicationController
   before_action :require_user_like, only: [:like]
   
   def index
-    @recipes = Recipe.paginate(page: params[:page], per_page: 5)
+    @recipes = Recipe.includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
   end
   
   def show
+    @entrepreneur_plan_ids = PlanCategory.where(name: 'Entrepreneurs').first.plans.pluck(:id)
     @comment = Comment.new
     @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
   end
@@ -20,7 +21,7 @@ class RecipesController < ApplicationController
   
   def create
     @recipe = Recipe.new(recipe_params)
-    @recipe.chef = current_chef
+    @recipe.chef_id = current_user.chef_info.id
     if @recipe.save
       upload_images
       flash[:success] = "Recipe was created successfully!"
