@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class GuestsController < ApplicationController
+  respond_to :html, :json
 
   protect_from_forgery prepend: true, with: :exception
   skip_before_action :verify_authenticity_token, only: [:send_emails]
@@ -59,7 +60,8 @@ class GuestsController < ApplicationController
     receivers.split(',').each do |receiver|
       AdminMailer.notification_email(current_user.full_name, receiver, text).deliver_now
     end
-    #format.json { render json: {success: true}, status: :ok} 
+
+      
   end
 
   def guest_params

@@ -14,10 +14,17 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     border: none
 } */
 
-.alert-notice {
-    background-color: #99cc99;
+.alert {
     font-size: 15px;
     text-align: center;
+}
+
+.alert-notice {
+    background-color: #99cc99;
+}
+
+.alert-alert {
+    background-color: #e8e07c;
 }
 
 @media (max-width: 1199px) {
