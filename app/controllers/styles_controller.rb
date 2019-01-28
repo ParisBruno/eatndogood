@@ -11,7 +11,7 @@ class StylesController < ApplicationController
   # GET /styles/1
   # GET /styles/1.json
   def show
-    @style_recipes = @style.recipes.paginate(page: params[:page], per_page: 5)
+    @recipes = @style.recipes.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /styles/new

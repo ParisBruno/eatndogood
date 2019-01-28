@@ -27,6 +27,8 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     background-color: #e8e07c;
 }
 
+
+
 @media (max-width: 1199px) {
 .box-content.rht-box-sec { margin-top: 30px;} 
 .row { margin-left: 0; margin-right: 0;}
@@ -188,6 +190,13 @@ section.testimonials {
 @media (min-width: 768px) {
     .site-footer h5 {
         text-align: left
+    }
+
+    .nav .btn {
+        background-color: transparent;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
     }
 
     .detail-sec {
@@ -938,16 +947,41 @@ header#main_header #responsive-nav {  float: left;
 
 
 @media (max-width: 768px) {
+    #logo {
+        display: none !important;
+    }
     .top-space .col-md-2 { box-shadow: none; } 
     .navbar-header, .container-fluid > .navbar-collapse {
         margin-right: -15px;
         margin-left: -15px;
         z-index: 10;
-        background-color: #346540;
+        background-color: #344a64;
+    }
+    .navbar {
+        width: 90%;
+        margin-left: 5%;
+    }
+    .nav-item > a {
+        /*margin-left:20px;
+    */
+    }
+
+    .btn-purple {
+        background-color: #8160e1;
+    }
+
+    .navbar-nav {
+        margin: 0px !important;
+    }
+    .nav-item .btn {
+        margin-bottom: 5px;
+        line-height: 1.428571429;
+        border-radius: 4px;
+        margin-top: 5px;
     }
     .navbar-header, .container-fluid > .navbar-collapse > ul > li {
         width: 100%;
-        border-bottom: solid 1px;
+        /*border-bottom: solid 1px;*/
     }
 
     .navbar-expand-lg>.container-fluid {
