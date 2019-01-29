@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190124204343) do
+ActiveRecord::Schema.define(version: 20190128175838) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20190124204343) do
     t.string "chef_avatar_content_type"
     t.integer "chef_avatar_file_size"
     t.datetime "chef_avatar_updated_at"
+    t.integer "admin_id"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|

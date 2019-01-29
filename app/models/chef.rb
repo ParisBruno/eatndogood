@@ -12,6 +12,7 @@ class Chef < ApplicationRecord
   has_many :likes, dependent: :destroy
   belongs_to :user
   validates :user, presence: true
+  belongs_to :admin, class_name: 'User', foreign_key: 'admin_id'
 
   has_attached_file :chef_avatar, styles: { thumb: "300x250>" }
   validates_attachment_content_type :chef_avatar, content_type: /\Aimage\/.*\z/

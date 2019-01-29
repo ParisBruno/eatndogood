@@ -40,6 +40,9 @@
         </div>
         
       <%= f.fields_for :chef_info, @user.chef_info do |c| %>
+        <% if current_user.admin? && current_user.id != @user.id %>
+        <%= c.hidden_field :admin_id, value: current_user.id %>
+        <% end %>
         <div class="form-group">
           <div class="control-label col-md-2"><%= c.label :chef_avatar %></div>
           <div class="col-md-2">

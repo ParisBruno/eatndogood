@@ -29,6 +29,8 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
 
 
 
+
+
 @media (max-width: 1199px) {
 .box-content.rht-box-sec { margin-top: 30px;} 
 .row { margin-left: 0; margin-right: 0;}
@@ -63,7 +65,7 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     float: left;
     min-height: inherit!important;
     margin: 12px 0 12px 0;}
-.custom-profile-detail h3 {font-size: 17px!important;}
+
 .chef-full .image-box-shadow {
     display: inline-block;
     float: left;
@@ -378,7 +380,7 @@ button.btn-bottom:hover {
     box-shadow: none;
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    line-height: 1.5;
+    line-height: 2.5;
     border: 0;
     margin-top: 5px;
 }
@@ -390,6 +392,25 @@ button.btn-bottom:hover {
     color: rgb(88, 85, 85);}
 .chef-main h3 a:hover:before { color: rgb(51, 49, 49);}
 .chef-main h3 a {float: right; font-size: 0!important;}
+.custom-profile-detail h3 {
+    font-size: 17px!important;
+    width: 100%;
+    float: left;
+    padding: 5px;
+    display: block;
+    border: 1px solid #9999994f;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 2;
+    font-style: normal;
+    color: #fff;
+    margin-bottom: 0;
+    margin-top: 4px;
+    margin: 0;
+    margin-top: -20px;
+    background: rgb(83, 166, 83) !important;
+    z-index: 99;
+}
 .margin-sec .box-content {    background-color: #fff;
     padding: 20px;
     border-radius: 0;
@@ -1208,7 +1229,7 @@ header#main_header #responsive-nav .one:last-child {padding-bottom: 20px;}
 .text-center.custom-second-sec .button-success a {margin-bottom: 0px;}
 .chef-bio.bio-section .col-md-3 {padding-right: 10px!important;}
 .chef-bio .custom-profile-detail img {    object-fit: contain!important;}  
-.chef-bio.bio-section .image-box-shadow {padding: 0;}
+.chef-bio.bio-section .image-box-shadow {padding: 0; max-height: 340px;}
 .chef-bio.bio-section { clear: both; width: 100%; float: left; margin-bottom: 15px;}
 
 /*================28-6-18=====================*/

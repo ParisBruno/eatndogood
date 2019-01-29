@@ -17,7 +17,7 @@ class ChefsController < ApplicationController
     @user = User.new(chef_params)
     if @user.save
       flash[:success] = "Welcome #{@user.full_name} to MyRecipes App!"
-      redirect_to chef_path(@chef)
+      redirect_to chef_path(@user.chef_info)
     else
         render 'new'
     end
@@ -56,7 +56,7 @@ class ChefsController < ApplicationController
     # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
     #                               :password, :password_confirmation])
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, chef_info_attributes: 
-                                    [:my_bio, :chef_avatar])
+                                    [:my_bio, :chef_avatar, :admin_id])
   end
 
   def set_user
