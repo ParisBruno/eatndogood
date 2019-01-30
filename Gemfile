@@ -30,6 +30,7 @@ gem 'will_paginate', '3.1.0'
 gem 'sqlite3'
 gem 'simple_form'
 gem 'friendly_id', '~> 5.2.4'
+gem 'remotipart'
 
 group :development, :test do
   gem 'byebug', platform: :mri

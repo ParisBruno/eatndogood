@@ -10,12 +10,12 @@ class Chef < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :likes, dependent: :destroy
-  belongs_to :user
-  validates :user, presence: true
-  belongs_to :admin, class_name: 'User', foreign_key: 'admin_id'
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  #validates :user, presence: true
+  #belongs_to :admin, class_name: 'User', foreign_key: 'admin_id'
 
   has_attached_file :chef_avatar, styles: { thumb: "300x250>" }
   validates_attachment_content_type :chef_avatar, content_type: /\Aimage\/.*\z/
-  accepts_nested_attributes_for :user 
+  #accepts_nested_attributes_for :user 
 
 end

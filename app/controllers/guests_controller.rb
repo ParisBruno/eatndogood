@@ -61,7 +61,9 @@ class GuestsController < ApplicationController
       AdminMailer.notification_email(current_user.full_name, receiver, text).deliver_now
     end
 
-      
+    respond_to do |format|
+      format.json { render json: current_user.to_json }
+    end   
   end
 
   def guest_params

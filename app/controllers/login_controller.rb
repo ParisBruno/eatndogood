@@ -53,6 +53,7 @@ class LoginController < ApplicationController
 	def fetchapi
 	  vars = request.query_parameters
 	  email = (vars[:uem].present?) ? Base64.decode64(vars[:uem]) : ''
+	  puts email
 	  pass =  (vars[:upw].present?) ? Base64.decode64(vars[:upw]) : ''
 	  cat_name = (vars[:cat_name].present?) ? Base64.decode64(vars[:cat_name]) : ''
 	  prod_name = (vars[:prod_name].present?) ? Base64.decode64(vars[:prod_name]) : ''
@@ -77,9 +78,11 @@ class LoginController < ApplicationController
 	    if user && user.valid_password?(pass)
 	      #call function to assign plan of the user
 	      assignPlan(user.id,plan_id) if plan_id.present?
+	      
+	      if user.chef_info.nil?
+	      	create_chef(user.id, admin: true)
+	      end
 
-	      session[:chef_id] = user.chef.id
-	      session[:user_role] = 'admin'
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
 	    else #if chef is not present then create new chef
@@ -120,6 +123,10 @@ class LoginController < ApplicationController
 	      redirect_to root_path
 	    end
 	  end #end if to check the user
+	end
+
+	def create_chef (user_id, admin)
+		Chef.create({user_id: user_id, admin: admin, admin_id: user_id})
 	end
 
 	 #api that is calling from woocommerce for forgot password
@@ -381,7 +388,7 @@ class LoginController < ApplicationController
 	  planExist = Plan.find_by(title: prod_name)
 
 	  if planExist.present?
-	    planExist.name              = prod_name
+	    planExist.title              = prod_name
 	    planExist.yearly_cost       = yearly_cost
 	    planExist.cost_per_user     = cost_per_user
 	    planExist.plan_category_id  = planCategoryObj.id

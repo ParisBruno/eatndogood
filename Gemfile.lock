@@ -436,6 +436,7 @@ GEM
       redis-store (>= 1.2, < 2)
     redis-store (1.6.0)
       redis (>= 2.2, < 5)
+    remotipart (1.4.2)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -576,6 +577,7 @@ DEPENDENCIES
   rails-i18n (~> 5.1)
   redis (~> 4.0)
   redis-rails
+  remotipart
   rspec-rails (~> 3.8)
   rufus-scheduler (~> 3.4.0)
   sass-rails (~> 5.0)

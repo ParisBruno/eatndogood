@@ -187,8 +187,11 @@
   <script>
   $(document).ready(function() {
     $('#frmSendEmail').on('ajax:success', function(e, data, status, xhr){
+       $("input[type=checkbox]").prop('checked',false);
        $('#myModal').modal('hide');
      }).on('ajax:error',function(e, xhr, status, error){
+        $("input[type=checkbox]").prop('checked',false);
+        $('#myModal').modal('hide');
         console.log(error);
       });
   });

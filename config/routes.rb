@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   #end woocommerce api
 
   get 'guests', to: 'guests#index'
-  post 'sendUserEmailContent', to: 'guests#send_emails'
+  post 'sendUserEmailContent', to: 'guests#send_emails', :defaults => { :format => 'json' }
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
   get "newguest/:id/:email", to: "guests#new", as: "newguest"
   post 'guests/create',to: "guests#create", as: 'guestCreation'
