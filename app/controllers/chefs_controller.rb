@@ -56,7 +56,7 @@ class ChefsController < ApplicationController
     # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
     #                               :password, :password_confirmation])
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, chef_info_attributes: 
-                                    [:my_bio, :chef_avatar, :admin_id])
+                                    [:my_bio, :chef_avatar, :admin_id, :id])
   end
 
   def set_user

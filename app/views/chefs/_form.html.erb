@@ -22,6 +22,16 @@
             <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last your name", autofocus: true %>
           </div>
         </div>
+        <% if @user.admin? %>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= f.label :slug, "URL slug" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :slug, class: "form-control", placeholder: "Enter last your url slug", autofocus: true %>
+          </div>
+        </div>
+        <% end %>
         <div class="form-group">
           <div class="control-label col-md-2">
             <%= f.label :email %>
@@ -40,9 +50,7 @@
         </div>
         
       <%= f.fields_for :chef_info, @user.chef_info do |c| %>
-        <% if current_user.admin? && current_user.id != @user.id %>
         <%= c.hidden_field :admin_id, value: current_user.id %>
-        <% end %>
         <div class="form-group">
           <div class="control-label col-md-2"><%= c.label :chef_avatar %></div>
           <div class="col-md-2">

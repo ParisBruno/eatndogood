@@ -83,7 +83,7 @@ class LoginController < ApplicationController
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
 	    else #if chef is not present then create new chef
-	      @user = User.create!({email: email, password: pass, plan: plan_id})
+	      @user = User.create!({email: email, password: pass, plan: plan_id, chef: true})
 
 	      @chef = Chef.new
 		  @chef.user_id = @user.id	     

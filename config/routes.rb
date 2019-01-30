@@ -3,6 +3,8 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  #get '/'
+
   resources :questions
   resources :allergens
   authenticate :user do
@@ -59,4 +61,10 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   get '/chat', to: 'chatrooms#show'
+
+  # scope ':user' do
+  #   resources :chefs
+  # end
+  
+
 end
