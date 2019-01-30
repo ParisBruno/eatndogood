@@ -6,6 +6,11 @@ class Plan < ApplicationRecord
   validates :title, presence: true, uniqueness: true
 
   def create_new_plans
+  	family_cate = PlanCategory.where(name: 'Family & Friends').first
+  	professional_cate = PlanCategory.where(name: 'Professionals').first
+  	entrep_cate = PlanCategory.where(name: 'Entrepreneurs').first
+  	enterprise_cate = PlanCategory.where(name: 'Enterprise').first
+  	
   	plans = [
   	  
   	  {
