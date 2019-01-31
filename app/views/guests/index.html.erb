@@ -108,8 +108,8 @@
       <tr>
         <td><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
         <td> <a href="<%= guests_path(keywordL: guest.email) %>"><%= i %></a></td>
-        <td> <%= guest.first_name.capitalize %></td>
-        <td> <%= guest.last_name.capitalize %></td>
+        <td> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
+        <td> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
         <td>
           <a href="<%= (guest.chef.present?) ? chef_path(guest.chef): '#' %>"><%= (guest.chef.present?) ? guest.chef.chefname.capitalize : '-' %>
