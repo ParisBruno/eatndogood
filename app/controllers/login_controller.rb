@@ -96,8 +96,8 @@ class LoginController < ApplicationController
 	      if @chef.save!(:validate => false)
 	        #call function to assign plan of the user
 	        assignPlan(@user.id, plan_id) if plan_id.present?
+	        sign_in(@user, :bypass => true)
 
-	        sign_in(user, :bypass => true)
 	        flash[:success] = I18n.t 'flash.your_account_created'
 	        
 	        redirect_to recipes_path
