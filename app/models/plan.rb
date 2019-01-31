@@ -10,7 +10,7 @@ class Plan < ApplicationRecord
   	professional_cate = PlanCategory.where(name: 'Professionals').first
   	entrep_cate = PlanCategory.where(name: 'Entrepreneurs').first
   	enterprise_cate = PlanCategory.where(name: 'Enterprise').first
-  	
+
   	plans = [
   	  
   	  {
@@ -80,7 +80,7 @@ class Plan < ApplicationRecord
   	]
 
   	plans.each do |plan|
-  	  Plan.find_or_create_by(plan)
+  	  Plan.create(plan)
   	end
   end
 end

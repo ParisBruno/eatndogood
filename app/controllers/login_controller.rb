@@ -78,7 +78,7 @@ class LoginController < ApplicationController
 	    if user && user.valid_password?(pass)
 	      #call function to assign plan of the user
 	      assignPlan(user.id,plan_id) if plan_id.present?
-	      
+
 	      if user.chef_info.nil?
 	      	create_chef(user.id, admin: true)
 	      end
@@ -86,7 +86,7 @@ class LoginController < ApplicationController
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
 	    else #if chef is not present then create new chef
-	      @user = User.create!({email: email, password: pass, plan: plan_id, chef: true})
+	      @user = User.create!({email: email, password: pass, plan_id: plan_id, chef: true})
 
 	      @chef = Chef.new
 		  @chef.user_id = @user.id	     
@@ -113,12 +113,11 @@ class LoginController < ApplicationController
 	    if chef
 	      assignPlan(chef.id,plan_id) if plan_id.present?
 
-	      session[:chef_id] = chef.id
-	      session[:user_role] = 'admin'
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
 
 	    else
+
 	      flash[:danger] = I18n.t 'flash.invalid_arguments'
 	      redirect_to root_path
 	    end
@@ -326,6 +325,7 @@ class LoginController < ApplicationController
 	end
 
 	private
+
 
 	def createPlanCategory(vars)
 	  #vars = request.query_parameters

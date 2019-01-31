@@ -8,7 +8,7 @@ class GuestsController < ApplicationController
   def index
     return redirect_to root_path if current_user.guest?
 
-    @guests = User.where(guest: true).paginate(page: params[:page], per_page: 5)
+    @guests = User.where(guest: true).paginate(page: params[:page], per_page: 100)
   end
 
   def new
