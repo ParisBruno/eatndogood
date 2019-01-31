@@ -51,7 +51,6 @@ class GuestsController < ApplicationController
   end
 
   def send_emails
-    puts params
     content = params[:email_content][:content]
     @email_content = EmailContent.create(email_params)
     receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
@@ -62,11 +61,11 @@ class GuestsController < ApplicationController
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_user.full_name, receiver, content, @email_content.mail_attachments).deliver_now
+      AdminMailer.notification_email(current_user.full_name, receiver, current_user.email, content, @email_content.mail_attachments).deliver_now
     end
 
     respond_to do |format|
-      format.json { render json: current_user.to_json }
+      format.json { render json: @email_content.to_json }
     end   
   end
 
