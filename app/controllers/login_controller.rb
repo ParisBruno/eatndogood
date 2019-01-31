@@ -82,6 +82,7 @@ class LoginController < ApplicationController
 	      if user.chef_info.nil?
 	      	create_chef(user.id, admin: true)
 	      end
+	      sign_in(user, :bypass => true)
 
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
 	      redirect_to recipes_path
@@ -96,9 +97,9 @@ class LoginController < ApplicationController
 	        #call function to assign plan of the user
 	        assignPlan(@user.id, plan_id) if plan_id.present?
 
+	        sign_in(user, :bypass => true)
 	        flash[:success] = I18n.t 'flash.your_account_created'
-	        session[:chef_id] = @chef.id
-	        session[:user_role] = 'admin'
+	        
 	        redirect_to recipes_path
 	      else
 	        flash[:danger] = I18n.t 'flash.wrong_credentials'
