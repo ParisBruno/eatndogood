@@ -74,9 +74,9 @@ class RecipesController < ApplicationController
 
     def upload_images
       if params[:images]
-        params[:images].each { |image|
+        params[:images].each do |image|
           @recipe.recipe_images.create(image: image)
-        }
+        end
       end
     end
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190129170618) do
+ActiveRecord::Schema.define(version: 20190131141332) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20190129170618) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "email_contents", force: :cascade do |t|
+    t.string "subject"
+    t.string "receiver"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -81,6 +89,16 @@ ActiveRecord::Schema.define(version: 20190129170618) do
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mail_attachments", force: :cascade do |t|
+    t.integer "email_content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file_attach_file_name"
+    t.string "file_attach_content_type"
+    t.integer "file_attach_file_size"
+    t.datetime "file_attach_updated_at"
   end
 
   create_table "messages", force: :cascade do |t|

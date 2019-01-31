@@ -2,10 +2,16 @@
 
 class AdminMailer < ApplicationMailer
 
-  def notification_email(chef_name, receiver, text)
+  def notification_email(chef_name, receiver, content, files)
     @receiver = receiver
-    @text = text
-    mail(to: receiver, subject: "Hi! You have message from #{chef_name}")
+    @email_body = content
+    if !files.nil? && !files.empty?
+    	files.each do |file|
+    		attachments[file.file_attach_file_name] = File.read(file.file_attach.path)
+    	end
+    end
+    
+    mail(to: receiver, :subject => "Hi! You have message from #{chef_name}")
   end
 
   def inactive_guests_email(receiver, guests)

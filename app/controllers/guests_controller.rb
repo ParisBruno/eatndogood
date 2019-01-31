@@ -51,19 +51,37 @@ class GuestsController < ApplicationController
   end
 
   def send_emails
-    text = params[:email][:content]
+    puts params
+    content = params[:email_content][:content]
+    @email_content = EmailContent.create(email_params)
     receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
     return redirect_to root_path if current_user.guest?
 
-    return unless text.present?
+    return unless content.present?
+
+    upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_user.full_name, receiver, text).deliver_now
+      AdminMailer.notification_email(current_user.full_name, receiver, content, @email_content.mail_attachments).deliver_now
     end
 
     respond_to do |format|
       format.json { render json: current_user.to_json }
     end   
+  end
+
+  private
+
+  def upload_attachments
+    if params[:attachments]
+      params[:attachments].each do |attachment|
+        @email_content.mail_attachments.create!(file_attach: attachment)
+      end
+    end
+  end
+
+  def email_params
+    params.require(:email_content).permit(:content)
   end
 
   def guest_params
