@@ -112,7 +112,8 @@
         <td> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
         <td>
-          <a href="<%= (guest.chef.present?) ? chef_path(guest.chef): '#' %>"><%= (guest.chef.present?) ? guest.chef.chefname.capitalize : '-' %>
+          <a href="<%= (guest.chef_info.present?) ? chef_path(guest.chef_info): '#' %>">
+            <%= (guest.chef_info.present?) ? guest.chef_info.user.full_name.capitalize : '-' %>
           </a>
         </td>
         <td> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
