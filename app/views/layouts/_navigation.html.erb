@@ -6,6 +6,8 @@
      <span class="navbar-toggler-icon"></span>
    </button>
   <% if user_signed_in? %>
+     <%= form_tag(recipes_path, method: :get, remote: true, id: "frmRecipes") do |f| %> 
+     <%= hidden_field_tag :filter, 1 %>
     <div class="container-fluid collapse navbar-collapse" id="responsive-nav">
 
       
@@ -26,7 +28,10 @@
             <ul class="dropdown-menu">
               <% @styles.each do |style| %>
               <li class="nav-item">
-                <%= link_to style.name, style_path(style.id) %>
+                <a href="#">
+                <input type="checkbox" name="style_ids[]" onclick="search()" class="styles" value="<%= style.id %>" <%= (params[:style_ids] && params[:style_ids].include?(style.id)) ? 'checked = true' : '' %> />
+                <%= style.name %>
+                </a>
               </li>
               
               <% end %>
@@ -45,7 +50,10 @@
             <ul class="dropdown-menu">
               <% @ingredients.each do |ingredient| %>
               <li class="nav-item">
-                <%= link_to ingredient.name, ingredient_path(ingredient.id) %>
+                <a href="#">
+                  <input type="checkbox" name="ingredient_ids[]" onclick="search()" class="ingredients" value="<%= ingredient.id %>" <%= (params[:ingredient_ids] && params[:ingredient_ids].include?(ingredient.id)) ? 'checked = true' : '' %> />
+                <%= ingredient.name %>
+                </a>
               </li>
               
               <% end %>
@@ -65,7 +73,10 @@
             <ul class="dropdown-menu">
               <% @allergens.each do |allergen| %>
               <li class="nav-item">
-                <%= link_to allergen.name, allergen_path(allergen.id) %>
+                <a href="#">
+                  <input type="checkbox" name="allergen_ids[]" onclick="search()" class="allergens" value="<%= allergen.id %>" <%= (params[:allergen_ids] && params[:allergen_ids].include?(allergen.id)) ? 'checked = true' : '' %> />
+                <%= allergen.name %>
+                </a>
               </li>
               
               <% end %>
@@ -125,6 +136,7 @@
         </ul>
       </div>
     </div>
+    <% end %>
   <% else %>
     <div class="row" style="width: 100%;">
       <div class="col-md-8"></div>
@@ -141,3 +153,26 @@
       </div>
   <% end %>
 </nav> 
+<script type="text/javascript">
+  function search() {
+    var style_ids = $("input[class=styles]:checked").map(function () {
+        return $(this).val();
+    }).get();
+    console.log(style_ids);
+
+    var ingredient_ids = $("input[class=ingredients]:checked").map(function () {
+        return $(this).val();
+    }).get();
+    console.log(ingredient_ids);
+
+    var allergens_ids = $("input[class=allergens]:checked").map(function () {
+        return $(this).val();
+    }).get();
+
+    console.log(allergens_ids);
+
+    $('#frmRecipes').submit();
+
+  }
+  
+</script>

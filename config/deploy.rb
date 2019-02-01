@@ -77,6 +77,10 @@ namespace :deploy do
     run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
   end
 
+  task :tags do
+    run "cd #{current_path}; rake acts_as_taggable_on_engine:tag_names:collate_bin"
+  end
+
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

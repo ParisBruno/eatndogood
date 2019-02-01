@@ -19,6 +19,11 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_images
 
+  acts_as_ordered_taggable
+
+  #after_create :make_tags
+  after_create :make_tags
+
   
   def thumbs_up_total
     self.likes.where(like: true).size
@@ -27,4 +32,22 @@ class Recipe < ApplicationRecord
   def thumbs_down_total
     self.likes.where(like: false).size    
   end
+
+  def self.filters params
+    puts params
+    styles = Style.where({id: params[:style_ids]}).pluck(:name)
+    ingredients = Ingredient.where({id: params[:ingredient_ids]}).pluck(:name)
+    allergens = Allergen.where({id: params[:allergen_ids]}).pluck(:name)
+    tags = styles + ingredients + allergens
+    
+    Recipe.includes(:styles).includes(:ingredients).includes(:allergens).tagged_with(tags, :any => true)
+  end
+
+  private
+
+  def make_tags
+    self.tag_list = self.styles.pluck(:name) + self.ingredients.pluck(:name) + self.allergens.pluck(:name)
+    self.save
+  end
+
 end

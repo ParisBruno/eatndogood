@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  respond_to :html, :js
   before_action :require_logged_in
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like]
   before_action :require_user, except: [:index, :show, :like]
@@ -6,7 +7,12 @@ class RecipesController < ApplicationController
   before_action :require_user_like, only: [:like]
   
   def index
-    @recipes = Recipe.includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+    if params[:filter]
+      @recipes = Recipe.filters(params).paginate(page: params[:page], per_page: 5)
+      puts @recipes
+    else
+      @recipes = Recipe.includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+    end
   end
   
   def show
@@ -44,8 +50,10 @@ class RecipesController < ApplicationController
   end
   
   def update
+    
     if @recipe.update(recipe_params)
       upload_images
+      make_tags
       flash[:success] = "Recipe was updated successfully!"
       redirect_to recipe_path(@recipe)
     else
@@ -71,6 +79,12 @@ class RecipesController < ApplicationController
   end
   
   private
+
+    def make_tags
+      @recipe.tag_list = (@recipe.styles.pluck(:name) + @recipe.ingredients.pluck(:name) + @recipe.allergens.pluck(:name)).map(&:inspect).join(', ')
+     
+      @recipe.save
+    end
 
     def upload_images
       if params[:images]

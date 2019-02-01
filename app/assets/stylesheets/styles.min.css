@@ -1229,8 +1229,11 @@ header#main_header #responsive-nav .one:last-child {padding-bottom: 20px;}
 .text-center.custom-second-sec .button-success a {margin-bottom: 0px;}
 .chef-bio.bio-section .col-md-3 {padding-right: 10px!important;}
 .chef-bio .custom-profile-detail img {    object-fit: contain!important;}  
-.chef-bio.bio-section .image-box-shadow {padding: 0; max-height: 340px;}
+.chef-bio.bio-section .image-box-shadow {padding: 0; max-height: 340px; height: 341px;}
 .chef-bio.bio-section { clear: both; width: 100%; float: left; margin-bottom: 15px;}
+.user-profile {
+    margin-top: 20px;
+}
 
 /*================28-6-18=====================*/
 .chef-full .box-main .bios p { 
