@@ -80,7 +80,7 @@
             </h3>
             <br>
             <br>
-            <% if @entrepreneur_plan_ids.include? @recipe.chef.user.plan_id %>
+            <% if @recipe.is_reservation_enable %>
               <h3>
                 <a href="<%= new_question_path(@recipe, user_id: current_user.id, email: User.where(admin: true).first.email, recipe_id: @recipe.id, make_reservation: 1) %>" class="btn btn-success">
                   <%= "Make Reservation" %>

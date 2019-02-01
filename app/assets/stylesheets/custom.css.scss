@@ -98,9 +98,11 @@ footer ul li {
 .chef_info {
   margin-top: 10px;
 }
-
+.colormatch {
+  font-size: 15px;
+}
 .colormatch a {
-  color: #073B15;
+  color: #007bff;
 }
 
 .recipe-actions {
@@ -982,7 +984,7 @@ footer {
   background-color: #344a64!important;
   padding: 5px 0;
   text-align: center;
-  /*position: fixed;*/
+  position: fixed;
   bottom: 0;
 }
 

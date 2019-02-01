@@ -109,11 +109,12 @@ en:
     your_profile_updated: Your profile has been updated succesfully
     your_query_emailed: Thanks! You have successfully email your query
     your_recipe_updated: Your recipe was updated successfully
+    your_profile_upgraded: Your profile upgraded plan successfully
   forms:
     action: Action
     admin: Admin
     bio: Bio
-    body: Body
+    body: Notes
     cancel: Cancel
     close: Close
     confirmation: Confirmation
@@ -218,7 +219,7 @@ en:
       tap_or_click_to_save: Tap or click to Save your changes
       update_about_us_page: Update About Us Page
   questions:
-    ask_question: Ask Question
+    ask_question: Thank you, for your inquiry.
     asked_by: 'Asked By:'
     date: Date
     email_to_colon: 'Email To: '

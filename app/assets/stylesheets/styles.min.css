@@ -1004,6 +1004,10 @@ header#main_header #responsive-nav {  float: left;
         width: 100%;
         /*border-bottom: solid 1px;*/
     }
+    .nav > li {
+        width: 100%;
+    }
+
 
     .navbar-expand-lg>.container-fluid {
         padding-right: 23px !important;
@@ -1267,7 +1271,7 @@ header#main_header #responsive-nav .one:last-child {padding-bottom: 20px;}
     padding-left: 0;
 }
 .box-content input.btn {
-    margin-top: 15px!important;
+    /*margin-top: 15px!important;*/
 }
 .recipe-detail .detail-list .well-sec p {
     font-size: 16px;

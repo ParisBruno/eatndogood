@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :set_header_data
 
   def current_chef
-    @current_chef ||= Chef.find(session[:chef_id]) if session[:chef_id]
+    @current_chef ||= Chef.find(current_user.chef_info.id) if current_user && !current_user.chef_info.nil?
   end
 
   def logged_in?

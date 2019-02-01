@@ -52,7 +52,7 @@
       <%= f.fields_for :chef_info, @user.chef_info do |c| %>
         <%= c.hidden_field :admin_id, value: current_user.id %>
         <div class="form-group">
-          <div class="control-label col-md-2"><%= c.label :chef_avatar %></div>
+          <div class="control-label col-md-2"></div>
           <div class="col-md-2">
             <%= image_tag( (!@user.nil? && !@user.chef_info.nil? && @user.chef_info.chef_avatar.url.present?) ? @user.chef_info.chef_avatar.url : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
           </div>
@@ -76,7 +76,12 @@
         <% end %>
 
         <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
+          <div class="col-md-2 col-md-offset-2">
+            <% if current_user.admin? %>
+            <%= link_to t('chefs.delete_profile'), @user.chef_info, class: "btn btn-danger delete-btn btn-lg",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
+            <% end %>
+          </div>
+          <div class="col-md-offset-2 col-md-4">
             <%= f.submit(@user.new_record? ? "Create my account" : "Update my account", 
                                                       class: "btn btn-primary btn-lg btn-xlarge", style: "float:right;") %>
           </div>
@@ -85,6 +90,7 @@
       
     </div>
     <% end %>
+
     <div class="col-md-4 col-md-offset-4 colormatch">
       [ <%= link_to "Cancel request and return to recipes listing", recipes_path %> ]
     </div>

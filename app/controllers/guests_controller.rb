@@ -8,7 +8,14 @@ class GuestsController < ApplicationController
   def index
     return redirect_to root_path if current_user.guest?
 
-    @guests = User.where(guest: true).paginate(page: params[:page], per_page: 100)
+    @keyword = params[:keyword].present? ? params[:keyword].strip : ''
+
+    if @keyword.blank?
+      @guests = User.where(guest: true).order('id desc').paginate(page: params[:page], per_page: 100)
+    else
+      @guests = User.where(guest: true).where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
+    end
+
   end
 
   def new
@@ -52,6 +59,7 @@ class GuestsController < ApplicationController
 
   def send_emails
     content = params[:email_content][:content]
+    subject = params[:subject]
     @email_content = EmailContent.create(email_params)
     receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
     return redirect_to root_path if current_user.guest?
@@ -61,7 +69,7 @@ class GuestsController < ApplicationController
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_user.full_name, receiver, current_user.email, content, @email_content.mail_attachments).deliver_now
+      AdminMailer.notification_email(current_user.full_name, receiver, current_user.email, subject, content, @email_content.mail_attachments).deliver_now
     end
 
     respond_to do |format|

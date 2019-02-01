@@ -108,6 +108,7 @@ fr:
     your_profile_updated: Your profile has been updated succesfully
     your_query_emailed: Thanks! You have successfully email your query
     your_recipe_updated: Your recipe was updated successfully
+    your_profile_upgraded: Votre profil a été mis à niveau avec succès
   forms:
     action: Action
     admin: Admin
@@ -216,7 +217,7 @@ fr:
       tap_or_click_to_save: Appuyez ou cliquez ici pour enregistrer votre image d'atterrissage
       update_about_us_page: Mise à jour À propos de nous
   questions:
-    ask_question: Poser une question
+    ask_question: Merci pour votre demande.
     asked_by: 'Demandé par:'
     date: Date
     email_to_colon: 'Email To: '

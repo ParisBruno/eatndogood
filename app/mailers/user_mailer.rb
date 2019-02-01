@@ -12,6 +12,11 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'ITopRecipes password reset link')
 	end
 
+	def question_email(from_email, to_email, question, type)
+		@question = question
+		mail(to: to_email, from: from_email, subject: "New #{type}: #{question.subject}")
+	end
+
 
 	def guest_create_email_to_admin(email,guest_info)
 		@guest  = guest_info

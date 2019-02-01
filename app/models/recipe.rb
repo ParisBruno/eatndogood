@@ -33,6 +33,14 @@ class Recipe < ApplicationRecord
     self.likes.where(like: false).size    
   end
 
+  def is_reservation_enable
+    entrepreneur_plan_ids = PlanCategory.where(name: 'Entrepreneurs').first.plans.pluck(:id)
+    return true if entrepreneur_plan_ids.include? self.chef.user.plan_id
+    
+    entrepreneur_plan_ids.include?  self.chef.admin_user.plan_id if self.chef.admin_user.present?
+
+  end
+
   def self.filters params
     puts params
     styles = Style.where({id: params[:style_ids]}).pluck(:name)

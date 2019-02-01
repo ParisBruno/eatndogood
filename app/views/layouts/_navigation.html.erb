@@ -6,12 +6,13 @@
      <span class="navbar-toggler-icon"></span>
    </button>
   <% if user_signed_in? %>
-     <%= form_tag(recipes_path, method: :get, remote: true, id: "frmRecipes") do |f| %> 
-     <%= hidden_field_tag :filter, 1 %>
+     
     <div class="container-fluid collapse navbar-collapse" id="responsive-nav">
 
       
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+        <%= form_tag(recipes_path, method: :get, remote: true, id: "frmRecipes") do |f| %> 
+        <%= hidden_field_tag :filter, 1 %>
         <div class="navbar-header">
           
           <%= link_to "Home", root_path, class: "navbar-brand", id: "logo", style: "display: flex; justify-content: center; align-items: center;" %>
@@ -134,9 +135,10 @@
             </ul>
           </li>
         </ul>
+        <% end %>
       </div>
     </div>
-    <% end %>
+    
   <% else %>
     <div class="row" style="width: 100%;">
       <div class="col-md-8"></div>

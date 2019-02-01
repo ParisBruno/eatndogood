@@ -16,7 +16,6 @@ class RecipesController < ApplicationController
   end
   
   def show
-    @entrepreneur_plan_ids = PlanCategory.where(name: 'Entrepreneurs').first.plans.pluck(:id)
     @comment = Comment.new
     @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
   end
@@ -68,7 +67,7 @@ class RecipesController < ApplicationController
   end
   
   def like
-    like = Like.create(like: params[:like], chef: current_chef, recipe: @recipe)
+    like = Like.create(like: params[:like], user_id: current_user.id, recipe: @recipe)
     if like.valid?
       flash[:success] = "Your selection was succesful"
       redirect_back fallback_location: root_path
@@ -114,7 +113,7 @@ class RecipesController < ApplicationController
     end
     
     def require_user_like
-      if !logged_in?
+      if !user_signed_in?
         flash[:danger] = "You must be logged in to perform that action"
         redirect_to :back
       end

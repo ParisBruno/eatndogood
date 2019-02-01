@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New <%= @question.question_type %></h1>
+
+    <p><b>Detail:<b/></p>
+    
+    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <tr>
+            <td align="center" valign="top">
+              Full name: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.full_name %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Phone Number: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.phone_number %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Email: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.email %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Number of people in the party: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.number_people %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Date: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.ci_date %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Time: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.ci_time %>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+              Notes: 
+            </td>
+            <td align="center" valign="top">
+              <%= @question.body %>
+            </td>
+        </tr>
+    </table>
+    
+  </body>
+</html>

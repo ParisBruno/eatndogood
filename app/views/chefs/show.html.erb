@@ -17,6 +17,12 @@
         </div>
       </div>
   </div>
+  <div class="col-lg-12 text-right">
+    <%= link_to t('chefs.edit_profile'), edit_chef_path(@chef.user.id), class: "btn btn-success pull-right btn-edit btn-lg", style: "margin-right:50px;" %>
+    <% if current_user.admin? %>
+    <%= link_to t('chefs.delete_profile'), @recipe, class: "btn btn-danger pull-right delete-btn btn-lg", style: "margin-right:50px;",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
+    <% end %>
+  </div>
 </div>
 
 <% if @chef.recipes.count != 0 %>

@@ -33,11 +33,13 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        ActionMailer::Base.mail(from: "info@itoprecipies.com", to: @question.email, subject: @question.subject, body: @question.body).deliver
-        if params[:question][:make_reservation]
+        to_email = @question.recipe.chef.admin_user.present? ? @question.recipe.chef.admin_user.email : "brunofiuggi@gmail.com"
+        UserMailer.question_email(@question.email, to_email, @question, @question.question_type)
+        
+        if params[:question][:question_type] == 'reservation'
           format.html { redirect_to recipe_path(@question.recipe_id), notice: 'Make Reservation successfully.' }
         else
-          format.html { redirect_to @question, notice: 'Question was successfully created.' }
+          format.html { redirect_to recipe_path(@question.recipe_id), notice: 'Question was successfully created.' }
           format.json { render :show, status: :created, location: @question }
         end
         
@@ -80,6 +82,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:user_id, :email, :subject, :body, :recipe_id)
+      params.require(:question).permit(:user_id, :email, :subject, :body, :recipe_id, :full_name, :phone_number,
+                    :number_people, :ci_date, :ci_time, :question_type)
     end
 end

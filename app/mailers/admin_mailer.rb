@@ -2,7 +2,7 @@
 
 class AdminMailer < ApplicationMailer
 
-  def notification_email(chef_name, receiver, from, content, files)
+  def notification_email(chef_name, receiver, from, subject, content, files)
     @receiver = receiver
     @email_body = content
     if !files.nil? && !files.empty?
@@ -11,7 +11,7 @@ class AdminMailer < ApplicationMailer
     	end
     end
     
-    mail(to: receiver, from: from,:subject => "Hi! You have message from #{chef_name}")
+    mail(to: receiver, from: from,:subject => subject)
   end
 
   def inactive_guests_email(receiver, guests)

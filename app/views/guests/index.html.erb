@@ -62,12 +62,16 @@
           <div class="col-md-4">
             <form method="GET" action="">
               <div class="row" style="padding: 10px;">
-                <div class="col-md-8">
+                <div class="col-md-7">
                   <input class="form-control" type="text" name="keyword" placeholder="<%= t 'guests.search_guest' %>" value="<%= @keyword %>">
                 </div>
                 
-                <div class="col-md-4">
-                  <input type="submit" name="submit" value="GO" class="btn btn-success btn-lg" style="width: 80%;">
+                <div class="col-md-2">
+                  <input type="submit" name="submit" value="GO" class="btn btn-success btn-lg" style="width: 70%;">
+                  
+                </div>
+                <div class="col-md-3">
+                  <a href="<%= guests_path %>" class="btn btn-info btn-lg"><%= t 'guests.clear_search' %></a>
                 </div>
               </div>
             </form>
@@ -107,7 +111,7 @@
 
       <tr>
         <td><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
-        <td> <a href="<%= guests_path(keywordL: guest.email) %>"><%= i %></a></td>
+        <td> <a href="<%= guests_path(keyword: guest.email) %>"><%= i %></a></td>
         <td> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
         <td> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
@@ -158,10 +162,23 @@
           <h4 class="modal-title"><%= t 'guests.send_email' %></h4>
         </div>
         <div class="modal-body">
-          
-           <p><%= t 'guests.email_content' %></p>
+           <div class="form-group">
+             <div class="control-label col-md-12"><%= label_tag t 'forms.subject' %></div>
+             
+             <div class="col-md-12">
+               <%= text_field_tag :subject, '',class: "form-control" %>
+             </div>
+           </div>
+
+           <div class="form-group">
+             <div class="control-label col-md-12"><%= label_tag t 'guests.email_content' %></div>
+             
+             <div class="col-md-12">
+               <%= cktext_area :email_content, :content,  {class: "form-control", placeholder: ""}%>
+             </div>
+           </div>
+
            
-           <%= cktext_area :email_content, :content,  {class: "form-control", placeholder: ""}%>
            <%= hidden_field_tag :receivers, '' %>
            <%= hidden_field_tag :send_all, '' %>
            <span id="error_span" style="display:none;color:red;"></span>
