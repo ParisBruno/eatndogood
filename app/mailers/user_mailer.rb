@@ -12,9 +12,9 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'ITopRecipes password reset link')
 	end
 
-	def question_email(from_email, to_email, question, type)
+	def question_email(from_email, to_email, question)
 		@question = question
-		mail(to: to_email, from: from_email, subject: "New #{type}: #{question.subject}")
+		mail(to: to_email, from: from_email, subject: "New Reservation")
 	end
 
 

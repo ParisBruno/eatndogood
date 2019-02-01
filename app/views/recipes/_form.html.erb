@@ -74,8 +74,18 @@
             <%= f.label :images, t('recipes.upload_food_pic') %>
           </div>
           <div class="col-md-12">
-            <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png' %>
-            <p style="color:red;"><%= t('recipes.choose_2_photo') %></p>
+            <%= file_field_tag "images[]", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+            
+          </div>
+        </div>
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :images, t('recipes.upload_drink_pic') %>
+          </div>
+          <div class="col-md-12">
+            <%= file_field_tag "images[]", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+            
           </div>
         </div>
        

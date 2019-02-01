@@ -3,6 +3,8 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  get 'reservation/create'
+
   #get '/'
 
   resources :questions
@@ -50,6 +52,7 @@ Rails.application.routes.draw do
   resources :ingredients, except: [:destroy]
   resources :styles, except: [:destroy]
   resources :messages, only: [:create]
+  resources :reservations, only: [:new, :create]
   resources :pages do
     collection do
       post 'welcome/edit'

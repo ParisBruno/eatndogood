@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>New <%= @question.question_type %></h1>
+    <h1>New Reservation</h1>
 
     <p><b>Detail:<b/></p>
     
@@ -14,7 +14,7 @@
               Full name: 
             </td>
             <td align="center" valign="top">
-              <%= @question.full_name %>
+              <%= @reservation.full_name %>
             </td>
         </tr>
         <tr>
@@ -22,7 +22,7 @@
               Phone Number: 
             </td>
             <td align="center" valign="top">
-              <%= @question.phone_number %>
+              <%= @reservation.phone_number %>
             </td>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
               Email: 
             </td>
             <td align="center" valign="top">
-              <%= @question.email %>
+              <%= @reservation.email %>
             </td>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
               Number of people in the party: 
             </td>
             <td align="center" valign="top">
-              <%= @question.number_people %>
+              <%= @reservation.number_people %>
             </td>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
               Date: 
             </td>
             <td align="center" valign="top">
-              <%= @question.ci_date %>
+              <%= @reservation.ci_date %>
             </td>
         </tr>
         <tr>
@@ -54,7 +54,7 @@
               Time: 
             </td>
             <td align="center" valign="top">
-              <%= @question.ci_time %>
+              <%= @reservation.ci_time %>
             </td>
         </tr>
         <tr>
@@ -62,7 +62,7 @@
               Notes: 
             </td>
             <td align="center" valign="top">
-              <%= @question.body %>
+              <%= @reservation.notes %>
             </td>
         </tr>
     </table>

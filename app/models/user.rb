@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
   has_many :likes, dependent: :destroy
   accepts_nested_attributes_for :chef_info, allow_destroy: true
+  has_many :reservations, dependent: :destroy
 
   validates :plan, presence: true, if: :admin?
   

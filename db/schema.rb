@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190201193336) do
+ActiveRecord::Schema.define(version: 20190201230524) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -153,12 +153,6 @@ ActiveRecord::Schema.define(version: 20190201193336) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "full_name"
-    t.string "phone_number"
-    t.integer "number_people"
-    t.date "ci_date"
-    t.time "ci_time"
-    t.string "question_type"
   end
 
   create_table "recipe_images", force: :cascade do |t|
@@ -189,6 +183,20 @@ ActiveRecord::Schema.define(version: 20190201193336) do
     t.integer "recipe_id", null: false
     t.integer "style_id", null: false
     t.index ["recipe_id", "style_id"], name: "index_recipes_styles_on_recipe_id_and_style_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.string "full_name"
+    t.string "phone_number"
+    t.integer "number_people"
+    t.date "ci_date"
+    t.time "ci_time"
+    t.text "notes"
+    t.integer "recipe_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "styles", force: :cascade do |t|

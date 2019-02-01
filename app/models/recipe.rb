@@ -13,6 +13,7 @@ class Recipe < ApplicationRecord
   has_and_belongs_to_many :allergens
   has_and_belongs_to_many :styles
   has_many :questions
+  has_many :reservations, dependent: :destroy
   #has_many :recipe_allergens
   #has_many :allergens, through: :recipe_allergens
   #mount_uploader :image, ImageUploader
