@@ -48,6 +48,7 @@ body {
 .content {
   padding:10px;
   padding-bottom:60px;
+  margin-top: 70px;
 }
 
 footer {
@@ -731,10 +732,11 @@ img {
 .header {
     background: url(asset-path('header.png')) center center no-repeat;
     width: 100%;
-    position: relative;
+    position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     height: 70px;
+    z-index: 99;
 }
 .header img {
   width: 100%;
