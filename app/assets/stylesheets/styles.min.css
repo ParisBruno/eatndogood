@@ -210,7 +210,7 @@ section.testimonials {
     }
 
     .recipe-detail .image-box-shadow {
-        height: 400px !important;
+        height: 420px !important;
     }
 
 
@@ -589,7 +589,7 @@ section.chef_info.center h2 a:hover {
     line-height: 1.5;
     border: 0;} 
 .margin-sec .image-box-shadow {    height: 220px;}
-.margin-sec .image-box-shadow img {height: 100%;}
+.margin-sec .image-box-shadow img {height: 100% !important;}
 
 
 @media (max-width: 480px) {   
@@ -1015,8 +1015,12 @@ header#main_header #responsive-nav {  float: left;
     }
 
     .well.box-content .pull-right {
-        margin-right: -25px;
+        position: relative !important;
+        margin-right: 10px !important;
         margin-bottom: -20px;
+        margin-top: 10px !important;
+        right: 0px !important;
+        bottom: 0px !important
     }
 }
 

@@ -6,12 +6,12 @@
       <div class="box-inner-sec well box-content">
       <div class="detail-list">
       <% if (current_user and (@recipe.chef.id == current_user.id) || current_user.admin?) %>
-        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right delete-btn btn-lg",  method: :delete, data: { confirm: t('common.confirm') } %>
+        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
       <% end %>
 
       
       <% if (current_user and (@recipe.chef.id == current_user.id)|| current_user.admin? ) %>
-        <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right btn-edit btn-lg" %>
+        <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right  btn-lg" %>
       <% end %>
  
 
