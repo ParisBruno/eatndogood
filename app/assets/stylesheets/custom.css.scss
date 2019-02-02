@@ -694,6 +694,12 @@ img {
     text-transform: uppercase;
     /*margin-right: 1px;*/
     font-size: 15px;
+    
+}
+
+.navbar-nav > li {
+  background: rgba(97, 148, 85, 0.62);
+  border: 1px solid #fff;
 }
 
 .navbar-toggler-icon {
