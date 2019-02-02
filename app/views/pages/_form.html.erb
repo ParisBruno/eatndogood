@@ -1,7 +1,7 @@
 <%= form_for(@page, html: { multipart: true }) do |f| %>
     <%= f.hidden_field :destination %>
-      
-        <div class="col-md-7  well box-content" >
+      <div class=" col-md-offset-4 margin-sec full-width-sec edit-chef new-cheif">
+        <div class="col-md-5 well box-content" >
           <label><%= t('pages.new.edit_page_text') %></label>
          
           <%= text_area :page, :title, value: (@page.present?) ? @page.title :  'A Taste of',  cols: 100, rows: 20, class: 'form-control', required: true  %>
@@ -12,6 +12,7 @@
        
           <span style="color:red;display:none;" id="span_err_2"><%= t('pages.new.you_can_not_write_more_chars', max: 30) %></span><br>
         </div>
+        
         <div class="col-md-5  well box-content">
           <span class="picture">
             <%= image_tag( (!@page.nil? && @page.page_img.url.present?) ? @page.page_img.url : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'width: 20% !important') %>
@@ -32,7 +33,7 @@
             </a>
           </div>
         </div>
-      
+     </div> 
   <% end %>
 
 
