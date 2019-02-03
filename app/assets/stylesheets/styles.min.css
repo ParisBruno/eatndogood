@@ -1140,9 +1140,11 @@ header#main_header #responsive-nav .one:last-child {padding-bottom: 20px;}
  position: relative;
     width: 100%;
     float: left;
-    top: 0;
-    margin-top: 0!important;
+    
     margin: 0 0px;}
+.alert {
+    margin-top: 100px !important;
+}
 .alert.alert-danger h5 {    font-weight: 600; margin-bottom: 15px; padding-right: 120px;
     text-align: center; font-size: 18px;
     padding-left: 25px;}
