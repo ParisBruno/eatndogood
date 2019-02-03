@@ -47,6 +47,9 @@ class ChefsController < ApplicationController
       @chef.destroy
       flash[:danger] = "Chef and all associated recipes have been deleted!"
       redirect_to chefs_path
+    else
+       flash[:danger] = "Cannot delete chef admin account"
+       redirect_to chef_path(@chef)
     end
   end
   
