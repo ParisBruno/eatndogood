@@ -5,7 +5,7 @@ class ChefsController < ApplicationController
   before_action :require_admin, only: [:destroy]
   
   def index
-    @chefs = Chef.includes(:user).paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.includes(:user).order(admin: :desc).paginate(page: params[:page], per_page: 5)
   end
   
   def new
