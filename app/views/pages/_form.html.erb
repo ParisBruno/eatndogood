@@ -4,11 +4,11 @@
         <div class="col-md-5 well box-content" >
           <label><%= t('pages.new.edit_page_text') %></label>
          
-          <%= text_area :page, :title, value: (@page.present?) ? @page.title :  'A Taste of',  cols: 100, rows: 20, class: 'form-control', required: true  %>
+          <%= cktext_area :page, :title, value: (@page.present?) ? @page.title :  'A Taste of',  cols: 100, rows: 20, class: 'form-control', required: true  %>
           
           <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
           <label><%= t('pages.new.edit_app_name') %></label>
-          <%= text_area(:page, :content, value: (@page.present?) ? @page.content : 'iTopRecipes!', cols: 100, rows: 20, class: 'form-control', required: true) %>
+          <%= cktext_area(:page, :content, value: (@page.present?) ? @page.content : 'iTopRecipes!', cols: 100, rows: 20, class: 'form-control', required: true) %>
        
           <span style="color:red;display:none;" id="span_err_2"><%= t('pages.new.you_can_not_write_more_chars', max: 30) %></span><br>
         </div>
