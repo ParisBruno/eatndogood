@@ -4,7 +4,7 @@ class AllergensController < ApplicationController
   # GET /allergens
   # GET /allergens.json
   def index
-    @allergens = Allergen.all
+    @allergens = Allergen.where(user_id: current_user.id).all
   end
 
   # GET /allergens/1

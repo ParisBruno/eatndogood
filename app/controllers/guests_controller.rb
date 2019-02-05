@@ -11,9 +11,9 @@ class GuestsController < ApplicationController
     @keyword = params[:keyword].present? ? params[:keyword].strip : ''
 
     if @keyword.blank?
-      @guests = User.where(guest: true).order('id desc').paginate(page: params[:page], per_page: 100)
+      @guests = User.where(guest: true).where(user_id: current_user.id).order('id desc').paginate(page: params[:page], per_page: 100)
     else
-      @guests = User.where(guest: true).where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
+      @guests = User.where(guest: true).where(user_id: current_user.id).where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
     end
 
   end

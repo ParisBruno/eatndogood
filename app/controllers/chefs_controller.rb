@@ -5,7 +5,7 @@ class ChefsController < ApplicationController
   before_action :require_admin, only: [:destroy]
   
   def index
-    @chefs = Chef.includes(:user).order(admin: :desc).paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.includes(:user).where(admin_id: current_user.id).order(admin: :desc).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
   end
   
   def new
@@ -33,8 +33,9 @@ class ChefsController < ApplicationController
   
   def update
     params[:user].delete(:password) if params[:user][:password].blank?
+    my_user = current_user
     if @user.update(chef_params)
-      sign_in(@user, :bypass => true)
+      sign_in(my_user, :bypass => true)
       flash[:success] = "Your account was updated successfully"
       redirect_to @user.chef_info
     else

@@ -8,10 +8,10 @@ class RecipesController < ApplicationController
   
   def index
     if params[:filter]
-      @recipes = Recipe.filters(params).paginate(page: params[:page], per_page: 5)
-      puts @recipes
+      @recipes = Recipe.where(chef_id: current_user.chef_info.id).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+     
     else
-      @recipes = Recipe.includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: current_user.chef_info.id).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
     end
   end
   
