@@ -33,7 +33,7 @@ class ChefsController < ApplicationController
   
   def update
     params[:user].delete(:password) if params[:user][:password].blank?
-    my_user = current_user
+    my_user = User.find(current_user.id)
     if @user.update(chef_params)
       sign_in(my_user, :bypass => true)
       flash[:success] = "Your account was updated successfully"

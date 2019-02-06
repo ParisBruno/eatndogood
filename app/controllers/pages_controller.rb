@@ -41,7 +41,7 @@ class PagesController < ApplicationController
   end
 
   def admin_param
-    @admin_id = params[:admin_id].present? ? params[:admin_id] : User.where(admin: true).first.id
+    @admin_id = params[:admin_id].present? ? params[:admin_id] : (!current_user.nil? && current_user.admin? ? current_user.id : User.where(admin: true).first.id)
   end
 
   def select_layout_header
