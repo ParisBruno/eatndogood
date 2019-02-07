@@ -82,7 +82,6 @@ class LoginController < ApplicationController
 	      if user.chef_info.nil?
 	      	create_chef(user.id, admin: true)
 	      end
-	      sign_in(user, :bypass => true)
 
 	      flash[:success] = I18n.t('flash.your_profile_upgraded')
 	      redirect_to root_path
@@ -92,6 +91,7 @@ class LoginController < ApplicationController
 	      @chef = Chef.new
 		  @chef.user_id = @user.id	     
 	      @chef.admin = true
+	      @chef.admin_id = @user.id
 
 	      if @chef.save!(:validate => false)
 	        #call function to assign plan of the user
