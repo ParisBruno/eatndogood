@@ -1,4 +1,5 @@
 class ChefsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update]
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
@@ -33,6 +34,7 @@ class ChefsController < ApplicationController
   
   def update
     params[:user].delete(:password) if params[:user][:password].blank?
+    params[:user].delete(:encrypted_password) if params[:user][:password].blank?
     user = User.find current_user.id
     if @user.update(chef_params)
       #bypass_sign_in user
