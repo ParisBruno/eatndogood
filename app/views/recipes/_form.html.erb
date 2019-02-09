@@ -37,7 +37,7 @@
             <%= f.label :summary, t('forms.summary') %>
           </div>
           <div class="col-md-12">
-            <%= f.text_area :summary, rows: '2', cols: 50, class: "form-control", placeholder: t('recipes.summary_placeholder'), autofocus: true %>
+            <%= f.cktext_area :summary, rows: '2', cols: 50, class: "form-control", placeholder: t('recipes.summary_placeholder'), autofocus: true %>
             <p style="color:red;"><%= t('common.note_allow_chars', from: 10, to: 500) %></p>
           </div>
         </div>
@@ -47,7 +47,7 @@
             <%= f.label :description, t('forms.description') %>
           </div>
           <div class="col-md-12">
-            <%= f.text_area :description, cols: 50, class: "form-control", placeholder: t('recipes.description_placeholder'), autofocus: true %>
+            <%= f.cktext_area :description, cols: 50, class: "form-control", placeholder: t('recipes.description_placeholder'), autofocus: true %>
             <p style="color:red;"><%= t('common.note_allow_chars', from: 20, to: 3000) %></p>
           </div>
         </div>
@@ -56,13 +56,33 @@
 
         <div class="form-group recepie-menu">
           <div class="col-md-12">
+            <%= f.label :styles, t('forms.styles') %>
+          </div>
+          <div class="col-md-12">
             <%= f.collection_check_boxes :style_ids, Style.where(:user_id => current_user.id).all, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
+            
+
+            
+          </div>
+        </div>
+
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :ingredients, t('forms.ingredients') %>
+          </div>
+          <div class="col-md-12">
             <%= f.collection_check_boxes :ingredient_ids, Ingredient.where(:user_id => current_user.id).all, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
-
+          </div>
+        </div>
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :allergens, t('forms.allergens') %>
+          </div>
+          <div class="col-md-12">
             <%= f.collection_check_boxes :allergen_ids, Allergen.where(:user_id => current_user.id).all, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
@@ -102,6 +122,14 @@
   </div>
 
 <script type="text/javascript">
+
+  CKEDITOR.replace('recipe_description', {
+    extraPlugins: 'placeholder'
+  });
+
+  CKEDITOR.replace('recipe_summary', {
+    extraPlugins: 'placeholder'
+  });
 
   $(document).ready(function() {
     $("footer").removeClass('fixed-footer');

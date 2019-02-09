@@ -8,8 +8,11 @@ CKEDITOR.editorConfig = function (config) {
         ['Styles','Format'],
         ['TextColor'],
         ['Bold','Italic','Underline'], 
-        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+        ['Link','Unlink']
     ];
 
-}
+};
+
+
 
