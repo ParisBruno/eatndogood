@@ -19,18 +19,19 @@
             <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label>
             <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
           </span>
-          <div>
+          <div class="row" style="margin-top:50px;">
             <center>
-              <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn" %>
+              <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn", style:"float:left; margin-right:5px; margin-top: 20px;" %>
+              <a target="_blank" href="<%= welcome_pages_path(:username=> current_user.full_name,:admin_id => current_user.id) %>" style="float: left; color:white; margin-top:20px;" class="btn btn-success btn-lg">
+                <%= t('pages.new.save_to_view_changes') %>
+              </a>
             </center>
             
           </div>
           
 
           <div class="">
-            <a target="_blank" href="<%= welcome_pages_path(:username=> current_user.full_name,:admin_id => current_user.id) %>" style="float: right;margin-top: -30px; color:white;" class="btn btn-success btn-lg">
-              <%= t('pages.new.save_to_view_changes') %>
-            </a>
+           
           </div>
         </div>
      </div> 

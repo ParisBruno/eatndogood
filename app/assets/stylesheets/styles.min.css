@@ -716,7 +716,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     height: auto!important; 
     line-height: 1.4!important; 
     padding: 10px 20px!important;} 
-.new-cheif.edit-chef .box-content input[type="submit"] {padding: 0 15px!important;} 
+.new-cheif.edit-chef .box-content input[type="submit"] {} 
 .login-header .right-header a { position: absolute!important; left: 50%; transform: translatex(-50%); top: 44px!important;}
 .login-sec form { width: 100%; float: left; margin-bottom: 20px;}
 .login-sec.reply-answer input.btn {  width: auto!important;

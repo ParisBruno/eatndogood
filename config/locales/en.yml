@@ -209,7 +209,7 @@ en:
       edit_page_text: Edit Page Text
       edit_welcome_page: Edit Welcome Page
       save_to_view_changes: view your changes
-      tap_or_click_to_save: Tap or click here to save
+      tap_or_click_to_save: Click here to save
       upload_landing_pic_max_size: Upload landing picture, max size %{max} megabytes
       you_can_not_write_more_chars: You can not write more than %{max} characters!
     updateindex:
