@@ -66,7 +66,7 @@ class ChefsController < ApplicationController
   end
 
   def set_user
-    @user = User.includes(:chef_info).find(params[:id])
+    @user = User.includes(:chef_info).friendly.find(params[:id])
   end
 
   def set_chef

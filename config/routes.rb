@@ -44,9 +44,7 @@ Rails.application.routes.draw do
   post 'guests/create',to: "guests#create", as: 'guestCreation'
   delete 'guest', to: 'guests#destroy', as: "destroy_guest"
 
-  scope ':user' do
-    resources :guests, only: %i[index send_emails]
-  end
+  
 
   resources :chefs #, except: [:new]
   resources :ingredients, except: [:destroy]
@@ -64,10 +62,18 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   get '/chat', to: 'chatrooms#show'
-
-  # scope ':user' do
-  #   resources :chefs
-  # end
-  
+  scope ':user' do
+    get '/', to: 'pages#welcome'
+    resources :guests, only: %i[index send_emails]
+    resources :chefs
+    resources :questions
+    resources :allergens
+    resources :recipes do
+      resources :comments, only: [:create]
+      member do
+        post 'like'
+      end
+    end
+  end
 
 end
