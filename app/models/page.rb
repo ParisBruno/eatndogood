@@ -8,7 +8,8 @@ class Page < ActiveRecord::Base
   validates_attachment_content_type :page_img, content_type: /\Aimage\/.*\z/
 
   def self.get_destination(request_path)
-    (request_path.split(SEPARATOR) & COLLECTION_DESTINATIONS).first
+    destination = (request_path.split(SEPARATOR) & COLLECTION_DESTINATIONS).first
+    destination = 'welcome' if destination.nil?
   end
 
   def self.hide(_)

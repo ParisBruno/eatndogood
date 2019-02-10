@@ -29,6 +29,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_admin_id
+    @admin_id = params[:admin_id].present? if params[:admin_id]
+
+    @admin_id = User.friendly.find(params[:user]) if(@admin_id.nil? && !params[:user].nil?)
+
+    @admin_id =  current_user.id if(@admin_id.nil? && !current_user.nil? && current_user.admin?)
+
+      
+    @admin_id =  User.where(admin: true).first.id
+  end
+
   def require_admin
     if !logged_in? || (logged_in? and !current_user.admin?)
       flash[:danger] = "Only admin users can perform that action"

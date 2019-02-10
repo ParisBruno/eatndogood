@@ -4,9 +4,10 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
+  before_action :set_admin_id
   
   def index
-    @chefs = Chef.includes(:user).where(admin_id: current_user.id).order(admin: :desc).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
   end
   
   def new

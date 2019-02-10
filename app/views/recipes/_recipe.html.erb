@@ -53,7 +53,7 @@ end
     <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
       <h2><%= link_to recipe.name, recipe_path(recipe) %></h2>
-      <p><%= (!recipe.summary.nil? && recipe.summary.size > 100) ? recipe.summary.slice(0,100) + '...' : recipe.summary %></p>
+      <p><%= (!recipe.summary.nil? && recipe.summary.size > 100) ? recipe.summary.slice(0,100).html_safe + '...' : recipe.summary.html_safe %></p>
 
       <% if recipe.styles.any? %>
         <p><%= t('common.styles_colon') %> <%= render recipe.styles %></p>

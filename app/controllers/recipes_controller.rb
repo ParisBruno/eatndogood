@@ -5,13 +5,16 @@ class RecipesController < ApplicationController
   before_action :require_user, except: [:index, :show, :like]
   before_action :require_same_user, only: [:edit, :update, :destroy]
   before_action :require_user_like, only: [:like]
+  before_action :set_admin_id
+  before_action :set_admin_user
   
   def index
+    puts @admin_id
     if params[:filter]
-      @recipes = Recipe.where(chef_id: current_user.chef_info.id).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @admin.chef_info.id).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
      
     else
-      @recipes = Recipe.where(chef_id: current_user.chef_info.id).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @admin.chef_info.id).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
     end
   end
   
@@ -78,6 +81,10 @@ class RecipesController < ApplicationController
   end
   
   private
+
+    def set_admin_user
+      @admin = User.includes(:chef_info).find @admin_id
+    end
 
     def make_tags
       @recipe.tag_list = (@recipe.styles.pluck(:name) + @recipe.ingredients.pluck(:name) + @recipe.allergens.pluck(:name)).map(&:inspect).join(', ')
