@@ -43,8 +43,6 @@ class PagesController < ApplicationController
   def admin_param
     @admin_id = params[:admin_id].present? if params[:admin_id]
 
-    @admin_id = User.friendly.find(params[:user]) if @admin_id.nil? 
-
     @admin_id = (@admin_id.nil? && !current_user.nil? && current_user.admin?) ? current_user.id : User.where(admin: true).first.id
   end
 
@@ -56,7 +54,6 @@ class PagesController < ApplicationController
     path = request.path_info
     path = "#{path}welcome" if (path.nil? || path.empty? || path == '/')
     path = "/welcome" if path == '/live'
-
     Page.get_destination(path)
   end
 

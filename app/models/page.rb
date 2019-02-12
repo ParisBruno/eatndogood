@@ -10,6 +10,7 @@ class Page < ActiveRecord::Base
   def self.get_destination(request_path)
     destination = (request_path.split(SEPARATOR) & COLLECTION_DESTINATIONS).first
     destination = 'welcome' if destination.nil?
+    destination
   end
 
   def self.hide(_)
