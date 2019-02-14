@@ -241,7 +241,7 @@ header.header {
                     <% elsif @admin_name.present? %>
                         <h2><%= @admin_name.capitalize %></h2>
                     <% else %>
-                        <h2> Bruno</h2>
+                        <h2> Live </h2>
                     <%end%>
 
 
@@ -268,7 +268,7 @@ header.header {
                                 <%= link_to "Enter", about_pages_path(:admin_id => @admin_id, :guest_email => @guest_email) %>
                             <% end %>
                         </div>
-                        <%=image_tag( (@page.page_img.url.present?) ? @page.page_img.url : Page.where(id: 1).first.page_img.url(:original), class: "img-responsive")  %>
+                        <%=image_tag( (!@page.page_img_file_name.nil?) ? @page.page_img.url : Page.where.not(page_img_file_name: nil).first.page_img.url(:original), class: "img-responsive")  %>
                     </div>
                 <% end %>
                 <!-- , size: '840x680',class: 'gravatar' -->

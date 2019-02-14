@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   layout :select_layout_header
-  before_action :admin_param, only: ['welcome', 'about']
+  before_action :set_admin_id, only: ['welcome', 'about']
   before_action :guest_email, only: ['welcome', 'about']
 
   def index
@@ -40,11 +40,15 @@ class PagesController < ApplicationController
     @guest_email = params[:guest_email]
   end
 
-  def admin_param
-    @admin_id = params[:admin_id].present? if params[:admin_id]
+  # def admin_param
+  #   @admin_id = params[:admin_id].present? if params[:admin_id]
 
-    @admin_id = (@admin_id.nil? && !current_user.nil? && current_user.admin?) ? current_user.id : User.where(admin: true).first.id
-  end
+  #   @admin_id = User.friendly.find(params[:user]).id if(@admin_id.nil? && !params[:user].nil? && params[:user].is_a?(String) )
+  #   puts "Admin ID #{@admin_id}"
+
+  #   @admin_id = (@admin_id.nil? && !current_user.nil? && current_user.admin?) ? current_user.id : User.where(admin: true).first.id
+  #   puts "Admin ID #{@admin_id}"
+  # end
 
   def select_layout_header
     params[:action] == destination ? '_without_header' : 'application'

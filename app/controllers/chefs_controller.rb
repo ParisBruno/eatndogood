@@ -38,6 +38,7 @@ class ChefsController < ApplicationController
     params[:user].delete(:encrypted_password) if params[:user][:password].blank?
     user = User.find current_user.id
     if @user.update(chef_params)
+      #@user.set_slug(params[:user][:slug])
       bypass_sign_in @user if user.id == @user.id
       flash[:success] = "Your account was updated successfully"
       redirect_to @user.chef_info
@@ -58,11 +59,17 @@ class ChefsController < ApplicationController
   end
   
   private
+
+  def slug=(value)
+     if value.present?
+       write_attribute(:slug, value)
+     end
+   end
   
   def chef_params
     # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
     #                               :password, :password_confirmation])
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, chef_info_attributes: 
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug, chef_info_attributes: 
                                     [:my_bio, :chef_avatar, :admin_id, :id])
   end
 

@@ -30,14 +30,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_admin_id
-    @admin_id = params[:admin_id].present? if params[:admin_id]
-
-    @admin_id = User.friendly.find(params[:user]) if(@admin_id.nil? && !params[:user].nil?)
-
+    @admin_id = params[:admin_id] if params[:admin_id].present?
+    puts "Admin id #{@admin_id}"
+    @admin_id = User.friendly.find(params[:user]).id if(@admin_id.nil? && !params[:user].nil? && params[:user].is_a?(String) )
+    puts "Admin id #{@admin_id}"
     @admin_id =  current_user.id if(@admin_id.nil? && !current_user.nil? && current_user.admin?)
 
       
-    @admin_id =  User.where(admin: true).first.id
+    @admin_id =  User.where(admin: true).first.id if @admin_id.nil?
+    puts "Admin id #{@admin_id}"
   end
 
   def require_admin

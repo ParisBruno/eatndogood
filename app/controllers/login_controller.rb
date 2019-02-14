@@ -84,7 +84,7 @@ class LoginController < ApplicationController
 	      end
 
 	      flash[:success] = I18n.t('flash.your_profile_upgraded')
-	      redirect_to root_path
+	      redirect_to user_welcome_path(user)
 	    else #if chef is not present then create new chef
 	      @user = User.create!({email: email, password: pass, plan_id: plan_id, chef: true, guest: false, admin: true})
 
@@ -99,7 +99,7 @@ class LoginController < ApplicationController
 
 	        flash[:success] = I18n.t 'flash.your_account_created'
 	        
-	        redirect_to root_path
+	        redirect_to user_welcome_path(@user)
 	      else
 	        flash[:danger] = I18n.t 'flash.wrong_credentials'
 	        redirect_to root_path
@@ -114,7 +114,7 @@ class LoginController < ApplicationController
 	      assignPlan(chef.id,plan_id) if plan_id.present?
 
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
-	      redirect_to recipes_path
+	      redirect_to user_welcome_path(chef)
 
 	    else
 

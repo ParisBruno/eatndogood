@@ -22,8 +22,19 @@ class User < ApplicationRecord
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ?', Date.today - 60.days) }
 
+  after_create :create_pages
+
   def full_name
     [first_name, last_name].join(' ')
+  end
+
+  private 
+
+  def create_pages
+    if self.admin
+      Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: "My.iTopRecipes App", destination: "welcome", user_id: self.id)
+      Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", user_id: self.id)
+    end
   end
 
 end

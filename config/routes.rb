@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   get '/chat', to: 'chatrooms#show'
 
-  get ':user', to: 'pages#welcome'
+  get ':user', to: 'pages#welcome', as: "user_welcome"
   scope ':user' do
     get '/', to: 'pages#welcome'
     resources :guests, only: %i[index send_emails]
