@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   accepts_nested_attributes_for :chef_info, allow_destroy: true
   has_many :reservations, dependent: :destroy
+  validates_uniqueness_of :slug
 
   validates :plan, presence: true, if: :admin?
   
