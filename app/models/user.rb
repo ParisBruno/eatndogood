@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :guests, class_name: 'User', foreign_key: 'user_id'
   has_many :chefs, class_name: 'User', foreign_key: 'chef_id'
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
+  belongs_to :guest_admin_user, class_name: 'User', foreign_key: 'user_id', optional: true
+
   has_many :likes, dependent: :destroy
   accepts_nested_attributes_for :chef_info, allow_destroy: true
   has_many :reservations, dependent: :destroy
@@ -24,6 +26,7 @@ class User < ApplicationRecord
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ?', Date.today - 60.days) }
 
   after_create :create_pages
+  before_create :set_guest_admin
 
   def full_name
     [first_name, last_name].join(' ')
@@ -36,6 +39,11 @@ class User < ApplicationRecord
       Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: "My.iTopRecipes App", destination: "welcome", user_id: self.id)
       Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", user_id: self.id)
     end
+  end
+
+  def set_guest_admin
+    puts "test here"
+    #self.user_id = params[:user][:admin_id]
   end
 
 end

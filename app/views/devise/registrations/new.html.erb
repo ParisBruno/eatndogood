@@ -8,6 +8,7 @@
   <div class="well col-md-5 col-md-offset-4 login-sec">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
+    <input type="hidden" name="user[user_id]" value="<%= params[:admin_id] %>" />
     <div class="field">
       <%= f.label :first_name, autofocus: true, autocomplete: "first_name" %>
       <%= f.text_field :first_name %>

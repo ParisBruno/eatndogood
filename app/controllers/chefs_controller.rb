@@ -37,8 +37,8 @@ class ChefsController < ApplicationController
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:encrypted_password) if params[:user][:password].blank?
     user = User.find current_user.id
+
     if @user.update(chef_params)
-      #@user.set_slug(params[:user][:slug])
       bypass_sign_in @user if user.id == @user.id
       flash[:success] = "Your account was updated successfully"
       redirect_to @user.chef_info

@@ -137,7 +137,7 @@
         <div class="row">
           <div class="col-md-12 text-center" style="width: 100%;">
             <% if @admin_id.blank? || @guest_email.blank? %>
-               <%= link_to t('common.take_a_tour_as_guest'), new_user_registration_path, {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
+               <%= link_to t('common.take_a_tour_as_guest'), new_user_registration_path(admin_id: @admin_id), {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
             <% else %>
               <% if current_user.present? %>
                 <%= link_to(t('common.take_a_tour_as_guest'), new_user_session_path,{ :class => 'btn btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>

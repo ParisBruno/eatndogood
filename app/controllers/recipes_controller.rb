@@ -9,7 +9,6 @@ class RecipesController < ApplicationController
   before_action :set_admin_user
   
   def index
-    puts @admin_id
     if params[:filter]
       @recipes = Recipe.where(chef_id: @admin.chef_info.id).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
      

@@ -31,14 +31,15 @@ class ApplicationController < ActionController::Base
 
   def set_admin_id
     @admin_id = params[:admin_id] if params[:admin_id].present?
-    puts "Admin id #{@admin_id}"
     @admin_id = User.friendly.find(params[:user]).id if(@admin_id.nil? && !params[:user].nil? && params[:user].is_a?(String) )
-    puts "Admin id #{@admin_id}"
     @admin_id =  current_user.id if(@admin_id.nil? && !current_user.nil? && current_user.admin?)
 
+    if @admin_id.nil?
+      @admin_id = current_user.chef_info.admin_id if !current_user.nil? && current_user.chef?
+      @admin_id = current_user.guest_admin_user.id if (!current_user.nil? && current_user.guest? && @admin_id.nil?)
+    end
       
     @admin_id =  User.where(admin: true).first.id if @admin_id.nil?
-    puts "Admin id #{@admin_id}"
   end
 
   def require_admin
@@ -54,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    permit_attrs(%i[first_name last_name])
+    permit_attrs(%i[first_name last_name user_id])
   end
 
   def permit_attrs(attrs)
