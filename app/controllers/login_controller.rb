@@ -57,6 +57,8 @@ class LoginController < ApplicationController
 	  pass =  (vars[:upw].present?) ? Base64.decode64(vars[:upw]) : ''
 	  cat_name = (vars[:cat_name].present?) ? Base64.decode64(vars[:cat_name]) : ''
 	  prod_name = (vars[:prod_name].present?) ? Base64.decode64(vars[:prod_name]) : ''
+	  f_name = (vars[:fn].present?) ? Base64.decode64(vars[:fn]) : (!email.nil? ? email.split('@')[0] : '')
+	  l_name = (vars[:ln].present?) ? Base64.decode64(vars[:ln]) : ''
 
 	  guest = (vars[:guest].present?) ? Base64.decode64(vars[:guest]) : ''
 	  yearly_cost = (vars[:yearly_cost].present?) ? Base64.decode64(vars[:yearly_cost]) : ''
@@ -86,7 +88,7 @@ class LoginController < ApplicationController
 	      flash[:success] = I18n.t('flash.your_profile_upgraded')
 	      redirect_to user_welcome_path(user)
 	    else #if chef is not present then create new chef
-	      @user = User.create!({email: email, password: pass, plan_id: plan_id, chef: true, guest: false, admin: true})
+	      @user = User.create!({email: email, password: pass, first_name: f_name, last_name: l_name, plan_id: plan_id, chef: true, guest: false, admin: true})
 
 	      @chef = Chef.new
 		  @chef.user_id = @user.id	     
