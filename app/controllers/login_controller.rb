@@ -58,7 +58,9 @@ class LoginController < ApplicationController
 	  cat_name = (vars[:cat_name].present?) ? Base64.decode64(vars[:cat_name]) : ''
 	  prod_name = (vars[:prod_name].present?) ? Base64.decode64(vars[:prod_name]) : ''
 	  f_name = (vars[:fn].present?) ? Base64.decode64(vars[:fn]) : (!email.nil? ? email.split('@')[0] : '')
+	  puts f_name
 	  l_name = (vars[:ln].present?) ? Base64.decode64(vars[:ln]) : ''
+	  puts l_name
 
 	  guest = (vars[:guest].present?) ? Base64.decode64(vars[:guest]) : ''
 	  yearly_cost = (vars[:yearly_cost].present?) ? Base64.decode64(vars[:yearly_cost]) : ''
