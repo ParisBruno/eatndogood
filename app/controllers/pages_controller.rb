@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   layout :select_layout_header
-  before_action :set_admin_id, only: ['welcome', 'about', 'edit']
+  before_action :set_admin_id, only: ['welcome', 'about', 'edit', 'update']
   before_action :guest_email, only: ['welcome', 'about']
 
   def index
@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   end
 
   def update
-    @page = Page.where(destination: page_params[:destination]).first
+    @page = get_page
 
     if @page.update(page_params)
       redirect_to "/pages/#{page_params[:destination]}"
