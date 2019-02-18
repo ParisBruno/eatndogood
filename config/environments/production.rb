@@ -93,6 +93,8 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.default_url_options = { host: 'my.itoprecipes.com' }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.web_socket_server_url = 'wss://mashrur-myrecipes.herokuapp.com/cable'
