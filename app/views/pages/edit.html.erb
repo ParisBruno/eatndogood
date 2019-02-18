@@ -1,7 +1,11 @@
 
 
 <div class="login-header">
+	<% if params[:id] == "welcome" %>
   	<h1><%= t('pages.new.edit_welcome_page') %></h1>
+  	<% else %>
+  	<h1><%= t('pages.new.edit_about_page') %></h1>
+  	<% end %>
 	
 
 <hr>

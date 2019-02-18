@@ -11,12 +11,13 @@
           <%= cktext_area :page, :title, value: (@page.present? && !@page.title.nil?) ? @page.title :  'Welcome',  cols: 100, rows: 20, class: 'form-control', required: true  %>
           
           <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
-
+          <% if @page.present? && @page.destination == 'welcome' %>
           <label>Edit your name</label>
           
           <%= cktext_area :page, :admin_name, value: (@page.present? && !@page.admin_name.nil?) ? @page.admin_name :  current_user.full_name,  cols: 100, rows: 20, class: 'form-control', required: true  %>
           
           <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
+          <% end %>
 
            <% if @page.present? && @page.destination == 'welcome' %>
           <label><%= t('pages.new.edit_app_name') %></label>
