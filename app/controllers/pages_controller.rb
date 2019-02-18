@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   end
 
   def update
-    @page = get_page
+    @page = get_update_page
 
     if @page.update(page_params)
       redirect_to "/pages/#{page_params[:destination]}"
@@ -58,6 +58,10 @@ class PagesController < ApplicationController
     else
       Page.where(destination: destination).first
     end
+  end
+
+  def get_update_page
+    Page.find params[:id]
   end
 
   def page_params
