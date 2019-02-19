@@ -23,13 +23,13 @@ class User < ApplicationRecord
 
   validates :plan, presence: true, if: :admin?
   
-  scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ?', Date.today - 60.days) }
+  scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
 
   after_create :create_pages
   before_create :set_guest_admin
 
   def full_name
-    [first_name.capitalize, last_name.capitalize].join(' ')
+    [!first_name.nil? ? first_name.capitalize : first_name, !last_name.nil? ? last_name.capitalize : last_name].join(' ')
   end
 
   private 

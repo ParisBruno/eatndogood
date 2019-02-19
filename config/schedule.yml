@@ -1,4 +1,4 @@
 inactive_guests_admin_notification_worker:
-  cron: "0 1 * * *"
+  cron: "0 4 * * *"
   class: "InactiveGuestsAdminNotificationWorker"
   queue: inactive_guests_admin_notification_worker

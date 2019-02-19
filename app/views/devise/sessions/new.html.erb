@@ -1,3 +1,14 @@
+<script type="text/javascript" src="https://rawgit.com/wenzhixin/bootstrap-show-password/master/bootstrap-show-password.js"></script>
+<style>
+  .input-group-addon:last-child {
+      border-left: 0;
+      height: 36px;
+      padding-right: 25px;
+  }
+  .login-sec .field input {
+      width: 90%;
+  }
+</style>
 <div class="login-header">
   <p>
     <h1>Welcome!</h1>
@@ -10,12 +21,17 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.label :email, 'Email' %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", style: "width:100%" %>
       </div>
 
       <div class="field">
         <%= f.label :password, 'Password' %>
-        <%= f.password_field :password, autocomplete: 'current-password' %>
+        <%= f.password_field :password, autocomplete: 'current-password', class: "form-control", 'data-toggle' => "password" %>
+        
+      </div>
+
+      <div >
+        <%= f.check_box :remember_me, (resource.remember_me ? {} : { checked: true }) %> <%= f.label :remember_me %>
       </div>
 
       <div class="actions">
