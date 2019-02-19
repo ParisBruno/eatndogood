@@ -7,6 +7,10 @@
           <% else %>
           <label>Write your introduction</label>
           <% end %>
+
+          <% if @page.destination == 'welcome' %>
+            <%= cktext_area :page, :content, value: (@page.present? && !@page.content.nil?) ? @page.content :  ['Welcome', current_user.full_name, 'iTopRecipes app'].join('<br/>'),  cols: 100, rows: 20, class: 'form-control', required: true  %>
+          <% else %>
          
           <%= cktext_area :page, :title, value: (@page.present? && !@page.title.nil?) ? @page.title :  'Welcome',  cols: 100, rows: 20, class: 'form-control', required: true  %>
           
@@ -28,6 +32,7 @@
           <%= cktext_area(:page, :content, value: (@page.present? && !@page.content.nil?) ? @page.content : 'iTopRecipes!', cols: 100, rows: 20, class: 'form-control', required: true) %>
        
           <span style="color:red;display:none;" id="span_err_2"><%= t('pages.new.you_can_not_write_more_chars', max: 30) %></span><br>
+          <% end %>
         </div>
         
         <div class="col-md-5  well box-content">

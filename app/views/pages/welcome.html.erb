@@ -234,18 +234,7 @@
            
             <div class="content-se">
                 <h1>
-                    <p><span><%= @page.present? ? ((@page.title.blank?) ? 'A Taste Of' : @page.title.html_safe ) : 'A Taste Of' %></span></p>
-                    <p>
-                       <span>
-                        <% if current_user.present? && !@page.admin_name.blank? %>
-                            <h2><%= @page.admin_name.html_safe %></h2>
-                        <% elsif @admin_name.present? && @page.admin_name.blank? %>
-                            <h2><%= @admin_name.capitalize %></h2>
-                        <% else %>
-                            <h2> Live </h2>
-                        <%end%>
-                       </span> 
-                    </p>
+                    
                     <p>
                         <h2><span><%= (@page.present? && !@page.content.blank?) ? @page.content.html_safe : "" %></span></h2>
                     </p>

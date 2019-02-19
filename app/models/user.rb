@@ -29,14 +29,14 @@ class User < ApplicationRecord
   before_create :set_guest_admin
 
   def full_name
-    [first_name, last_name].join(' ')
+    [first_name.capitalize, last_name.capitalize].join(' ')
   end
 
   private 
 
   def create_pages
     if self.admin
-      Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: "My.iTopRecipes App", destination: "welcome", user_id: self.id, admin_name: self.full_name)
+      Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: ["Welcome To", self.full_name, "iTopRecipes App"].join("<br/>"), destination: "welcome", user_id: self.id, admin_name: self.full_name)
       Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", user_id: self.id, admin_name: self.full_name)
     end
   end
