@@ -4,7 +4,8 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
-  before_action :set_admin_id
+  
+  before_action :check_limit_chefs, only: [:new, :create]
   
   def index
     @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
@@ -17,6 +18,7 @@ class ChefsController < ApplicationController
   
   def create
     @user = User.new(chef_params)
+    @user.chef = true
     if @user.save
       flash[:success] = "Welcome #{@user.full_name} to MyRecipes App!"
       redirect_to chef_path(@user.chef_info)
@@ -59,6 +61,15 @@ class ChefsController < ApplicationController
   end
   
   private
+
+  def check_limit_chefs
+    plan = current_user.plan
+    current_chefs_count = current_user.chefs.count
+    if !plan.chefs_limit.nil? && (current_user.chefs.count >= plan.chefs_limit)
+      flash[:danger] = "Your account has already reached limit the number of chefs. To add more chef, please upgrade your plan."
+      redirect_to chefs_path
+    end
+  end
 
   def slug=(value)
      if value.present?

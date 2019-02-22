@@ -10,7 +10,7 @@
           <div class="panel-body">
             <ul>
               <% obj.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+                <li><%= sanitize(msg) %></li>
               <% end %>
             </ul>
           </div>

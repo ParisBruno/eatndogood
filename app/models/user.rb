@@ -12,7 +12,7 @@ class User < ApplicationRecord
   #belongs_to :host_chef, class_name: 'User', foreign_key: 'chef_id', optional: true
   belongs_to :plan, optional: true
   has_many :guests, class_name: 'User', foreign_key: 'user_id'
-  has_many :chefs, class_name: 'User', foreign_key: 'chef_id'
+  has_many :chefs, class_name: 'Chef', foreign_key: 'admin_id'
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
   belongs_to :guest_admin_user, class_name: 'User', foreign_key: 'user_id', optional: true
 
@@ -22,6 +22,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :slug
 
   validates :plan, presence: true, if: :admin?
+
+  
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
 
@@ -42,8 +44,7 @@ class User < ApplicationRecord
   end
 
   def set_guest_admin
-    puts "test here"
-    #self.user_id = params[:user][:admin_id]
+    #self.user_id = params[:user][:admin_id] if self.guest? 
   end
 
 end

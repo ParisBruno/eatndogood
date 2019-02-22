@@ -5,15 +5,15 @@ class RecipesController < ApplicationController
   before_action :require_user, except: [:index, :show, :like]
   before_action :require_same_user, only: [:edit, :update, :destroy]
   before_action :require_user_like, only: [:like]
-  before_action :set_admin_id
-  before_action :set_admin_user
+  before_action :set_chef_ids
+  before_action :check_limit_recipes, only: [:new, :create]
   
   def index
     if params[:filter]
-      @recipes = Recipe.where(chef_id: @admin.chef_info.id).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id:@chef_ids).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
      
     else
-      @recipes = Recipe.where(chef_id: @admin.chef_info.id).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
     end
   end
   
@@ -81,8 +81,20 @@ class RecipesController < ApplicationController
   
   private
 
-    def set_admin_user
-      @admin = User.includes(:chef_info).find @admin_id
+    def check_limit_recipes
+      recipes_count = Recipe.where(chef_id: @chef_ids).count
+
+      recipes_limit = @admin.plan.recipes_limit
+
+      if recipes_count >= recipes_limit
+        flash[:danger] = "Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan."
+        redirect_to recipes_path
+      end
+    end
+
+    def set_chef_ids
+      @admin = User.find(@admin_id)
+      @chef_ids = @admin.chefs.pluck(:id)
     end
 
     def make_tags

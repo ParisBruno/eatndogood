@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   layout :select_layout_header
-  before_action :set_admin_id, only: ['welcome', 'about', 'edit', 'update']
   before_action :guest_email, only: ['welcome', 'about']
 
   def index

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_chef, :logged_in?
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_admin_id
   before_action :set_header_data
 
   def current_chef
@@ -38,6 +39,8 @@ class ApplicationController < ActionController::Base
       @admin_id = current_user.chef_info.admin_id if !current_user.nil? && current_user.chef?
       @admin_id = current_user.guest_admin_user.id if (!current_user.nil? && current_user.guest? && @admin_id.nil?)
     end
+
+    puts "admin id #{@admin_id}"
       
     @admin_id =  User.where(admin: true).first.id if @admin_id.nil?
   end
@@ -65,9 +68,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_data
-    user_id = !current_user.nil? ? current_user.id : User.where(admin: true).first
-    @ingredients = Ingredient.where(user_id: user_id)
-    @allergens = Allergen.where(user_id: user_id)
-    @styles = Style.where(user_id: user_id)
+    @ingredients = Ingredient.where(user_id: @admin_id)
+    @allergens = Allergen.where(user_id: @admin_id)
+    @styles = Style.where(user_id: @admin_id)
   end
 end
