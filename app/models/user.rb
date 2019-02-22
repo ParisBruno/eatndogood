@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   validates :plan, presence: true, if: :admin?
 
-  
+  validate :limit_guests, on: :create
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
 
@@ -32,6 +32,16 @@ class User < ApplicationRecord
 
   def full_name
     [!first_name.nil? ? first_name.capitalize : first_name, !last_name.nil? ? last_name.capitalize : last_name].join(' ')
+  end
+
+  def limit_guests
+    if self.guest?
+      admin = User.find self.user_id
+      current_guests = User.where(guest: true, user_id: admin.id).count
+      if !admin.plan.guests_limit.nil? && (current_guests >= admin.plan.guests_limit)
+        errors.add(:user_id, "Cannot signup to #{admin.full_name} app as guest. Because this user account has reached guests limitation.")
+      end
+    end
   end
 
   private 
