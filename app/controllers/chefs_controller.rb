@@ -18,6 +18,7 @@ class ChefsController < ApplicationController
   
   def create
     @user = User.new(chef_params)
+    @user.guest = false
     @user.chef = true
     if @user.save
       flash[:success] = "Welcome #{@user.full_name} to MyRecipes App!"
