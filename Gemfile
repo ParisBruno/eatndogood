@@ -50,6 +50,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
+  gem 'rb-readline'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

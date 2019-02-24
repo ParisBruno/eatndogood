@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190219164723) do
+ActiveRecord::Schema.define(version: 20190224040610) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 20190219164723) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "recipe_id"
+    t.string "img_type"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|

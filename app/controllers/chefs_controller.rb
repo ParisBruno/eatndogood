@@ -8,7 +8,7 @@ class ChefsController < ApplicationController
   before_action :check_limit_chefs, only: [:new, :create]
   
   def index
-    @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(:created_at).paginate(page: params[:page], per_page: 5)
   end
   
   def new

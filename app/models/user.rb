@@ -31,7 +31,7 @@ class User < ApplicationRecord
   before_create :set_guest_admin
 
   def full_name
-    [!first_name.nil? ? first_name.capitalize : first_name, !last_name.nil? ? last_name.capitalize : last_name].join(' ')
+    [first_name, last_name].join(' ').titleize
   end
 
   def limit_guests

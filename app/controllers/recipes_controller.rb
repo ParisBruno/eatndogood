@@ -104,11 +104,15 @@ class RecipesController < ApplicationController
     end
 
     def upload_images
-      if params[:images]
-        params[:images].each do |image|
-          @recipe.recipe_images.create(image: image)
-        end
+
+      if params[:food_image]
+        @recipe.recipe_images.create(image: params[:food_image], img_type: 'food')
       end
+
+      if params[:drink_image]
+        @recipe.recipe_images.create(image: params[:drink_image], img_type: 'drink')
+      end
+
     end
   
     def set_recipe

@@ -63,8 +63,6 @@
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
             <% end %>
             
-
-            
           </div>
         </div>
 
@@ -94,8 +92,16 @@
             <%= f.label :images, t('recipes.upload_food_pic') %>
           </div>
           <div class="col-md-12">
-            <%= file_field_tag "images[]", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
-            
+            <% 
+            food_images = @recipe.food_images
+            if food_images.count 
+              food_images.each do |image|
+            %>
+            <%=image_tag(image.image.url, class:'img', alt: t('common.no_image')) if image.image? %>
+            <% 
+              end #end each
+            end %>
+            <%= file_field_tag "food_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
           </div>
         </div>
 
@@ -104,13 +110,19 @@
             <%= f.label :images, t('recipes.upload_drink_pic') %>
           </div>
           <div class="col-md-12">
-            <%= file_field_tag "images[]", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+            <% 
+            drink_images = @recipe.drink_images
+            if drink_images.count 
+              drink_images.each do |image|
+            %>
+            <%=image_tag(image.image.url, class:'img', alt: t('common.no_image')) if image.image? %>
+            <% 
+              end #end each
+            end %>
+            <%= file_field_tag "drink_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
             
           </div>
         </div>
-       
-        
-      
         <div class="recepie-menu btn">
           <bold><%= t('recipes.max_pic_size', mb: 5) %></bold>
           

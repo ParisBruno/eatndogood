@@ -52,6 +52,14 @@ class Recipe < ApplicationRecord
     Recipe.includes(:styles).includes(:ingredients).includes(:allergens).tagged_with(tags, :any => true)
   end
 
+  def food_images
+    self.recipe_images.select {|image| image.img_type == "food" }
+  end
+
+  def drink_images
+    self.recipe_images.select {|image| image.img_type == "drink" }
+  end
+
   private
 
   def make_tags
