@@ -52,6 +52,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin_or_chef
+    if !logged_in? || (logged_in? && (!current_user.admin? || !current_user.chef?))
+      flash[:danger] = "Only admin or chef users can perform that action"
+      redirect_to ingredients_path
+    end
+  end
+
   def after_sign_in_path_for(resource)
     session[:chef_id] = current_user.chef_id
     recipes_path

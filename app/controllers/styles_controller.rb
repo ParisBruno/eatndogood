@@ -1,6 +1,6 @@
 class StylesController < ApplicationController
   before_action :set_style, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, except: [:show, :index]
+  before_action :require_admin_or_chef, except: [:show, :index]
 
   # GET /styles
   # GET /styles.json

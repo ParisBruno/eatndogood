@@ -1,5 +1,6 @@
 class AllergensController < ApplicationController
   before_action :set_allergen, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin_or_chef, except: [:show, :index]
 
   # GET /allergens
   # GET /allergens.json
