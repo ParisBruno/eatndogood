@@ -12,6 +12,7 @@ class RecipeImage < ApplicationRecord
 		old_images = RecipeImage.where(recipe_id: self.recipe_id, img_type: self.img_type)
 		old_images.each do |img|
 			img.destroy
+			
 		end
 	end
 end
