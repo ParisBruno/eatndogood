@@ -86,7 +86,7 @@ class RecipesController < ApplicationController
 
       recipes_limit = @admin.plan.recipes_limit
 
-      if recipes_count >= recipes_limit
+      if !recipes_limit.nil? && recipes_count >= recipes_limit
         flash[:danger] = "Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan."
         redirect_to recipes_path
       end
