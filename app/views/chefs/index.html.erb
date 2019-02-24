@@ -39,7 +39,7 @@
           <div class="user-profile">
             <center>
               <h3>
-                <%= chef.user.full_name.capitalize %>
+                <%= chef.user.full_name %>
                 &nbsp;
                 <%= (chef.admin) ? "(#{t('common.admin')})" : "(#{t('common.chef')})" %>
                 <% if (session[:user_role] == 'admin') && (current_member.admin?) %>
