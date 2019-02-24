@@ -87,8 +87,8 @@
 
             <% upper_page_detail = @page.title.html_safe %>
 
-            <% if upper_page_detail.size > 250 %>
-              <div class="show-read-more" id="read_less"><%= raw upper_page_detail.slice(0,250)+'...' %>
+            <% if upper_page_detail.size > 280 %>
+              <div class="show-read-more" id="read_less"><%= raw upper_page_detail.slice(0,280)+'...' %>
                 &nbsp;
                 <a href="javascript:void(0)" id="btn_more">(<%= t('common.read_more_1_min') %>)</a>
               </div>
