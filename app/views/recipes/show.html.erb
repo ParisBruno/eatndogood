@@ -82,13 +82,22 @@
             <br>
             <% if @recipe.is_reservation_enable %>
               <h3>
-                <a href="<%= new_reservation_path(@recipe, user_id: current_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id) %>" class="btn btn-success">
+                <a href="<%= new_reservation_path(@recipe, user_id: current_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
                   <%= "Make Reservation" %>
                 </a>
               </h3>
               <% end %>
               <br/>
               <br/>
+              <% if @recipe.is_ask_catering_enable %>
+                <h3>
+                  <a href="<%= new_reservation_path(@recipe, user_id: current_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
+                    <%= "Ask about catering & personal chef services" %>
+                  </a>
+                </h3>
+                <% end %>
+                <br/>
+                <br/>
           <% end %>
           <%= link_to like_recipe_path(@recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
             <i class="glyphicon glyphicon-thumbs-up" ></i>

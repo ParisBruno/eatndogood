@@ -42,8 +42,14 @@ class Recipe < ApplicationRecord
 
   end
 
+  def is_ask_catering_enable
+    professional_plan_ids = PlanCategory.where(name: 'Professionals').first.plans.pluck(:id)
+    return true if professional_plan_ids.include? self.chef.user.plan_id
+    
+    professional_plan_ids.include?  self.chef.admin_user.plan_id if self.chef.admin_user.present?
+  end
+
   def self.filters params
-    puts params
     styles = Style.where({id: params[:style_ids]}).pluck(:name)
     ingredients = Ingredient.where({id: params[:ingredient_ids]}).pluck(:name)
     allergens = Allergen.where({id: params[:allergen_ids]}).pluck(:name)

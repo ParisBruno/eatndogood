@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190224040610) do
+ActiveRecord::Schema.define(version: 20190225160540) do
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20190224040610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.string "re_type"
   end
 
   create_table "styles", force: :cascade do |t|

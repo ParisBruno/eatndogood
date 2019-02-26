@@ -3,6 +3,7 @@
     <%= form_for @reservation, :html => {class: "form-horizontal", multipart: true, role: "form"} do |f| %>
       <%= f.hidden_field :user_id, value: (@reservation.user_id.present?) ? @reservation.user_id : @user_id   %>
       <%= f.hidden_field :recipe_id, value: (@reservation.recipe_id.present?) ? @reservation.recipe_id : @recipe_id %>
+      <%= f.hidden_field :re_type, value: params[:type] %>
      
       <div class="form-group">
         <div class="control-label col-md-2">

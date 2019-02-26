@@ -29,6 +29,9 @@ fr:
     upload_profile_pic: Upload profile picture
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
     x_chefs_remaining_html: "%{x}&nbsp; chefs remaining for add! Please upgrade your account by click %{link}"
+  reservations:
+    make_reservation: Créer une réservation
+    make_catering: Posez des questions sur la restauration et les services personnels
   common:
     admin: Admin
     all_recipes: Toutes les recettes

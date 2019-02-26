@@ -1,5 +1,11 @@
 <div class="login-header">
-<h1><t('reservations.make_reservation') %></h1>
+<h1>
+	<% if params[:type] == "reservation" %>
+		<t('reservations.make_reservation') %>
+	<% else %>
+		<t('reservations.make_catering') %>
+	<% end %>
+</h1>
 <hr>
 </div>
 

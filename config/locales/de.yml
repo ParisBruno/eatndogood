@@ -29,6 +29,9 @@ de:
     upload_profile_pic: Profilbild hochladen
     write_few_words_about_yourself: Bitte schreibe ein paar Worte über dich.
     x_chefs_remaining_html: "%{x}&nbsp; Köche bleiben für hinzufügen! Bitte aktualisieren Sie Ihr Konto, indem Sie auf %{link}"
+  reservations:
+    make_reservation: Reservierung erstellen
+    make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen
   common:
     admin: Administrator
     all_recipes: Alle Rezepte
