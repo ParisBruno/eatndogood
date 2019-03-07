@@ -27,7 +27,6 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.3'
 gem 'sidekiq-cron', '~> 0.6.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '3.1.0'
-gem 'sqlite3'
 gem 'simple_form'
 gem 'friendly_id', '~> 5.2.4'
 gem 'remotipart'
@@ -51,6 +50,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
   gem 'rb-readline'
+  gem 'sqlite3', '~> 1.3', '>= 1.3.6'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
