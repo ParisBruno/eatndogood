@@ -11,12 +11,13 @@ gem 'dotenv-rails', '~> 2.5'
 gem 'dragonfly'
 gem 'haml-rails', '~> 1.0'
 gem 'pg'
+gem 'sqlite3', '~> 1.3.13'
 gem 'puma', '~> 3.0'
 gem 'fog'
 gem 'mini_magick'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'rails', '~> 5.1', '>= 5.1.6'
+gem 'rails', '~> 5.1.6'
 gem 'rails-i18n', '~> 5.1'
 gem 'redis', '~> 4.0'
 gem "paperclip", "~> 6.0.0"
@@ -50,7 +51,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
   gem 'rb-readline'
-  gem 'sqlite3', '~> 1.3', '>= 1.3.6'
+  
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
