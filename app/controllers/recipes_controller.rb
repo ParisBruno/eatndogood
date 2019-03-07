@@ -117,7 +117,7 @@ class RecipesController < ApplicationController
     end
 
     def remove_old_image(type)
-      images = @recipe.recipe_images.{|image| image.img_type == type }
+      images = @recipe.recipe_images.select{|image| image.img_type == type }
       images.each do |im|
         im.destroy
       end
