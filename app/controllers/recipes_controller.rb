@@ -105,6 +105,8 @@ class RecipesController < ApplicationController
 
     def upload_images
 
+      @recipe.recipe_images.destroy_all
+
       if params[:food_image]
         @recipe.recipe_images.create(image: params[:food_image], img_type: 'food')
       end
