@@ -104,17 +104,23 @@ class RecipesController < ApplicationController
     end
 
     def upload_images
-
-      @recipe.recipe_images.destroy_all
-
       if params[:food_image]
+        remove_old_images('food')
         @recipe.recipe_images.create(image: params[:food_image], img_type: 'food')
       end
 
       if params[:drink_image]
+        remove_old_images('drink')
         @recipe.recipe_images.create(image: params[:drink_image], img_type: 'drink')
       end
 
+    end
+
+    def remove_old_image(type)
+      images = @recipe.recipe_images.{|image| image.img_type == type }
+      images.each do |im|
+        im.destroy
+      end
     end
   
     def set_recipe
