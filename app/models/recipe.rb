@@ -10,6 +10,8 @@ class Recipe < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :recipe_images, dependent: :destroy
+  has_many :food_images, -> { where('img_type = ?', 'food') }
+  has_many :drink_images, -> { where('img_type = ?', 'drink') }
   has_and_belongs_to_many :allergens
   has_and_belongs_to_many :styles
   has_many :questions

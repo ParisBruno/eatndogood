@@ -80,17 +80,30 @@ end
       </section>
       </div>
     </div>
-    <% if !recipe.recipe_images.nil? 
-        recipe.recipe_images.each do |re_img|
+    <% if !recipe.food_images.nil? 
+        recipe.food_images.each do |food_img|
     %>
 
       <div class="col-md-2 thumb">
         <div class="img-inner image-box-shadow">
-          <%=image_tag(re_img.image.url, class:'img-responsive', alt: t('common.no_image')) if re_img.image? %>
+          <%=image_tag(food_img.image.url, class:'img-responsive', alt: t('common.no_image')) if food_img.image? %>
         </div>
       </div>
       <% end %>
    <% end %>
+
+   <% if !recipe.drink_images.nil? 
+        recipe.drink_images.each do |drink_img|
+    %>
+
+      <div class="col-md-2 thumb">
+        <div class="img-inner image-box-shadow">
+          <%=image_tag(drink_img.image.url, class:'img-responsive', alt: t('common.no_image')) if drink_img.image? %>
+        </div>
+      </div>
+      <% end %>
+   <% end %>
+
   </div>
     <!-- '250x150'-->
   </div>
