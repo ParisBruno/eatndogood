@@ -51,7 +51,7 @@
         <div class="image-box-shadow" style="margin-bottom: 10px;">
           <%=image_tag(food_img.image.url, class:'img', alt: t('common.no_image')) if food_img.image? %>
         </div>
-       
+       <% end %>
      
       <%
         end 
@@ -66,12 +66,11 @@
        
       
       <%
+          end 
         end 
       %>
        </div>
-      <%
-      end 
-      %>
+      
 
       </div>
       </div>
