@@ -61,8 +61,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:chef_id] = current_user.chef_id
+    if resource.guest
+      @admin = resource.guest_admin_user
+      UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver if @admin 
+    end
     recipes_path
   end
+
 
   def configure_permitted_parameters
     permit_attrs(%i[first_name last_name user_id])
