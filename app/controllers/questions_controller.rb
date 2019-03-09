@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         
-        ActionMailer::Base.mail(from: "info@itoprecipies.com", to: @question.email, subject: @question.subject, body: @question.body).deliver
+        ActionMailer::Base.mail(from: "bruno@itoprecipes.com", to: @question.email, subject: @question.subject, body: @question.body).deliver
         
         if params[:question][:question_type] == 'reservation'
           format.html { redirect_to recipe_path(@question.recipe_id), notice: 'Make Reservation successfully.' }
