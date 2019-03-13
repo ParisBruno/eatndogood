@@ -16,7 +16,6 @@
 //= require ckeditor/init
 //= require_tree .
 //= require jquery.remotipart 
-//= require bootstrap
 
 function scrollToBottom(){
   if($('#messages').length > 0) {
