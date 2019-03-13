@@ -12,10 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap-sprockets
 //= require ckeditor/init
 //= require_tree .
 //= require jquery.remotipart 
+//= require bootstrap
 
 function scrollToBottom(){
   if($('#messages').length > 0) {
