@@ -249,7 +249,7 @@ it:
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.
     choose_2_photo: Scegli 2 immagini
     edit_recipe: Modifica questa ricetta
-    max_pic_size:Immagine dimensione max % {mb} megabyte
+    max_pic_size: Immagine dimensione max % {mb} megabyte
     new_title: Crea una nuovo capolavoro di  ricetta
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette
