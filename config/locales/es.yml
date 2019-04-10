@@ -220,7 +220,7 @@ es:
       tap_or_click_to_save: Toca o haz clic para guardar tus cambios
       update_about_us_page: Actualizar la página de nosotros
   questions:
-    ask_question: pregunta:
+    ask_question: pregunta
     asked_by: 'Preguntado por:'
     date: Fecha
     email_to_colon: 'Email To: '
