@@ -54,8 +54,11 @@ class ApplicationController < ActionController::Base
 
   def require_admin_or_chef
     if  !current_user.nil? && (!current_user.admin? || !current_user.chef?)
-      flash[:danger] = "Only admin or chef users can perform that action"
-      redirect_to ingredients_path
+    # unless current_user.nil?
+      # unless (current_user.admin? || current_user.chef?)
+        flash[:danger] = "Only admin or chef users can perform that action"
+        redirect_to ingredients_path
+      # end
     end
   end
 

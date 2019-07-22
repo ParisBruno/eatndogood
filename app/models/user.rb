@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   def limit_guests
     if self.guest?
-      admin = User.find self.user_id
+      admin = User.find self.user_id # hummmm
       current_guests = User.where(guest: true, user_id: admin.id).count
       if !admin.plan.guests_limit.nil? && (current_guests >= admin.plan.guests_limit)
         errors.add(:user_id, "Cannot signup to #{admin.full_name} app as guest. Because this user account has reached guests limitation.")

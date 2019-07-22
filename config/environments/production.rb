@@ -59,12 +59,21 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
 
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.stackmail.com',
+  #   port:                 587,
+  #   domain:               'itoprecipes.com',
+  #   user_name:            'no-reply@itoprecipes.com',
+  #   password:             'noreplyitr1',
+  #   authentication:       :plain,
+  #   enable_starttls_auto: true
+  # }
   config.action_mailer.smtp_settings = {
-    address:              'smtp.stackmail.com',
+    address:              'smtp.mandrillapp.com',
     port:                 587,
     domain:               'itoprecipes.com',
-    user_name:            'no-reply@itoprecipes.com',
-    password:             'noreplyitr1',
+    user_name:            'iTopRecipes',
+    password:             'Gy3BhXFNRM9KjRoDabTl3w',
     authentication:       :plain,
     enable_starttls_auto: true
   }
