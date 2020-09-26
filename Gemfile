@@ -12,7 +12,7 @@ gem 'dotenv-rails', '~> 2.5'
 gem 'dragonfly'
 gem 'haml-rails', '~> 1.0'
 gem 'pg'
-gem 'sqlite3', '~> 1.3.13'
+# gem 'sqlite3', '~> 1.3.13'
 gem 'puma', '~> 3.0'
 gem 'fog'
 gem 'mini_magick'
@@ -38,6 +38,7 @@ gem 'hirb'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.8'
+  gem 'sqlite3', '~> 1.3.13'
 end
 
 group :development do
