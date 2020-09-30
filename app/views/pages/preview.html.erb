@@ -1,0 +1,22 @@
+<div class="row" style="padding-top: 70px;">
+  <div class="col-md-offset-3 col-md-9">
+    <%= render partial: 'shared/form_locale_selector', locals: {model: "page_preview", elem: "page_preview"} %>
+  </div>
+</div>
+<% I18n.available_locales.each do |locale| %>
+  <div class="page_preview_<%= locale %>">
+    <% Globalize.with_locale(locale) do |l| %>
+      <% if @page.name == "Welcome" %>
+        <%= render 'welcome', lang: l  %>
+      <% else %>
+        <%= render 'about', lang: l  %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<style>
+  footer {
+    z-index: 2 !important;
+  }
+</style>

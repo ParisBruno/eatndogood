@@ -7,27 +7,24 @@ Rails.application.routes.draw do
 
   #get '/'
 
-  resources :questions
-  resources :allergens
-  authenticate :user do
-    mount Sidekiq::Web => '/sidekiq'
-  end
+  # resources :questions
+  # resources :allergens
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  devise_for :users
+  # devise_for :users
   root "pages#welcome"
   get 'pages/welcome', to: 'pages#welcome'
-  get '/live', to: 'pages#welcome'
+  # get '/live', to: 'pages#welcome'
 
   get '/recipes/ask-question', to: "recipes#email_question", as: "askquestion"
 
-  resources :recipes do
-    resources :comments, only: [:create]
-    member do
-      post 'like'
-    end
-  end
+  # resources :recipes do
+  #   resources :comments, only: [:create]
+  #   member do
+  #     post 'like'
+  #   end
+  # end
 
   #woocommerce api
   get '/fetchapi', to: "login#fetchapi"
@@ -46,26 +43,31 @@ Rails.application.routes.draw do
 
 
 
-  resources :chefs #, except: [:new]
-  resources :ingredients, except: [:destroy]
-  resources :styles, except: [:destroy]
-  resources :messages, only: [:create]
-  resources :reservations, only: [:new, :create]
-  resources :pages do
-    collection do
-      post 'welcome/edit'
-      post 'about/edit'
-      get 'welcome', to: 'welcome'
-      get 'about',   to: 'about'
-    end
-  end
+  # resources :chefs #, except: [:new]
+  # resources :ingredients, except: [:destroy]
+  # resources :styles, except: [:destroy]
+  # resources :messages, only: [:create]
+  # resources :reservations, only: [:new, :create]
+  # resources :pages do
+  #   collection do
+  #     post 'welcome/edit'
+  #     post 'about/edit'
+  #     get 'welcome', to: 'welcome'
+  #     get 'about',   to: 'about'
+  #   end
+  # end
   mount ActionCable.server => '/cable'
 
-  get '/chat', to: 'chatrooms#show'
+  # get '/chat', to: 'chatrooms#show'
 
-  get ':user', to: 'pages#welcome', as: "user_welcome"
-  scope ':user' do
+  get ':app', to: 'pages#welcome', as: "user_welcome"
+  scope ':app', as: 'app' do
+    authenticate :app_user do
+      mount Sidekiq::Web => '/sidekiq'
+    end
+    devise_for :users
     get '/', to: 'pages#welcome'
+    resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs
     resources :questions
@@ -74,6 +76,23 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]
       member do
         post 'like'
+      end
+    end
+    # to change
+    # resources :chefs #, except: [:new]
+    resources :ingredients
+    resources :styles
+    resources :messages, only: [:create]
+    resources :reservations, only: [:new, :create]
+    resources :pages do
+      member do
+        get 'preview'
+      end
+      collection do
+        post 'welcome/edit'
+        post 'about/edit'
+        get 'welcome', to: 'welcome'
+        get 'about',   to: 'about'
       end
     end
   end

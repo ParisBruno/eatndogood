@@ -14,16 +14,20 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  # config.require_master_key = true
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  # config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -34,13 +38,16 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :amazon
+
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -50,33 +57,13 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, { url: 'redis://localhost:6379/0/cache' }, { expires_in: 90.minutes }
+  config.cache_store = :redis_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "myrecipes_#{Rails.env}"
-  config.action_mailer.perform_caching = false
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.smtp_settings = {
-    address:              'smtp.stackmail.com',
-    port:                 587,
-    domain:               'itoprecipes.com',
-    user_name:            'no-reply@itoprecipes.com',
-    password:             'noreplyitr1',
-    authentication:       :plain,
-    enable_starttls_auto: true
-  }
-  # config.action_mailer.smtp_settings = {
-  #   address:              'smtp.mandrillapp.com',
-  #   port:                 587,
-  #   domain:               'itoprecipes.com',
-  #   user_name:            'iTopRecipes',
-  #   password:             'Gy3BhXFNRM9KjRoDabTl3w',
-  #   authentication:       :plain,
-  #   enable_starttls_auto: true
-  # }
+  config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -99,13 +86,11 @@ Rails.application.configure do
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
-
-  config.action_mailer.default_url_options = { host: 'my.itoprecipes.com' }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.web_socket_server_url = 'wss://mashrur-myrecipes.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = ['https://mashrur-myrecipes.herokuapp.com', 'http://mashrur-myrecipes.herokuapp.com']
+
+  config.action_mailer.default_url_options = { host: 'my.itoprecipes.com'}
 end

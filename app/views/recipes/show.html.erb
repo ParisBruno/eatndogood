@@ -5,19 +5,19 @@
       <div class="col-md-8 col-sm-12 col-xs-12 detail-sec">
       <div class="box-inner-sec well box-content">
       <div class="detail-list">
-      <% if (current_user and (@recipe.chef.id == current_user.id) || current_user.admin?) %>
-        <%= link_to t('recipes.delete_recipe'), @recipe, class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+      <% if (current_app_user and (@recipe.chef.id == current_app_user.id) || current_app_user.admin?) %>
+        <%= link_to t('recipes.delete_recipe'), [current_app, @recipe], class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
       <% end %>
 
       
-      <% if (current_user and (@recipe.chef.id == current_user.id)|| current_user.admin? ) %>
-        <%= link_to t('recipes.edit_recipe'), edit_recipe_path(@recipe), class: "btn btn-success pull-right  btn-lg" %>
+      <% if (current_app_user and (@recipe.chef.id == current_app_user.id)|| current_app_user.admin? ) %>
+        <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right  btn-lg" %>
       <% end %>
  
 
       <center>
         <h2>
-          <%= link_to @recipe.name, recipe_path(@recipe) %>
+          <%= link_to @recipe.name, app_recipe_path(current_app, @recipe) %>
         </h2>
       </center>
 
@@ -25,7 +25,7 @@
         <%= @recipe.summary.html_safe %>
       </h2>
 
-      <div class="well-sec">
+      <div class="well-sec u-content">
         <p>
           <strong><%= t 'recipes.tips_ingredients_preparation' %></strong>
         </p>
@@ -44,32 +44,17 @@
       </div>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
-      <% if !@recipe.food_images.nil? 
-          @recipe.food_images.each do |food_img|
-      %>
-      
+      <% if @recipe.food_image.attached? %>
         <div class="image-box-shadow" style="margin-bottom: 10px;">
-          <%=image_tag(food_img.image.url, class:'img', alt: t('common.no_image')) if food_img.image? %>
+          <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
         </div>
-       <% end %>
-     
-      <%
-        end 
-      %>
-      <% if !@recipe.drink_images.nil? 
-          @recipe.drink_images.each do |drink_img|
-      %>
-      
+      <% end %>
+      <% if @recipe.drink_image.attached? %>
         <div class="image-box-shadow" style="margin-bottom: 10px;">
-          <%=image_tag(drink_img.image.url, class:'img', alt: t('common.no_image')) if drink_img.image? %>
+          <%=image_tag(@recipe.drink_image, class:'img', alt: t('common.no_image')) %>
         </div>
-       
-      
-      <%
-          end 
-        end 
-      %>
-       </div>
+      <% end %>
+      </div>
       
 
       </div>
@@ -79,13 +64,13 @@
 
 <br>
 
-<% if current_user.present? && session[:user_role] != 'super_admin' %>
+<% if current_app_user.present? && session[:user_role] != 'super_admin' %>
   <div class="recipes-q">
  
     <center>
-          <% if current_user.id != @recipe.chef.id %>
+          <% if current_app_user.id != @recipe.chef.id %>
             <h3>
-              <a href="<%= new_question_path(@recipe, user_id: current_user.id, email: @recipe.chef.user.email, recipe_id: @recipe.id) %>">
+              <a href="<%= new_app_question_path(@recipe, user_id: current_app_user.id, email: @recipe.chef.user.email, recipe_id: @recipe.id) %>">
                 <%= t('recipes.question_about_this_recipe') %>
               </a>
             </h3>
@@ -93,8 +78,8 @@
             <br>
             <% if @recipe.is_reservation_enable %>
               <h3>
-                <a href="<%= new_reservation_path(@recipe, user_id: current_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
-                  <%= "Make Reservation" %>
+                <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
+                  <%= t('reservations.make_reservation')%>
                 </a>
               </h3>
               <% end %>
@@ -102,21 +87,21 @@
               <br/>
               <% if @recipe.is_ask_catering_enable %>
                 <h3>
-                  <a href="<%= new_reservation_path(@recipe, user_id: current_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
-                    <%= "Ask about catering & personal chef services" %>
+                  <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
+                    <%= t('reservations.make_catering') %>
                   </a>
                 </h3>
                 <% end %>
                 <br/>
                 <br/>
           <% end %>
-          <%= link_to like_recipe_path(@recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
+          <%= link_to like_app_recipe_path(current_app, @recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
             <i class="glyphicon glyphicon-thumbs-up" ></i>
             &nbsp;
             <%= @recipe.thumbs_up_total %>
           <% end %>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <%= link_to like_recipe_path(@recipe, like: false), method: :post,:style => "font-size:30px; color: #337ab7 !important" do %>
+          <%= link_to like_app_recipe_path(current_app, @recipe, like: false), method: :post,:style => "font-size:30px; color: #337ab7 !important" do %>
               <i class="glyphicon glyphicon-thumbs-down"></i>
               &nbsp;
               <%= @recipe.thumbs_down_total %>
@@ -131,7 +116,7 @@
     <% if session[:user_role] == 'super_admin' %>
       <%= link_to t('recipes.return_to_recipes_listing'), allrecipe_path, class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     <% else %>
-      <%= link_to t('recipes.return_to_recipes_listing'), recipes_path, class: 'btn btn-primary btn-lg', style: "color:white !important" %>
+      <%= link_to t('recipes.return_to_recipes_listing'), app_recipes_path(current_app), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     <% end %>
   </h5>
 </center>

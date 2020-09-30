@@ -1,0 +1,12 @@
+remove colomn admin_id from chefs table
+
+have a upgrade table for each app plan
+if app upgrade merge hard limit from new plan to current plan keeping current plan limit as priority
+
+Review questions and messages
+
+
+use another mail other than bruno for communication
+
+
+Review question mailer missing person name or context

@@ -8,9 +8,12 @@ class PagesController < ApplicationController
     end
   end
 
+  # def welcome
+  #   user = User.find(@admin_id)
+  #   @admin_name = user.full_name if user
+  #   @page = get_page
+  # end
   def welcome
-    user = User.find(@admin_id)
-    @admin_name = user.full_name if user
     @page = get_page
   end
 
@@ -23,13 +26,37 @@ class PagesController < ApplicationController
     @page = Page.new if @page.nil?
   end
 
+  def preview
+    page = Page.find(params[:id])
+    redirect_to app_path(current_app) if page.nil?
+    @page = page.page_preview
+    redirect_to app_path(current_app) if @page.nil?
+  end
+
   def update
     @page = get_update_page
-
-    if @page.update(page_params)
-      redirect_to "/pages/#{page_params[:destination]}"
+    # raise page_params.inspect
+    if preview?
+      @page_preview = @page.page_preview
+      if @page.page_preview.nil?
+        @page_preview = @page.build_page_preview(page_params)
+        @page_preview.save
+      else
+        @page_preview.update(page_params)
+      end
+      url = preview_app_page_path(current_app, @page)
+      render js: "var win = window.open('#{url}', '_blank'); win.focus();"
     else
-      render :edit
+      if @page.update!(page_params)
+        # redirect_to "/pages/#{page_params[:destination]}"
+        # redirect_to app_page_path(current_app, @page.destination)
+        delete_draft(@page)
+        # render :js => "window.location = '#{app_page_path(current_app, @page.destination)}'"
+        render :js => "var win = window.open('#{app_page_path(current_app, @page.destination)}', '_blank'); win.focus();"
+      else
+        render :edit
+        # render :js => "window.location = '/jobs/index'"
+      end 
     end
   end
 
@@ -52,8 +79,8 @@ class PagesController < ApplicationController
   end
 
   def get_page
-    if @admin_id.present?
-      Page.where(destination: destination, user_id: @admin_id).first
+    if @app.present?
+      Page.where(destination: destination, app_id: @app.id).first
     else
       Page.where(destination: destination).first
     end
@@ -64,6 +91,19 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:title, :content, :destination, :page_img, :admin_name)
+    permitted = Page.globalize_attribute_names + [:destination, :page_img, :admin_name]
+    params.require(:page).permit(*permitted)
+  end
+
+  def preview?
+    params[:preview].present?
+  end
+
+  def delete_draft(page)
+    url = "/#{current_app.slug}/pages/#{page.id}"
+    as = current_app.autosaves.where(form: url).first
+    if as
+      as.destroy
+    end
   end
 end

@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :set_ingredient, only: [:edit, :update, :show]
+  before_action :set_ingredient, only: [:edit, :update, :show, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
   
   def new
@@ -8,10 +8,10 @@ class IngredientsController < ApplicationController
   
   def create
     @ingredient = Ingredient.new(ingredient_params)
-    @ingredient.user_id = current_user.id
+    @ingredient.app_id = current_app.id
     if @ingredient.save
       flash[:success] = "Ingredient was successfully created"
-      redirect_to ingredient_path(@ingredient)
+      redirect_to app_ingredients_path(current_app)
     else
       render 'new'
     end
@@ -24,7 +24,7 @@ class IngredientsController < ApplicationController
   def update
     if @ingredient.update(ingredient_params)
       flash[:success] = "Ingredient name was updated successfully"
-      redirect_to @ingredient
+      redirect_to app_ingredients_path(current_app)
     else
       render 'edit'
     end
@@ -35,13 +35,26 @@ class IngredientsController < ApplicationController
   end
   
   def index
-    @ingredients = Ingredient.paginate(page: params[:page], per_page: 5)
+    @ingredients = current_app.ingredients.paginate(page: params[:page], per_page: 5)
+  end
+
+  def destroy
+    unless @ingredient.recipes.count > 0
+      @ingredient.destroy
+      respond_to do |format|
+        format.html { redirect_to app_ingredients_path(current_app), notice: 'Ingredient was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to app_ingredients_path(current_app), notice: 'Ingredient has recipes and cannot be destroyed'
+    end
   end
   
   private
   
   def ingredient_params
-    params.require(:ingredient).permit(:name)
+    # params.require(:ingredient).permit(:name, :translations_attributes)
+    params.require(:ingredient).permit(*Ingredient.globalize_attribute_names)
   end
   
   def set_ingredient

@@ -1,0 +1,284 @@
+
+<style type="text/css">
+    html {
+        height: 100%;
+    }
+    body {
+        padding: 0;
+        margin: 0 auto;
+        background-color: #EDEDED;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #333333;
+    }
+    .wrap-container {
+        /*background-color: #EDEDED;*/
+        width: 100%;
+        position: relative;
+        padding: 0;
+        margin:0;
+        height: 100%;
+    }
+    .content {
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        height: 100%;
+        padding-bottom: 10px;
+
+    }
+    .inner-content {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-top: 15%;
+    }
+    .btn-enter{
+        font-size: 50px;
+        text-shadow: none !important;
+        color: #fff !important;
+        display: inline-block;
+        text-transform: capitalize;
+        font-weight: 400;
+        width: 280px;
+        line-height: 80px;
+        height: 80px;
+        background: rgba(97, 148, 85, 0.62);
+        border: 1px solid #fff;
+        border-radius: 0;
+        text-align: center;
+        vertical-align: middle;
+        font-family: 'Merriweather', serif !important;
+        outline: none;
+    }
+    .btn-enter:hover {
+        background: rgba(97, 148, 85, 0.9)!important;
+    }
+    .img {
+        text-align: center;
+        
+    }
+    .img img {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+    }
+    h1, h2, h3, h4, h5 {
+        color: #fff !important;
+        font-size: 90px !important;
+        font-weight: 400;
+        line-height: 1.2;
+        word-wrap: break-word;
+        word-break: break-all;
+        display: block;
+        margin-top: 0;
+        font-family: 'Merriweather', serif !important;
+        text-shadow: -2px 1px 2px #4A3F3F;
+    }
+    h1 p {
+        margin: 18px 0;
+    }
+    div.dropdown {
+        padding-top: 0% !important;
+
+    }
+    .welcome-locale-selector .btn {
+        padding: 10px 17px;
+        background: rgba(97, 148, 85, 0.62);
+        border-radius: 0;
+        color: #fff;
+        font-family: 'Merriweather', serif !important;
+        font-size: 14px;
+        outline: none;
+    }
+    .welcome-locale-selector .text {
+        margin-top: 80px;
+    }
+    .welcome-locale-selector {
+        padding-top: 10px;
+    }
+    .welcome-locale-selector .dropdown-menu {
+        border-radius: 0px;
+        background: rgba(97, 148, 85, 0.62);
+        max-height: 300px;
+    }
+    #language-dropdown {
+        width: 160px;
+        border: 1px solid #fff;
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        width: 160px !important;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        list-style: none;
+        font-size: 14px;
+        text-align: left;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 4px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+        background-clip: padding-box;
+    }
+
+    .welcome-locale-selector .dropdown-menu > li > a {
+        color: #fff;
+        font-family: 'Merriweather', serif;
+        background: rgba(97, 148, 85, 0.62);
+    }
+    .dropdown .dropdown-menu li a {
+        display: block!important;
+        text-align: left!important;
+        padding-left: 10px!important;
+        padding-right: 10px!important;
+        border-radius: 0!important;
+        font-weight: 500!important;
+        letter-spacing: 0.5px;
+        font-size: 15px!important;
+        padding: 3px 20px;
+    }
+    .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+        text-decoration: none;
+        background-color: #344a64;
+    }
+    .btn-enter {
+        margin-top: 80px;
+    }
+    .btn-default:active:hover,
+    .btn-default:active:focus,
+    .open>.btn-default.dropdown-toggle:hover,
+    .open>.btn-default.dropdown-toggle:focus{
+        color: #333;
+        background-color: #d4d4d4;
+        border-color: #8c8c8c;
+    }
+    .open>.btn-default.dropdown-toggle:hover {
+        color: #333;
+    }
+    @media only screen and (max-width: 1200px) {
+        h1, h2, h3, h4, h5 {
+            font-size: 64px !important;
+        }
+        .btn-enter {
+            font-size: 40px;
+        }
+        .content-se h2 {
+            font-size: 64px !important;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        h1, h2, h3, h4, h5 {
+            font-size: 50 !important;
+        }
+        .content-se h2 {
+            font-size: 50px !important;
+        }
+        .btn-enter {
+            font-size: 30px;
+        }
+        .btn-enter {
+            width: 200px;
+            line-height: 50px;
+            height: 50px;
+            margin-top: 70px;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        h1, h2, h3, h4, h5 {
+            font-size: 40px !important;
+        }
+        .content-se h2 {
+            font-size: 40px !important;
+        }
+        .btn-enter {
+            font-size: 20px;
+        }
+        .welcome-locale-selector .text {
+            margin-top: 20px;
+        }
+        .btn-enter {
+            width: 120px;
+            line-height: 40px;
+            height: 40px;
+            margin-top: 30px;
+        }
+        .welcome-locale-selector .btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
+    @media only screen and (max-width: 414px) {
+        h1, h2, h3, h4, h5 {
+            font-size: 35px !important;
+        }
+        .content-se h2 {
+            font-size: 35px !important;
+        }
+        .img {
+            height: 100%;
+            overflow: hidden;
+        }
+        .content-se {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+        .welcome-locale-selector {
+            padding-top: 22%;
+        }
+    }
+    </style>
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<div class="wrap-container">
+    <div class="content">
+        <div class="img">
+            <%=image_tag( (@page.page_img.attached?) ? @page.sized(:large) : asset_path('cutting_board_cover'), class: "img-responsive")  %>
+        </div>
+        <div class="inner-content">
+           
+            <div class="content-se">
+                <div class="content-se-title">
+                    <h1>
+                        <p>
+                            <h2><span><%= (@page.present? && !@page.content.blank?) ? @page.content.html_safe : "" %></span></h2>
+                        </p>
+                    </h1>
+                </div>
+                <div class="welcome-locale-selector">
+                    <form>
+                      <%= render partial: 'shared/locale_selector' %>
+                      <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
+                          <%=link_to 'Enter', about_app_pages_path(current_app), class: "btn-enter" %>
+                          <% elsif current_app_user.present? %>
+                          <%= link_to "Enter", about_app_pages_path(current_app), class: "btn-enter" %>
+                      <% else %>
+                          <%= link_to "Enter", about_app_pages_path(current_app), class: "btn-enter" %>
+                      <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

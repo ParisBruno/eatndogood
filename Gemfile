@@ -1,44 +1,70 @@
 source 'https://rubygems.org'
+ruby "2.6.3"
 
-gem 'bcrypt', '~> 3.1.7'
+gem 'bootsnap'
+gem 'bcrypt', '~> 3.1.12'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'carrierwave'
-#gem 'ckeditor', github: 'galetahub/ckeditor'
-gem "ckeditor"
+gem 'ckeditor', github: 'galetahub/ckeditor'
+# gem "ckeditor"
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'devise'
 gem 'dotenv-rails', '~> 2.5'
 gem 'dragonfly'
 gem 'haml-rails', '~> 1.0'
-gem 'pg'
-# gem 'sqlite3', '~> 1.3.13'
 gem 'puma', '~> 3.0'
-gem 'fog'
+# gem 'fog'
 gem 'mini_magick'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
 gem 'rails-i18n', '~> 5.1'
 gem 'redis', '~> 4.0'
-gem "paperclip", "~> 6.0.0"
+# gem "paperclip", "~> 6.0.0"
 gem 'redis-rails'
 gem 'rufus-scheduler', '~> 3.4.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq', '~> 5.2', '>= 5.2.3'
 gem 'sidekiq-cron', '~> 0.6.3'
 gem 'uglifier', '>= 1.3.0'
-gem 'will_paginate', '3.1.0'
+gem 'will_paginate', '3.1.8'
 gem 'simple_form'
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id', '5.3'
 gem 'remotipart'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'hirb'
+gem "interactor-rails", "~> 2.0"
+gem 'image_processing', '~> 1.2'
+gem 'activestorage-validator'
+gem "font-awesome-rails",github: "bokmann/font-awesome-rails", branch: "master"
+
+gem "aws-sdk-s3", require: false
+
+gem 'immigrant'
+gem 'globalize', '~> 5.2.0'
+gem 'globalize-accessors'
+gem 'lodash-rails'
+gem "rubycritic", require: false
+gem 'toastrjs-rails'
+gem 'gon'
+gem 'country_select', '~> 4.0'
+gem "select2-rails"
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
+
 
 group :development, :test do
+  gem 'sqlite3', '~> 1.3.13'
+  gem 'sqlite3_ar_regexp', '~> 2.2'
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.8'
-  gem 'sqlite3', '~> 1.3.13'
+  gem 'factory_bot_rails'
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  gem 'cypress-on-rails', '~> 1.0'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner', '~> 1.7'
 end
 
 group :development do
@@ -54,7 +80,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
   gem 'rb-readline'
-  
+  gem 'brakeman'
+end
+
+group :prod do
+  gem 'pg'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

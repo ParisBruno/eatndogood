@@ -7,4 +7,11 @@ module ApplicationHelper
     image_tag(gravatar_url, alt: user.full_name, class: "img-circle")
   end
 
+  def tl(key, locale=nil)
+    locale.nil? ? t(key) : t(key, locale: locale)
+  end
+
+  def enclose_tag(html)
+    Nokogiri::HTML::fragment(html).to_html
+  end
 end

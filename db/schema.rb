@@ -10,19 +10,80 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190225160540) do
+ActiveRecord::Schema.define(version: 2019_11_29_124050) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "allergen_translations", force: :cascade do |t|
+    t.integer "allergen_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["allergen_id"], name: "index_allergen_translations_on_allergen_id"
+    t.index ["locale"], name: "index_allergen_translations_on_locale"
+  end
 
   create_table "allergens", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "app_id"
+    t.index ["app_id"], name: "index_allergens_on_app_id"
   end
 
   create_table "allergens_recipes", id: false, force: :cascade do |t|
     t.integer "recipe_id", null: false
     t.integer "allergen_id", null: false
     t.index ["recipe_id", "allergen_id"], name: "index_allergens_recipes_on_recipe_id_and_allergen_id"
+  end
+
+  create_table "apps", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_apps_on_plan_id"
+    t.index ["slug"], name: "index_apps_on_slug", unique: true
+  end
+
+  create_table "autosaves", force: :cascade do |t|
+    t.string "form"
+    t.json "payload"
+    t.integer "app_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_autosaves_on_app_id"
+  end
+
+  create_table "chef_translations", force: :cascade do |t|
+    t.integer "chef_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "my_bio"
+    t.index ["chef_id"], name: "index_chef_translations_on_chef_id"
+    t.index ["locale"], name: "index_chef_translations_on_locale"
   end
 
   create_table "chefs", force: :cascade do |t|
@@ -78,17 +139,29 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "ingredient_translations", force: :cascade do |t|
+    t.integer "ingredient_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
+    t.index ["locale"], name: "index_ingredient_translations_on_locale"
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
+    t.integer "app_id"
+    t.index ["app_id"], name: "index_ingredients_on_app_id"
   end
 
   create_table "likes", force: :cascade do |t|
     t.boolean "like"
-    t.integer "user_id"
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "app_id"
+    t.index ["app_id"], name: "index_likes_on_app_id"
   end
 
   create_table "mail_attachments", force: :cascade do |t|
@@ -108,6 +181,39 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "page_preview_translations", force: :cascade do |t|
+    t.integer "page_preview_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "content"
+    t.index ["locale"], name: "index_page_preview_translations_on_locale"
+    t.index ["page_preview_id"], name: "index_page_preview_translations_on_page_preview_id"
+  end
+
+  create_table "page_previews", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "content"
+    t.string "destination"
+    t.integer "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_page_previews_on_page_id"
+  end
+
+  create_table "page_translations", force: :cascade do |t|
+    t.integer "page_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "content"
+    t.index ["locale"], name: "index_page_translations_on_locale"
+    t.index ["page_id"], name: "index_page_translations_on_page_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "name"
     t.text "title"
@@ -119,8 +225,9 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.string "page_img_content_type"
     t.integer "page_img_file_size"
     t.datetime "page_img_updated_at"
-    t.integer "user_id"
     t.text "admin_name"
+    t.integer "app_id"
+    t.index ["app_id"], name: "index_pages_on_app_id"
   end
 
   create_table "plan_categories", force: :cascade do |t|
@@ -146,7 +253,6 @@ ActiveRecord::Schema.define(version: 20190225160540) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "recipe_id"
     t.string "user_type"
     t.string "subject"
@@ -154,6 +260,8 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "recipe_images", force: :cascade do |t|
@@ -170,6 +278,18 @@ ActiveRecord::Schema.define(version: 20190225160540) do
   create_table "recipe_ingredients", force: :cascade do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
+  end
+
+  create_table "recipe_translations", force: :cascade do |t|
+    t.integer "recipe_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.text "summary"
+    t.index ["locale"], name: "index_recipe_translations_on_locale"
+    t.index ["recipe_id"], name: "index_recipe_translations_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -195,18 +315,32 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.time "ci_time"
     t.text "notes"
     t.integer "recipe_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "re_type"
+    t.integer "app_id"
+    t.integer "user_id"
+    t.index ["app_id"], name: "index_reservations_on_app_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "style_translations", force: :cascade do |t|
+    t.integer "style_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["locale"], name: "index_style_translations_on_locale"
+    t.index ["style_id"], name: "index_style_translations_on_style_id"
   end
 
   create_table "styles", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "app_id"
+    t.index ["app_id"], name: "index_styles_on_app_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -234,13 +368,6 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "user_plans", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "plan_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -260,14 +387,18 @@ ActiveRecord::Schema.define(version: 20190225160540) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.integer "plan_id"
     t.integer "user_id"
-    t.string "slug"
     t.integer "email_sent_counter", default: 0
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["plan_id"], name: "index_users_on_plan_id"
+    t.integer "app_id"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
+    t.string "country"
+    t.index ["app_id"], name: "index_users_on_app_id"
+    t.index ["email", "app_id"], name: "index_users_on_email_and_app_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
 end

@@ -1,7 +1,8 @@
 <%= render 'shared/page_title', title: "showing all chefs" %>
-
+<!--
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <br>
+-->
 
 <div class=" col-md-12 pagination-tab pagination-top">
   <%= will_paginate %>
@@ -17,10 +18,10 @@
 
   <ul class="nav nav-tabs">
     <li>
-      <%= link_to t('common.recipes'), recipes_path, {:style=>'font-size:16px'} %>
+      <%= link_to t('common.recipes'), app_recipes_path(current_app), {:style=>'font-size:16px'} %>
     </li>
     <li class="active">
-      <%= link_to t('common.chefs'), chefs_path, {:style=>'font-size:16px'} %>
+      <%= link_to t('common.chefs'), app_chefs_path(current_app), {:style=>'font-size:16px'} %>
     </li>
   </ul>
 </div>
@@ -30,10 +31,10 @@
     <div class="col-md-3">
       <div class="image-box-shadow">
         <div class="custom-profile-detail">
-          <% if chef.chef_avatar.blank? %>
-            <%= link_to image_tag('no_avatar.png'), chef_path(chef) %>
+          <% unless chef.chef_avatar.attached? %>
+          <%= link_to image_tag('no_avatar.png'), app_chef_path(current_app, chef) %>
           <% else %>
-            <%= link_to image_tag(chef.chef_avatar.url, size: 300), chef_path(chef) %>
+            <%= link_to image_tag(chef.chef_avatar, size: 300), app_chef_path(current_app, chef) %>
           <% end %>
 
           <div class="user-profile">
@@ -56,8 +57,7 @@
 
   <div class="col-md-9">
     <div class="well box-content box-main">
-      <div class="bios">
-        <h3><%= t 'forms.bio' %></h3>
+      <div class="bios u-content">
         <p><%= !chef.my_bio.nil? ? chef.my_bio.html_safe : "" %> </p>
       </div>
     </div>

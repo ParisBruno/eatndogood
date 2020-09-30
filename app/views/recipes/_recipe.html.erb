@@ -9,6 +9,10 @@ if @recipes.nil?
 end
 
 %>
+<% if @display_flash %>
+  <%#= render 'layouts/messages' %>
+  <%= flash_toastr %> 
+<% end %>
 <div class="col-md-12 margin-sec pagin-top">
   <div class="pagination-tab">
     <%= will_paginate @recipes  %>
@@ -18,10 +22,10 @@ end
 <div class="col-md-12 margin-sec">
   <ul class="nav nav-tabs">
     <li class="active">
-      <%= link_to t('common.all_recipes'), recipes_path, {:style=>'font-size:20px'} %>
+      <%= link_to t('common.all_recipes'), app_recipes_path(app: current_app), {:style=>'font-size:20px'} %>
     </li>
     <li style="display: <%= @hide_chef_tab %>">
-      <%= link_to t('common.chefs'), chefs_path, {:style=>'font-size:20px'} %>
+      <%= link_to t('common.chefs'), app_chefs_path(app: current_app), {:style=>'font-size:20px'} %>
     </li>
   </ul>
 </div>
@@ -52,9 +56,10 @@ end
   <div class="row">
     <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
-      <h2><%= link_to recipe.name, recipe_path(recipe) %></h2>
-      <p><%= (!recipe.summary.nil? && recipe.summary.size > 100) ? recipe.summary.slice(0,100).html_safe + '...' : recipe.summary.html_safe %></p>
-
+      <h2><%= link_to recipe.name, app_recipe_path(current_app, recipe) %></h2>
+      <div>
+        <%= (!recipe.summary.nil? && recipe.summary.size > 100) ? raw(enclose_tag(recipe.summary.slice(0,100) + '...')) : raw(recipe.summary) %>
+      </div>
       <% if recipe.styles.any? %>
         <p><%= t('common.styles_colon') %> <%= render recipe.styles %></p>
       <% end %>
@@ -65,45 +70,35 @@ end
         <p><%= t('common.allergens_colon') %> <%= render recipe.allergens %></p>
       <% end %>
       <div class="pull-right">
-        <%= link_to like_recipe_path(recipe, like: true), method: :post do %>
+        <%= link_to like_app_recipe_path(current_app, recipe, like: true), method: :post do %>
           <i class="glyphicon glyphicon-thumbs-up"></i> <%= recipe.thumbs_up_total %>
         <% end %> &nbsp;
-        <%= link_to like_recipe_path(recipe, like: false), method: :post do %>
+        <%= link_to like_app_recipe_path(current_app, recipe, like: false), method: :post do %>
           <i class="glyphicon glyphicon-thumbs-down"></i> <%= recipe.thumbs_down_total %>
         <% end %>
       </div>
       <section class="chef_info center">
         <h2 style="text-align:right">
-          <%= link_to t('recipes.crafted_by') + ' ' + recipe.chef.user.full_name, chef_path(recipe.chef), class: "btn btn-success btn-lg" %>
+          <%= link_to t('recipes.crafted_by') + ' ' + recipe.chef.user.full_name, app_chef_path(current_app, recipe.chef), class: "btn btn-success btn-lg" %>
         </h2>
         
       </section>
       </div>
     </div>
-    <% if !recipe.food_images.nil? 
-        recipe.food_images.each do |food_img|
-    %>
-
+    <% if recipe.food_image.attached? %>
       <div class="col-md-2 thumb">
         <div class="img-inner image-box-shadow">
-          <%=image_tag(food_img.image.url, class:'img-responsive', alt: t('common.no_image')) if food_img.image? %>
+          <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
         </div>
       </div>
-      <% end %>
-   <% end %>
-
-   <% if !recipe.drink_images.nil? 
-        recipe.drink_images.each do |drink_img|
-    %>
-
+    <% end %>
+    <% if recipe.drink_image.attached?%>
       <div class="col-md-2 thumb">
         <div class="img-inner image-box-shadow">
-          <%=image_tag(drink_img.image.url, class:'img-responsive', alt: t('common.no_image')) if drink_img.image? %>
+          <%=image_tag(recipe.sized(:drink_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
         </div>
       </div>
-      <% end %>
-   <% end %>
-
+    <% end %>
   </div>
     <!-- '250x150'-->
   </div>

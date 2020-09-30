@@ -9,7 +9,7 @@
                 <% I18n.available_locales.each do |locale| %>
                 <li>
                     <a href="#" class="js-language-dropdown" data-target="dropdown-languag-current" data-language="<%= locale %>">
-                        <%= t('language_name', locale: locale) %>
+                        <%= t :language_name, locale: locale %>
                     </a>
                 </li>
             <% end %>

@@ -1,0 +1,32 @@
+:css
+  table { 
+    border-collapse: collapse; 
+  } 
+  th,td { 
+    width:150px; 
+    text-align:center; 
+    padding:5px 
+  }
+.row
+  .col-sm-2.col-sm-offset-5{style: "font-family: Helvetica Neue; font-size:16px;"}
+    %h1 styles
+
+    = link_to 'New Style', new_app_style_path(current_app)
+
+    %table
+      %thead
+        %tr
+        %th
+        %th
+        %th
+        %th
+
+      %tbody
+        - @styles.each do |style|
+          %tr
+            %td{style: "border-spacing: none;"}= style.name
+            -#%td= link_to 'Show', [current_app, style]
+            %td= link_to 'Edit', edit_app_style_path(current_app, style)
+            %td= link_to 'Delete', [current_app,style], method: :delete, data: { confirm: 'Are you sure?' }
+
+    %br

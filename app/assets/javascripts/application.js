@@ -12,7 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2
+//= require lodash
+//= require toastr.min
 //= require bootstrap-sprockets
+// require ckeditor/init
+//= require ckeditor/plugins/placeholder/plugin
+//= require ckeditor/plugins/confighelper/plugin
+//= require ckeditor/config
 //= require_tree .
 //= require jquery.remotipart 
 
@@ -25,6 +32,14 @@ function scrollToBottom(){
 function submitMessage(event){
    event.preventDefault();
    $('#new_message').submit();
+}
+
+function matchStart(params, data) {
+  params.term = params.term || '';
+  if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+      return data;
+  }
+  return false;
 }
 
 $(document).on('keypress', '[data-behavior~=room_speaker]', function(event) {
@@ -42,4 +57,30 @@ $(document).on('load', function() {
     $('#message_content').val('');
   })
   scrollToBottom();
+});
+
+
+$(function() {
+  // Handler for .ready() called.
+  $('a.toggle-password').on('click', function(e) {
+    e.preventDefault()
+    $(this).find('i').toggleClass("fa-eye fa-eye-slash")
+    var input = $(this).parents('.show-password').find('input')
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  })
+
+  $('.u-content a').attr({"target" : "_blank"})
+
+  $('#app_user_country').select2({
+    theme: "bootstrap",
+    matcher: function(params, data) {
+      return matchStart(params, data);
+    },
+  });
+
+  // CKEDITOR.plugins.addExternal( 'abbr', '/assets/placeholder', 'plugin.js' );
 });
