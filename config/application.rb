@@ -32,9 +32,9 @@ module Myrecipes
       address: ENV['SMTP_ADDRESS'],
       domain: ENV['SMTP_DOMAIN'],
       port: ENV['SMTP_PORT'],
-      authentication: ENV['SMTP_AUTHENTICATION_METHOD']
+      authentication: ENV['SMTP_AUTHENTICATION_METHOD'],
+      enable_starttls_auto: true
     }
-
 
     # Use Vips for processing variants.
     config.active_storage.variant_processor = :vips
