@@ -80,12 +80,12 @@ class GuestsController < ApplicationController
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.mail_attachments).deliver_later
+      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_later
     end
 
     respond_to do |format|
       format.json { render json: @email_content.to_json }
-    end   
+    end
   end
 
   private
@@ -93,7 +93,7 @@ class GuestsController < ApplicationController
   def upload_attachments
     if params[:attachments]
       params[:attachments].each do |attachment|
-        @email_content.mail_attachments.create!(file_attach: attachment)
+        @email_content.attacment.attach(attachment)
       end
     end
   end
