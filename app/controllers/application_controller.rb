@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     # @current_app ||= App.find_by_slug(params[:app]) || current_app_user&.app || App.find(session[:app_id])
     
     # x = Rails.cache.fetch([current_app_user&.app, "current_app"]) do
-      app = App.find_by_slug(params[:app]) || current_app_user&.app
+      app = App.find_by_slug(params[:app]) || current_app_user&.app || App.find_by(name: "live")
       @old_app =  app unless app.nil?
       gon.current_app = app.slug
       app
