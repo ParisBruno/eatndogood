@@ -123,7 +123,7 @@
         </td>
         <td> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
         <td>
-          <%= link_to t('guests.delete_guest'),  destroy_guest_path(guest), data: { confirm: t('guests.are_you_sure_delete_user') } %>
+          <%= link_to t('guests.delete_guest'), destroy_guest_path(guest), method: :delete, data: { confirm: t('guests.are_you_sure_delete_user') } %>
         </td>
       </tr>
 

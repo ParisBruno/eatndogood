@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include LocaleDefinition
   protect_from_forgery with: :exception
   helper_method :current_chef, :logged_in?, :current_app
-  before_action :set_app, except: %i[send_emails]
+  before_action :set_app, except: %i[send_emails destroy]
   before_action :check_app_user
   before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :set_admin_id

@@ -39,9 +39,7 @@ Rails.application.routes.draw do
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
   get "newguest/:id/:email", to: "guests#new", as: "newguest"
   post 'guests/create',to: "guests#create", as: 'guestCreation'
-  delete 'guest', to: 'guests#destroy', as: "destroy_guest"
-
-
+  delete 'guest/:id', to: 'guests#destroy', as: "destroy_guest"
 
   # resources :chefs #, except: [:new]
   # resources :ingredients, except: [:destroy]
