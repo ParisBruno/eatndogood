@@ -8,35 +8,87 @@
   <div class="well col-md-5 col-md-offset-4 login-sec">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
-    <input type="hidden" name="user[user_id]" value="<%= params[:admin_id] %>" />
-    <div class="field">
-      <%= f.label :first_name, autofocus: true, autocomplete: "first_name" %>
-      <%= f.text_field :first_name %>
-    </div>
+    <%= f.hidden_field :app_id, value: current_app.id %>
+    <div class="panel panel-default">
+      <div class="panel-heading strong">
+        <h5>
+          <%= t('common.user_infos_title_1') %>
+        </h5>
+        <h5>
+          <%= t('common.user_infos_title_2') %>
+        </h5>
+      </div>
+      <div class="panel-body">
+        <div class="field">
+          <%#= f.label :first_name, autofocus: true, autocomplete: "first_name" %>
+          <%= f.text_field :first_name, placeholder: t('activerecord.attributes.user.first_name').capitalize %>
+        </div>
 
-    <div class="field">
-      <%= f.label :last_name, autofocus: true, autocomplete: "last_name" %>
-      <%= f.text_field :last_name %>
-    </div>
+        <div class="field">
+          <%#= f.label :last_name, autofocus: true, autocomplete: "last_name" %>
+          <%= f.text_field :last_name,  placeholder: t('activerecord.attributes.user.last_name').capitalize %>
+        </div>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email%>
-    </div>
+        <div class="field">
+          <%#= f.label :email %><br />
+          <%= f.email_field :email,  placeholder: t('activerecord.attributes.user.email').capitalize %>
+        </div>
 
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+        <div class="field form-group show-password" style="padding-left: 15px;">
+          <div class="row">
+            <%#= f.label :password, 'Password' %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+          </div>
+          <div class="row" style="padding-right: 13px">
+            <%= f.password_field :password, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password').capitalize %>
+            <div class='input-group-addon col-md-1' style="height:36px;">
+              <a href="" class="toggle-password">
+                <%= fa_icon "eye" %>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="field form-group show-password" style="padding-left: 15px;">
+          <div class="row">
+            <%#= f.label :password_confirmation %>
+          </div>
+          <div class="row" style="padding-right: 13px">
+            <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password_confirmation').capitalize %>
+            <div class='input-group-addon col-md-1' style="height:36px;">
+              <a href="" class="toggle-password">
+                <%= fa_icon "eye" %>
+              </a>
+            </div>
+          </div>
+        </div>
+         <div class="field">
+          <%#= f.label :address_line_1, autofocus: true, autocomplete: "Addresse Line 1" %>
+          <%= f.text_field :address_line_1,  placeholder: "#{t('activerecord.attributes.user.address_line_1').capitalize} #{t('common.optional')}" %>
+        </div>
+        <div class="field">
+          <%#= f.label :address_line_2, autofocus: true, autocomplete: "Addresse Line 2" %>
+          <%= f.text_field :address_line_2, placeholder: "#{t('activerecord.attributes.user.address_line_2').capitalize} #{t('common.optional')}" %>
+        </div>
+        <div class="field">
+          <%#= f.label :city, autofocus: true, autocomplete: "City" %>
+          <%= f.text_field :city, placeholder: t('activerecord.attributes.user.city').capitalize %>
+        </div>
+        <div class="field">
+          <%#= f.label :state, autofocus: true, autocomplete: "State/Province" %>
+          <%= f.text_field :state, placeholder: t('activerecord.attributes.user.state').capitalize %>
+        </div>
+        <div class="field">
+          <%#= f.label :postal_code, autofocus: true, autocomplete: "Postal code / Zip code" %>
+          <%= f.text_field :postal_code, placeholder: t('activerecord.attributes.user.postal_code').capitalize %>
+        </div>
+        <div class="field form-group">
+          <%#= f.label :country, autofocus: true, autocomplete: "first_name" %> <br>
+          <%= f.country_select :country, { include_blank: t('activerecord.attributes.user.country').capitalize }, { class: 'form-control' } %>
+        </div>
+      </div>
     </div>
-
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
-
     <div class="actions">
       <%= f.submit "Sign up", class: 'btn btn-success'%>
     </div>

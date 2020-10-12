@@ -9,11 +9,20 @@ class RecipesController < ApplicationController
   before_action :check_limit_recipes, only: [:new, :create]
   
   def index
+    flash.discard
     if params[:filter]
       @recipes = Recipe.where(chef_id:@chef_ids).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
-     
+      if params[:allergen_ids]
+        selected_allergens = params[:allergen_ids].map(&:to_i)
+        allergens = Allergen.where(id: selected_allergens)
+                      .map(&:name)
+                      .map(&:capitalize).join(",")
+        flash[:warning] = "All displayed recipes do not contain #{allergens}"
+        @display_flash = true
+      end
     else
-      @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+      # @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
     end
   end
   
@@ -23,23 +32,29 @@ class RecipesController < ApplicationController
   end
   
   def new
-    @recipe = Recipe.new
+    @recipe = Recipe.new 
+    @style = @recipe.styles.build
+    @allergen = @recipe.allergens.build
+    @ingredient =  @recipe.ingredients.build
   end
   
   def create
     @recipe = Recipe.new(recipe_params)
-    @recipe.chef_id = current_user.chef_info.id
+    @recipe.chef_id = current_app_user.chef_info.id
     if @recipe.save
-      upload_images
+      # upload_images
+      delete_draft
       flash[:success] = "Recipe was created successfully!"
-      redirect_to recipe_path(@recipe)
+      redirect_to app_recipe_path(current_app, @recipe)
     else
       render 'new'
     end
   end
   
   def edit
-    
+    @style = @recipe.styles.build
+    @allergen = @recipe.allergens.build
+    @ingredient =  @recipe.ingredients.build
   end
 
   def email_question
@@ -53,10 +68,11 @@ class RecipesController < ApplicationController
   def update
     
     if @recipe.update(recipe_params)
-      upload_images
+      # upload_images
       make_tags
+      delete_draft(@recipe)
       flash[:success] = "Recipe was updated successfully!"
-      redirect_to recipe_path(@recipe)
+      redirect_to app_recipe_path(current_app, @recipe)
     else
       render 'edit'
     end
@@ -65,17 +81,17 @@ class RecipesController < ApplicationController
   def destroy
     Recipe.find(params[:id]).destroy
     flash[:success] = "Recipe deleted successfully"
-    redirect_to recipes_path
+    redirect_to app_recipes_path(current_app)
   end
   
   def like
-    like = Like.create(like: params[:like], user_id: current_user.id, recipe: @recipe)
+    like = Like.create(like: params[:like], app: current_app, recipe: @recipe)
     if like.valid?
       flash[:success] = "Your selection was succesful"
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: app_path(current_app)
     else
       flash[:danger] = "You can only like/dislike a recipe once"
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: app_path(current_app)
     end
   end
   
@@ -84,7 +100,7 @@ class RecipesController < ApplicationController
     def check_limit_recipes
       recipes_count = Recipe.where(chef_id: @chef_ids).count
 
-      recipes_limit = @admin.plan.recipes_limit
+      recipes_limit = current_app.plan.recipes_limit
 
       if !recipes_limit.nil? && recipes_count >= recipes_limit
         flash[:danger] = "Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan."
@@ -93,8 +109,9 @@ class RecipesController < ApplicationController
     end
 
     def set_chef_ids
-      @admin = User.find(@admin_id)
-      @chef_ids = @admin.chefs.pluck(:id)
+      # @admin = User.find(@admin_id)
+      # @chef_ids = @admin.chefs.pluck(:id)
+      @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
     end
 
     def make_tags
@@ -103,42 +120,44 @@ class RecipesController < ApplicationController
       @recipe.save
     end
 
-    def upload_images
-      if params[:food_image]
-        remove_old_images('food')
-        @recipe.recipe_images.create(image: params[:food_image], img_type: 'food')
-      end
+    # def upload_images
+    #   if params[:food_image]
+    #     remove_old_images('food')
+    #     @recipe.recipe_images.create(image: params[:food_image], img_type: 'food')
+    #   end
 
-      if params[:drink_image]
-        remove_old_images('drink')
-        @recipe.recipe_images.create(image: params[:drink_image], img_type: 'drink')
-      end
+    #   if params[:drink_image]
+    #     remove_old_images('drink')
+    #     @recipe.recipe_images.create(image: params[:drink_image], img_type: 'drink')
+    #   end
 
-    end
+    # end
 
-    def remove_old_images(type)
-      images = @recipe.recipe_images.select{|image| image.img_type == type }
-      images.each do |im|
-        im.destroy
-      end
-    end
+    # def remove_old_images(type)
+    #   images = @recipe.recipe_images.select{|image| image.img_type == type }
+    #   images.each do |im|
+    #     im.destroy
+    #   end
+    # end
   
     def set_recipe
-      @recipe = Recipe.includes(:recipe_images).find(params[:id])
+      # @recipe = Recipe.includes(:recipe_images).find(params[:id])
+      @recipe = Recipe.find(params[:id])
     end
   
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :summary, :image, ingredient_ids: [], allergen_ids: [], style_ids: [])
+      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, ingredient_ids: [], allergen_ids: [], style_ids: []]
+      params.require(:recipe).permit(*permitted)
     end
 
-    def recipe_image_params
-      params.require(:recipe_images).permit(:image)
-    end
+    # def recipe_image_params
+    #   params.require(:recipe_images).permit(:image)
+    # end
     
     def require_same_user
-      if current_user != @recipe.chef and !current_user.admin?
+      if current_app_user != @recipe.chef.user
         flash[:danger] = "You can only edit or delete your own recipes"
-        redirect_to recipes_path
+        redirect_to app_recipes_path(current_app)
       end  
     end
     
@@ -146,6 +165,18 @@ class RecipesController < ApplicationController
       if !user_signed_in?
         flash[:danger] = "You must be logged in to perform that action"
         redirect_to :back
+      end
+    end
+
+    def delete_draft(recipe=nil)
+      if recipe.nil?
+        url = "/#{current_app.slug}/recipes"
+      else
+        url =  "/#{current_app.slug}/recipes/#{recipe.id}"
+      end
+      as = current_app.autosaves.where(form: url).first
+      if as
+        as.destroy
       end
     end
 end

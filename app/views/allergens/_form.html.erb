@@ -1,25 +1,19 @@
-<%= render 'shared/errors', obj: @allergen %>
-
-<div class="row">
-  <div class="col-md-12">
-    <%= form_for(@allergen, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :name %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field :name, class: "form-control", placeholder: "Enter allergen", autofocus: true %>
-        </div>
+<%= form_for([current_app,@allergen], :html => {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
+  <%= render partial: 'shared/form_locale_selector', locals: {model: "allergen", elem: "nameal"} %>
+  <% I18n.available_locales.each do |locale| %>
+    <div class="form-group <%= "nameal_#{locale}" %>">
+      <div class="control-label col-md-2" style="padding-left: 15px !important">
+        <%= f.label :name %>
       </div>
-      <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit(@allergen.new_record? ? "Add Allergen" : "Update Allergen",
-                                        class: "btn btn-primary btn-lg btn-xlarge") %>
-        </div>
+      <div class="col-md-8">
+        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: "Enter Allergen (#{locale})", autofocus: true %>
       </div>
-    <% end %>
-    <div class="col-md-4 col-md-offset-4 colormatch">
-      [ <%= link_to "Cancel request and return to allergen listing", allergens_path %> ]
+    </div>
+  <% end %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit(@allergen.new_record? ? t('allergens.add') : t('allergens.update'),
+                                    class: "btn btn-primary btn-lg btn-xlarge") %>
     </div>
   </div>
-</div>
+<% end %>

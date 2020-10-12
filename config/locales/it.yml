@@ -3,19 +3,32 @@ it:
   activerecord:
     attributes:
       user:
+        first_name: 'nome'
+        last_name: 'cognome'
+        email: 'email'
+        password: 'password'
+        password_confirmation: 'password conferma'
+        address_line_1: 'indirizzo 1'
+        address_line_2: 'indirizzo 1'
+        city: 'città'
+        state: 'stato'
+        postal_code: 'codice postale'
+        country: 'nazione'
         body: Messaggio
     models:
       question: Domanda
   allergens:
     delete: Elimina allergeni
-    submit: Scrivi il nome dell'allergeno che "NON ESISTE nella RICETTA", quindi fai clic o tocca per salvare
+    submit: Scrivi il nome dell'allergeno che "NON ESISTE nella RICETTA", quindi fai
+      clic o tocca per salvare
     title: Crea un nuovo allergeno
   chefs:
     add_chef: Aggiungi Chef
-    add_chef_account: Aggiungi l'acconto dello Chef 
+    add_chef_account: Aggiungi l'acconto dello Chef
     add_chef_contributor: Aggiungi Chef / Collaboratore
     add_summary_bio: Aggiungi sintesi bio
-    admin_chef_name_will_appear: "(Il nome utente dell'amministratore / dello chef apparirà in prima pagina e il creatore delle ricette in tutte le sue ricette)."
+    admin_chef_name_will_appear: "(Il nome utente dell'amministratore / dello chef
+      apparirà in prima pagina e il creatore delle ricette in tutte le sue ricette)."
     change_your_pic: Cambia la tua foto
     confirm_delete_account: Sei sicuro! Vuoi cancellare l'account dello chef?
     delete_profile: Elimina profilo
@@ -23,20 +36,19 @@ it:
     edit_your_profile: Modifica il tuo profilo
     go_back_to_chef_list: Torna all'elenco degli chef
     new_contributor: Nuovo collaboratore
-    note_chefname_must_be_url_friendly: 'Nota: il nome dello chef deve essere url friendly come: gianni_doe o Giannidoe.'
+    note_chefname_must_be_url_friendly: 'Nota: il nome dello chef deve essere url
+      friendly come: gianni_doe o Giannidoe.'
     thank_you_for_creating_acc: Grazie per aver creato il tuo account goditi le ricette!
     upload_image_preview: Carica l'anteprima dell'immagine
     upload_profile_pic: Carica l'immagine del profilo
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
-    x_chefs_remaining_html: "%{x}&nbsp; cuochi rimasti per aggiungere! Aggiorna il tuo account facendo clic su %{link}"
-  reservations:
-    make_reservation: Crea prenotazione
-    make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali
+    x_chefs_remaining_html: "%{x}&nbsp; cuochi rimasti per aggiungere! Aggiorna il
+      tuo account facendo clic su %{link}"
   common:
     admin: Admin
-    all_recipes: Tutte le ricette
     allergens: Allergeni
     allergens_colon: 'Allergeni:'
+    all_recipes: Tutte le ricette
     chef: Chef
     chefs: Chefs
     confirm: Sei sicuro?
@@ -44,10 +56,12 @@ it:
     here: Qui
     ingredients: Ingredienti
     ingredients_colon: 'Ingredienti:'
+    note_allow_chars: 'Nota: consenti solo %{from} a %{to} caratteri'
     no_image: Non c'e l'immagine
     no_recipes_found: Nessuna ricetta trovata!
-    no_recipes_found_admin_html: Nessuna ricetta trovata! Per favore aggiungi la ricetta cliccando %{link}
-    note_allow_chars: 'Nota: consenti solo %{from} a %{to} caratteri'
+    no_recipes_found_admin_html: Nessuna ricetta trovata! Per favore aggiungi la ricetta
+      cliccando %{link}
+    optional: (opzionale)
     read_less: Leggi di meno
     read_more_1_min: Per saperne di più, 1 min
     recipes: Ricette
@@ -60,23 +74,31 @@ it:
     updated_x_hours_ago: 'aggiornato: %{x} fa'
   errors:
     email_content_blank: Il contenuto dell'email non può essere vuoto!
-    image_atleas_dimensions: Per favore fornisci un' immagine di almeno queste dimensioni %{dims}!
-    max_file_size: La dimensione massima del file è di %{max}MB. Si prega di scegliere un file più piccolo.
+    image_atleas_dimensions: Per favore fornisci un' immagine di almeno queste dimensioni
+      %{dims}!
+    image_at_least_dimensions: per favore fornisci un' immagine di almeno queste dimensioni
+      %{dims}!
+    max_file_size: La dimensione massima del file è di %{max}MB. Si prega di scegliere
+      un file più piccolo.
+    no_selected_guests: nessun ospite selezionato
   flash:
     admin_removed: Admin rimosso con successo!
     allegren_created: Congratulazioni hai appena creato un' allergeno nuovo.
     allergen_removed: Allergeno rimosso con successoully!
     chef_created: Chef account has been created succesfully
-    chef_created_credentials_sent_to_email: L'account Chef è stato creato correttamente e l'e-mail delle credenziali di accesso inviate a% {nome} email inbox
+    chef_created_credentials_sent_to_email: L'account Chef è stato creato correttamente
+      e l'e-mail delle credenziali di accesso inviate a %{name} email inbox
     chef_removed: Chef Rimosso!
     email_address_not_found: Indirizzo email non trovato
     email_has_been_delivered: L'email è stata consegnata con successo!
-    email_sent_password_reset_instr: Email inviata con istruzioni per la reimpostazione della password
+    email_sent_password_reset_instr: Email inviata con istruzioni per la reimpostazione
+      della password
     guest_removed: Ospite rimosso con successo!
     ingredient_created: Congratulazioni hai appena creato un' ingrediente nuovo.
     ingredient_removed: Ingrediente rimosso con successo!
     invalid_arguments: argomento non valido!
-    password_and_confirm_must_be_same: password e conferma password devono essere uguali!
+    password_and_confirm_must_be_same: password e conferma password devono essere
+      uguali!
     password_cant_be_empty: la password non può essere vuota!
     password_confirm_cant_be_empty: la conferma della password non può essere vuota!
     password_has_been_reset: La password è stata ripristinata.
@@ -91,50 +113,67 @@ it:
     user_registered_as_guest: Utente già registrato come ospite!
     wrong_credentials: Credenziali errate utilizzate!
     wrong_url_provided: URL errato fornito!
+    your_account_created: Il tuo account è stato creato con successo
+    your_answer_posted: Grazie! Hai inviato correttamente la tua risposta!
+    your_email_or_password_dont_match: Il tuo indirizzo email o la tua password non
+      corrispondono!
+    your_profile_created: Il tuo profilo è stato creato con successo
+    your_profile_updated: Il tuo profilo è stato aggiornato con successo
+    your_profile_upgraded: Il tuo profilo ha aggiornato il piano con successo
+    your_query_emailed: Grazie! la tua richiesta e stata inviata
+    your_recipe_updated: La tua ricetta è stata aggiornata con successo
     you_are_logged_in: Hai effettuato l'accesso
+    you_cant_create_more_guests_than: Non puoi creare più di %{guests} ospiti!
+    you_cant_delete_your_profile: Non è possibile cancellare il proprio profilo
     you_can_edit_only_your_profile: Puoi modificare solo il tuo profilo
     you_can_edit_only_your_recipes: Puoi modificare solo le tue ricette
     you_can_like_dislike_once: Puoi solo Like o No Like la ricetta solo una volta
-    you_can_not_create_chef_upgrade_plan: Non puoi creare un account chef, per favore aggiorna il tuo piano!
-    you_cant_create_more_guests_than: Non puoi creare più di %{guests} ospiti!
-    you_cant_delete_your_profile: Non è possibile cancellare il proprio profilo
+    you_can_not_create_chef_upgrade_plan: Non puoi creare un account chef, per favore
+      aggiorna il tuo piano!
     you_created_new_recipe: Congratulazioni! hai creato e salvato un nuovo capolavoro!
     you_created_new_style: Congratulazioni hai appena creato uno Stile Nuovo.
     you_have_logged_out: sei uscito
     you_must_be_logged_in: Devi essere loggato per eseguire quell'azione
-    you_received_notification_email_you_cant_create_more_recipes: Hai ricevuto un'email di notifica per favore controlla la tua casella di posta! Non puoi creare più di% {ricette} ricette!
+    you_received_notification_email_you_cant_create_more_recipes: Hai ricevuto un'email
+      di notifica per favore controlla la tua casella di posta! Non puoi creare più
+      di %{recipes} ricette!
     you_registered_guest: Grazie! Ti sei registrato come ospite.
-    your_account_created: Il tuo account è stato creato con successo
-    your_answer_posted: Grazie! Hai inviato correttamente la tua risposta!
-    your_email_or_password_dont_match: Il tuo indirizzo email o la tua password non corrispondono!
-    your_profile_created: Il tuo profilo è stato creato con successo
-    your_profile_updated: Il tuo profilo è stato aggiornato con successo
-    your_query_emailed: Grazie! la tua richiesta e stata inviata
-    your_recipe_updated: La tua ricetta è stata aggiornata con successo
-    your_profile_upgraded: Il tuo profilo ha aggiornato il piano con successo
   forms:
     action: Azione
     admin: Admin
     bio: Bio
     body: Messaggio
     cancel: Annulla
+    choose_password: scegli la password
     close: Chiuso
     confirmation: Conferma
     created: Created
     description: Descrizione
+    disclaimer: il disconoscimento
     email: Email
+    enter_email: scrivi la email
+    enter_first_name: scrivi il tuo nome
+    enter_last_name: scrivi il tuo cognome
     first_name: Nome
     last_name: Cognome
     name: Nome
+    new_allergen: Create New Allergen
+    new_ingredient: Crea un nuovo ingrediente
+    new_style: Create New Style
     password: Password
     password_digest: Password digest
-    s_no: S.No
+    return_to_list: Fare clic qui per visualizzare l&#39;elenco completo e per modificarlo
+      o eliminarlo
+    return_to_recipes: Cancel request and return to recipes listing
+    send_all_emails: Invia email a tutti gli ospiti
+    send_emails: invia email
     subject: Soggetto
     submit: Invia
     summary: Sommario
+    s_no: S.No
     username: Nome utente
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
-    send_all_emails: "Invia email a tutti gli ospiti"
+    write_your_introduction: 'scrivi le istruzioni '
   guests:
     are_you_sure_delete_user: Sei sicuro! Vuoi cancellare l'utente ospite?
     clear_search: cancella la ricerca
@@ -144,17 +183,20 @@ it:
     edit_your_profile: Modifica il tuo profilo
     email_content: Contenuto dell'email
     email_sent_success: Email inviata correttamente!
+    guests_list: Lista degli ospiti
     guest_not_found: Ospite non trovato!
     guest_registration: Registrati da ospite
-    guests_list: Lista degli ospiti
-    please_provide_guest_email: Si prega di fornire l'email degli ospiti per l'invio di un invito
+    please_provide_guest_email: Si prega di fornire l'email degli ospiti per l'invio
+      di un invito
     save_changes: Salva I Cambiamenti
     search_guest: cerca un’ospite
     send_email: Invia una email
     send_invitation: Spedire un’invito
-    the_link_to_your_app: '"Il link alla tua app verrà automaticamente incluso alla fine del tuo messaggio."'
+    the_link_to_your_app: '"Il link alla tua app verrà automaticamente incluso alla
+      fine del tuo messaggio."'
     update_profile: Update Profile
-    x_guests_remaining_html: "%{guests_left}&nbsp; guests remaining! Please upgrade your account by click %{link}"
+    x_guests_remaining_html: "%{guests_left}&nbsp; guests remaining! Please upgrade
+      your account by click %{link}"
   ingredients:
     delete: Elimina ingrediente
     submit: Scrivi il nome del tuo nuovo ingrediente quindi fai clic o tocca per salvare
@@ -163,55 +205,77 @@ it:
   logins:
     back_to_login: Torna al login
     forgot_password: Ha dimenticato la password
-    min_to_max_chars: minimo %{min} al %{massimo} lettere
+    min_to_max_chars: minimo %{min} al %{max} lettere
     register_guest: Registrati Ospite
     reset_password: Resetta la password
     update_password: Aggiorna il password
   navigation:
     admin_login: Amministratore Login
     allergens: Allergeni
+    all_recipes: tutte le ricette
     chef_list: Lista Chef
     chef_login: Chef Login
+    create_chef: 'aggiungi uno Chef '
     edit_profile: Modifica Profilo
     guest_invitation: Invito per gli ospiti
     guest_list: Elenco degli ospiti
     guest_login: Ospite Login
     guest_notifications: Notifiche degli ospiti
+    home: prima pagina
     ingredients: Ingredienti
-    log_in: Accesso
+    list_chefs: lista degli chef
     login: Accesso
     logout: Disconnettersi
+    log_in: Accesso
     new_allergen: Nuovo allergeno
     new_ingredient: Nuovo ingrediente
     new_recipe: Nuova ricetta
     new_style: Nuovo stile
     recipes: Ricette
+    sign_up: inscriviti
     styles: Stile
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
     view_profile: Vedi profilo
   pages:
     index:
-      be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta storie di ottimi pasti e di bei momenti!
-      be_my_guest_use_my_recipes: Grazie per essere un mio ospite! usa le mie ricette e guarda come ...
+      be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta
+        storie di ottimi pasti e di bei momenti!
+      be_my_guest_use_my_recipes: Grazie per essere un mio ospite! usa le mie ricette
+        e guarda come ...
       bruno: Bruno.
-      cooking_is_action: Cooking is an action regardless if you consider it an art or a craft, and food is our fuel, I look forward to cook up a zestier future!
-      craft_your_shareable: Craft your shareable editable app-book, preserve heirloom recipes and create new favorite.
-      i_have_been_in_foods: I have been in foods service since my teen years, my first summer job was making artisanal gelato, then I was blessed to work and travel in high-end hotel and resorts throughout the world for many years with top Chefs and mentors, luckily not yellers as we see in some TV shows.
-      in_the_early_nineties: In the early nineties, I built my open kitchen restaurant and received many media rave reviews including three stars articles. A pioneer in the home replacement all-natural meals in the 90’, we shipped mail order boxes of fully cooked delicious meals packaged in eco-friendly containers to homes, here a “Good News Article”
-      one_pot_and_one_skillet: one pot and one skillet. The recipes are created using raw ingredients selected from supermarkets weekly fliers.
+      cooking_is_action: Cooking is an action regardless if you consider it an art
+        or a craft, and food is our fuel, I look forward to cook up a zestier future!
+      craft_your_shareable: Craft your shareable editable app-book, preserve heirloom
+        recipes and create new favorite.
+      in_the_early_nineties: In the early nineties, I built my open kitchen restaurant
+        and received many media rave reviews including three stars articles. A pioneer
+        in the home replacement all-natural meals in the 90’, we shipped mail order
+        boxes of fully cooked delicious meals packaged in eco-friendly containers
+        to homes, here a “Good News Article”
+      i_have_been_in_foods: I have been in foods service since my teen years, my first
+        summer job was making artisanal gelato, then I was blessed to work and travel
+        in high-end hotel and resorts throughout the world for many years with top
+        Chefs and mentors, luckily not yellers as we see in some TV shows.
+      one_pot_and_one_skillet: one pot and one skillet. The recipes are created using
+        raw ingredients selected from supermarkets weekly fliers.
       or_ads_of_any_kind: or strolling ads of any kind in your iTopRecipe app.
-      to_use_and_receive_new_recipes: Per usare le ricette, ricevere le nuove e chiedere consigli allo chef.
+      to_use_and_receive_new_recipes: Per usare le ricette, ricevere le nuove e chiedere
+        consigli allo chef.
       we_do_no_place_banners: Non mettiamo pubblicita`
       we_never_share_contact_info: Non condividiamo mai le tue informazioni di contatto.
-      you_can_start_creating: you can start creating your iTopRecipes ebook masterpiece. By sharing recipes and tips, I aim to boost the variety of delicious meals home cooks can prepare using
+      you_can_start_creating: you can start creating your iTopRecipes ebook masterpiece.
+        By sharing recipes and tips, I aim to boost the variety of delicious meals
+        home cooks can prepare using
     new:
       edit_app_name: Modifica il nome dell'app
       edit_page_text: Modifica il testo della pagina
       edit_welcome_page: Modifica la pagina di benvenuto
       save_to_view_changes: Clicca per vedere le tue modifiche
-      tap_or_click_to_save: Tocca o fai clic qui per salvare la tua foto della prima pagina
-      upload_landing_pic_max_size: Carica immagine di destinazione, dimensione massima %{max} megabyte
+      tap_or_click_to_save: Tocca o fai clic qui per salvare la tua foto della prima
+        pagina
+      upload_landing_pic_max_size: Carica immagine di destinazione, dimensione massima
+        %{max} megabyte
       you_can_not_write_more_chars: Non puoi scrivere più di %{max} caratteri!
     updateindex:
       click_on_the_box: Clicca sulla casella per modificare il contenuto
@@ -220,8 +284,8 @@ it:
       tap_or_click_to_save: Tocca o clicca per salvare le modifiche
       update_about_us_page: Aggiornamento sulla nostra pagina
   questions:
-    ask_question: Grazie per la vostra richiesta.
     asked_by: 'Chiesto da:'
+    ask_question: Grazie per la vostra richiesta.<br> risponderemo al più presto, sicuramente entro 24 ore
     date: Date
     email_to_colon: 'invia una email a: '
     no_questions: Non ci sono domande per te!
@@ -237,23 +301,24 @@ it:
     subject_colon: 'Soggetto:'
     view_guest_questions: Vedete le domande degli ospiti
   recipes:
+    choose_2_photo: Scegli 2 immagini
     crafted_by: 'Creata da: '
     delete_recipe: Elimina questa ricetta
     description_placeholder: |2-
-       Per una migliore configurazione della ricetta segui queste linee guida, LEGGI i suggerimenti e inizia a scrivere la tua ricetta.
-       1) Scrivi alcuni suggerimenti per rendere questa una ricetta preferita
-       2) Ingredienti: (crea una lista con gli ingredienti piu, ai meno iimportanti)
-       3) Suggerimenti per la preparazione:
-       4) Variabili, se presenti:
-       5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu
-       6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.
-    choose_2_photo: Scegli 2 immagini
+       Per una migliore configurazione della ricetta segui queste linee guida, LEGGI i suggerimenti e inizia a scrivere la tua ricetta.<br>
+       1) Scrivi alcuni suggerimenti per rendere questa una ricetta preferita<br>
+       2) Ingredienti: (crea una lista con gli ingredienti piu, ai meno iimportanti)<br>
+       3) Suggerimenti per la preparazione:<br>
+       4) Variabili, se presenti:<br>
+       5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu<br>
+       6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.<br>
     edit_recipe: Modifica questa ricetta
-    max_pic_size: Immagine dimensione max % {mb} megabyte
+    max_pic_size: Immagine dimensione max %{mb} megabyte
     new_title: Crea una nuovo capolavoro di  ricetta
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
+    show_all_recipes: lista delle ricette
     summary_placeholder: |-
       Breve descrizione del piatto
       Tempo di preparazione - Suggerisci una bevanda
@@ -261,12 +326,22 @@ it:
     upload_drink_pic: Carica l'immagine della bevanda
     upload_food_pic: Carica la foto del cibo
     write_name: Scrivi il nome della ricetta
+  reservations:
+    make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali
+    make_reservation: Crea prenotazione
   shared:
     please_correct_errors: 'Per favore correggi i seguenti errori:'
   styles:
+    add: aggiungi
     delete: Elimina lo stile
-    submit: scrivi il nome del tuo nuovo stile di cottura, quindi fai clic o tocca per salvare
+    submit: scrivi il nome del tuo nuovo stile di cottura, quindi fai clic o tocca
+      per salvare
     title: Crea un nuovo stile
+    update: aggiorna
+  users:
+    edit_user: aggiorna utente
+    leave_blank: lasciare in bianco
+    need_current_password: serve password attuale
   will_paginate:
     next_label: Successiva &#8594;
     previous_label: "&#8592; Precedente"

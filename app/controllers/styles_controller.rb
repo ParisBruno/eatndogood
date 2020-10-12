@@ -5,7 +5,7 @@ class StylesController < ApplicationController
   # GET /styles
   # GET /styles.json
   def index
-    @styles = Style.where(user_id: current_user.id)
+    @styles = Style.where(app_id: current_app.id)
   end
 
   # GET /styles/1
@@ -27,10 +27,10 @@ class StylesController < ApplicationController
   # POST /styles.json
   def create
     @style = Style.new(style_params)
-    @style.user_id = current_user.id
+    @style.app_id = current_app.id
     respond_to do |format|
       if @style.save
-        format.html { redirect_to @style, notice: 'Style was successfully created.' }
+        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully created.' }
         format.json { render :show, status: :created, location: @style }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class StylesController < ApplicationController
   def update
     respond_to do |format|
       if @style.update(style_params)
-        format.html { redirect_to @style, notice: 'Style was successfully updated.' }
+        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully updated.' }
         format.json { render :show, status: :ok, location: @style }
       else
         format.html { render :edit }
@@ -56,10 +56,14 @@ class StylesController < ApplicationController
   # DELETE /styles/1
   # DELETE /styles/1.json
   def destroy
-    @style.destroy
-    respond_to do |format|
-      format.html { redirect_to styles_url, notice: 'Style was successfully destroyed.' }
-      format.json { head :no_content }
+    unless @style.recipes.count > 0
+      @style.destroy
+      respond_to do |format|
+        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to app_styles_path(current_app), notice: 'Style has recipes and cannot be destroyed'
     end
   end
 
@@ -71,6 +75,6 @@ class StylesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def style_params
-      params.require(:style).permit(:name)
+      params.require(:style).permit(*Style.globalize_attribute_names)
     end
 end

@@ -6,14 +6,24 @@ class GuestsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:send_emails]
 
   def index
-    return redirect_to root_path if current_user.guest?
+    return redirect_to app_path(current_app) if current_app_user.guest?
 
     @keyword = params[:keyword].present? ? params[:keyword].strip : ''
 
     if @keyword.blank?
-      @guests = User.where(guest: true).where(user_id: current_user.id).order('id desc').paginate(page: params[:page], per_page: 100)
+      @guests = current_app.users.guests.order('id desc').paginate(page: params[:page], per_page: 100)
+      # @guests = User.where(guest: true).where(user_id: current_app_user.id).order('id desc').paginate(page: params[:page], per_page: 100)
     else
-      @guests = User.where(guest: true).where(user_id: current_user.id).where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
+      @guests = current_app.users.guests.where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
+    end
+    
+    respond_to do |format|
+      format.html { render :index }
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=guests.xlsx"
+      }
     end
 
   end
@@ -33,7 +43,8 @@ class GuestsController < ApplicationController
       unless @guest.user_id.blank?
         #@guest.user_id is admin id
         @chef = User.where(id: @guest.user_id).first
-        UserMailer.guest_create_email_to_admin(@chef.email, @guest).deliver if @chef
+        raise @chef.inspect
+        UserMailer.guest_create_email_to_admin(@chef.email, @guest).deliver_later if @chef
       end
 
       #add to mailchimp
@@ -52,29 +63,29 @@ class GuestsController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "Recipe deleted successfully"
-    redirect_to guests_path
+    user = User.find_by(id: params[:id])&.destroy
+    flash[:success] = "Recipe deleted successfully" if user
+    redirect_to app_guests_path(app: current_app.slug)
   end
 
   def send_emails
     content = params[:email_content][:content]
     subject = params[:subject]
     @email_content = EmailContent.create(email_params)
-    receivers = params[:receivers].present? ? params[:receivers] : current_user.guests
-    return redirect_to root_path if current_user.guest?
+    receivers = params[:receivers].present? ? params[:receivers] : current_app_user.guests
+    return redirect_to app_path(current_app) if current_app_user.guest?
 
     return unless content.present?
 
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_user.full_name, receiver, current_user.email, subject, content, @email_content.mail_attachments).deliver_now
+      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_later
     end
 
     respond_to do |format|
       format.json { render json: @email_content.to_json }
-    end   
+    end
   end
 
   private
@@ -82,7 +93,7 @@ class GuestsController < ApplicationController
   def upload_attachments
     if params[:attachments]
       params[:attachments].each do |attachment|
-        @email_content.mail_attachments.create!(file_attach: attachment)
+        @email_content.attacment.attach(attachment)
       end
     end
   end

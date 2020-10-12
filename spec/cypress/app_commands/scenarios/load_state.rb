@@ -1,0 +1,6 @@
+app = CypressOnRails::SmartFactoryWrapper.create(:app, name: 'live')
+user = CypressOnRails::SmartFactoryWrapper.create(:user, app: app, email: "test@example.com")
+chef = CypressOnRails::SmartFactoryWrapper.create(:chef, user: user)
+allergen = CypressOnRails::SmartFactoryWrapper.create(:allergen, app: app)
+CypressOnRails::SmartFactoryWrapper.create(:recipe, chef: chef)
+CypressOnRails::SmartFactoryWrapper.create(:recipe, chef: chef, allergens: [allergen])

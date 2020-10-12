@@ -1,5 +1,9 @@
 class LoginController < ApplicationController
 	layout 'withoutlogin'
+	skip_before_action :set_app
+	skip_before_action :configure_permitted_parameters
+	skip_before_action :set_header_data
+	skip_before_action :check_app_user
 
 	def new
 	  return redirect_to recipes_path if current_member.present?
@@ -46,12 +50,12 @@ class LoginController < ApplicationController
 	  session[:chef_id] = nil
 	  session[:user_role] = nil
 	  flash[:success] = I18n.t 'flash.you_have_logged_out'
-	  redirect_to root_path
+	  redirect_to app_path(current_app)
 	end
 
 	#api that is calling from woocommerce
 	def fetchapi
-	  vars = request.query_parameters
+		vars = request.query_parameters
 	  email = (vars[:uem].present?) ? Base64.decode64(vars[:uem]) : ''
 	  puts email
 	  pass =  (vars[:upw].present?) ? Base64.decode64(vars[:upw]) : ''
@@ -72,64 +76,77 @@ class LoginController < ApplicationController
 	    plan_id = (plan.present?) ? plan.id : ''
 	  else
 	    plan_id = ''
-	  end
+		end
+		
+		if plan_id
+			# {email: email, password: pass, first_name: f_name, last_name: l_name, plan_id: plan_id, chef: true, guest: false, admin: true}
+			x = CreateAppWithAdmin.call(
+				first_name: f_name,
+				last_name: l_name,
+				email: email,
+				password: pass,
+				password_confirmation: pass,
+				plan_id: plan_id
+			)
+		end
+		redirect_to app_path(App.last)
 
 	  #code to check if email and password present then create user and do autologin
-	  if email.present? && pass.present?
-	    user = User.find_by(email: email)
+	  # if email.present? && pass.present?
+	  #   user = User.find_by(email: email)
 
-	    #if chef is exist then login
-	    if user && user.valid_password?(pass)
-	      #call function to assign plan of the user
-	      assignPlan(user.id,plan_id) if plan_id.present?
+	  #   #if chef is exist then login
+	  #   if user && user.valid_password?(pass)
+	  #     #call function to assign plan of the user
+	  #     assignPlan(user.id,plan_id) if plan_id.present?
 
-	      if user.chef_info.nil?
-	      	create_chef(user.id, admin: true)
-	      end
+	  #     if user.chef_info.nil?
+	  #     	create_chef(user.id, admin: true)
+	  #     end
 
-	      flash[:success] = I18n.t('flash.your_profile_upgraded')
-	      redirect_to user_welcome_path(user)
-	    else #if chef is not present then create new chef
-	      @user = User.create!({email: email, password: pass, first_name: f_name, last_name: l_name, plan_id: plan_id, chef: true, guest: false, admin: true})
+	  #     flash[:success] = I18n.t('flash.your_profile_upgraded')
+	  #     redirect_to user_welcome_path(user)
+	  #   else #if chef is not present then create new chef
+	  #     @user = User.create!({email: email, password: pass, first_name: f_name, last_name: l_name, plan_id: plan_id, chef: true, guest: false, admin: true})
 
-	      @chef = Chef.new
-		  @chef.user_id = @user.id	     
-	      @chef.admin = true
-	      @chef.admin_id = @user.id
+	  #     @chef = Chef.new
+		#   @chef.user_id = @user.id	     
+	  #     @chef.admin = true
+	  #     @chef.admin_id = @user.id
 
-	      if @chef.save!(:validate => false)
-	        #call function to assign plan of the user
-	        assignPlan(@user.id, plan_id) if plan_id.present?
+	  #     if @chef.save!(:validate => false)
+	  #       #call function to assign plan of the user
+	  #       assignPlan(@user.id, plan_id) if plan_id.present?
 
-	        flash[:success] = I18n.t 'flash.your_account_created'
+	  #       flash[:success] = I18n.t 'flash.your_account_created'
 	        
-	        redirect_to user_welcome_path(@user)
-	      else
-	        flash[:danger] = I18n.t 'flash.wrong_credentials'
-	        redirect_to root_path
-	      end
-	    end
+	  #       redirect_to user_welcome_path(@user)
+	  #     else
+	  #       flash[:danger] = I18n.t 'flash.wrong_credentials'
+	  #       redirect_to root_path
+	  #     end
+	  #   end
 
-	  else
-	    #suppose user upgrade plan then pasword is already set
-	    chef = User.find_by(email: email)
+	  # else
+	  #   #suppose user upgrade plan then pasword is already set
+	  #   chef = User.find_by(email: email)
 
-	    if chef
-	      assignPlan(chef.id,plan_id) if plan_id.present?
+	  #   if chef
+	  #     assignPlan(chef.id,plan_id) if plan_id.present?
 
-	      flash[:success] = I18n.t('flash.you_are_logged_in')
-	      redirect_to user_welcome_path(chef)
+	  #     flash[:success] = I18n.t('flash.you_are_logged_in')
+	  #     redirect_to user_welcome_path(chef)
 
-	    else
+	  #   else
 
-	      flash[:danger] = I18n.t 'flash.invalid_arguments'
-	      redirect_to root_path
-	    end
-	  end #end if to check the user
+	  #     flash[:danger] = I18n.t 'flash.invalid_arguments'
+	  #     redirect_to root_path
+	  #   end
+	  # end #end if to check the user
 	end
 
 	def create_chef (user_id, admin)
-		Chef.create({user_id: user_id, admin: admin, admin_id: user_id})
+		Chef.create({user_id: user_id, admin: admin})
 	end
 
 	 #api that is calling from woocommerce for forgot password
@@ -227,7 +244,7 @@ class LoginController < ApplicationController
 
 	    url = root_url+'changepassword/'+@is_guest+'/'+email_encode
 	    # Tell the UserMailer to send a welcome email
-	    UserMailer.password_email(email,url).deliver
+	    UserMailer.password_email(email,url).deliver_later
 
 	    #@user.send_password_reset_email
 	    flash[:success] = I18n.t 'flash.email_sent_password_reset_instr'
@@ -320,7 +337,7 @@ class LoginController < ApplicationController
 
 	      #send email if inactive from 60 days
 	      if diff >= 60
-	        UserMailer.inactive_notification_email(chef).deliver
+	        UserMailer.inactive_notification_email(chef).deliver_later
 	      end
 	    end
 	  end
@@ -392,7 +409,7 @@ class LoginController < ApplicationController
 	  planExist = Plan.find_by(title: prod_name)
 
 	  if planExist.present?
-	    planExist.title              = prod_name
+	    planExist.title             = prod_name
 	    planExist.yearly_cost       = yearly_cost
 	    planExist.cost_per_user     = cost_per_user
 	    planExist.plan_category_id  = planCategoryObj.id

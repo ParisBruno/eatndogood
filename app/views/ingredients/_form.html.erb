@@ -1,26 +1,19 @@
-<%= render 'shared/errors', obj: @ingredient %>
-
-<div class="row">
-  <div class="col-md-12">
-    <%= form_for(@ingredient, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-      <div class="form-group">
-        <div class="control-label col-md-2">
-          <%= f.label :name %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field :name, class: "form-control", placeholder: "Enter ingredient", autofocus: true %>
-        </div>
+<%= form_for([current_app, @ingredient], :html => {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
+  <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "namein"} %>
+  <% I18n.available_locales.each do |locale| %>
+    <div class="form-group <%= "namein_#{locale}" %>">
+      <div class="control-label col-md-2" style="padding-left: 15px !important">
+        <%= f.label :name %>
       </div>
-      <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit(@ingredient.new_record? ? "Add Ingredient" : "Update Ingredient",
-                                        class: "btn btn-primary btn-lg btn-xlarge") %>
-        </div>
+      <div class="col-md-8">
+        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: "Enter ingredient (#{locale})", autofocus: true %>
       </div>
-    <% end %>
-    <div class="col-md-4 col-md-offset-4 colormatch">
-      [ <%= link_to "Cancel request and return to recipes listing", recipes_path %> ]
+    </div>
+  <% end %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit(@ingredient.new_record? ? t('ingredients.add') :  t('ingredients.update'),
+                                    class: "btn btn-primary btn-lg btn-xlarge") %>
     </div>
   </div>
-</div>
-
+<% end %>

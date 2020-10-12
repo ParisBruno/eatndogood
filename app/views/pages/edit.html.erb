@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		if($('footer').classList.contains('fixed-footer')) {
+		if($('footer').classList !== undefined && $('footer').classList.contains('fixed-footer')) {
 			$('footer').removeClass('fixed-footer');
 		}
 	});

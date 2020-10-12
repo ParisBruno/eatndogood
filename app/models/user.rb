@@ -1,34 +1,45 @@
 
 # frozen_string_literal: true
 class User < ApplicationRecord
-  extend FriendlyId
-
-  friendly_id :full_name, use: :slugged
+  include UserValidation::Validatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+         :recoverable, :rememberable, :trackable, authentication_keys: [:email, :app_id], reset_password_keys: [:email, :app_id]
 
   #belongs_to :host_chef, class_name: 'User', foreign_key: 'chef_id', optional: true
-  belongs_to :plan, optional: true
-  has_many :guests, class_name: 'User', foreign_key: 'user_id'
-  has_many :chefs, class_name: 'Chef', foreign_key: 'admin_id'
+  # belongs_to :guest_admin_user, class_name: 'User', foreign_key: 'user_id', optional: true
+  
+  belongs_to :app
+
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
-  belongs_to :guest_admin_user, class_name: 'User', foreign_key: 'user_id', optional: true
 
-  has_many :likes, dependent: :destroy
   accepts_nested_attributes_for :chef_info, allow_destroy: true
-  has_many :reservations, dependent: :destroy
-  validates_uniqueness_of :slug
+  accepts_nested_attributes_for :app
 
-  validates :plan, presence: true, if: :admin?
-
+  validates :first_name, :last_name, presence: true
+  validates :city, :state, :postal_code, :country, presence: true, on: :create, if: Proc.new {|u| u.guest == true}
+  validates :city, presence: true, on: :update, unless: Proc.new {|u| u.city_was.nil?}
+  validates :state, presence: true, on: :update, unless: Proc.new {|u| u.state_was.nil? }
+  validates :postal_code, presence: true, on: :update, unless: Proc.new {|u| u.postal_code_was.nil? }
+  validates :country, presence: true, on: :update, unless: Proc.new {|u| u.country_was.nil? }
+  
   validate :limit_guests, on: :create
+  #after_create :send_guest_email_to_admin
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
+  scope :guests, -> { where(guest: true)}
 
-  after_create :create_pages
-  before_create :set_guest_admin
+  # before_create :set_guest_admin
+  before_save :downcase_slug
+  after_commit :add_sender_to_sendgrid
+
+  def downcase_slug
+    unless app.nil? && app.slug.nil?
+      app.slug = app.slug.gsub(' ', '_').downcase 
+      app.save
+    end
+  end
 
   def full_name
     [first_name, last_name].join(' ').strip.titleize
@@ -36,22 +47,71 @@ class User < ApplicationRecord
 
   def limit_guests
     if self.guest?
-      admin = User.find self.user_id # hummmm
-      current_guests = User.where(guest: true, user_id: admin.id).count
-      if !admin.plan.guests_limit.nil? && (current_guests >= admin.plan.guests_limit)
-        errors.add(:user_id, "Cannot signup to #{admin.full_name} app as guest. Because this user account has reached guests limitation.")
+      # admin = User.find self.user_id # hummmm
+      # find app
+      app = App.find(self.app_id)
+      current_guests = app.guests.count
+      if !app.plan.guests_limit.nil? && (current_guests >= app.plan.guests_limit)
+        errors.add(:user_id, "Cannot signup to #{app.app_name} app as guest. Because this user account has reached guests limitation.")
       end
+    end
+  end
+
+  def send_guest_email_to_admin
+    if self.guest?
+      admin = self.app.admin
+      UserMailer.guest_create_email_to_admin(admin.email, self).deliver_later
+    end
+  end
+
+  def self.find_for_authentication(warden_conditions)
+    where(email: warden_conditions[:email], app_id: warden_conditions[:app_id]).first
+  end
+
+  def add_sender_to_sendgrid
+    if self.admin? 
+      url = URI("https://api.sendgrid.com/v3/marketing/senders")
+      
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      
+      request = Net::HTTP::Post.new(url)
+      request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+      request["Content-Type"] = 'application/json'
+
+      full_name = first_name + last_name
+      data = { 
+        "nickname": full_name,
+        "from": { 
+          "email": email,
+          "name": full_name
+        },
+        "reply_to": {
+          "email": email,
+          "name": full_name
+        },
+        "address": address_line_1,
+        "address_2": address_line_2,
+        "city": city,
+        "state": state,
+        "zip": postal_code,
+        "country": country
+      }
+
+      request.body = data.to_json
+      response = http.request(request)
     end
   end
 
   private 
 
-  def create_pages
-    if self.admin
-      Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: ["Welcome To", self.full_name, "iTopRecipes App"].join("<br/>"), destination: "welcome", user_id: self.id, admin_name: self.full_name)
-      Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", user_id: self.id, admin_name: self.full_name)
-    end
-  end
+  # def create_pages
+  #   if self.admin
+  #     Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: ["Welcome To", self.full_name, "iTopRecipes App"].join("<br/>"), destination: "welcome", user_id: self.id, admin_name: self.full_name)
+  #     Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", user_id: self.id, admin_name: self.full_name)
+  #   end
+  # end
 
   def set_guest_admin
     #self.user_id = params[:user][:admin_id] if self.guest? 

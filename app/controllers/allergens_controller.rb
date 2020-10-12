@@ -5,14 +5,15 @@ class AllergensController < ApplicationController
   # GET /allergens
   # GET /allergens.json
   def index
-    @allergens = Allergen.where(user_id: current_user.id).all
+    @allergens = Allergen.where(app_id: current_app.id).all
+    # @recipes_count = current_app.recipes.count
   end
 
   # GET /allergens/1
   # GET /allergens/1.json
   def show
-    @allergen = Allergen.find(params[:id])
     @recipes = @allergen.recipes.paginate(page: params[:page], per_page: 3)
+    # @recipes = Recipe.where.not(id: @allergen.recipes.pluck(:id)).paginate(page: params[:page], per_page: 3)
   end
 
   # GET /allergens/new
@@ -28,40 +29,36 @@ class AllergensController < ApplicationController
   # POST /allergens.json
   def create
     @allergen = Allergen.new(allergen_params)
-    @allergen.user_id = current_user.id
+    @allergen.app_id = current_app.id
 
-    respond_to do |format|
-      if @allergen.save
-        format.html { redirect_to recipes_path, notice: 'Allergen was successfully created.' }
-        format.json { render :show, status: :created, location: @allergen }
-      else
-        format.html { render :new }
-        format.json { render json: @allergen.errors, status: :unprocessable_entity }
-      end
+    if @allergen.save
+      redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully created.'
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /allergens/1
   # PATCH/PUT /allergens/1.json
   def update
-    respond_to do |format|
-      if @allergen.update(allergen_params)
-        format.html { redirect_to @allergen, notice: 'Allergen was successfully updated.' }
-        format.json { render :show, status: :ok, location: @allergen }
-      else
-        format.html { render :edit }
-        format.json { render json: @allergen.errors, status: :unprocessable_entity }
-      end
+    if @allergen.update(allergen_params)
+      redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully updated.'
+    else
+      render 'edit'
     end
   end
 
   # DELETE /allergens/1
   # DELETE /allergens/1.json
   def destroy
-    @allergen.destroy
-    respond_to do |format|
-      format.html { redirect_to allergens_url, notice: 'Allergen was successfully destroyed.' }
-      format.json { head :no_content }
+    unless @allergen.recipes.count > 0
+      @allergen.destroy
+      respond_to do |format|
+        format.html { redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to app_allergens_path(current_app), notice: 'Allergen has recipes and cannot be destroyed'
     end
   end
 
@@ -73,6 +70,6 @@ class AllergensController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allergen_params
-      params.require(:allergen).permit(:name)
+      params.require(:allergen).permit(*Allergen.globalize_attribute_names)
     end
 end

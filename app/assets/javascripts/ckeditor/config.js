@@ -11,6 +11,7 @@ CKEDITOR.editorConfig = function (config) {
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
         ['Link','Unlink']
     ];
+    config.extraPlugins = 'confighelper,placeholder,';
 
 };
 

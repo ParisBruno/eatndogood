@@ -1,0 +1,17 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Guests") do |sheet|
+  sheet.add_row ["First Name", "Last Name", "Email", "Address Line 1", "Address Line 2", "City", "State", "Postal Code", "Country"]
+  @guests.each do |guest|
+    sheet.add_row [
+      guest.first_name,
+      guest.last_name,
+      guest.email,
+      guest.address_line_1,
+      guest.address_line_2,
+      guest.city,
+      guest.state,
+      guest.postal_code,
+      guest.country
+    ]
+  end
+end

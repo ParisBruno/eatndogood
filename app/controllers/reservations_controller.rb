@@ -14,10 +14,11 @@ class ReservationsController < ApplicationController
   	respond_to do |format|
   	  if @reservation.save
   	    to_email = @reservation.recipe.chef.admin_user.present? ? @reservation.recipe.chef.admin_user.email : "brunofiuggi@gmail.com"
-  	    UserMailer.question_email(@reservation.email, to_email, @reservation)
+				# raise @reservation.inspect
+				UserMailer.reservation_email(@reservation.email, to_email, @reservation).deliver_later
   	    message = 'Make Reservation successfully.'
         message = 'Sent catering question to chef' if @reservation != "reservation"
-  	    format.html { redirect_to recipe_path(@reservation.recipe_id), notice: 'Make Reservation successfully.' }
+  	    format.html { redirect_to app_recipe_path(current_app, @reservation.recipe_id), notice: 'Make Reservation successfully.' }
   	    
   	  else
   	    format.html { render :new }
@@ -30,7 +31,7 @@ class ReservationsController < ApplicationController
 
   def reservation_params
   	params.require(:reservation).permit(:user_id, :email, :notes, :recipe_id, :full_name, :phone_number,
-  	              :number_people, :ci_date, :ci_time, :re_type)
+  	              :number_people, :ci_date, :ci_time, :re_type, :app_id)
   end 
 
 

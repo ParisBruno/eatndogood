@@ -1,14 +1,14 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe "questions/edit", type: :view do
-  before(:each) do
-    @question = assign(:question, Question.create!())
-  end
+# RSpec.describe "questions/edit", type: :view do
+#   before(:each) do
+#     @question = assign(:question, Question.create!())
+#   end
 
-  it "renders the edit question form" do
-    render
+#   it "renders the edit question form" do
+#     render
 
-    assert_select "form[action=?][method=?]", question_path(@question), "post" do
-    end
-  end
-end
+#     assert_select "form[action=?][method=?]", question_path(@question), "post" do
+#     end
+#   end
+# end

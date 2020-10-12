@@ -1,0 +1,19 @@
+%h1 Listing allergens
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th
+      %th
+
+  %tbody
+    - @allergens.each do |allergen|
+      %tr
+        %td= allergen.name
+        %td= link_to 'Edit', edit_app_allergen_path(current_app, allergen)
+        %td= link_to 'Destroy', [current_app, allergen], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Allergen', new_app_allergen_path(current_app)
