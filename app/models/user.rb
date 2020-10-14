@@ -69,7 +69,9 @@ class User < ApplicationRecord
   end
 
   def check_sendgrid_senders
+    puts "HELLO=============#{ENV['SENDGRID_API_KEY']}"
     if self.admin?
+      puts "ADMIN============="
       url = URI("https://api.sendgrid.com/v3/marketing/senders")
 
       http = Net::HTTP.new(url.host, url.port)
@@ -81,6 +83,7 @@ class User < ApplicationRecord
       request["Content-Type"] = 'application/json'
       
       response = http.request(request)
+      puts "SENDERS_LIST=============#{response}"
       senders = JSON.parse(response.read_body)
 
       senders_emails = []
@@ -93,6 +96,7 @@ class User < ApplicationRecord
   private
 
   def add_sender_to_sendgrid
+    puts "SENDER======================="
     url = URI("https://api.sendgrid.com/v3/marketing/senders")
     
     http = Net::HTTP.new(url.host, url.port)
@@ -124,6 +128,7 @@ class User < ApplicationRecord
 
     request.body = data.to_json
     response = http.request(request)
+    puts "RESPONSE=============#{response}"
   end
 
   # def create_pages
