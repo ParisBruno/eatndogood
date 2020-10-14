@@ -83,7 +83,7 @@ class User < ApplicationRecord
       request["Content-Type"] = 'application/json'
       
       response = http.request(request)
-      puts "SENDERS_LIST=============#{response}"
+      puts "SENDERS_LIST=============#{response.read_body}"
       senders = JSON.parse(response.read_body)
 
       senders_emails = []
@@ -128,7 +128,7 @@ class User < ApplicationRecord
 
     request.body = data.to_json
     response = http.request(request)
-    puts "RESPONSE=============#{response}"
+    puts "RESPONSE=============#{response.read_body}"
   end
 
   # def create_pages
