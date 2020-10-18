@@ -33,7 +33,6 @@ class User < ApplicationRecord
 
   # before_create :set_guest_admin
   before_save :downcase_slug
-  after_commit :check_sendgrid_senders
 
   def downcase_slug
     unless app.nil? && app.slug.nil?
@@ -69,69 +68,7 @@ class User < ApplicationRecord
     where(email: warden_conditions[:email], app_id: warden_conditions[:app_id]).first
   end
 
-  def check_sendgrid_senders
-    if self.admin?
-      puts "ADMIN============="
-      url = URI("https://api.sendgrid.com/v3/marketing/senders")
-
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      
-      request = Net::HTTP::Get.new(url)
-      request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
-      request["Content-Type"] = 'application/json'
-      
-      response = http.request(request)
-      puts "SENDERS_LIST=============#{response.read_body}"
-      unless response.read_body['errors'].present?
-        senders = JSON.parse(response.read_body)
-
-        senders_emails = []
-        senders.each { |sender| senders_emails << sender['from']['email'] if sender['from'] }
-
-        add_sender_to_sendgrid unless senders_emails.include?(email)
-      end
-    end
-  end
-
   private
-
-  def add_sender_to_sendgrid
-    puts "SENDER======================="
-    url = URI("https://api.sendgrid.com/v3/marketing/senders")
-    
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    
-    request = Net::HTTP::Post.new(url)
-    request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
-    request["Content-Type"] = 'application/json'
-
-    full_name = first_name + last_name
-    data = { 
-      "nickname": full_name,
-      "from": { 
-        "email": email,
-        "name": full_name
-      },
-      "reply_to": {
-        "email": email,
-        "name": full_name
-      },
-      "address": address_line_1,
-      "address_2": address_line_2,
-      "city": city,
-      "state": state,
-      "zip": postal_code,
-      "country": country
-    }
-
-    request.body = data.to_json
-    response = http.request(request)
-    puts "RESPONSE=============#{response.read_body}"
-  end
 
   # def create_pages
   #   if self.admin

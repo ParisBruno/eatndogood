@@ -3,7 +3,8 @@ class GuestsController < ApplicationController
   respond_to :html, :json
 
   protect_from_forgery prepend: true, with: :exception
-  skip_before_action :verify_authenticity_token, only: [:send_emails]
+  skip_before_action :verify_authenticity_token, only: %i[send_emails]
+  before_action :check_sendgrid_senders, only: %i[index]
 
   def index
     return redirect_to app_path(current_app) if current_app_user.guest?

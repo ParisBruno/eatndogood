@@ -24,6 +24,66 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_sendgrid_senders
+    if current_app_user.admin?
+      url = URI("https://api.sendgrid.com/v3/marketing/senders")
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      
+      request = Net::HTTP::Get.new(url)
+      request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+      request["Content-Type"] = 'application/json'
+      
+      response = http.request(request)
+      unless response.read_body['errors'].present?
+        senders = JSON.parse(response.read_body)
+
+        senders_emails = []
+        senders.each { |sender| senders_emails << sender['from']['email'] if sender['from'] }
+
+        add_sender_to_sendgrid unless senders_emails.include?(current_app_user.email)
+      end
+    end
+  end
+
+  def add_sender_to_sendgrid
+    if current_app_user.address_line_1 && current_app_user.city && current_app_user.country
+      url = URI("https://api.sendgrid.com/v3/marketing/senders")
+      
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      
+      request = Net::HTTP::Post.new(url)
+      request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+      request["Content-Type"] = 'application/json'
+
+      full_name = current_app_user.first_name + current_app_user.last_name
+      data = { 
+        "nickname": current_app_user.full_name,
+        "from": { 
+          "email": current_app_user.email,
+          "name": current_app_user.full_name
+        },
+        "reply_to": {
+          "email": current_app_user.email,
+          "name": current_app_user.full_name
+        },
+        "address": current_app_user.address_line_1 || 'Bloomfield Ave',
+        "address_2": current_app_user.address_line_2,
+        "city": current_app_user.city || 'Windsor',
+        "state": current_app_user.state || 'Connecticut',
+        "zip": current_app_user.postal_code || '06095',
+        "country": current_app_user.country || 'United States'
+      }
+
+      request.body = data.to_json
+      response = http.request(request)
+    end
+  end
+
   protected
 
   # def self.default_url_options
