@@ -52,7 +52,7 @@ gem 'country_select', '~> 4.0'
 gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
-
+gem 'social-share-button'
 
 
 group :development, :test do

@@ -16,4 +16,11 @@
  *= require select2-bootstrap
  *= require_tree .
  *= require_self
+ *= require social-share-button
  */
+
+.ssb-icon {
+  background-size: 38px 38px !important;
+  height: 38px !important;
+  width: 38px !important;
+}
