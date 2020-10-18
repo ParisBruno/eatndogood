@@ -77,7 +77,7 @@ en:
     take_a_tour_as_guest: Take a tour as Guest
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'
-    user_infos_title_1: "1) Your personal info is private and safe"
+    user_infos_title_1: "Welcome guest, your info is private and safe"
     user_infos_title_2: "2) We collect address info for you to find recipes create from your area"
     user_address_title: "Your address (not required)"
     placeholder:

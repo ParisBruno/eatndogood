@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class AdminMailer < ApplicationMailer
+  default from: 'bruno@itoprecipes.com'
 
   def notification_email(chef_name, receiver, from, subject, content, email_content_id)
+    current_user = User.find_by(email: from)
+    from = default_params[:from] unless check_sendgrid_senders(current_user)
+
     @receiver = receiver
     @email_body = content
     email_content = EmailContent.find_by(id: email_content_id)
@@ -13,11 +17,34 @@ class AdminMailer < ApplicationMailer
       }
     end
     
-    mail(to: receiver, from: from,:subject => subject)
+    mail(to: receiver, from: from, subject: subject)
   end
 
   def inactive_guests_email(receiver, guests)
     @guests  = guests
     mail(to: receiver.email, subject: 'List of inactive guests')
+  end
+
+  def check_sendgrid_senders(current_user)
+    if current_user.admin?
+      url = URI("https://api.sendgrid.com/v3/marketing/senders")
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      
+      request = Net::HTTP::Get.new(url)
+      request["Authorization"] = "Bearer #{ENV['SENDGRID_API_KEY']}"
+      request["Content-Type"] = 'application/json'
+      
+      response = http.request(request)
+      return if response.read_body['errors'].present?
+
+      senders = JSON.parse(response.read_body)
+      senders_emails = []
+      senders.each { |sender| senders_emails << sender['from']['email'] if sender['from'] && sender['verified']['status'] }
+
+      senders_emails.include?(current_user.email)
+    end
   end
 end

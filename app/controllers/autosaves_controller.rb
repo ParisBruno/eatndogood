@@ -1,4 +1,5 @@
 class AutosavesController < ApplicationController
+  # protect_from_forgery with: :null_session
   def create
     form = params[:form]
     payload = autosave_params.to_json

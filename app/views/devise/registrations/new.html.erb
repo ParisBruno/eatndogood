@@ -14,9 +14,6 @@
         <h5>
           <%= t('common.user_infos_title_1') %>
         </h5>
-        <h5>
-          <%= t('common.user_infos_title_2') %>
-        </h5>
       </div>
       <div class="panel-body">
         <div class="field">
@@ -24,10 +21,14 @@
           <%= f.text_field :first_name, placeholder: t('activerecord.attributes.user.first_name').capitalize %>
         </div>
 
-        <div class="field">
+        <%
+=begin%>
+ <div class="field">
           <%#= f.label :last_name, autofocus: true, autocomplete: "last_name" %>
           <%= f.text_field :last_name,  placeholder: t('activerecord.attributes.user.last_name').capitalize %>
-        </div>
+        </div> 
+<%
+=end%>
 
         <div class="field">
           <%#= f.label :email %><br />
@@ -45,7 +46,7 @@
             <%= f.password_field :password, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password').capitalize %>
             <div class='input-group-addon col-md-1' style="height:36px;">
               <a href="" class="toggle-password">
-                <%= fa_icon "eye" %>
+                <i class="fa fa-eye"></i>
               </a>
             </div>
           </div>
@@ -58,12 +59,14 @@
             <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password_confirmation').capitalize %>
             <div class='input-group-addon col-md-1' style="height:36px;">
               <a href="" class="toggle-password">
-                <%= fa_icon "eye" %>
+                <i class="fa fa-eye"></i>
               </a>
             </div>
           </div>
         </div>
-         <div class="field">
+         <%
+=begin%>
+ <div class="field">
           <%#= f.label :address_line_1, autofocus: true, autocomplete: "Addresse Line 1" %>
           <%= f.text_field :address_line_1,  placeholder: "#{t('activerecord.attributes.user.address_line_1').capitalize} #{t('common.optional')}" %>
         </div>
@@ -86,12 +89,31 @@
         <div class="field form-group">
           <%#= f.label :country, autofocus: true, autocomplete: "first_name" %> <br>
           <%= f.country_select :country, { include_blank: t('activerecord.attributes.user.country').capitalize }, { class: 'form-control' } %>
-        </div>
+        </div> 
+<%
+=end%>
       </div>
     </div>
-    <div class="actions">
-      <%= f.submit "Sign up", class: 'btn btn-success'%>
+    <div class="captcha_sub_signup" style="text-align: center;">   
+      <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6LfrCtgZAAAAAIWXYOJF7OU9b2WLqebhJerFW8NN" data-callback="get_action" ></div>
+      <span id="captcha" style="color:red" />
+    </div>
+    <div class="text-center">
+      <%= f.submit "Submit", id: 'submit', class: 'btn btn-success'%>
     </div>
     <% end %>
   </div>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  document.getElementById("submit").disabled = true;
+  function get_action(form) {
+    var v = grecaptcha.getResponse();
+    if(v.length == 0) {       
+      document.getElementById("submit").disabled = true;
+    } else {
+      console.log("vl", v, "vl.l", v.length);
+      document.getElementById("submit").disabled = false;}
+  }
+</script>
