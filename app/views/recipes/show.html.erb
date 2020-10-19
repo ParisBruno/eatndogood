@@ -96,7 +96,7 @@
                 <br/>
           <% end %>
           <div>
-            <h2 style="color: #007bff;">Share friends and family</h2>
+            <h2 style="color: #007bff;">Share with friends & family</h2>
             <%= social_share_button_tag(@recipe.name, desc: @recipe.description) %>
           </div>
           <%= link_to like_app_recipe_path(current_app, @recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
