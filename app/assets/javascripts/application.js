@@ -22,6 +22,7 @@
 //= require ckeditor/config
 //= require_tree .
 //= require jquery.remotipart 
+//= require social-share-button
 
 function scrollToBottom(){
   if($('#messages').length > 0) {
