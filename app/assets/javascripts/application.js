@@ -20,9 +20,10 @@
 //= require ckeditor/plugins/placeholder/plugin
 //= require ckeditor/plugins/confighelper/plugin
 //= require ckeditor/config
+//= require turbolinks
+//= require social-share-button
 //= require_tree .
 //= require jquery.remotipart 
-//= require social-share-button
 
 function scrollToBottom(){
   if($('#messages').length > 0) {
