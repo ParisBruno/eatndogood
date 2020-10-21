@@ -21,7 +21,7 @@
 //= require ckeditor/plugins/confighelper/plugin
 //= require ckeditor/config
 //= require turbolinks
-//= require social-share-button
+//= require rails-social-share-button
 //= require_tree .
 //= require jquery.remotipart 
 

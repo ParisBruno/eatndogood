@@ -52,8 +52,9 @@ gem 'country_select', '~> 4.0'
 gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
-gem 'social-share-button'
+# gem 'social-share-button'
 # gem 'social-share-button', '1.1.0'
+gem 'rails-social-share-button'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
