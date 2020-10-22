@@ -126,7 +126,7 @@ margin: 10px;
             <h2 style="color: #007bff;">Share with friends & family</h2>
             <%= link_to "<i class='fa fa-facebook fa-4x'> </i>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{app_recipe_url(@recipe)}" %> 
             <%= link_to "<i class='fa fa-instagram fa-4x'> </i>".html_safe, "https://www.instagram.com/?url=#{app_recipe_url(@recipe)}" %>
-            <%= link_to "<i class='fa fa-linkedin fa-4x'> </i>".html_safe, "https://www.linkedin.com/shareArticle?mini=true&url=#{app_recipe_url(@recipe)}&title=#{@recipe.name}&summary=#{@recipe.description}" %>
+            <%= link_to "<i class='fa fa-linkedin fa-4x'> </i>".html_safe, "https://www.linkedin.com/shareArticle?mini=true&url=#{app_recipe_url(@recipe)}&title=#{@recipe.name}", rel: noopener, target: "_blank" %>
             <%= link_to "<i class='fa fa-twitter fa-4x'> </i>".html_safe, "https://twitter.com/intent/tweet?text=#{@recipe.name}&url=#{app_recipe_url(@recipe)}" %>
             <%= link_to "<i class='fa fa-pinterest fa-4x'> </i>".html_safe, "http://www.pinterest.com/pin/create/button/?url=#{app_recipe_url(@recipe)}&description=#{@recipe.name}" %>
             <%= link_to "<i class='fa fa-envelope fa-4x'> </i>".html_safe, "mailto:?to=&subject=#{@recipe.name}&body=#{app_recipe_url(@recipe)}" %>
