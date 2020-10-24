@@ -15,6 +15,5 @@
  *= require select2
  *= require select2-bootstrap
  *= require_tree .
- *= require rails-social-share-button
  *= require_self
  */
