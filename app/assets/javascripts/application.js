@@ -20,6 +20,7 @@
 //= require ckeditor/plugins/placeholder/plugin
 //= require ckeditor/plugins/confighelper/plugin
 //= require ckeditor/config
+//= require turbolinks
 //= require_tree .
 //= require jquery.remotipart 
 

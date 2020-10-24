@@ -1,0 +1,40 @@
+<style>
+.fa.fa-instagram {
+  color: transparent;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  margin: 10px;
+}
+.fa-pinterest{
+color: #cb2027;
+margin: 10px;
+}
+.fa-twitter{
+background: #4099FF;
+color: #FFFFFF;
+padding: 0.05em 0.07em;
+border-radius: 10px;
+margin: 10px;
+}
+.fa-facebook {
+  color: white;
+  background-color: RoyalBlue;
+  padding: 0.1em 0.25em 0em 0.25em;
+  border-radius: 5px;
+  margin: 10px;
+}
+.shared-title {
+  color: #007bff;
+}
+</style>
+<div>
+  <h2 class="shared-title">Share with friends & family</h2>
+  <%= link_to "<i class='fa fa-facebook fa-4x'> </i>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{app_recipe_url(@recipe)}", rel: 'noopener', target: "_blank" %> 
+  <%= link_to "<i class='fa fa-instagram fa-4x'> </i>".html_safe, "https://www.instagram.com/?url=#{app_recipe_url(@recipe)}", rel: 'noopener', target: "_blank" %>
+  <%= link_to "<i class='fa fa-linkedin fa-4x'> </i>".html_safe, "https://www.linkedin.com/shareArticle?mini=true&url=#{app_recipe_url(@recipe)}&title=#{@recipe.name}", rel: 'noopener', target: "_blank" %>
+  <%= link_to "<i class='fa fa-twitter fa-4x'> </i>".html_safe, "https://twitter.com/intent/tweet?text=#{@recipe.name}&url=#{app_recipe_url(@recipe)}", rel: 'noopener', target: "_blank" %>
+  <%= link_to "<i class='fa fa-pinterest fa-4x'> </i>".html_safe, "http://www.pinterest.com/pin/create/button/?url=#{app_recipe_url(@recipe)}&description=#{@recipe.name}", rel: 'noopener', target: "_blank" %>
+  <%= link_to "<i class='fa fa-envelope fa-4x'> </i>".html_safe, "mailto:?to=&subject=#{@recipe.name}&body=#{app_recipe_url(@recipe)}" %>
+</div>

@@ -53,8 +53,6 @@ gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
-
-
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
   gem 'sqlite3_ar_regexp', '~> 2.2'
