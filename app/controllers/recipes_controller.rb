@@ -41,6 +41,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.chef_id = current_app_user.chef_info.id
+    # byebug
     if @recipe.save
       # upload_images
       delete_draft

@@ -1,0 +1,83 @@
+<style>
+  *{ 
+    box-sizing: border-box;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+  }
+  .wrap {
+    min-height: 150px;
+    margin: 0 auto;
+    margin-bottom: 5em;
+  }
+  .title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    border-bottom: 1px solid #dadada;
+  }
+  .logo {
+    width: 45px;
+    height: 45px;
+  }
+  .sub-item {
+    font-size: 1.5em;
+  }
+  .change-item {
+    font-size: 1.3em;
+  }
+  .remove-item {
+    font-size: 1.3em;
+    float: right;
+  }
+  .subtotal {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .empty {
+    float: right;
+    margin-top: 10px;
+  }
+  .order {
+    float: right;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="wrap">
+  <h1 class="title">My Cart</h1>
+  <table>
+     <% @current_cart.line_items.order(:created_at).each do |line_item| %>    
+      <tr>
+        <td class="logo">
+          <% if line_item.recipe.food_image.attached? %>
+            <%= image_tag(Rails.env.production? ? line_item.recipe.food_image.service_url : line_item.recipe.food_image, size: "35x35") %>
+          <% end %>
+        </td>
+        <td colspan="2">
+          <b><h3><%= line_item.recipe.name %></h3></b>
+          <p><%= line_item.quantity %> x <%= number_to_currency(line_item.recipe.price) %></p>
+        </td>
+        <td><%= button_to "+", line_item_add_path(id: line_item, recipe_id: @recipe.id), class: "change-item btn btn-outline-success", remote: true, method: :post %></td>
+        <td><%= button_to "-".html_safe, line_item_reduce_path(id: line_item, recipe_id: @recipe.id), class: "change-item btn btn-outline-info", remote: true, method: :post %></td>
+        <td class="sub-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$</td>
+        <td><%= button_to "x", line_item_path(line_item, recipe_id: @recipe.id), class: "remove-item btn btn-outline-danger", remote: true, method: :delete %></td>
+      </tr>
+    <% end %>
+      <tr>
+        <td class="subtotal" colspan="5">Subtotal: <%= number_to_currency(@current_cart.sub_total) %></td>
+        <td colspan="2"><%= button_to "Proceed to checkout", new_app_order_path, class: "order btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+      </tr>
+      <tr>
+        <td colspan="7"><%= button_to "Empty cart", app_cart_path(id: @current_cart.id, recipe_id: @recipe.id), class: "empty btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td>
+      </tr>
+    </table>
+</div>

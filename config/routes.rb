@@ -3,6 +3,13 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  # get 'orders/index'
+  # get 'orders/show'
+  # get 'orders/new'
+  # get 'carts/show'
+  # get 'products/index'
+  # get 'products/new'
+  # get 'products/edit'
   get 'reservation/create'
 
   #get '/'
@@ -40,6 +47,14 @@ Rails.application.routes.draw do
   get "newguest/:id/:email", to: "guests#new", as: "newguest"
   post 'guests/create',to: "guests#create", as: 'guestCreation'
   delete 'guest/:id', to: 'guests#destroy', as: "destroy_guest"
+  # post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
+  # post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
+
+  post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
+  post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
+  post 'line_items' => "line_items#create"
+  get 'line_items/:id' => "line_items#show", as: "line_item"
+  delete 'line_items/:id' => "line_items#destroy"
 
   # resources :chefs #, except: [:new]
   # resources :ingredients, except: [:destroy]
@@ -93,6 +108,10 @@ Rails.application.routes.draw do
         get 'about',   to: 'about'
       end
     end
+    resources :carts, only: %i[show destroy]
+    # resources :line_items, only: %i[create show destroy]
+    # resources :products
+    resources :orders
   end
 
 end

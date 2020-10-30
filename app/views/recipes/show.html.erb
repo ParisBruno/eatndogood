@@ -1,3 +1,9 @@
+<style>
+  .buy-button {
+    margin-top: 10px;
+    float: right;
+  }
+</style>
   <div class="margin-sec top-space" style="margin-top: 50px;">
      <div class="col-md-12 margin-sec top-space recipe-detail">
      <div class="row">
@@ -41,8 +47,12 @@
       </div>
       </div>
       </div>
+        <%= button_to "Buy #{@recipe.name}", line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-primary btn-lg' %>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
+          <div id="cart">
+            <%= render @current_cart %>
+          </div>
       <% if @recipe.food_image.attached? %>
         <div class="image-box-shadow" style="margin-bottom: 10px;">
           <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
