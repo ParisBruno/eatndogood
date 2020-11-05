@@ -308,6 +308,18 @@ es:
     tips_ingredients_preparation: 'consejos, ingredientes, y preparacion:'
     upload_drink_pic: Cargar imagen de bebida
     upload_food_pic: Cargar imagen de comida
+    price: Precio
+    shared_links: Comparte con amigos y familiares
+    add_to_cart: Añadir al carrito
+    my_cart: Mi carrito
+    product_name: Nombre del producto
+    quantity: Cantidad
+    sub_total: Total parcial
+    home_delivery: Entrega a domicilio
+    subtotal: Total parcial
+    total: Total
+    proceed_checkout: Pasar por la caja
+    empty_cart: Carro vacio
     write_name: Escriba el nombre de la receta
   reservations:
     make_catering: hacer catering

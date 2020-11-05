@@ -35,7 +35,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new 
     @style = @recipe.styles.build
     @allergen = @recipe.allergens.build
-    @ingredient =  @recipe.ingredients.build
+    @ingredient = @recipe.ingredients.build
+    @categories = Category.all
   end
   
   def create
@@ -56,6 +57,7 @@ class RecipesController < ApplicationController
     @style = @recipe.styles.build
     @allergen = @recipe.allergens.build
     @ingredient =  @recipe.ingredients.build
+    @categories = Category.all
   end
 
   def email_question
@@ -147,7 +149,9 @@ class RecipesController < ApplicationController
     end
   
     def recipe_params
-      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, ingredient_ids: [], allergen_ids: [], style_ids: []]
+      # <%= image_tag('shopping-cart.png') %>
+      # t('recipes.add_to_cart') 
+      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
       params.require(:recipe).permit(*permitted)
     end
 

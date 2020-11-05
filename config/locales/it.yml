@@ -325,6 +325,18 @@ it:
     tips_ingredients_preparation: 'Suggerimenti, ingredienti e preparazione:'
     upload_drink_pic: Carica l'immagine della bevanda
     upload_food_pic: Carica la foto del cibo
+    price: Prezzo
+    shared_links: Condividi con amici e familiari
+    add_to_cart: Aggiungi al carrello
+    my_cart: La mia carta
+    product_name: Nome del prodotto
+    quantity: Quantità
+    sub_total: Totale parziale
+    home_delivery: Consegna a domicilio
+    subtotal: Totale parziale
+    total: Totale
+    proceed_checkout: Procedere al checkout
+    empty_cart: Carrello vuoto
     write_name: Scrivi il nome della ricetta
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali

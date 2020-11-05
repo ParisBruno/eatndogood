@@ -290,6 +290,18 @@ de:
     tips_ingredients_preparation: 'Tipps, Zutaten und Zubereitung:'
     upload_drink_pic: Laden Sie ein Getränk hoch
     upload_food_pic: Bild hochladen
+    price: Preis
+    shared_links: Teilen Sie mit Freunden & Familie
+    add_to_cart: In den Warenkorb legen
+    my_cart: Mein Warenkorb
+    product_name: Produktname
+    quantity: Menge
+    sub_total: Zwischensumme
+    home_delivery: Hauslieferung
+    subtotal: Zwischensumme
+    total: Gesamt
+    proceed_checkout: Zur Kasse
+    empty_cart: Leerer Warenkorb
     write_name: Schreibe den Rezeptnamen
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen

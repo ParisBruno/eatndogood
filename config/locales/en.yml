@@ -337,6 +337,19 @@ en:
     tips_ingredients_preparation: 'Tips, ingredients and preparation:'
     upload_drink_pic: Upload drink picture
     upload_food_pic: Upload food picture
+    price: Price
+    shared_links: Share with friends & family
+    add_to_cart: Add to cart
+    my_cart: My Cart
+    product_name: Product name
+    price: Price
+    quantity: Quantity
+    sub_total: Sub total
+    home_delivery: Home delivery
+    subtotal: Subtotal
+    total: Total
+    proceed_checkout: Proceed to checkout
+    empty_cart: Empty cart
     write_name: Write Recipe name
   reservations:
     make_catering: Ask about catering & personal chef services

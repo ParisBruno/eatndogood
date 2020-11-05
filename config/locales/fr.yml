@@ -336,6 +336,18 @@ fr:
     tips_ingredients_preparation: 'Conseils, ingrédients et préparation:'
     upload_drink_pic: Télécharger une photo de boisson
     upload_food_pic: Télécharger une image de recette terminée
+    price: Prix
+    shared_links: Partagez avec vos amis et votre famille
+    add_to_cart: Ajouter au chariot
+    my_cart: Mon panier
+    product_name: Nom du produit
+    quantity: Quantité
+    sub_total: Sous total
+    home_delivery: Livraison à domicile
+    subtotal: Soustotal
+    total: Total
+    proceed_checkout: Passer à la caisse
+    empty_cart: Panier vide
     write_name: Écrivez le nom de la recette
   reservations:
     make_catering: Posez des questions sur la restauration et les services personnels

@@ -107,3 +107,53 @@ plans = [
 plans.each do |plan|
   Plan.find_or_create_by(plan)
 end
+
+categories = [
+  { name: 'Appetizers' },
+  { name: 'Soups' },
+  { name: 'Entrees' },
+  { name: 'Sides' },
+  { name: 'Pizza' },
+  { name: 'Sandwich' },
+  { name: 'Desserts' },
+  { name: 'Beverages' },
+  { name: 'Combos' },
+  { name: 'Specials' }
+]
+
+categories.each do |category|
+  Category.find_or_create_by(category)
+end
+
+entrees_subcategories = [
+  { name: 'Beef' },
+  { name: 'Chicken' },
+  { name: 'Pork' },
+  { name: 'Seafood' },
+  { name: 'Vegetarian' }
+]
+
+beverages_subcategories = [
+  { name: 'Wine' },
+  { name: 'Beer' },
+  { name: 'Spirits' },
+  { name: 'Soda' },
+  { name: 'Coffee' },
+  { name: 'others' }
+]
+
+entrees_subcategories.each do |subcategory|
+  entrees_category = Category.find_or_create_by!(name: 'Entrees')
+  Subcategory.find_or_create_by(category_id: entrees_category.id, name: subcategory[:name])
+end
+
+beverages_subcategories.each do |subcategory|
+  beverages_category = Category.find_or_create_by!(name: 'Beverages')
+  Subcategory.find_or_create_by(category_id: beverages_category.id, name: subcategory[:name])
+end
+
+other_subcategories_names = Category.where.not(name: ['Entrees', 'Beverages']).pluck(:id, :name)
+
+other_subcategories_names.each do |subcategory|
+  Subcategory.find_or_create_by!(category_id: subcategory[0], name: subcategory[1])
+end

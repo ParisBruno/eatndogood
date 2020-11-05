@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_205453) do
+ActiveRecord::Schema.define(version: 2020_11_02_223801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,12 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
   end
 
   create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -176,7 +182,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
     t.integer "quantity", default: 1
     t.bigint "recipe_id", null: false
     t.bigint "cart_id", null: false
-    t.bigint "order_id", null: false
+    t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
@@ -329,6 +335,8 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
     t.integer "chef_id"
     t.text "summary"
     t.decimal "price", precision: 5, scale: 2, default: "0.0"
+    t.bigint "subcategory_id"
+    t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 
   create_table "recipes_styles", id: false, force: :cascade do |t|
@@ -371,6 +379,14 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
     t.datetime "updated_at", null: false
     t.bigint "app_id"
     t.index ["app_id"], name: "index_styles_on_app_id"
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -447,7 +463,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
   add_foreign_key "likes", "apps", name: "likes_app_id_fk"
   add_foreign_key "likes", "recipes", name: "likes_recipe_id_fk"
   add_foreign_key "line_items", "carts"
-  add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "recipes"
   add_foreign_key "mail_attachments", "email_contents", name: "mail_attachments_email_content_id_fk"
   add_foreign_key "messages", "chefs", name: "messages_chef_id_fk"
@@ -462,6 +477,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
   add_foreign_key "recipe_ingredients", "ingredients", name: "recipe_ingredients_ingredient_id_fk"
   add_foreign_key "recipe_ingredients", "recipes", name: "recipe_ingredients_recipe_id_fk"
   add_foreign_key "recipes", "chefs", name: "recipes_chef_id_fk"
+  add_foreign_key "recipes", "subcategories"
   add_foreign_key "recipes_styles", "recipes", name: "recipes_styles_recipe_id_fk"
   add_foreign_key "recipes_styles", "styles", name: "recipes_styles_style_id_fk"
   add_foreign_key "reservations", "apps"
@@ -470,6 +486,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_205453) do
   add_foreign_key "reservations", "users"
   add_foreign_key "styles", "apps"
   add_foreign_key "styles", "apps", name: "styles_app_id_fk"
+  add_foreign_key "subcategories", "categories"
   add_foreign_key "taggings", "tags", name: "taggings_tag_id_fk"
   add_foreign_key "users", "apps"
   add_foreign_key "users", "apps", name: "users_app_id_fk"

@@ -4,7 +4,7 @@ class CreateLineItems < ActiveRecord::Migration[5.2]
       t.integer :quantity, default: 1
       t.references :recipe, null: false, foreign_key: true
       t.references :cart, null: false, foreign_key: true
-      t.references :order, null: false, foreign_key: true
+      t.references :order
 
       t.timestamps
     end

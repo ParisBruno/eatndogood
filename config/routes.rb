@@ -3,13 +3,6 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
-  # get 'orders/index'
-  # get 'orders/show'
-  # get 'orders/new'
-  # get 'carts/show'
-  # get 'products/index'
-  # get 'products/new'
-  # get 'products/edit'
   get 'reservation/create'
 
   #get '/'

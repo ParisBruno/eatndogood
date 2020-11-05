@@ -3,6 +3,9 @@
     margin-top: 10px;
     float: right;
   }
+  .fa-shopping-cart { 
+    transform: scale(-1, 1);
+  }
 </style>
   <div class="margin-sec top-space" style="margin-top: 50px;">
      <div class="col-md-12 margin-sec top-space recipe-detail">
@@ -25,6 +28,9 @@
           <%= link_to @recipe.name, app_recipe_path(current_app, @recipe) %>
         </h2>
       </center>
+      <h2>
+        <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
+      </h2>
 
       <h2>
         <%= @recipe.summary.html_safe %>
@@ -47,7 +53,9 @@
       </div>
       </div>
       </div>
-        <%= button_to "Buy #{@recipe.name}", line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-primary btn-lg' %>
+        <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
+          <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+        <% end %>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
           <div id="cart">

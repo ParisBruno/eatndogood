@@ -14,6 +14,20 @@
       line-height: 1.428571429;
       color: #333333;}
   .recipi-main {margin-top: 60px;}
+  #recipe_price {
+    max-width: 100px;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  #recipe_subcategory_id {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 5px;
+    border-radius: 4px;
+    border: 2px inset grey;
+  }
 </style>
 <%= render 'shared/errors', obj: @recipe %>
 
@@ -110,6 +124,18 @@
               <%=image_tag(@recipe.sized(:drink_image, :thumb), class:'img', alt: t('common.no_image')) %>
             <% end %>
             <%= f.file_field "drink_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+          </div>
+        </div>
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :price, t('recipes.price') %>
+            <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: 0.1, min: 0 %>
+          </div>
+        </div>
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :category, t('recipes.category') %>
+            <%= f.select :subcategory_id, option_groups_from_collection_for_select(@categories, :subcategories, :name, :id, :name) %>
           </div>
         </div>
         <div class="recepie-menu btn">
