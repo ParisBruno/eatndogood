@@ -40,6 +40,7 @@ gem 'activestorage-validator'
 gem "font-awesome-rails",github: "bokmann/font-awesome-rails", branch: "master"
 
 gem "aws-sdk-s3", require: false
+gem 'stripe'
 
 gem 'immigrant'
 gem 'globalize', '~> 5.2.0'

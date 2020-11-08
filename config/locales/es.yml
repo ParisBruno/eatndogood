@@ -103,6 +103,7 @@ es:
     please_login_as_superadmin: Por favor inicie sesión como un super administrador!
     problem_in_rendering: "¡Hay algún problema en la prestación!"
     recipe_removed: Receta eliminado con éxito!
+    recipe_add_to_cart: La receta se agregó correctamente a su carrito!
     send_note_with_your_thoughts: "¡Genial! envía una nota con tus pensamientos"
     style_removed: Estilo eliminado con éxito!
     user_already_registered: usuario ya registrado
@@ -222,6 +223,16 @@ es:
     update_about_us_page: Actualizar acerca de nosotros página
     update_welcome_page: Actualizar página de bienvenida
     view_profile: ver perfil
+  orders: 
+    list_products: Lista de productos
+    send: enviar
+    full_name: Nombre completo
+    email: Correo electrónico
+    phone: Teléfono
+    home_address: Direccion de casa
+    subtotal: Subtotal
+    total: TOTAL
+    tax: Impuesto
   pages:
     index:
       be_inspired_to_play: "¡Déjate inspirar a jugar con tu comida otra vez! ¡Cuente
@@ -320,6 +331,8 @@ es:
     total: Total
     proceed_checkout: Pasar por la caja
     empty_cart: Carro vacio
+    coupone_code: Código promocional
+    fundraising_code: Código de recaudación de fondos
     write_name: Escriba el nombre de la receta
   reservations:
     make_catering: hacer catering

@@ -124,6 +124,7 @@ fr:
     please_login_as_superadmin: Veuillez vous connecter en tant que super administrateur!
     problem_in_rendering: Il y a un problème de rendu!
     recipe_removed: Recette supprimée avec succès!
+    recipe_add_to_cart: La recette a bien été ajoutée à votre panier!
     send_note_with_your_thoughts: Génial! envoyer une note avec vos pensées
     style_removed: Style supprimé avec succès!
     user_already_registered: utilisateur déjà enregistré
@@ -261,6 +262,16 @@ fr:
     update_about_us_page: Mise à jour à propos de nous
     update_welcome_page: Mettre à jour la page d'accueil
     view_profile: Voir le profil
+  orders: 
+    list_products: Liste des produits
+    send: envoyer
+    full_name: Nom complet
+    email: Email
+    phone: Téléphone
+    home_address: Adresse du domicile
+    subtotal: Soustotal
+    total: TOTAL
+    tax: Impôt
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture
@@ -348,6 +359,8 @@ fr:
     total: Total
     proceed_checkout: Passer à la caisse
     empty_cart: Panier vide
+    coupone_code: Code de coupon
+    fundraising_code: Code de collecte de fonds
     write_name: Écrivez le nom de la recette
   reservations:
     make_catering: Posez des questions sur la restauration et les services personnels

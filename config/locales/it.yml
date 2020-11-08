@@ -106,6 +106,7 @@ it:
     please_login_as_superadmin: Effettua il login come super amministratore!
     problem_in_rendering: C'è qualche problema nel rendering!
     recipe_removed: Ricetta rimossa con successo!
+    recipe_add_to_cart: La ricetta è stata aggiunta con successo al tuo carrello!
     send_note_with_your_thoughts: Bene! invia una nota con i tuoi pensieri
     style_removed: Stile rimosso con successo!
     user_already_registered: utente e gia registrato
@@ -237,6 +238,16 @@ it:
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
     view_profile: Vedi profilo
+  orders: 
+    list_products: Elenco dei prodotti
+    send: spedire
+    full_name: Nome e cognome
+    email: Email
+    phone: Telefono
+    home_address: Indirizzo di casa
+    subtotal: Totale parziale
+    total: TOTALE
+    tax: Imposta
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta
@@ -337,6 +348,8 @@ it:
     total: Totale
     proceed_checkout: Procedere al checkout
     empty_cart: Carrello vuoto
+    coupone_code: Codice coupon
+    fundraising_code: Codice di raccolta fondi
     write_name: Scrivi il nome della ricetta
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali

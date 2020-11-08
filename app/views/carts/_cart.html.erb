@@ -16,28 +16,31 @@
     font-weight: bold;
     font-size: 1.3em;
   }
-  .wrap {
-    min-height: 150px;
-    margin: 0 auto;
-    margin-bottom: 5em;
-  }
   .title {
     font-weight: bold;
     text-align: center;
     font-size: 2em;
+    margin-bottom: 15px;
     border-bottom: 1px solid #dadada;
   }
   .price-item {
-    font-size: 1.1em;
+    font-size: 1.3em;
+    margin: 5px;
+    padding: 5px;
   }
   .total-item {
-    font-size: 1.4em;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.5em;
     font-weight: bold;
-    text-align: right;
-    border-right: none;
+  }
+  .null-header {
+    border: none;
   }
   .remove-item {
-    border-left: none;
+    border: none;
+    margin: 5px;
+    padding: 5px;
   }
   .remove-item-btn {
     font-size: 1.4em;
@@ -45,37 +48,26 @@
   }
   .change-item-up {
     height: 17px;
-    margin-left: -40px;
-    margin-top: -2px;
     border: 1px solid #8c8b8b;
   }
   .change-item-down {
     height: 17px;
-    margin-left: -40px;
     border: 1px solid #8c8b8b;
   }
-  .quantity-input {
-    float: left;
+  .quantity-item {
+    border-right: none;
+  }
+  .quantity-arrow-td {
+    border-left: none;
   }
   .quantity-arrow {
-    float: right;
-  }
-  .quantity-header {
-    width: 100px;
+    float: left;
   }
   #quantity {
     text-align: center;
-    font-size: 1.6em;
-    margin-left: 40px;
-    margin-top: 3px;
+    font-size: 1.5em;
+    margin-left: 50px;
     vertical-align: middle; 
-    float: left;
-  }
-  .price-header {
-    width: 60px;
-  }
-  .total-header {
-    width: 120px;
   }
   .fa-sort-down {
     vertical-align: top;
@@ -83,7 +75,7 @@
   .coupon-code {
     margin: 0;
     padding: 0;
-    padding-top: 10px;
+    margin-top: 30px;
   }
   .fundraising-code {
     margin: 0;
@@ -92,14 +84,14 @@
   #coupon-input {
     text-align: center;
     border: 2px solid #3e5ea3;
-    font-size: 1.4em;
+    font-size: 1.1em;
     padding: 3px;
   }
   #fundraising-input {
     text-align: center;
     border: 2px solid #3e5ea3;
     border-top: none;
-    font-size: 1.4em;
+    font-size: 1.1em;
     padding: 3px;
   }
   .checkout {
@@ -151,48 +143,49 @@
   }
 </style>
 
-<div class="wrap">
+<div>
   <h1 class="title"><%= t('recipes.my_cart') %></h1>
   <table>
     <thead>
       <tr>
-        <td colspan="3"><%= t('recipes.product_name') %></td>
-        <td class="price-header" colspan="2"><%= t('recipes.price') %></td>
-        <td class="quantity-header" colspan="2"><%= t('recipes.quantity') %></td>
-        <td class="total-header" colspan="3"><%= t('recipes.sub_total') %></td>
+        <td colspan="5"><%= t('recipes.product_name') %></td>
+        <td colspan="3"><%= t('recipes.price') %></td>
+        <td colspan="3"><%= t('recipes.quantity') %></td>
+        <td colspan="3"><%= t('recipes.sub_total') %></td>
+        <td class="null-header"></td>
       </tr>
     </thead>
     <tbody>
     <% @current_cart.line_items.order(:created_at).each do |line_item| %>  
       <tr>
-        <td colspan="3">
+        <td colspan="5">
           <h4><%= line_item.recipe.name %></h4>
         </td>
-        <td colspan="2" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
-        <td colspan="2">
+        <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
+        <td colspan="2" class="quantity-item">
           <div>
-            <div>
-              <span id="quantity"><%= line_item.quantity %></span>
-            </div>
-            <div class="quantity-arrow">
-              <%= button_to line_item_add_path(id: line_item, recipe_id: line_item.recipe.id), class: 'change-item-up btn', remote: true, method: :post do %>
-                <span class="fa fa-sort-up"></span>
-              <% end %>
-              <%= button_to line_item_reduce_path(id: line_item, recipe_id: line_item.recipe.id), class: 'change-item-down btn', remote: true, method: :post do %>
-                <span class="fa fa-sort-down"></span>
-              <% end %>
-            </div>
+            <span id="quantity"><%= line_item.quantity %></span>
           </div>
         </td>
-        <td colspan="2" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
+        <td colspan="1" class="quantity-arrow-td">
+          <div class="quantity-arrow">
+            <%= button_to line_item_add_path(id: line_item, recipe_id: line_item.recipe.id), class: 'change-item-up btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-up"></span>
+            <% end %>
+            <%= button_to line_item_reduce_path(id: line_item, recipe_id: line_item.recipe.id), class: 'change-item-down btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-down"></span>
+            <% end %>
+          </div>
+        </td>
+        <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
         <td class="remove-item"><%= button_to "x", line_item_path(line_item, recipe_id: line_item.recipe.id), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
   <div>
-    <p class="coupon-code"><%= text_field_tag 'coupon-input', nil, placeholder: 'Coupon code' %></p>
-    <p class="fundraising-code"><%= text_field_tag 'fundraising-input', nil, placeholder: 'Fundraising Code' %></p>
+    <p class="coupon-code"><%= text_field_tag 'coupon-input', nil, placeholder: t('recipes.coupone_code') %></p>
+    <p class="fundraising-code"><%= text_field_tag 'fundraising-input', nil, placeholder: t('recipes.fundraising_code') %></p>
   </div>
   <table class="checkout">
     <tr>
@@ -211,7 +204,7 @@
       <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), new_app_order_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id, recipe_id: @recipe&.id || @line_item.recipe.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td>
     </tr>
   </table>
 </div>

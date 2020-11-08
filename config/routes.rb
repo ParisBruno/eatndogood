@@ -106,5 +106,10 @@ Rails.application.routes.draw do
     # resources :products
     resources :orders
   end
+  resources :charges
+  post 'create-checkout-session', to: 'orders#create_checkout'
+  post 'create-session', to: 'orders#create_session'
+  get 'cancel', to: 'orders#cancel'
+  get 'success', to: 'orders#success'
 
 end

@@ -5,7 +5,6 @@ class LineItemsController < ApplicationController
   def create
     # Find associated product and current cart
     # chosen_product = Product.find(params[:product_id])
-    # byebug
     @recipe = Recipe.find(params[:recipe_id])
     # current_cart = @current_cart
   
@@ -22,34 +21,10 @@ class LineItemsController < ApplicationController
       # @line_item.order_id = 1
     end
     # Save and redirect to cart show path
-    @line_item.save
-    # redirect_to app_cart_path(current_cart)
-
+    flash[:success] = I18n.t 'flash.recipe_add_to_cart' if @line_item.save
     redirect_to app_recipe_path(current_app, @recipe.id)
-    
-    # respond_to do |format|
-    #   if @line_item.save
-    #     format.html { redirect_to app_recipe_path(current_app, @chosen_recipe.id) }
-    #     format.js
-    #     # format.html { redirect_to app_recipe_path(current_app, @chosen_recipe.id) }
-        
-    #     # format.json { render action: 'show', status: :created, location: @line_item }
-    #   else
-    #     format.html { render action: 'new' and return }
-    #     # format.json { render json: @line_item.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
-  # respond_to do |format|
-  #   if @line_item.save
-  #     format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
-  #     format.json { render action: 'show', status: :created, location: @line_item }
-  #   else
-  #     format.html { render action: 'new' }
-  #     format.json { render json: @line_item.errors, status: :unprocessable_entity }
-  #   end
-  # end
 
   def destroy
     # @recipe = Recipe.find(params[:recipe_id])
@@ -75,8 +50,6 @@ class LineItemsController < ApplicationController
     # @recipe = Recipe.find(params[:recipe_id])
     @line_item = LineItem.find(params[:id])
     @line_item.quantity += 1
-
-    # @line_item.save
 
     respond_to do |format|
       if @line_item.save

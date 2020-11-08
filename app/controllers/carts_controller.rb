@@ -11,6 +11,6 @@ class CartsController < ApplicationController
     #   format.html { redirect_to store_url, notice: 'Теперь ваша корзина пуста!' }
     #   format.json { head :no_content }
     # end
-    redirect_to app_recipe_path(current_app, params[:recipe_id])
+    redirect_to app_recipes_path(current_app)
   end
 end

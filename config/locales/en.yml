@@ -121,6 +121,7 @@ en:
     please_login_as_superadmin: Please login as a super admin!
     problem_in_rendering: There is some problem in rendering!
     recipe_removed: Recipe removed successfully!
+    recipe_add_to_cart: Recipe was successfully added to your cart!
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Style removed successfully!
     user_already_registered: user already registered
@@ -252,6 +253,16 @@ en:
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
     view_profile: View Profile
+  orders: 
+    list_products: List of products
+    send: send
+    full_name: Full name
+    email: Email
+    phone: Phone
+    home_address: Home address
+    subtotal: Subtotal
+    total: TOTAL
+    tax: Tax
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories
@@ -350,6 +361,8 @@ en:
     total: Total
     proceed_checkout: Proceed to checkout
     empty_cart: Empty cart
+    coupone_code: Coupon code
+    fundraising_code: Fundraising Code
     write_name: Write Recipe name
   reservations:
     make_catering: Ask about catering & personal chef services

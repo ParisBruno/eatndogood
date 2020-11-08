@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_223801) do
   create_table "orders", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.string "phone"
     t.text "address"
     t.string "pay_method"
     t.datetime "created_at", null: false

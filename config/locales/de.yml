@@ -103,6 +103,7 @@ de:
     please_login_as_superadmin: Bitte melden Sie sich als Super-Admin an!
     problem_in_rendering: Beim Rendern gibt es einige Probleme!
     recipe_removed: Rezept erfolgreich entfernt!
+    recipe_add_to_cart: Das Rezept wurde erfolgreich in Ihren Warenkorb gelegt!
     send_note_with_your_thoughts: Großartig! Senden Sie eine Notiz mit Ihren Toughts
     style_removed: Stil erfolgreich entfernt!
     user_already_registered: Benutzer bereits registriert
@@ -225,6 +226,16 @@ de:
     update_about_us_page: Update Über uns Seite
     update_welcome_page: Startseite aktualisieren
     view_profile: Profil anzeigen
+  orders: 
+    list_products: Produktliste
+    send: senden
+    full_name: Vollständiger Name
+    email: Email
+    phone: Telefon
+    home_address: Heimatadresse
+    subtotal: Zwischensumme
+    total: GESAMT
+    tax: MwSt
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!
@@ -302,6 +313,8 @@ de:
     total: Gesamt
     proceed_checkout: Zur Kasse
     empty_cart: Leerer Warenkorb
+    coupone_code: Gutscheincode
+    fundraising_code: Fundraising-Code
     write_name: Schreibe den Rezeptnamen
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen
