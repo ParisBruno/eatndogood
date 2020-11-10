@@ -1,7 +1,4 @@
 <style>
-  #checkout-button {
-      min-width: 300px;
-  }
   .content {
     padding: 10px;
   }
@@ -70,19 +67,6 @@
     font-size: 0.9em;
   }
 </style>
- <section>
-      <div class="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
-        <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
-      </div>
-      <button id="checkout-button">Checkout</button>
-    </section>
   <div class="row">
       <%= form_for(@order, url: app_orders_path(current_app), html: { method: :post }) do |f| %>
       <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
@@ -95,8 +79,7 @@
                     <%= f.label :name, t('orders.full_name') %><br>
                   </div>
                   <div class="col-md-8">
-                    <%= current_app_user.full_name %>
-                    <%= f.text_field :name, required: true, autofocus: true, class: "form-control" %><br>
+                    <%= f.text_field :name, required: true, autofocus: true, class: "form-control", placeholder: t('orders.full_name') %><br>
                   </div>
                 </div>
               </td>
@@ -105,11 +88,10 @@
               <td class="order-table">
                 <div class="form-group">
                   <div class="control-label col-md-2">
-                    <%= current_app_user.email %>
                     <%= f.label :email, t('orders.email') %><br>
                   </div>
                   <div class="col-md-8">
-                    <%= f.email_field :email, class: "form-control" %><br>
+                    <%= f.email_field :email, required: true, class: "form-control", placeholder: t('orders.email') %><br>
                   </div>
                 </div>
               </td>
@@ -121,7 +103,7 @@
                     <%= f.label :phone, t('orders.phone') %><br>
                   </div>
                   <div class="col-md-8">
-                    <%= f.text_field :phone, class: "form-control", placeholder: t('orders.phone') %><br>
+                    <%= f.text_field :phone, required: true, class: "form-control", placeholder: t('orders.phone') %><br>
                   </div>
                 </div>
               </td>
@@ -133,7 +115,8 @@
                     <%= f.label :home_address, t('orders.home_address') %><br>
                   </div>
                   <div class="col-md-8">
-                    <%= f.text_field :address, class: "form-control", placeholder: t('orders.home_address') %></p>
+                    <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
+                    <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
                   </div>
                 </div>
               </td>
@@ -157,7 +140,7 @@
         <tbody>
         <% @current_cart.line_items.order(:created_at).each do |line_item| %>  
           <tr>
-            <td colspan="3" class="product-item">
+            <td colspan="3" class="product-item" id="product-item">
               <%= line_item.recipe.name %>, <%= line_item.quantity %>x<%= number_to_currency(line_item.recipe.price) %>
             </td>
             <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
@@ -173,55 +156,21 @@
         </tr>
         <tr>
           <td class="subtotal"><%= t('orders.tax') %>: </td>
-          <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total) %></td>
+          <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total * 0) %></td>
         </tr>
         <tr>
           <td class="subtotal"><%= t('orders.total') %>: </td>
-          <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total + @current_cart.sub_total) %></td>
+          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@current_cart.sub_total) %></td>
         </tr>
-
-
         <tr>
-          <td colspan="1" class="email-to">Receipt: Email to <b><%= current_app_user.email %></b> or Print: (dropdown list of printers)</td>
-          <td colspan="1" class="order-button"><%= button_to t('orders.send'), new_app_order_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+          <td colspan="2" class="order-button"><%= f.submit t('orders.checkout'), class: "order btn btn-primary btn-lg", id: 'checkout-button1', disabled: @current_cart.line_items.count == 0 %></td>
+        </tr>
+        <tr>
+          <td class="email-to">Receipt: Email to <b><%= current_app_user.email %></b> or Print: (dropdown list of printers)</td>
+          <td class="order-button"><%= f.submit t('orders.send'), class: "order btn btn-primary btn-lg", id: 'checkout-button1', disabled: true %></td>
         </tr>
       </table>
-   <% end %>
+    <% end %>
     </div>
-   
   </div>
 </div>
-
-<script type="text/javascript">
- 
-
-// Set your publishable key: remember to change this to your live publishable key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-// var stripe = Stripe('pk_test_51Hkyh8JhzcOxD4pH4Fb5eqzK9MTDNFq8OUfRGjyOdTDbeYKNI8wcR714tB9bv0MBCQZP3mI1a0a2v1a31lSbVsLH00VXfz5uOg');
-// var elements = stripe.elements();
-    // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe("pk_test_51Hkyh8JhzcOxD4pH4Fb5eqzK9MTDNFq8OUfRGjyOdTDbeYKNI8wcR714tB9bv0MBCQZP3mI1a0a2v1a31lSbVsLH00VXfz5uOg");
-    var checkoutButton = document.getElementById("checkout-button");
-    checkoutButton.addEventListener("click", function () {
-      fetch("/create-session", {
-        method: "POST",
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If redirectToCheckout fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using error.message.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function (error) {
-          console.log("Error", error);
-        })
-    });
-</script>

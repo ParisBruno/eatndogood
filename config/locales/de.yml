@@ -229,6 +229,7 @@ de:
   orders: 
     list_products: Produktliste
     send: senden
+    checkout: Auschecken
     full_name: Vollständiger Name
     email: Email
     phone: Telefon

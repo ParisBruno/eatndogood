@@ -265,6 +265,7 @@ fr:
   orders: 
     list_products: Liste des produits
     send: envoyer
+    checkout: Caisse
     full_name: Nom complet
     email: Email
     phone: Téléphone

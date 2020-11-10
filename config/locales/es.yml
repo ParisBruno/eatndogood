@@ -226,6 +226,7 @@ es:
   orders: 
     list_products: Lista de productos
     send: enviar
+    checkout: Revisa
     full_name: Nombre completo
     email: Correo electrónico
     phone: Teléfono

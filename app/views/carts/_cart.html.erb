@@ -81,13 +81,13 @@
     margin: 0;
     padding: 0;
   }
-  #coupon-input {
+  #coupon_input {
     text-align: center;
     border: 2px solid #3e5ea3;
     font-size: 1.1em;
     padding: 3px;
   }
-  #fundraising-input {
+  #fundraising_input {
     text-align: center;
     border: 2px solid #3e5ea3;
     border-top: none;
@@ -184,8 +184,8 @@
     </tbody>
   </table>
   <div>
-    <p class="coupon-code"><%= text_field_tag 'coupon-input', nil, placeholder: t('recipes.coupone_code') %></p>
-    <p class="fundraising-code"><%= text_field_tag 'fundraising-input', nil, placeholder: t('recipes.fundraising_code') %></p>
+    <p class="coupon-code"><%= text_field_tag :coupon_input, nil, placeholder: t('recipes.coupone_code') %></p>
+    <p class="fundraising-code"><%= text_field_tag :fundraising_input, nil, placeholder: t('recipes.fundraising_code') %></p>
   </div>
   <table class="checkout">
     <tr>
@@ -201,10 +201,43 @@
       <td class="total-price"><%= number_to_currency(@current_cart.sub_total) %></td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), new_app_order_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_coupon_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td> 
     </tr>
   </table>
 </div>
+
+<script type="text/javascript">
+    var stripe = Stripe(ENV['TEST_STRIPE_PUBLISHABLE_KEY']);
+    var checkoutCoupon = document.getElementById("coupon_input");
+    
+    checkoutCoupon.addEventListener("change", function () {
+      fetch("/check-coupon", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'coupon_code': checkoutCoupon.value }),
+      })
+      .then(function (response) {
+        console.log("GGG", response);
+        return response.json();
+      })
+      .then(function (result) {
+        if (result.error) {
+          var couponCode = document.getElementById("coupon_input");
+
+          couponCode.setCustomValidity(result.error);
+          couponCode.reportValidity();
+          couponCode.value = "";   
+        } else {
+          return result;
+        }
+      })  
+      .catch(function (error) {
+        console.log("Error: ", error);
+      })
+    });
+</script>

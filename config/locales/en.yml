@@ -256,6 +256,7 @@ en:
   orders: 
     list_products: List of products
     send: send
+    checkout: Checkout
     full_name: Full name
     email: Email
     phone: Phone

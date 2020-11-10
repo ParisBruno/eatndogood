@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
     devise_for :users
     get '/', to: 'pages#welcome'
+    get 'add_coupon', to: 'carts#add_coupon'
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs
@@ -102,14 +103,8 @@ Rails.application.routes.draw do
       end
     end
     resources :carts, only: %i[show destroy]
-    # resources :line_items, only: %i[create show destroy]
-    # resources :products
     resources :orders
   end
   resources :charges
-  post 'create-checkout-session', to: 'orders#create_checkout'
-  post 'create-session', to: 'orders#create_session'
-  get 'cancel', to: 'orders#cancel'
-  get 'success', to: 'orders#success'
-
+  post 'check-coupon', to: 'carts#check_coupon'
 end

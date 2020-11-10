@@ -241,6 +241,7 @@ it:
   orders: 
     list_products: Elenco dei prodotti
     send: spedire
+    checkout: Cassa
     full_name: Nome e cognome
     email: Email
     phone: Telefono
