@@ -210,7 +210,8 @@
 </div>
 
 <script type="text/javascript">
-    var stripe = Stripe(ENV['TEST_STRIPE_PUBLISHABLE_KEY']);
+    var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
+    var stripe = Stripe(publishableKey);
     var checkoutCoupon = document.getElementById("coupon_input");
     
     checkoutCoupon.addEventListener("change", function () {

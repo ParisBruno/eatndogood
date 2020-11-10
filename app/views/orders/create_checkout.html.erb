@@ -3,7 +3,8 @@
 </p>
 
 <script type="text/javascript">
-    var stripe = Stripe(ENV['TEST_STRIPE_PUBLISHABLE_KEY']);
+    var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
+    var stripe = Stripe(publishableKey);
     var sessionId = document.getElementById("session-id").value;
 
     document.addEventListener("DOMContentLoaded", function () {
