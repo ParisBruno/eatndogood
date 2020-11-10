@@ -14,7 +14,7 @@ class CartsController < ApplicationController
   end
 
   def check_coupon
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_key = ENV['TEST_STRIPE_SECRET_KEY']
     
     @@coupon_id = []
     if params[:coupon_code].present?

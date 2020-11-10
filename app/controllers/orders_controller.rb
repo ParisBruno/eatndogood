@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   private
 
   def create_session(amount, coupon_id, product_name)
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_key = ENV['TEST_STRIPE_SECRET_KEY']
 
     session = Stripe::Checkout::Session.create({
       customer_email: current_app_user.email,
