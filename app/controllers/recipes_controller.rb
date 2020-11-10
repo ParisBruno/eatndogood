@@ -42,7 +42,6 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.chef_id = current_app_user.chef_info.id
-    # byebug
     if @recipe.save
       # upload_images
       delete_draft
@@ -149,8 +148,6 @@ class RecipesController < ApplicationController
     end
   
     def recipe_params
-      # <%= image_tag('shopping-cart.png') %>
-      # t('recipes.add_to_cart') 
       permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
       params.require(:recipe).permit(*permitted)
     end
