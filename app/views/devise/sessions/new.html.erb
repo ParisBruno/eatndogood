@@ -7,6 +7,17 @@
   .login-sec .field input {
       width: 90%;
   }
+  #app_user_password {
+    width: 96%;
+  }
+  #toggle-password-id {
+    width: 20px;
+    margin-left: -32px;
+  }
+  .form-control {
+    font-size: 14px;
+    color: black;
+  }
 </style>
 <div class="login-header">
   <p>
@@ -30,7 +41,7 @@
         </div>
         <div class="row">
           <%= f.password_field :password, autocomplete: 'current-password', class: "form-control md-col-12 " %>
-          <div class='input-group-addon md-col-2'>
+          <div class='input-group-addon md-col-2' id="toggle-password-id">
             <a href="" class="toggle-password">
               <%= fa_icon "eye" %>
             </a>
