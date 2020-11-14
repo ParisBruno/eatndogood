@@ -22,7 +22,8 @@ class LineItemsController < ApplicationController
     @line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to app_recipe_path(current_app, params[:recipe_id]) }
+      set_delivery_and_tax
+      format.html { redirect_to app_cart_path(current_app, @current_cart) }
       format.js
     end
   end
@@ -33,7 +34,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to app_recipe_path(current_app, params[:recipe_id]) }
+        set_delivery_and_tax
+        format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else
         format.html { render action: 'new' and return }
@@ -49,7 +51,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to app_recipe_path(current_app, params[:recipe_id]) }
+        set_delivery_and_tax
+        format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else
         format.html { render action: 'new' and return }

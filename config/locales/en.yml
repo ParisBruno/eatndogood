@@ -35,6 +35,8 @@ en:
     confirm_delete_account: Are you sure! You want to delete chef account?
     create_account: Create my account
     delete_profile: Delete Profile
+    delivery_price: Delivery price
+    product_tax: Recipe's tax
     edit_profile: Edit profile
     edit_your_profile: Edit Your Profile
     go_back_to_chef_list: Go Back To Chef List
@@ -264,6 +266,7 @@ en:
     subtotal: Subtotal
     total: TOTAL
     tax: Tax
+    delivery: Delivery
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories

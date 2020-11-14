@@ -1,16 +1,37 @@
 class CartsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[check_coupon add_coupon]
-  skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[add_coupon check_coupon]
+  skip_before_action :verify_authenticity_token, only: %i[check_coupon add_coupon check_delivery]
+  skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[add_coupon check_coupon check_delivery]
   
   @@coupon_id ||= []
+  @@delivery_price ||= 0
 
   def show
+    set_delivery_and_tax
     @current_cart
     @@coupon_id = []
+    @@delivery_price = 0
   end
 
   def add_coupon
-    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id })
+    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id, delivery_price: @@delivery_price })
+  end
+
+  def check_delivery
+    if params[:delivery_price] == 'true'
+      set_delivery_and_tax
+      @@delivery_price = @total_delivery
+    else
+      @@delivery_price = 0
+    end
+    respond_to do |format|
+      format.json { render json: { data: @@delivery_price.to_f }, status: :ok }
+      format.js
+    end
+
+  rescue StandardError => e
+    respond_to do |format|
+      format.json { render json: { error: e.message }, status: e.http_status }
+    end
   end
 
   def check_coupon

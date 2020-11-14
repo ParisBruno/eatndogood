@@ -24,7 +24,9 @@ class User < ApplicationRecord
   validates :state, presence: true, on: :update, unless: Proc.new {|u| u.state_was.nil? }
   validates :postal_code, presence: true, on: :update, unless: Proc.new {|u| u.postal_code_was.nil? }
   validates :country, presence: true, on: :update, unless: Proc.new {|u| u.country_was.nil? }
-  
+  validates :product_tax, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :delivery_price, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
+
   validate :limit_guests, on: :create
   #after_create :send_guest_email_to_admin
   

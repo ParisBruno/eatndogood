@@ -32,6 +32,8 @@ de:
     change_your_pic: Ändere dein Bild
     confirm_delete_account: Bist du sicher! Sie möchten das Kochkonto löschen?
     delete_profile: Profil löschen
+    delivery_price: Lieferpreis
+    product_tax: Rezeptsteuer
     edit_profile: Profil bearbeiten
     edit_your_profile: Bearbeite dein Profil
     go_back_to_chef_list: Zurück zur Chef-Liste
@@ -237,6 +239,7 @@ de:
     subtotal: Zwischensumme
     total: GESAMT
     tax: MwSt
+    delivery: Lieferung
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!

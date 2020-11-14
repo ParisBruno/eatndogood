@@ -106,10 +106,23 @@
     font-size: 1em;
     font-weight: normal;
   }
+  #check-delivery {
+    width: 20px;
+    height: 20px;  
+  }
   .delivery-price {
     color: #8c8b8b;
     border: none;
     border-bottom: 2px solid #8c8b8b;
+  }
+  .tax {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .tax-price {
+    border: none;
+    border-bottom: 2px solid black;
   }
   .subtotal {
     width: 80%;
@@ -156,7 +169,7 @@
       </tr>
     </thead>
     <tbody>
-    <% @current_cart.line_items.order(:created_at).each do |line_item| %>  
+    <% @current_cart.line_items.order(:created_at).each do |line_item| %>
       <tr>
         <td colspan="5">
           <h4><%= line_item.recipe.name %></h4>
@@ -189,8 +202,12 @@
   </div>
   <table class="checkout">
     <tr>
-      <td class="home-delivery"><%= t('recipes.home_delivery') %>: </td>
-      <td class="delivery-price"><%= number_to_currency(@current_cart.sub_total) %></td>
+      <td class="home-delivery"><%= check_box_tag 'check-delivery', false %> <%= t('recipes.home_delivery') %>: </td>
+      <td class="delivery-price"><%= number_to_currency(@total_delivery) %></td>
+    </tr>
+    <tr>
+      <td class="tax"><%= t('orders.tax') %>: </td>
+      <td class="tax-price"><%= number_to_currency(@total_tax) %></td>
     </tr>
     <tr>
       <td class="subtotal"><%= t('recipes.subtotal') %>: </td>
@@ -198,7 +215,7 @@
     </tr>
     <tr>
       <td class="total"><%= t('recipes.total') %>: </td>
-      <td class="total-price"><%= number_to_currency(@current_cart.sub_total) %></td>
+      <td class="total-price">$<%= sprintf('%.2f', @current_cart.sub_total + @total_tax.to_f) %></td>
     </tr>
     <tr>
       <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_coupon_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
@@ -223,7 +240,6 @@
         body: JSON.stringify({ 'coupon_code': checkoutCoupon.value }),
       })
       .then(function (response) {
-        console.log("GGG", response);
         return response.json();
       })
       .then(function (result) {
@@ -236,6 +252,43 @@
         } else {
           return result;
         }
+      })  
+      .catch(function (error) {
+        console.log("Error: ", error);
+      })
+    });
+
+    var checkboxDelivery = document.getElementById("check-delivery");
+    var labelDelivery = document.getElementsByClassName("home-delivery")[0];
+    var priceDelivery = document.getElementsByClassName("delivery-price")[0];
+
+    checkboxDelivery.addEventListener("click", function () {
+       if (checkboxDelivery.value == 'false') {
+          checkboxDelivery.value = true
+          labelDelivery.style.color = 'black';
+          priceDelivery.style.color = 'black';
+        } else {
+          checkboxDelivery.value = false
+          labelDelivery.style.color = '#8c8b8b';
+          priceDelivery.style.color = '#8c8b8b';
+        }
+      fetch("/check-delivery", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'delivery_price': checkboxDelivery.value }),
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        var totalPrice = document.getElementsByClassName("total-price")[0];
+        var deliveryPrice = document.getElementsByClassName("delivery-price")[0];
+        var total = "<%= (@current_cart.sub_total + @total_tax.to_f).to_s %>"
+
+        var totalCurrent = parseFloat(total);
+        totalPrice.innerText = '$' + (totalCurrent + result.data).toFixed(2);
       })  
       .catch(function (error) {
         console.log("Error: ", error);

@@ -32,6 +32,8 @@ it:
     change_your_pic: Cambia la tua foto
     confirm_delete_account: Sei sicuro! Vuoi cancellare l'account dello chef?
     delete_profile: Elimina profilo
+    delivery_price: Prezzo di consegna
+    product_tax: Imposta sulla ricetta
     edit_profile: Modifica Profilo
     edit_your_profile: Modifica il tuo profilo
     go_back_to_chef_list: Torna all'elenco degli chef
@@ -249,6 +251,7 @@ it:
     subtotal: Totale parziale
     total: TOTALE
     tax: Imposta
+    delivery: Consegna
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta

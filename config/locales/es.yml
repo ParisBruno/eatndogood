@@ -32,6 +32,8 @@ es:
     change_your_pic: Cambia tu foto
     confirm_delete_account: "¡Estás seguro! ¿Quieres eliminar la cuenta de chef?"
     delete_profile: Borrar perfil
+    delivery_price: Precio de entrega
+    product_tax: Impuesto a la receta
     edit_profile: Editar perfil
     edit_your_profile: Edite su perfil
     go_back_to_chef_list: Volver a la lista del chef
@@ -234,6 +236,7 @@ es:
     subtotal: Subtotal
     total: TOTAL
     tax: Impuesto
+    delivery: Entrega
   pages:
     index:
       be_inspired_to_play: "¡Déjate inspirar a jugar con tu comida otra vez! ¡Cuente

@@ -5,12 +5,15 @@ class OrdersController < ApplicationController
   end
 
   def new
+    set_delivery_and_tax
     @order = Order.new
   end
 
   def create
+    set_delivery_and_tax
     @order = Order.new(order_params)
-    amount = @current_cart.sub_total.to_i * 100
+    @current_cart.sub_total + @total_tax.to_f + params[:delivery_price].to_f
+    amount = ((@current_cart.sub_total + @total_tax.to_f + params[:delivery_price].to_f) * 100).to_i
     amount = 50 if amount < 50
 
     product_name = []
@@ -82,6 +85,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code)
+    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :delivery_price)
   end
 end

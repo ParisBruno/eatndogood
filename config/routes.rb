@@ -105,4 +105,5 @@ Rails.application.routes.draw do
   end
   resources :charges
   post 'check-coupon', to: 'carts#check_coupon'
+  post 'check-delivery', to: 'carts#check_delivery'
 end

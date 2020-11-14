@@ -35,6 +35,8 @@ fr:
     confirm_delete_account: Êtes-vous sûr! Vous souhaitez effacer un utilisateur invité?
     create_account: 'Créer mon compte '
     delete_profile: Supprimer le profil
+    delivery_price: Prix de livraison
+    product_tax: Taxe de recette
     edit_profile: Editer le profil
     edit_your_profile: Edit Your Profile
     go_back_to_chef_list: Retour à la liste des chefs
@@ -273,6 +275,7 @@ fr:
     subtotal: Soustotal
     total: TOTAL
     tax: Impôt
+    delivery: Livraison
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture
