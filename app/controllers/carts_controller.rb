@@ -1,12 +1,15 @@
 class CartsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[check_coupon add_coupon check_delivery]
-  skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[add_coupon check_coupon check_delivery]
+  skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
   @@delivery_price ||= 0
+  @@delivery_value ||= false
 
   def show
     set_delivery_and_tax
+    @@delivery_value = false
+    @delivery_check_value = @@delivery_value
     @current_cart
     @@coupon_id = []
     @@delivery_price = 0
@@ -17,10 +20,15 @@ class CartsController < ApplicationController
   end
 
   def check_delivery
-    if params[:delivery_price] == 'true'
+    if params['check-delivery'] == 'false'
+      @@delivery_value = true
+      @delivery_check_value = true
       set_delivery_and_tax
       @@delivery_price = @total_delivery
     else
+      @@delivery_value = false
+      @delivery_check_value = false
+      set_delivery_and_tax
       @@delivery_price = 0
     end
     respond_to do |format|
@@ -52,6 +60,52 @@ class CartsController < ApplicationController
   rescue Stripe::InvalidRequestError => e
     respond_to do |format|
       format.json { render json: { error: e.message }, status: e.http_status }
+    end
+  end
+
+  def destroy_item
+    @line_item = LineItem.find(params[:id])
+    @line_item.destroy
+
+    respond_to do |format|
+      set_delivery_and_tax
+      @delivery_check_value = @@delivery_value
+      format.html { redirect_to app_cart_path(current_app, @current_cart) }
+      format.js
+    end
+  end
+
+  def add_quantity
+    @line_item = LineItem.find(params[:id])
+    @line_item.quantity += 1
+
+    respond_to do |format|
+      if @line_item.save
+        set_delivery_and_tax
+        @delivery_check_value = @@delivery_value
+        format.html { redirect_to app_cart_path(current_app, @current_cart) }
+        format.js
+      else
+        format.html { render action: 'new' and return }
+      end
+    end
+  end
+  
+  def reduce_quantity
+    @line_item = LineItem.find(params[:id])
+    if @line_item.quantity > 1
+      @line_item.quantity -= 1
+    end
+
+    respond_to do |format|
+      if @line_item.save
+        set_delivery_and_tax
+        @delivery_check_value = @@delivery_value
+        format.html { redirect_to app_cart_path(current_app, @current_cart) }
+        format.js
+      else
+        format.html { render action: 'new' and return }
+      end
     end
   end
 
