@@ -89,7 +89,6 @@ class OrdersController < ApplicationController
 
   def set_delivery_and_discount(delivery_price, coupon_code, coupon_percent_off)
     @delivery_price = delivery_price.to_f
-    byebug
     @coupon_discount = if coupon_code.present?
                         @current_cart.sub_total * (-1) * (coupon_percent_off.to_f/100)
                        else
