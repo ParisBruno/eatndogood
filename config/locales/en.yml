@@ -267,6 +267,7 @@ en:
     total: TOTAL
     tax: Tax
     delivery: Delivery
+    discount: Coupon discount
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories

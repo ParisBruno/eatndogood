@@ -240,6 +240,7 @@ de:
     total: GESAMT
     tax: MwSt
     delivery: Lieferung
+    discount: Gutscheinrabatt
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!

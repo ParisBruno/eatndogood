@@ -3,20 +3,26 @@ class CartsController < ApplicationController
   skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
+  @@coupon_percent_off ||= []
   @@delivery_price ||= 0
   @@delivery_value ||= false
+  @@coupon_value ||= nil
 
   def show
     set_delivery_and_tax
     @@delivery_value = false
+    @@coupon_value = nil
+    @coupon_code_value = @@coupon_value
     @delivery_check_value = @@delivery_value
+
     @current_cart
     @@coupon_id = []
+    @@coupon_percent_off = []
     @@delivery_price = 0
   end
 
   def add_coupon
-    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id, delivery_price: @@delivery_price })
+    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id, coupon_percent_off: @@coupon_percent_off, delivery_price: @@delivery_price })
   end
 
   def check_delivery
@@ -32,12 +38,14 @@ class CartsController < ApplicationController
       @@delivery_price = 0
     end
     respond_to do |format|
+      @coupon_code_value = @@coupon_value
       format.json { render json: { data: @@delivery_price.to_f }, status: :ok }
       format.js
     end
 
   rescue StandardError => e
     respond_to do |format|
+      @coupon_code_value = @@coupon_value
       format.json { render json: { error: e.message }, status: e.http_status }
     end
   end
@@ -46,19 +54,24 @@ class CartsController < ApplicationController
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     
     @@coupon_id = []
-    if params[:coupon_code].present?
-      coupon_code = params[:coupon_code]
-    else
-      coupon_code = ' '
-    end
+    coupon_code = if params[:coupon_code].present?
+                    params[:coupon_code]
+                  else
+                    ' '
+                  end
     coupon = Stripe::Coupon.retrieve(coupon_code)
     @@coupon_id = coupon.id if coupon.id.present?
+    @@coupon_percent_off = coupon.percent_off if coupon.percent_off.present?
 
     respond_to do |format|
+      @@coupon_value = params[:coupon_code]
+      @coupon_code_value = params[:coupon_code]
       format.json { render json: { data: coupon.id }, status: :ok }
     end
   rescue Stripe::InvalidRequestError => e
     respond_to do |format|
+      @@coupon_value = nil
+      @coupon_code_value = nil
       format.json { render json: { error: e.message }, status: e.http_status }
     end
   end
@@ -70,6 +83,7 @@ class CartsController < ApplicationController
     respond_to do |format|
       set_delivery_and_tax
       @delivery_check_value = @@delivery_value
+      @coupon_code_value = @@coupon_value
       format.html { redirect_to app_cart_path(current_app, @current_cart) }
       format.js
     end
@@ -83,6 +97,7 @@ class CartsController < ApplicationController
       if @line_item.save
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
+        @coupon_code_value = @@coupon_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else
@@ -101,6 +116,7 @@ class CartsController < ApplicationController
       if @line_item.save
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
+        @coupon_code_value = @@coupon_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else

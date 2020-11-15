@@ -197,7 +197,7 @@
     </tbody>
   </table>
   <div>
-    <p class="coupon-code"><%= text_field_tag :coupon_input, nil, placeholder: t('recipes.coupone_code') %></p>
+    <p class="coupon-code"><%= text_field_tag :coupon_input, @coupon_code_value, placeholder: t('recipes.coupone_code') %></p>
     <p class="fundraising-code"><%= text_field_tag :fundraising_input, nil, placeholder: t('recipes.fundraising_code') %></p>
   </div>
   <table class="checkout">
@@ -249,13 +249,13 @@
         return response.json();
       })
       .then(function (result) {
+        var couponCode = document.getElementById("coupon_input");
         if (result.error) {
-          var couponCode = document.getElementById("coupon_input");
-
           couponCode.setCustomValidity(result.error);
           couponCode.reportValidity();
           couponCode.value = "";   
         } else {
+          couponCode.style.border = '2px solid lime'
           return result;
         }
       })  

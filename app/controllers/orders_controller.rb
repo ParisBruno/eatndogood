@@ -1,19 +1,21 @@
 class OrdersController < ApplicationController
+  before_action :set_delivery_and_tax, only: %i[new create]
 
   def index
     @orders = Order.all
   end
 
   def new
-    set_delivery_and_tax
+    set_delivery_and_discount(params[:delivery_price], params[:coupon_code], params[:coupon_percent_off])
+    
     @order = Order.new
   end
 
   def create
-    set_delivery_and_tax
+    set_delivery_and_discount(order_params[:delivery_price], order_params[:coupon_code], order_params[:coupon_percent_off])
+
     @order = Order.new(order_params)
-    @current_cart.sub_total + @total_tax.to_f + params[:delivery_price].to_f
-    amount = ((@current_cart.sub_total + @total_tax.to_f + params[:delivery_price].to_f) * 100).to_i
+    amount = ((@current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price) * 100).to_i
     amount = 50 if amount < 50
 
     product_name = []
@@ -21,11 +23,11 @@ class OrdersController < ApplicationController
       product_name << line_item.recipe.name + ' - ' + line_item.quantity.to_s + 'unit(s)'
     end
 
-    if order_params[:coupon_code].present?
-      coupon_id = order_params[:coupon_code]
-    else
-      coupon_id = []
-    end
+    coupon_id = if order_params[:coupon_code].present?
+                  order_params[:coupon_code]
+                else
+                  []
+                end
 
     stripe_session = create_session(amount, coupon_id, product_name.join(', '))
     if stripe_session[:session_id]
@@ -70,9 +72,6 @@ class OrdersController < ApplicationController
         },
         quantity: 1,
       }],
-      discounts: [{
-        coupon: coupon_id,
-      }],
       locale: I18n.locale,
       mode: 'payment',
       success_url: app_recipes_url(current_app),
@@ -85,6 +84,16 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :delivery_price)
+    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :delivery_price, :coupon_percent_off)
+  end
+
+  def set_delivery_and_discount(delivery_price, coupon_code, coupon_percent_off)
+    @delivery_price = delivery_price.to_f
+    byebug
+    @coupon_discount = if coupon_code.present?
+                        @current_cart.sub_total * (-1) * (coupon_percent_off.to_f/100)
+                       else
+                        0.0
+                       end
   end
 end

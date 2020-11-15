@@ -276,6 +276,7 @@ fr:
     total: TOTAL
     tax: Impôt
     delivery: Livraison
+    discount: Remise de coupon
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture

@@ -118,6 +118,7 @@
                     <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
                     <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
                     <%= f.text_field :delivery_price, id: 'delivery-price', value: params[:delivery_price], hidden: true %>
+                    <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: params[:coupon_percent_off], hidden: true %>
                   </div>
                 </div>
               </td>
@@ -156,8 +157,12 @@
           <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total) %></td>
         </tr>
         <tr>
+          <td class="subtotal"><%= t('orders.discount') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@coupon_discount) %></td>
+        </tr>
+        <tr>
           <td class="subtotal"><%= t('orders.delivery') %>: </td>
-          <td class="subtotal-price"><%= number_to_currency(params[:delivery_price]) %></td>
+          <td class="subtotal-price"><%= number_to_currency(@delivery_price) %></td>
         </tr>
         <tr>
           <td class="subtotal"><%= t('orders.tax') %>: </td>
@@ -165,7 +170,7 @@
         </tr>
         <tr>
           <td class="subtotal"><%= t('orders.total') %>: </td>
-          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + params[:delivery_price].to_f) %></td>
+          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price) %></td>
         </tr>
         <tr>
           <td colspan="2" class="order-button"><%= f.submit t('orders.checkout'), class: "order btn btn-primary btn-lg", id: 'checkout-button1', disabled: @current_cart.line_items.count == 0 %></td>

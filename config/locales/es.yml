@@ -237,6 +237,7 @@ es:
     total: TOTAL
     tax: Impuesto
     delivery: Entrega
+    discount: Cupón de descuento
   pages:
     index:
       be_inspired_to_play: "¡Déjate inspirar a jugar con tu comida otra vez! ¡Cuente

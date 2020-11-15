@@ -252,6 +252,7 @@ it:
     total: TOTALE
     tax: Imposta
     delivery: Consegna
+    discount: Sconto coupon
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta
