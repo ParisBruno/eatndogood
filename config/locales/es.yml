@@ -228,7 +228,8 @@ es:
   orders: 
     list_products: Lista de productos
     send: enviar
-    checkout: Revisa
+    cash: Pagar en efectivo
+    stripe: Pagar con Stripe
     full_name: Nombre completo
     email: Correo electrónico
     phone: Teléfono
@@ -236,6 +237,7 @@ es:
     subtotal: Subtotal
     total: TOTAL
     tax: Impuesto
+    tip: Propina
     delivery: Entrega
     discount: Cupón de descuento
   pages:

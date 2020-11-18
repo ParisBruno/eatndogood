@@ -258,7 +258,8 @@ en:
   orders: 
     list_products: List of products
     send: send
-    checkout: Checkout
+    cash: Pay with Cash
+    stripe: Pay with Stripe
     full_name: Full name
     email: Email
     phone: Phone
@@ -266,6 +267,7 @@ en:
     subtotal: Subtotal
     total: TOTAL
     tax: Tax
+    tip: Tip($)
     delivery: Delivery
     discount: Coupon discount
   pages:

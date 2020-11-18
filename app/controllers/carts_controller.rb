@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[check_coupon add_coupon check_delivery]
+  skip_before_action :verify_authenticity_token, only: %i[check_coupon add_coupon check_delivery check_tip]
   skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
@@ -7,22 +7,29 @@ class CartsController < ApplicationController
   @@delivery_price ||= 0
   @@delivery_value ||= false
   @@coupon_value ||= nil
+  @@tip_value ||= 0
 
   def show
+    order = Order.order(:created_at).first
+
+    p order
     set_delivery_and_tax
     @@delivery_value = false
-    @@coupon_value = nil
-    @coupon_code_value = @@coupon_value
-    @delivery_check_value = @@delivery_value
-
-    @current_cart
     @@coupon_id = []
     @@coupon_percent_off = []
     @@delivery_price = 0
+    @@tip_value = 0
+    @@coupon_value = nil
+
+    @coupon_code_value = @@coupon_value
+    @delivery_check_value = @@delivery_value
+    @tip = @@tip_value
+
+    @current_cart
   end
 
   def add_coupon
-    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id, coupon_percent_off: @@coupon_percent_off, delivery_price: @@delivery_price })
+    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id, coupon_percent_off: @@coupon_percent_off, delivery_price: @@delivery_price, tip_value: @@tip_value })
   end
 
   def check_delivery
@@ -39,7 +46,28 @@ class CartsController < ApplicationController
     end
     respond_to do |format|
       @coupon_code_value = @@coupon_value
+      @tip = @@tip_value
       format.json { render json: { data: @@delivery_price.to_f }, status: :ok }
+      format.js
+    end
+
+  rescue StandardError => e
+    respond_to do |format|
+      @coupon_code_value = @@coupon_value
+      @tip = @@tip_value
+      format.json { render json: { error: e.message }, status: e.http_status }
+    end
+  end
+
+  def check_tip
+    set_delivery_and_tax
+    if params[:tip].present?
+      @@tip_value = params[:tip]
+      @tip = params[:tip]
+      @delivery_check_value = @@delivery_value
+      @coupon_code_value = @@coupon_value
+    end
+    respond_to do |format|
       format.js
     end
 
@@ -66,12 +94,16 @@ class CartsController < ApplicationController
     respond_to do |format|
       @@coupon_value = params[:coupon_code]
       @coupon_code_value = params[:coupon_code]
+      @delivery_check_value = @@delivery_value
+      @tip = @@tip_value
       format.json { render json: { data: coupon.id }, status: :ok }
     end
   rescue Stripe::InvalidRequestError => e
     respond_to do |format|
       @@coupon_value = nil
       @coupon_code_value = nil
+      @delivery_check_value = @@delivery_value
+      @tip = @@tip_value
       format.json { render json: { error: e.message }, status: e.http_status }
     end
   end
@@ -84,6 +116,7 @@ class CartsController < ApplicationController
       set_delivery_and_tax
       @delivery_check_value = @@delivery_value
       @coupon_code_value = @@coupon_value
+      @tip = @@tip_value
       format.html { redirect_to app_cart_path(current_app, @current_cart) }
       format.js
     end
@@ -98,6 +131,7 @@ class CartsController < ApplicationController
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
         @coupon_code_value = @@coupon_value
+        @tip = @@tip_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else
@@ -117,6 +151,7 @@ class CartsController < ApplicationController
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
         @coupon_code_value = @@coupon_value
+        @tip = @@tip_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
       else

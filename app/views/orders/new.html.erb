@@ -57,14 +57,11 @@
   }
   .order-button {
     border: none;
-  }
-  .order {
     float: right;
-    margin-top: 5px;
   }
   .email-to {
     border: none;
-    font-size: 0.9em;
+    font-size: 1.4em;
   }
 </style>
   <div class="row">
@@ -119,6 +116,8 @@
                     <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
                     <%= f.text_field :delivery_price, id: 'delivery-price', value: params[:delivery_price], hidden: true %>
                     <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: params[:coupon_percent_off], hidden: true %>
+                    <%= f.text_field :tip_value, id: 'tip-value', value: params[:tip_value], hidden: true %>
+                    <%= f.text_field :total_amount, id: 'total-value', value: @total_amount, hidden: true %>
                   </div>
                 </div>
               </td>
@@ -169,18 +168,91 @@
           <td class="subtotal-price"><%= number_to_currency(@total_tax) %></td>
         </tr>
         <tr>
-          <td class="subtotal"><%= t('orders.total') %>: </td>
-          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price) %></td>
+          <td class="subtotal"><%= t('orders.tip') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@tip_value) %></td>
         </tr>
         <tr>
-          <td colspan="2" class="order-button"><%= f.submit t('orders.checkout'), class: "order btn btn-primary btn-lg", id: 'checkout-button1', disabled: @current_cart.line_items.count == 0 %></td>
+          <td class="subtotal"><%= t('orders.total') %>: </td>
+          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@total_amount) %></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="order-button"><%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+        </tr>
+        <tr>
+          <td class="order-button"><%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+        </tr>
+        <tr>
+          <td class="order-button" id="paypal-button-container" style="width: 160px;"></td>
         </tr>
         <tr>
           <td class="email-to">Receipt: Email to <b><%= current_app_user.email %></b> or Print: (dropdown list of printers)</td>
-          <td class="order-button"><%= f.submit t('orders.send'), class: "order btn btn-primary btn-lg", id: 'checkout-button1', disabled: true %></td>
+        </tr>
+        <tr>
+          <td class="order-button"><%= f.submit t('orders.send'), class: "btn btn-primary btn-lg", disabled: true %></td>
         </tr>
       </table>
     <% end %>
     </div>
   </div>
 </div>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AQK4qrPRygRU-GhNrHHxXlcCoZQfsdPvmKnquVFyEJJJu72gmijkaJn5H-5TjiyEtPcKU-hWsGCdOwyC"></script>
+<script>
+  var totalAmount = document.getElementById("total-value").value;
+  var formOrderName = document.getElementById("order_name");
+  var formOrderEmail = document.getElementById("order_email");
+  var formOrderPhone = document.getElementById("order_phone");
+  var formOrderAddress = document.getElementById("order_address");
+
+  paypal.Buttons({
+    style: {
+      layout: 'horizontal',
+      size: 'responsive',
+      color: 'gold',
+      label: 'pay'
+    },
+    onInit: function(data, actions) {
+    // Disable the buttons
+    actions.disable();
+
+    document.querySelectorAll('#order_name, #order_email, #order_phone, #order_address').forEach(event => {
+    event.addEventListener('change', () => {
+      // Enable or disable the button when it is checked or unchecked
+      if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+        actions.enable();
+      } else {
+        actions.disable();
+      }
+    })
+  })
+  },
+    env: 'sandbox', // Valid values are sandbox and live.
+    createOrder: async () => {
+    const response = await fetch('/paypal_create_payment', { 
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: totalAmount })
+    });
+    const responseData = await response.json();
+    return responseData.token;
+  },
+    onApprove: async (data) => {
+    const response = await fetch('/paypal_execute_payment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ order_id: data.orderID })
+  });
+  const responseData = await response.json();
+  if (responseData.data.table.status === 'COMPLETED') {
+    // REDIRECT TO CREATE-ORDER PAGE
+    document.getElementById("new_order").submit();
+    }
+  }
+}).render('#paypal-button-container');
+</script>

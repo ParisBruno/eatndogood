@@ -267,7 +267,8 @@ fr:
   orders: 
     list_products: Liste des produits
     send: envoyer
-    checkout: Caisse
+    cash: Payer en espèces
+    stripe: Payer avec Stripe
     full_name: Nom complet
     email: Email
     phone: Téléphone
@@ -275,6 +276,7 @@ fr:
     subtotal: Soustotal
     total: TOTAL
     tax: Impôt
+    tip: Pointe
     delivery: Livraison
     discount: Remise de coupon
   pages:

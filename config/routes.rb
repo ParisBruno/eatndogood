@@ -106,4 +106,7 @@ Rails.application.routes.draw do
   resources :charges
   post 'check-coupon', to: 'carts#check_coupon'
   post 'check-delivery', to: 'carts#check_delivery'
+  post 'check-tip', to: 'carts#check_tip'
+  post 'paypal_create_payment', to: 'orders#paypal_create_payment', as: "paypal_create_payment"
+  post 'paypal_execute_payment', to: 'orders#paypal_execute_payment', as: "paypal_execute_payment"
 end

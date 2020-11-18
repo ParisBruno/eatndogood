@@ -115,6 +115,20 @@
     border: none;
     border-bottom: 2px solid #8c8b8b;
   }
+  .tip {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .tip-price {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  #tip {
+    width: 90px;
+    text-align: center;
+    border: none;
+  }
   .tax {
     width: 80%;
     border: none;
@@ -206,6 +220,10 @@
       <td class="delivery-price"><%= number_to_currency(@total_delivery) %></td>
     </tr>
     <tr>
+      <td class="tip"><%= t('orders.tip') %>: </td>
+      <td class="tip-price"><%= number_field_tag 'tip', @tip, step: 1, min: 0, data: { url: check_tip_path, remote: true, method: :post } %></td>
+    </tr>
+    <tr>
       <td class="tax"><%= t('orders.tax') %>: </td>
       <td class="tax-price"><%= number_to_currency(@total_tax) %></td>
     </tr>
@@ -217,9 +235,9 @@
       <td class="total"><%= t('recipes.total') %>: </td>
       <td class="total-price">
         <% if @delivery_check_value %>
-          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + @total_delivery.to_f) %>
+          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + @tip.to_f + @total_delivery.to_f) %>
         <% else %>
-          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f) %>
+          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + @tip.to_f) %>
         <% end %>
       </td>
     </tr>

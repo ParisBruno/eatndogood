@@ -243,7 +243,8 @@ it:
   orders: 
     list_products: Elenco dei prodotti
     send: spedire
-    checkout: Cassa
+    cash: Paga in contanti
+    stripe: Paga con Stripe
     full_name: Nome e cognome
     email: Email
     phone: Telefono
@@ -251,6 +252,7 @@ it:
     subtotal: Totale parziale
     total: TOTALE
     tax: Imposta
+    tip: Mancia
     delivery: Consegna
     discount: Sconto coupon
   pages:

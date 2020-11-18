@@ -231,7 +231,8 @@ de:
   orders: 
     list_products: Produktliste
     send: senden
-    checkout: Auschecken
+    cash: Bezahle mit Bargeld
+    stripe: Bezahlen mit Stripe
     full_name: Vollständiger Name
     email: Email
     phone: Telefon
@@ -239,6 +240,7 @@ de:
     subtotal: Zwischensumme
     total: GESAMT
     tax: MwSt
+    tip: Trinkgeld($)
     delivery: Lieferung
     discount: Gutscheinrabatt
   pages:
