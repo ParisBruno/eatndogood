@@ -4,11 +4,16 @@ class OrdersController < ApplicationController
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
   skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
+  @@paypal_token ||= nil
+  @@paypal_status ||= nil
+
   def index
     @orders = Order.all
   end
 
   def new
+    @@paypal_token = nil
+    @@paypal_status = nil
     set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_percent_off], params[:tip_value])
     @order = Order.new
   end
@@ -18,12 +23,17 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     amount = (@total_amount * 100).to_i
 
+    @current_cart.line_items.each { |item| @order.line_items << item }
+    @order.amount = amount
+    @order.paypal_token = @@paypal_token
+    @order.paypal_status = @@paypal_status
+
     if params['cash'].present?
-      create_cash_order(@order, @current_cart, amount)
+      create_cash_or_paypal_order(@order, 'cash')
     elsif params['stripe'].present?
       create_stripe_order(@order, @current_cart, amount)
     else
-      create_paypal_order(@order, @current_cart, amount)
+      create_cash_or_paypal_order(@order, 'paypal')
     end
   end
 
@@ -34,63 +44,40 @@ class OrdersController < ApplicationController
   def return_stripe
     order = Order.last
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    payment = Stripe::PaymentIntent.list({limit: 1}) # "status": "succeeded" "requires_payment_method"
-    session = Stripe::Checkout::Session.list({limit: 1}) # "payment_status": "paid" # paid, unpaid, no_payment_required
+    session = Stripe::Checkout::Session.list({limit: 1})
+    payment = session.data.first
 
-    # {
-    #   "id": "cs_test_a1c2ZRPwp5afDfAGBxbZJH0BAB5UiHGmKvg6aMX2dDkR2PKCGY72fyIyCr",
-    #   "amount_subtotal": 2200,
-    #   "amount_total": 2200,
-    #   "currency": "usd",
-    #   "payment_intent": "pi_1HntmLJhzcOxD4pHsNKJf4t4",
-    #   "payment_method_types": [
-    #     "card"
-    #   ],
-    #   "payment_status": "paid",
-    #   "shipping": {"address":{"city":"Kremenchuck","country":"US","line1":"Molodizhna street , 1/2, app.26","line2":null,"postal_code":"39622","state":"MN"},"name":"ggg"},
-    #   "total_details": {"amount_discount":0,"amount_tax":0}
-    # }
+    order.stripe_session_id = payment.id
+    order.stripe_status = payment.payment_status
+    order.stripe_shipping = payment.shipping.to_hash
+    order.save!
 
-    # {
-    #   "id": "pi_1HntmLJhzcOxD4pHsNKJf4t4",
-    #   "object": "payment_intent",
-    #   "amount": 2200,
-    #   "amount_received": 2200,
-    #   "created": 1605479581,
-    #   "currency": "usd",
-    #   "payment_method": "pm_1HntmuJhzcOxD4pHzlO3FuSr",
-    #   "shipping": {"address":{"city":"Kremenchuck","country":"US","line1":"Molodizhna street , 1/2, app.26","line2":null,"postal_code":"39622","state":"MN"},"carrier":null,"name":"ggg","phone":null,"tracking_number":null},
-    #   "status": "succeeded",
-    # }
-    p session.data.first #.payment_status
-    p payment.data.first #.status
+    flash[:success] = I18n.t 'flash.success_stripe_payment'
+    redirect_to app_recipes_path(current_app)
+  rescue Stripe::InvalidRequestError => e
+    flash[:danger] = e.message
+    redirect_to app_recipes_path(current_app)
   end
 
   def paypal_create_payment
     amount = params[:amount]
     request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new
     request.request_body({
-                            intent: "CAPTURE",
-                            purchase_units: [
-                                {
-                                    amount: {
-                                        currency_code: "USD",
-                                        value: amount
-                                    }
-                                }
-                            ]
-                          })
-
+                          intent: "CAPTURE",
+                          purchase_units: [
+                            {
+                              amount: {
+                                currency_code: "USD",
+                                value: amount
+                              }
+                            }
+                          ]})
     response = @client.execute(request)
-    # order = Order.new
-    # order.price = price.to_i
-    # order.token = response.result.id
-    # if order.save
+
+    @@paypal_token = response.result.id
     respond_to do |format|
       format.json { render json: { token: response.result.id }, status: :ok }
     end
-    # order = response.result
-    # puts order
   rescue PayPalHttp::HttpError => e
     respond_to do |format|
       format.json { render json: { error: e.message }, status: e.http_status }
@@ -99,19 +86,9 @@ class OrdersController < ApplicationController
 
   def paypal_execute_payment
     request = PayPalCheckoutSdk::Orders::OrdersCaptureRequest::new(params[:order_id])
+    response = @client.execute(request)
 
-    # Call API with your client and get a response for your call
-    response = @client.execute(request) 
-    
-    # If call returns body in response, you can get the deserialized version from the result attribute of the response
-    # order = Order.find_by :token => params[:order_id]
-    #   order.paid = response.result.status == 'COMPLETED'
-    #   if order.save
-    #     return render :json => {:status => response.result.status}, :status => :ok
-    #   end
-    # order = response.result
-    # puts order
-
+    @@paypal_status = response.result.status
     respond_to do |format|
       format.json { render json: { data: response.result }, status: :ok }
     end
@@ -123,13 +100,8 @@ class OrdersController < ApplicationController
 
   private
 
-  def create_cash_order(order, current_cart, amount)
-    # amount = amount
-
-    current_cart.line_items.each do |item|
-      order.line_items << item
-      order.pay_method = 'cash'
-    end
+  def create_cash_or_paypal_order(order, pay_method)
+    order.pay_method = pay_method
     order.save!
 
     Cart.destroy(session[:cart_id])
@@ -153,10 +125,7 @@ class OrdersController < ApplicationController
 
     stripe_session = create_session(amount, coupon_id, product_name.join(', '))
     if stripe_session[:session_id]
-      current_cart.line_items.each do |item|
-        order.line_items << item
-        order.pay_method = 'stripe'
-      end
+      order.pay_method = 'stripe'
       order.save!
       
       Cart.destroy(session[:cart_id])
@@ -168,21 +137,6 @@ class OrdersController < ApplicationController
       flash[:error] = stripe_session[:error]
       redirect_to new_app_order_path(current_app)
     end
-  end
-
-  def create_paypal_order(order, current_cart, amount)
-    # amount = amount
-
-    current_cart.line_items.each do |item|
-      order.line_items << item
-      order.pay_method = 'paypal'
-    end
-    order.save!
-
-    Cart.destroy(session[:cart_id])
-    session[:cart_id] = nil
-
-    redirect_to app_recipes_path(current_app)
   end
 
   def create_session(amount, coupon_id, product_name)
@@ -205,7 +159,7 @@ class OrdersController < ApplicationController
       }],
       locale: I18n.locale,
       mode: 'payment',
-      success_url: app_recipes_url(current_app),
+      success_url: app_return_stripe_url(current_app),
       cancel_url: app_recipes_url(current_app),
     })
 
@@ -230,8 +184,8 @@ class OrdersController < ApplicationController
   end
 
   def paypal_init
-    client_id = ENV['TEST_PAYPAL_CLIENT_ID']
-    client_secret = ENV['TEST_PAYPAL_CLIENT_SECRET']
+    client_id = Rails.configuration.paypal[:client_id]
+    client_secret = Rails.configuration.paypal[:client_secret]
     environment = PayPal::SandboxEnvironment.new(client_id, client_secret)
     @client = PayPal::PayPalHttpClient.new(environment)
   end

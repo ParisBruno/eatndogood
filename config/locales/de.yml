@@ -108,6 +108,7 @@ de:
     recipe_add_to_cart: Das Rezept wurde erfolgreich in Ihren Warenkorb gelegt!
     send_note_with_your_thoughts: Großartig! Senden Sie eine Notiz mit Ihren Toughts
     style_removed: Stil erfolgreich entfernt!
+    success_stripe_payment: Die Bestellung wurde erfolgreich bezahlt
     user_already_registered: Benutzer bereits registriert
     user_not_registered: Benutzer nicht registriert
     user_registered_as_guest: Benutzer bereits als Gast registriert!

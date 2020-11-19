@@ -111,6 +111,7 @@ it:
     recipe_add_to_cart: La ricetta è stata aggiunta con successo al tuo carrello!
     send_note_with_your_thoughts: Bene! invia una nota con i tuoi pensieri
     style_removed: Stile rimosso con successo!
+    success_stripe_payment: L'ordine è stato pagato con successo
     user_already_registered: utente e gia registrato
     user_not_registered: utente non e` registrato
     user_registered_as_guest: Utente già registrato come ospite!

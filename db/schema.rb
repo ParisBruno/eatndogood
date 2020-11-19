@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_225554) do
+ActiveRecord::Schema.define(version: 2020_11_19_111345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,12 @@ ActiveRecord::Schema.define(version: 2020_11_12_225554) do
     t.string "pay_method"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "amount"
+    t.string "stripe_session_id"
+    t.string "stripe_status"
+    t.jsonb "stripe_shipping"
+    t.string "paypal_token"
+    t.string "paypal_status"
   end
 
   create_table "page_preview_translations", force: :cascade do |t|

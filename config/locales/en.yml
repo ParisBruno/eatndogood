@@ -126,6 +126,7 @@ en:
     recipe_add_to_cart: Recipe was successfully added to your cart!
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Style removed successfully!
+    success_stripe_payment: The order was successfully paid
     user_already_registered: user already registered
     user_not_registered: user not registered
     user_registered_as_guest: User already registered as an Guest!
@@ -267,7 +268,7 @@ en:
     subtotal: Subtotal
     total: TOTAL
     tax: Tax
-    tip: Tip($)
+    tip: Tips($)
     delivery: Delivery
     discount: Coupon discount
   pages:

@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     devise_for :users
     get '/', to: 'pages#welcome'
     get 'add_coupon', to: 'carts#add_coupon'
+    get 'return_stripe', to: 'orders#return_stripe'
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs

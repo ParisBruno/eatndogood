@@ -108,6 +108,7 @@ es:
     recipe_add_to_cart: La receta se agregó correctamente a su carrito!
     send_note_with_your_thoughts: "¡Genial! envía una nota con tus pensamientos"
     style_removed: Estilo eliminado con éxito!
+    success_stripe_payment: El pedido se pagó con éxito
     user_already_registered: usuario ya registrado
     user_not_registered: usuario no registrado
     user_registered_as_guest: "¡Usuario ya registrado como invitado!"

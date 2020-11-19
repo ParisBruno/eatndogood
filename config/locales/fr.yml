@@ -129,6 +129,7 @@ fr:
     recipe_add_to_cart: La recette a bien été ajoutée à votre panier!
     send_note_with_your_thoughts: Génial! envoyer une note avec vos pensées
     style_removed: Style supprimé avec succès!
+    success_stripe_payment: La commande a été payée avec succès
     user_already_registered: utilisateur déjà enregistré
     user_not_registered: utilisateur non enregistré
     user_registered_as_guest: Utilisateur déjà inscrit en tant qu'invité!

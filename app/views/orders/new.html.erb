@@ -200,6 +200,7 @@
 
 <script src="https://www.paypal.com/sdk/js?client-id=AQK4qrPRygRU-GhNrHHxXlcCoZQfsdPvmKnquVFyEJJJu72gmijkaJn5H-5TjiyEtPcKU-hWsGCdOwyC"></script>
 <script>
+  var paypalEnv = "<%= Rails.configuration.paypal[:env] %>"
   var totalAmount = document.getElementById("total-value").value;
   var formOrderName = document.getElementById("order_name");
   var formOrderEmail = document.getElementById("order_email");
@@ -219,7 +220,7 @@
 
     document.querySelectorAll('#order_name, #order_email, #order_phone, #order_address').forEach(event => {
     event.addEventListener('change', () => {
-      // Enable or disable the button when it is checked or unchecked
+      // Enable or disable the button when the fields completed
       if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
         actions.enable();
       } else {
@@ -228,7 +229,7 @@
     })
   })
   },
-    env: 'sandbox', // Valid values are sandbox and live.
+    env: paypalEnv, // Valid values are sandbox and live.
     createOrder: async () => {
     const response = await fetch('/paypal_create_payment', { 
       method: 'POST',
