@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
     end
   rescue PayPalHttp::HttpError => e
     respond_to do |format|
-      format.json { render json: { error: e.message }, status: e.http_status }
+      format.json { render json: { error: e.message }, status: :unprocessable_entity }
     end
   end
 
@@ -107,6 +107,7 @@ class OrdersController < ApplicationController
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
 
+    flash[:success] = I18n.t 'flash.success_stripe_payment'
     redirect_to app_recipes_path(current_app)
   end
 
@@ -184,9 +185,8 @@ class OrdersController < ApplicationController
   end
 
   def paypal_init
-    client_id = Rails.configuration.paypal[:client_id]
-    client_secret = Rails.configuration.paypal[:client_secret]
-    environment = PayPal::SandboxEnvironment.new(client_id, client_secret)
+    set_delivery_and_tax
+    environment = PayPal::SandboxEnvironment.new(@paypal_client_id, @paypal_client_secret)
     @client = PayPal::PayPalHttpClient.new(environment)
   end
 end

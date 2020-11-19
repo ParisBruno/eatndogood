@@ -198,7 +198,7 @@
   </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AQK4qrPRygRU-GhNrHHxXlcCoZQfsdPvmKnquVFyEJJJu72gmijkaJn5H-5TjiyEtPcKU-hWsGCdOwyC"></script>
+<%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}" %>
 <script>
   var paypalEnv = "<%= Rails.configuration.paypal[:env] %>"
   var totalAmount = document.getElementById("total-value").value;
@@ -239,21 +239,28 @@
       body: JSON.stringify({ amount: totalAmount })
     });
     const responseData = await response.json();
-    return responseData.token;
+    if (responseData.token) {
+      return responseData.token;
+    } else {
+      return responseData.error;
+    }
   },
     onApprove: async (data) => {
-    const response = await fetch('/paypal_execute_payment', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+      const response = await fetch('/paypal_execute_payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ order_id: data.orderID })
-  });
-  const responseData = await response.json();
-  if (responseData.data.table.status === 'COMPLETED') {
-    // REDIRECT TO CREATE-ORDER PAGE
-    document.getElementById("new_order").submit();
+      body: JSON.stringify({ order_id: data.orderID })
+    });
+    const responseData = await response.json();
+    if (responseData.data.table.status === 'COMPLETED') {
+      // REDIRECT TO CREATE-ORDER PAGE
+      document.getElementById("new_order").submit();
     }
+  },
+  onError: async (error) => {
+    alert('INVALID_RESOURCE_ID');
   }
 }).render('#paypal-button-container');
 </script>

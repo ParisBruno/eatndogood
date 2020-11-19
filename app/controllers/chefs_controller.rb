@@ -87,7 +87,7 @@ class ChefsController < ApplicationController
     # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
     #                               :password, :password_confirmation])
     chef_info_permitted_attributes = Chef.globalize_attribute_names + [:chef_avatar, :admin_id, :id]
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug, :delivery_price, :product_tax, chef_info_attributes: 
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug, :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, chef_info_attributes: 
                                     chef_info_permitted_attributes, app_attributes: [:slug, :id])
   end
 
