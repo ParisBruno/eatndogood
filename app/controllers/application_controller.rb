@@ -242,7 +242,7 @@ class ApplicationController < ActionController::Base
     end
     users.uniq.each { |user| @total_delivery += user.delivery_price }
 
-    @paypal_client_id = users.first.paypal_client_id
-    @paypal_client_secret = users.first.paypal_client_secret
+    @paypal_client_id = users.first&.paypal_client_id
+    @paypal_client_secret = users.first&.paypal_client_secret
   end
 end

@@ -71,8 +71,12 @@ Rails.application.routes.draw do
     end
     devise_for :users
     get '/', to: 'pages#welcome'
-    get 'add_coupon', to: 'carts#add_coupon'
+    get 'add_additional_params', to: 'carts#add_additional_params'
     get 'return_stripe', to: 'orders#return_stripe'
+    post 'coupon_codes', to: "chefs#add_coupon", as: "add_coupon_codes"
+    delete 'coupon_codes/:code_id', to: "chefs#destroy_coupon", as: "coupon_codes"
+    post 'fundrasing_codes', to: "chefs#add_fundrasing", as: "add_fundrasing_codes"
+    delete 'fundrasing_codes/:code_id', to: "chefs#destroy_fundrasing", as: "fundrasing_codes"
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs
@@ -105,7 +109,7 @@ Rails.application.routes.draw do
     resources :orders
   end
   resources :charges
-  post 'check-coupon', to: 'carts#check_coupon'
+  post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'
   post 'check-delivery', to: 'carts#check_delivery'
   post 'check-tip', to: 'carts#check_tip'
   post 'paypal_create_payment', to: 'orders#paypal_create_payment', as: "paypal_create_payment"

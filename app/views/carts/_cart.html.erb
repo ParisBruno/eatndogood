@@ -242,7 +242,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_coupon_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_additional_params_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
     </tr>
     <tr>
       <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td> 
@@ -256,7 +256,7 @@
     var checkoutCoupon = document.getElementById("coupon_input");
     
     checkoutCoupon.addEventListener("change", function () {
-      fetch("/check-coupon", {
+      fetch("/check-stripe-coupon", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

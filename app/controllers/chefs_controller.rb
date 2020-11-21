@@ -65,6 +65,36 @@ class ChefsController < ApplicationController
        redirect_to app_chef_path(current_app, @chef)
     end
   end
+
+  def add_coupon
+    coupon_code = CouponCode.find_or_initialize_by(title: params[:coupon_code][:title], chef_id: current_app_user.chef_info.id)
+    coupon_code.assign_attributes(coupon_percent_off: params[:coupon_code][:coupon_percent_off], is_active: params[:coupon_code][:is_active])
+    coupon_code.save!
+
+    redirect_to edit_app_chef_path(current_app, current_app_user)
+  end
+
+  def destroy_coupon
+    coupon_code = CouponCode.find(params[:code_id])
+    coupon_code.destroy
+
+    redirect_to edit_app_chef_path(current_app, current_app_user)
+  end
+
+  def add_fundrasing
+    fundrasing_code = FundrasingCode.find_or_initialize_by(title: params[:fundrasing_code][:title], chef_id: current_app_user.chef_info.id)
+    fundrasing_code.assign_attributes(is_active: params[:fundrasing_code][:is_active])
+    fundrasing_code.save!
+
+    redirect_to edit_app_chef_path(current_app, current_app_user)
+  end
+
+  def destroy_fundrasing
+    fundrasing_code = FundrasingCode.find(params[:code_id])
+    fundrasing_code.destroy
+
+    redirect_to edit_app_chef_path(current_app, current_app_user)
+  end
   
   private
 

@@ -14,12 +14,14 @@ class OrdersController < ApplicationController
   def new
     @@paypal_token = nil
     @@paypal_status = nil
-    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_percent_off], params[:tip_value])
+    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], 
+                              params[:coupon_percent_off], params[:tip_value])
     @order = Order.new
   end
 
   def create
-    set_delivery_discount_tip(order_params[:delivery_price], order_params[:coupon_code], order_params[:coupon_percent_off], order_params[:tip_value])
+    set_delivery_discount_tip(order_params[:delivery_price], order_params[:coupon_code],
+                              order_params[:coupon_percent_off], order_params[:tip_value])
     @order = Order.new(order_params)
     amount = (@total_amount * 100).to_i
 
@@ -94,7 +96,7 @@ class OrdersController < ApplicationController
     end
   rescue PayPalHttp::HttpError => e
     respond_to do |format|
-      format.json { render json: { error: e.message }, status: e.http_status }
+      format.json { render json: { error: e.message }, status: :unprocessable_entity }
     end
   end
 
@@ -170,7 +172,8 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :delivery_price, :coupon_percent_off, :tip_value)
+    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code,
+                                  :delivery_price, :coupon_percent_off, :tip_value)
   end
 
   def set_delivery_discount_tip(delivery_price, coupon_code, coupon_percent_off, tip_value)

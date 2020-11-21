@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_115614) do
+ActiveRecord::Schema.define(version: 2020_11_20_230540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,16 @@ ActiveRecord::Schema.define(version: 2020_11_19_115614) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupon_codes", force: :cascade do |t|
+    t.string "title"
+    t.decimal "coupon_percent_off", precision: 5, scale: 2, default: "0.0"
+    t.boolean "is_active", default: true
+    t.bigint "chef_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_coupon_codes_on_chef_id"
+  end
+
   create_table "email_contents", force: :cascade do |t|
     t.string "subject"
     t.string "receiver"
@@ -151,6 +161,15 @@ ActiveRecord::Schema.define(version: 2020_11_19_115614) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "fundrasing_codes", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_active", default: true
+    t.bigint "chef_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_fundrasing_codes_on_chef_id"
   end
 
   create_table "ingredient_translations", force: :cascade do |t|
@@ -468,6 +487,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_115614) do
   add_foreign_key "chefs", "users", name: "chefs_user_id_fk"
   add_foreign_key "comments", "chefs", name: "comments_chef_id_fk"
   add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
+  add_foreign_key "coupon_codes", "chefs"
+  add_foreign_key "fundrasing_codes", "chefs"
   add_foreign_key "ingredients", "apps"
   add_foreign_key "ingredients", "apps", name: "ingredients_app_id_fk"
   add_foreign_key "likes", "apps"

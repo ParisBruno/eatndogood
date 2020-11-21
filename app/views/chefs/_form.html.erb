@@ -1,9 +1,43 @@
 <style>
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dadada;
+    font-size: 1.2em;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .empty-row {
+    height: 20px;
+    border: none;
+  }
+  .add-coupon {
+    border: none;
+  }
+  .coupon-code-input {
+    width: 97%;
+  }
   .tax-input {
    text-align: center;
    margin-left: 15px;
  }
  .delivery-input {
+   text-align: center;
+ }
+ .coupon-active {
+    width: 30px;
+    height: 30px;
+ }
+ .coupon-code-input {
    text-align: center;
  }
 </style>
@@ -152,14 +186,103 @@
                                                       class: "btn btn-primary btn-lg btn-xlarge", style: "float:right;") %>
           </div>
         </div>
-      </div>
-      
-    </div>
     <% end %>
+
+    <% if current_app_user&.admin? %>
+      <table>
+        <h3 style="text-align: center;">Coupon codes</h3>
+        <thead>
+          <tr>
+            <td colspan="3">Title</td>
+            <td colspan="2">Percent off(%)</td>
+            <td colspan="2">Is active</td>
+            <td class="empty-header">Action</td>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_app_user.chef_info.coupon_codes.each do |coupon_code| %>
+          <tr>
+            <td colspan="3"><%= coupon_code.title %></td>
+            <td colspan="2"><%= coupon_code.coupon_percent_off %></td>
+            <td colspan="2"><%= coupon_code.is_active %></td>
+            <td><%= button_to "x", app_coupon_codes_path(current_app, code_id: coupon_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+          </tr>
+        <% end %>
+
+        <%= form_for :coupon_code, url: app_add_coupon_codes_path(current_app), html: { method: :post } do |coupon_code| %>
+          <tr>
+            <td class="empty-row"></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="add-coupon"><%= coupon_code.text_field :title, class: "form-control coupon-code-input", id: "coupon-title" %></td>
+            <td colspan="2" class="add-coupon"><%= coupon_code.number_field :coupon_percent_off, class: "form-control coupon-code-input", step: 0.01, min: 0, max: 100 %></td>
+            <td colspan="2" class="add-coupon"><%= coupon_code.check_box :is_active, class: "coupon-active" %></td>
+            <td colspan="1" class="add-coupon"><%= coupon_code.submit "Add", class: "btn btn-success btn-lg", id: "add-coupon-btn", disabled: true %></td>
+          <tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <table>
+        <h3 style="text-align: center; border-top: 1px solid #dadada; margin-top: 20px;">Fundrasing codes</h3>
+        <thead>
+          <tr>
+            <td colspan="3">Title</td>
+            <td colspan="2">Is active</td>
+            <td class="empty-header">Action</td>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_app_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
+          <tr>
+            <td colspan="3"><%= fundrasing_code.title %></td>
+            <td colspan="2"><%= fundrasing_code.is_active %></td>
+            <td><%= button_to "x", app_fundrasing_codes_path(current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+          </tr>
+        <% end %>
+
+        <%= form_for :fundrasing_code, url: app_add_fundrasing_codes_path(current_app), html: { method: :post } do |fundrasing_code| %>
+          <tr>
+            <td class="empty-row"></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="add-coupon"><%= fundrasing_code.text_field :title, class: "form-control coupon-code-input", id: "fundrasing-title" %></td>
+            <td colspan="2" class="add-coupon"><%= fundrasing_code.check_box :is_active, class: "coupon-active" %></td>
+            <td colspan="1" class="add-coupon"><%= fundrasing_code.submit "Add", class: "btn btn-success btn-lg", id: "add-fundrasing-btn", disabled: true %></td>
+          <tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    </div>
 
     <div class="col-md-4 col-md-offset-4 colormatch">
       [ <%= link_to t('forms.return_to_recipes'), app_recipes_path(current_app) %> ]
     </div>
   
 </div>
+
+<script type="text/javascript">
+  var couponTitleValue = document.getElementById("coupon-title");
+  var addCouponBtn = document.getElementById("add-coupon-btn");
+  var fundrasingTitleValue = document.getElementById("fundrasing-title");
+  var addFundrasingBtn = document.getElementById("add-fundrasing-btn");
+
+  couponTitleValue.addEventListener("change", function () {
+      if (couponTitleValue.value.length > 0) {
+      addCouponBtn.disabled = false;
+      } else {
+      addCouponBtn.disabled = true;
+      }
+  });
+
+  fundrasingTitleValue.addEventListener("change", function () {
+      if (fundrasingTitleValue.value.length > 0) {
+      addFundrasingBtn.disabled = false;
+      } else {
+      addFundrasingBtn.disabled = true;
+      }
+  });
+</script>
+
 
