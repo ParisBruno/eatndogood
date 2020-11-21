@@ -46,6 +46,9 @@ it:
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
     x_chefs_remaining_html: "%{x}&nbsp; cuochi rimasti per aggiungere! Aggiorna il
       tuo account facendo clic su %{link}"
+    coupon_title: Titolo
+    coupon_percent_off: Percentuale di sconto(%)
+    coupon_active: È attivo
   common:
     admin: Admin
     allergens: Allergeni

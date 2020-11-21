@@ -47,6 +47,9 @@ de:
     write_few_words_about_yourself: Bitte schreibe ein paar Worte über dich.
     x_chefs_remaining_html: "%{x}&nbsp; Köche bleiben für hinzufügen! Bitte aktualisieren
       Sie Ihr Konto, indem Sie auf %{link}"
+    coupon_title: Titel
+    coupon_percent_off: Prozent aus(%)
+    coupon_active: Ist aktiv
   common:
     admin: Administrator
     allergens: Allergene

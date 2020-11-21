@@ -50,6 +50,9 @@ en:
     write_few_words_about_yourself: Please write few words about yourself.
     x_chefs_remaining_html: "%{x}&nbsp; chefs remaining for add! Please upgrade your
       account by click %{link}"
+    coupon_title: Title
+    coupon_percent_off: Percent off(%)
+    coupon_active: Is active
   common:
     admin: Admin
     allergens: Allergens

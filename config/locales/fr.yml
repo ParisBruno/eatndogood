@@ -50,6 +50,9 @@ fr:
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
     x_chefs_remaining_html: "%{x}&nbsp; chefs restants pour ajouter! Veuillez mettre
       à jour votre compte en cliquant dessus %{link}"
+    coupon_title: Titre
+    coupon_percent_off: Pour cent de reduction(%)
+    coupon_active: C'est actif
   common:
     admin: Admin
     allergens: allergènes

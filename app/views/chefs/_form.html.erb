@@ -23,6 +23,9 @@
   .add-coupon {
     border: none;
   }
+  .empty-header {
+    border: none;
+  }
   .coupon-code-input {
     width: 97%;
   }
@@ -190,13 +193,13 @@
 
     <% if current_app_user&.admin? %>
       <table>
-        <h3 style="text-align: center;">Coupon codes</h3>
+        <h3 style="text-align: center;"><%= t('recipes.coupone_code') %></h3>
         <thead>
           <tr>
-            <td colspan="3">Title</td>
-            <td colspan="2">Percent off(%)</td>
-            <td colspan="2">Is active</td>
-            <td class="empty-header">Action</td>
+            <td colspan="3"><%= t('chefs.coupon_title') %></td>
+            <td colspan="2"><%= t('chefs.coupon_percent_off') %></td>
+            <td colspan="2"><%= t('chefs.coupon_active') %></td>
+            <td class="empty-header"></td>
           </tr>
         </thead>
         <tbody>
@@ -205,7 +208,7 @@
             <td colspan="3"><%= coupon_code.title %></td>
             <td colspan="2"><%= coupon_code.coupon_percent_off %></td>
             <td colspan="2"><%= coupon_code.is_active %></td>
-            <td><%= button_to "x", app_coupon_codes_path(current_app, code_id: coupon_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+            <td class="empty-header"><%= button_to "x", app_coupon_codes_path(current_app, code_id: coupon_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
           </tr>
         <% end %>
 
@@ -214,7 +217,7 @@
             <td class="empty-row"></td>
           </tr>
           <tr>
-            <td colspan="3" class="add-coupon"><%= coupon_code.text_field :title, class: "form-control coupon-code-input", id: "coupon-title" %></td>
+            <td colspan="3" class="add-coupon"><%= coupon_code.text_field :title, class: "form-control coupon-code-input", id: "coupon-title", placeholder: t('recipes.coupone_code') %></td>
             <td colspan="2" class="add-coupon"><%= coupon_code.number_field :coupon_percent_off, class: "form-control coupon-code-input", step: 0.01, min: 0, max: 100 %></td>
             <td colspan="2" class="add-coupon"><%= coupon_code.check_box :is_active, class: "coupon-active" %></td>
             <td colspan="1" class="add-coupon"><%= coupon_code.submit "Add", class: "btn btn-success btn-lg", id: "add-coupon-btn", disabled: true %></td>
@@ -224,12 +227,12 @@
       </table>
 
       <table>
-        <h3 style="text-align: center; border-top: 1px solid #dadada; margin-top: 20px;">Fundrasing codes</h3>
+        <h3 style="text-align: center; border-top: 1px solid #dadada; margin-top: 20px;"><%= t('recipes.fundraising_code') %></h3>
         <thead>
           <tr>
-            <td colspan="3">Title</td>
-            <td colspan="2">Is active</td>
-            <td class="empty-header">Action</td>
+            <td colspan="3"><%= t('chefs.coupon_title') %></td>
+            <td colspan="2"><%= t('chefs.coupon_active') %></td>
+            <td class="empty-header"></td>
           </tr>
         </thead>
         <tbody>
@@ -237,7 +240,7 @@
           <tr>
             <td colspan="3"><%= fundrasing_code.title %></td>
             <td colspan="2"><%= fundrasing_code.is_active %></td>
-            <td><%= button_to "x", app_fundrasing_codes_path(current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+            <td class="empty-header"><%= button_to "x", app_fundrasing_codes_path(current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
           </tr>
         <% end %>
 
@@ -246,7 +249,7 @@
             <td class="empty-row"></td>
           </tr>
           <tr>
-            <td colspan="3" class="add-coupon"><%= fundrasing_code.text_field :title, class: "form-control coupon-code-input", id: "fundrasing-title" %></td>
+            <td colspan="3" class="add-coupon"><%= fundrasing_code.text_field :title, class: "form-control coupon-code-input", id: "fundrasing-title", placeholder: t('recipes.fundraising_code') %></td>
             <td colspan="2" class="add-coupon"><%= fundrasing_code.check_box :is_active, class: "coupon-active" %></td>
             <td colspan="1" class="add-coupon"><%= fundrasing_code.submit "Add", class: "btn btn-success btn-lg", id: "add-fundrasing-btn", disabled: true %></td>
           <tr>
