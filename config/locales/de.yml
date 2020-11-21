@@ -24,7 +24,7 @@ de:
     title: Erstellen Sie ein neues Allergen
   chefs:
     add_chef: Fügen Sie Koch hinzu
-    add_chef_account: Kocherkonto hinzufügen
+    add_chef_account: Erstellen Sie ein Teammitgliedskonto
     add_chef_contributor: Füge Chef / Teilnehmer hinzu
     add_summary_bio: Zusammenfassung hinzufügen bio
     admin_chef_name_will_appear: "(Der Benutzername des Admin / Chefs wird in der
@@ -214,6 +214,7 @@ de:
     allergens: Allergene
     chef_list: Chefliste
     chef_login: Koch Anmeldung
+    create_chef: Erstellen Sie ein Teammitgliedskonto
     edit_profile: Profil bearbeiten
     guest_invitation: Gasteinladung
     guest_list: Gästeliste
@@ -229,6 +230,7 @@ de:
     new_style: Neuer Stil
     recipes: Rezepte
     styles: der Stil
+    team: Mannschaft
     update_about_us_page: Update Über uns Seite
     update_welcome_page: Startseite aktualisieren
     view_profile: Profil anzeigen

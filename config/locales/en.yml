@@ -26,7 +26,7 @@ en:
     update: Update Allergen
   chefs:
     add_chef: Add Chef
-    add_chef_account: Create Chef Account
+    add_chef_account: Create team member account
     add_chef_contributor: Add Chef/Contributor
     add_summary_bio: Add summary bio
     admin_chef_name_will_appear: "(Admin/Chef username will appear in front page and
@@ -237,7 +237,7 @@ en:
     all_recipes: All Recipes
     chef_list: Chef List
     chef_login: Chef Login
-    create_chef: Create Chef Account
+    create_chef: Create Team Member Account
     edit_profile: Edit Profile
     guest_invitation: Guest Invitation
     guest_list: Guest List
@@ -256,6 +256,7 @@ en:
     recipes: Recipes
     sign_up: Sign up
     styles: Styles
+    team: Team
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
     view_profile: View Profile

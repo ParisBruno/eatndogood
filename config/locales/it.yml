@@ -24,7 +24,7 @@ it:
     title: Crea un nuovo allergeno
   chefs:
     add_chef: Aggiungi Chef
-    add_chef_account: Aggiungi l'acconto dello Chef
+    add_chef_account: Crea un account membro del team
     add_chef_contributor: Aggiungi Chef / Collaboratore
     add_summary_bio: Aggiungi sintesi bio
     admin_chef_name_will_appear: "(Il nome utente dell'amministratore / dello chef
@@ -222,7 +222,7 @@ it:
     all_recipes: tutte le ricette
     chef_list: Lista Chef
     chef_login: Chef Login
-    create_chef: 'aggiungi uno Chef '
+    create_chef: Crea un account membro del team
     edit_profile: Modifica Profilo
     guest_invitation: Invito per gli ospiti
     guest_list: Elenco degli ospiti
@@ -241,6 +241,7 @@ it:
     recipes: Ricette
     sign_up: inscriviti
     styles: Stile
+    team: Squadra
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
     view_profile: Vedi profilo

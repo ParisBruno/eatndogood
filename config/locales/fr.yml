@@ -26,7 +26,7 @@ fr:
     update: Mettre à jour l'allergène
   chefs:
     add_chef: Ajouter un chef
-    add_chef_account: Ajouter un compte chef
+    add_chef_account: Créer un compte de membre de l'équipe
     add_chef_contributor: Ajouter un chef / contributeur
     add_summary_bio: Ajouter un résumé bio
     admin_chef_name_will_appear: "(Le nom d'utilisateur Admin / Chef apparaîtra sur
@@ -246,7 +246,7 @@ fr:
     all_recipes: 'Toutes les recettes '
     chef_list: Liste des chefs
     chef_login: Connexion du chef
-    create_chef: Créer un compte chef
+    create_chef: Crea un account membro del team
     edit_profile: Editer le profil
     guest_invitation: Invitation Invité
     guest_list: Liste des invités
@@ -265,6 +265,7 @@ fr:
     recipes: Recettes
     sign_up: 'Inscrivez-vous '
     styles: La mode
+    team: Équipe
     update_about_us_page: Mise à jour à propos de nous
     update_welcome_page: Mettre à jour la page d'accueil
     view_profile: Voir le profil
