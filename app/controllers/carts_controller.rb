@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[check_stripe_coupon add_additional_params check_delivery check_tip]
+  skip_before_action :verify_authenticity_token, only: %i[check_stripe_coupon check_coupon add_additional_params check_delivery check_tip]
   skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
@@ -103,6 +103,29 @@ class CartsController < ApplicationController
       @@coupon_value = nil
       @coupon_code_value = nil
       format.json { render json: { error: e.message }, status: :unprocessable_entity }
+    end
+  end
+
+  def check_coupon
+    coupon = CouponCode.find_by(title: params[:coupon_code], is_active: true)
+    @delivery_check_value = @@delivery_value
+    @tip = @@tip_value
+
+    if coupon
+      @@coupon_id = coupon.title
+      @@coupon_percent_off = coupon.coupon_percent_off
+      @@coupon_value = params[:coupon_code]
+      @coupon_code_value = params[:coupon_code]
+
+      respond_to do |format|
+        format.json { render json: { data: coupon.title }, status: :ok }
+      end
+    else
+      respond_to do |format|
+        @@coupon_value = nil
+        @coupon_code_value = nil
+        format.json { render json: { error: "No such coupon '#{params[:coupon_code]}'" }, status: :unprocessable_entity }
+      end
     end
   end
 

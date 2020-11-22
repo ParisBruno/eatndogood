@@ -256,7 +256,7 @@
     var checkoutCoupon = document.getElementById("coupon_input");
     
     checkoutCoupon.addEventListener("change", function () {
-      fetch("/check-stripe-coupon", {
+      fetch("/check-coupon", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
