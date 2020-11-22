@@ -31,6 +31,7 @@ en:
     add_summary_bio: Add summary bio
     admin_chef_name_will_appear: "(Admin/Chef username will appear in front page and
       recipes creator in their all recipes)."
+    cart_func: Cart Functionalities
     change_your_pic: Change your pic
     confirm_delete_account: Are you sure! You want to delete chef account?
     create_account: Create my account
@@ -349,6 +350,7 @@ en:
        6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. D'ont worry about making mistakes you can edit the recipes anytime.<br>
     edit_recipe: Edit Recipe
     max_pic_size: Max picture size %{mb} megabytes
+    rec_pic_size: The recommended picture size is 1366 x 768px
     new_title: Create A New Masterpiece Recipe
     question_about_this_recipe: Question about this recipe? ask me! click here
     return_to_recipes_listing: Return to Recipes Listing

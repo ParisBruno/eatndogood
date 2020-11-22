@@ -29,6 +29,7 @@ it:
     add_summary_bio: Aggiungi sintesi bio
     admin_chef_name_will_appear: "(Il nome utente dell'amministratore / dello chef
       apparirà in prima pagina e il creatore delle ricette in tutte le sue ricette)."
+    cart_func: Funzionalità del carrello
     change_your_pic: Cambia la tua foto
     confirm_delete_account: Sei sicuro! Vuoi cancellare l'account dello chef?
     delete_profile: Elimina profilo
@@ -337,6 +338,7 @@ it:
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.<br>
     edit_recipe: Modifica questa ricetta
     max_pic_size: Immagine dimensione max %{mb} megabyte
+    rec_pic_size: La dimensione dell'immagine consigliata è 1366 x 768px
     new_title: Crea una nuovo capolavoro di  ricetta
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette

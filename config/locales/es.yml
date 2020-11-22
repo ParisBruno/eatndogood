@@ -29,6 +29,7 @@ es:
     add_summary_bio: Añadir resumen bio
     admin_chef_name_will_appear: "(El nombre de usuario de Admin / Chef aparecerá
       en la página principal y el creador de recetas en todas sus recetas)."
+    cart_func: Funcionalidades del carrito
     change_your_pic: Cambia tu foto
     confirm_delete_account: "¡Estás seguro! ¿Quieres eliminar la cuenta de chef?"
     delete_profile: Borrar perfil
@@ -321,6 +322,7 @@ es:
        6) Cargue la imagen de su obra maestra con el botón Elegir archivo, tamaño máximo de la imagen 300x400 px<br>
     edit_recipe: editar esta receta
     max_pic_size: Tamaño máximo de la imagen %{mb} megabytes
+    rec_pic_size: El tamaño de imagen recomendado es 1366 x 768px
     new_title: Crear una nueva receta de obra maestra
     question_about_this_recipe: pregunta sobre esta receta? ¡Pregúnteme! haga clic
       aquí

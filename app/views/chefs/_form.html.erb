@@ -1,4 +1,11 @@
 <style>
+  .form-control {
+    font-size: 12px;
+  }
+  .cart-functional {
+    padding-top: 6px;
+    border-top: 4px solid green;
+  }
   table {
     font-family: Helvetica, sans-serif;
     width: 100%;
@@ -113,7 +120,9 @@
           </div>
         </div>
       <% if current_app_user.admin? %>
-        <div class="form-group">
+        
+        <div class="form-group cart-functional">
+        <h3 style="text-align: center; padding-bottom: 10px;"><%= t('chefs.cart_func') %></h3>
           <div class="control-label col-md-2">
             <%= f.label :product_tax, t('chefs.product_tax') + ' %' %>
           </div>
@@ -146,10 +155,24 @@
           </div>
         </div>
       <% end %>
-        
+      </div>
+
+      <div class="col-md-5 well box-content">
       <%= f.fields_for :chef_info, @user.chef_info do |c| %>
+        <% I18n.available_locales.each do |locale| %>
+            <div class="form-group <%= "chef_#{locale}" %>">
+              <div class="col-md-12" style="font-weight:bold;">
+                <%= c.label :my_bio, t('chefs.add_summary_bio') + "(#{locale})" %>
+              </div>
+              <div class="col-md-12">
+                
+                <%= c.cktext_area "my_bio_#{locale}", class: "form-control", placeholder: "" %>
+              </div>
+            </div>
+          <% end %>
         <%= c.hidden_field :admin_id, value: current_app_user.id %>
         <div class="form-group">
+          <p style="text-align: center; font-size: 10px;"><%= t('recipes.max_pic_size', mb: 5) %><br><%= t('recipes.rec_pic_size') %></p>
           <div class='row'>
             <div class="control-label col-md-2"></div>
             <div class="control-label col-md-2"></div>
@@ -159,23 +182,10 @@
           </div>
           <div class='row'>
             <div class="col-md-12">
-              <%= image_tag((!@user.nil? && !@user.chef_info.nil? && @user.chef_info.chef_avatar.attached?) ? @user.chef_info.chef_avatar : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+              <%= image_tag((!@user.nil? && !@user.chef_info.nil? && @user.chef_info.chef_avatar.attached?) ? @user.chef_info.chef_avatar : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), size: "1366x768") %>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-5 well box-content">
-        <% I18n.available_locales.each do |locale| %>
-          <div class="form-group <%= "chef_#{locale}" %>">
-            <div class="col-md-12" style="font-weight:bold;">
-              <%= c.label :my_bio, t('chefs.add_summary_bio') + "(#{locale})" %>
-            </div>
-            <div class="col-md-12">
-              
-              <%= c.cktext_area "my_bio_#{locale}", class: "form-control", placeholder: "" %>
-            </div>
-          </div>
-        <% end %>
       <% end %>
 
         <div class="form-group">

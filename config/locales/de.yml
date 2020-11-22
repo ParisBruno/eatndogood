@@ -29,6 +29,7 @@ de:
     add_summary_bio: Zusammenfassung hinzufügen bio
     admin_chef_name_will_appear: "(Der Benutzername des Admin / Chefs wird in der
       ersten Seite und der Rezepte-Ersteller in allen Rezepten angezeigt)."
+    cart_func: Wagenfunktionen
     change_your_pic: Ändere dein Bild
     confirm_delete_account: Bist du sicher! Sie möchten das Kochkonto löschen?
     delete_profile: Profil löschen
@@ -304,6 +305,7 @@ de:
        6) Laden Sie Ihr Meisterwerk Bild mit der Schaltfläche Datei auswählen, maximale Bildgröße 300x400 px<br>
     edit_recipe: Bearbeiten Sie dieses Rezept
     max_pic_size: Max picture size %{mb} megabytes
+    rec_pic_size: Die empfohlene Bildgröße ist 1366 x 768px
     new_title: Erstelle ein neues Meisterstück-Rezept
     question_about_this_recipe: Frage zu diesem Rezept? Frag mich! Klick hier
     return_to_recipes_listing: Zurück zur Rezeptliste

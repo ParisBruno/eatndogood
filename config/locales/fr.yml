@@ -31,6 +31,7 @@ fr:
     add_summary_bio: Ajouter un résumé bio
     admin_chef_name_will_appear: "(Le nom d'utilisateur Admin / Chef apparaîtra sur
       la page d'accueil et le créateur des recettes dans toutes leurs recettes). "
+    cart_func: Fonctionnalités du panier
     change_your_pic: Change your pic
     confirm_delete_account: Êtes-vous sûr! Vous souhaitez effacer un utilisateur invité?
     create_account: 'Créer mon compte '
@@ -348,6 +349,7 @@ fr:
        6) Téléchargez votre image de chef-d’œuvre à l’aide du bouton Choisir un fichier, taille maximale de l’image 300x400 px. Ne vous inquiétez pas, vous pouvez modifier les recettes à tout moment.<br>
     edit_recipe: Modifier la recette
     max_pic_size: Taille maximale de l'image %{mb} megabytes
+    rec_pic_size: La taille d'image recommandée est 1366 x 768px
     new_title: Créer une nouvelle recette
     question_about_this_recipe: Question sur cette recette? demande moi! cliquez ici
     return_to_recipes_listing: Retour à la liste des recettes
