@@ -53,6 +53,7 @@
       </div>
       </div>
       </div>
+    <% unless @recipe.is_draft %>
         <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
           <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
@@ -137,3 +138,5 @@
     <% end %>
   </h5>
 </center>
+
+<% end %>

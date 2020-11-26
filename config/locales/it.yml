@@ -336,6 +336,7 @@ it:
        4) Variabili, se presenti:<br>
        5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu<br>
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.<br>
+    drafts: Borradores de recetas
     edit_recipe: Modifica questa ricetta
     max_pic_size: Immagine dimensione max %{mb} megabyte
     rec_pic_size: La dimensione dell'immagine consigliata è 1366 x 768px
@@ -343,7 +344,8 @@ it:
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
-    show_all_recipes: lista delle ricette
+    show_all_recipes: Lista delle ricette
+    show_all_drafts: Lista delle bozze
     summary_placeholder: |-
       Breve descrizione del piatto
       Tempo di preparazione - Suggerisci una bevanda

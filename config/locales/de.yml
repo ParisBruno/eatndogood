@@ -303,6 +303,7 @@ de:
        4) Variablen, falls vorhanden:<br>
        5) Wählen Sie einen Stil oder eine Zutat oder erstellen Sie einen neuen Stil oder eine neue Zutat in der Menüleiste<br>
        6) Laden Sie Ihr Meisterwerk Bild mit der Schaltfläche Datei auswählen, maximale Bildgröße 300x400 px<br>
+    drafts: Rezeptentwürfe
     edit_recipe: Bearbeiten Sie dieses Rezept
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: Die empfohlene Bildgröße ist 1366 x 768px
@@ -310,6 +311,8 @@ de:
     question_about_this_recipe: Frage zu diesem Rezept? Frag mich! Klick hier
     return_to_recipes_listing: Zurück zur Rezeptliste
     save_submit: Klicken Sie hier, um Ihr Meisterwerk zu speichern
+    show_all_recipes: Alle Rezepte anzeigen
+    show_all_drafts: Alle Entwürfe anzeigen
     summary_placeholder: |-
       Short Dish Beschreibung
       Zubereitungszeit - Trinkempfehlung

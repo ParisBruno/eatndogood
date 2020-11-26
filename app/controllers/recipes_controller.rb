@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
   def index
     flash.discard
     if params[:filter]
-      @recipes = Recipe.where(chef_id:@chef_ids).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
       if params[:allergen_ids]
         selected_allergens = params[:allergen_ids].map(&:to_i)
         allergens = Allergen.where(id: selected_allergens)
@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       end
     else
       # @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
-      @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
     end
   end
   
@@ -36,12 +36,15 @@ class RecipesController < ApplicationController
     @style = @recipe.styles.build
     @allergen = @recipe.allergens.build
     @ingredient = @recipe.ingredients.build
+    # byebug
     @categories = Category.all
   end
   
   def create
-    @recipe = Recipe.new(recipe_params)
-    @recipe.chef_id = current_app_user.chef_info.id
+    name = recipe_params["name_#{params['recipe']['locale']}"]
+    @recipe = Recipe.find_or_initialize_by(name: name, chef_id: current_app_user.chef_info.id)
+    @recipe.assign_attributes(recipe_params)
+    @recipe.is_draft = false
     if @recipe.save
       # upload_images
       delete_draft
@@ -68,11 +71,11 @@ class RecipesController < ApplicationController
   end
   
   def update
-    
+    @recipe.is_draft = false
     if @recipe.update(recipe_params)
       # upload_images
       make_tags
-      delete_draft(@recipe)
+      delete_draft
       flash[:success] = "Recipe was updated successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
@@ -95,6 +98,10 @@ class RecipesController < ApplicationController
       flash[:danger] = "You can only like/dislike a recipe once"
       redirect_back fallback_location: app_path(current_app)
     end
+  end
+
+  def drafts
+    @recipes = Recipe.where(chef_id: @chef_ids, is_draft: true).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
   end
   
   private
@@ -176,9 +183,9 @@ class RecipesController < ApplicationController
       else
         url =  "/#{current_app.slug}/recipes/#{recipe.id}"
       end
-      as = current_app.autosaves.where(form: url).first
+      as = current_app.autosaves.where(form: url)
       if as
-        as.destroy
+        as.destroy_all
       end
     end
 end

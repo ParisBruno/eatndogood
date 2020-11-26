@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_230540) do
+ActiveRecord::Schema.define(version: 2020_11_25_224829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,8 +360,9 @@ ActiveRecord::Schema.define(version: 2020_11_20_230540) do
     t.datetime "updated_at", null: false
     t.integer "chef_id"
     t.text "summary"
-    t.decimal "price", precision: 5, scale: 2, default: "0.0"
+    t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.bigint "subcategory_id"
+    t.boolean "is_draft", default: false
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 

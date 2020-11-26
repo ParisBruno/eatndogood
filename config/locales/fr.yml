@@ -347,6 +347,7 @@ fr:
        4) Variables, le cas échéant:<br>
        5) Sélectionnez un style ou un ingrédient ou créez-en un nouveau dans la barre de menus.<br>
        6) Téléchargez votre image de chef-d’œuvre à l’aide du bouton Choisir un fichier, taille maximale de l’image 300x400 px. Ne vous inquiétez pas, vous pouvez modifier les recettes à tout moment.<br>
+    drafts: Brouillons de recettes
     edit_recipe: Modifier la recette
     max_pic_size: Taille maximale de l'image %{mb} megabytes
     rec_pic_size: La taille d'image recommandée est 1366 x 768px
@@ -354,7 +355,8 @@ fr:
     question_about_this_recipe: Question sur cette recette? demande moi! cliquez ici
     return_to_recipes_listing: Retour à la liste des recettes
     save_submit: Cliquez ici pour sauvegarder votre chef-d'œuvre
-    show_all_recipes: 'Voir toutes les recettes '
+    show_all_recipes: Voir toutes les recettes
+    show_all_drafts: Voir toutes les brouillons
     summary_placeholder: |-
       Description courte de la recette,
       Temps de préparation - Suggestion de boisson

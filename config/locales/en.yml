@@ -348,6 +348,7 @@ en:
        4) Variables, if any:<br>
        5) Select a style or ingredient, or create a new style or an ingredient in menu bar<br>
        6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. D'ont worry about making mistakes you can edit the recipes anytime.<br>
+    drafts: Recipe Drafts
     edit_recipe: Edit Recipe
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: The recommended picture size is 1366 x 768px
@@ -356,6 +357,7 @@ en:
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
     show_all_recipes: Showing all recipes
+    show_all_drafts: Showing all drafts
     summary_placeholder: |-
       Short Dish Description
       Preparation Time - Drink Suggestion

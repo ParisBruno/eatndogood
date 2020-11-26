@@ -135,7 +135,7 @@
         <div class="form-group recepie-menu">
           <div class="col-md-12">
             <%= f.label :category, t('recipes.category') %>
-            <%= f.select :subcategory_id, option_groups_from_collection_for_select(@categories, :subcategories, :name, :id, :name) %>
+            <%= f.select :subcategory_id, option_groups_from_collection_for_select(@categories, :subcategories, :name, :id, :name, @recipe.subcategory_id) %>
           </div>
         </div>
         <div class="recepie-menu btn">

@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     delete 'coupon_codes/:code_id', to: "chefs#destroy_coupon", as: "coupon_codes"
     post 'fundrasing_codes', to: "chefs#add_fundrasing", as: "add_fundrasing_codes"
     delete 'fundrasing_codes/:code_id', to: "chefs#destroy_fundrasing", as: "fundrasing_codes"
+    get 'recipe_drafts', to: "recipes#drafts", as: "recipe_drafts"
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs

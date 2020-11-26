@@ -181,7 +181,11 @@
           <td class="order-button"><%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
         </tr>
         <tr>
-          <td class="order-button"><%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+          <%
+=begin%>
+ <td class="order-button"><%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td> 
+<%
+=end%>
         </tr>
         <tr>
           <td class="order-button" id="paypal-button-container" style="width: 160px;"></td>

@@ -1,3 +1,12 @@
-<%= render 'shared/page_title', title: t('recipes.new_title') %>
+<style>
+  .recipe-draft {
+    width: 90%;
+    margin-left: 5%;
+  }
+</style>
 
+<%= render 'shared/page_title', title: t('recipes.new_title') %>
+<div class="col-md-12">
+  <%= button_to t('recipes.drafts'), app_recipe_drafts_path(current_app), class: "recipe-draft btn btn-primary btn-lg", method: :get, disabled: current_app_user.chef_info.recipes.where(is_draft: true).empty? %>
+</div>
 <%= render 'form' %>
