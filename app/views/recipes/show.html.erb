@@ -96,18 +96,26 @@
             <br>
             <% if @recipe.is_reservation_enable %>
               <h3>
-                <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
+<%
+=begin%>
+ <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
                   <%= t('reservations.make_reservation')%>
-                </a>
+                </a> 
+<%
+=end%>
               </h3>
               <% end %>
               <br/>
               <br/>
               <% if @recipe.is_ask_catering_enable %>
                 <h3>
-                  <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
+<%
+=begin%>
+ <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
                     <%= t('reservations.make_catering') %>
-                  </a>
+                  </a> 
+<%
+=end%>
                 </h3>
                 <% end %>
                 <br/>

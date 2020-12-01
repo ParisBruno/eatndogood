@@ -40,6 +40,7 @@ en:
     product_tax: Recipe's tax
     edit_profile: Edit profile
     edit_your_profile: Edit Your Profile
+    admin_panel: Admin panel
     go_back_to_chef_list: Go Back To Chef List
     new_contributor: New Contributor
     note_chefname_must_be_url_friendly: 'Note: Chefname must be url friendly like:

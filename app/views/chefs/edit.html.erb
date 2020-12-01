@@ -1,3 +1,7 @@
-<%= render 'shared/page_title', title: "Edit your profile" %>
+<% 
+  title = t('chefs.edit_your_profile')
+  title = t('chefs.admin_panel') if current_app_user.admin?
+%>
+<%= render 'shared/page_title', title: title %>
 
 <%= render 'form' %>

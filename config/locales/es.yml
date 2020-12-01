@@ -37,6 +37,7 @@ es:
     product_tax: Impuesto a la receta
     edit_profile: Editar perfil
     edit_your_profile: Edite su perfil
+    admin_panel: Panel de administrador
     go_back_to_chef_list: Volver a la lista del chef
     new_contributor: Nuevo colaborador
     note_chefname_must_be_url_friendly: 'Nota: Chefname debe ser amigable para la

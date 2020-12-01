@@ -39,7 +39,8 @@ fr:
     delivery_price: Prix de livraison
     product_tax: Taxe de recette
     edit_profile: Editer le profil
-    edit_your_profile: Edit Your Profile
+    edit_your_profile: Modifier votre profil
+    admin_panel: Panneau d'administration
     go_back_to_chef_list: Retour à la liste des chefs
     new_contributor: Nouveau contributeur
     note_chefname_must_be_url_friendly: 'Remarque: Le nom du chef doit être convivial,
