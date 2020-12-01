@@ -66,7 +66,7 @@
   #quantity {
     text-align: center;
     font-size: 1.5em;
-    margin-left: 50px;
+    margin-left: 40%;
     vertical-align: middle; 
   }
   .fa-sort-down {
@@ -184,6 +184,7 @@
     </thead>
     <tbody>
     <% @current_cart.line_items.order(:created_at).each do |line_item| %>
+      <% unless line_item.recipe.is_draft %>
       <tr>
         <td colspan="5">
           <h4><%= line_item.recipe.name %></h4>
@@ -207,6 +208,7 @@
         <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
         <td class="remove-item"><%= button_to "x", line_item_path(line_item), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
       </tr>
+      <% end %>
     <% end %>
     </tbody>
   </table>
@@ -251,8 +253,8 @@
 </div>
 
 <script type="text/javascript">
-    var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
-    var stripe = Stripe(publishableKey);
+    // var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
+    // var stripe = Stripe(publishableKey);
     var checkoutCoupon = document.getElementById("coupon_input");
     
     checkoutCoupon.addEventListener("change", function () {

@@ -41,10 +41,14 @@ class RecipesController < ApplicationController
   end
   
   def create
-    name = recipe_params["name_#{params['recipe']['locale']}"]
+    selected_locale = params['recipe']['locale']
+    name = recipe_params["name_#{selected_locale}"]
     @recipe = Recipe.find_or_initialize_by(name: name, chef_id: current_app_user.chef_info.id)
     @recipe.assign_attributes(recipe_params)
-    @recipe.is_draft = false
+    @recipe.name = name
+    @recipe.summary = recipe_params["summary_#{selected_locale}"]
+    @recipe.description = recipe_params["description_#{selected_locale}"]
+    @recipe.is_draft = true if params['commit'] == t('recipes.save_draft')
     if @recipe.save
       # upload_images
       delete_draft
@@ -71,7 +75,11 @@ class RecipesController < ApplicationController
   end
   
   def update
-    @recipe.is_draft = false
+    if params['commit'] == t('recipes.save_submit')
+      @recipe.is_draft = false
+    elsif params['commit'] == t('recipes.save_draft')
+      @recipe.is_draft = true
+    end
     if @recipe.update(recipe_params)
       # upload_images
       make_tags
@@ -171,7 +179,7 @@ class RecipesController < ApplicationController
     end
     
     def require_user_like
-      if !user_signed_in?
+      if !app_user_signed_in?
         flash[:danger] = "You must be logged in to perform that action"
         redirect_to :back
       end

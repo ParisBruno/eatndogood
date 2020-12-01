@@ -58,6 +58,7 @@ de:
     all_recipes: Alle Rezepte
     chef: Koch
     chefs: Köche
+    drafts: Brouillons
     confirm: Bist du sicher?
     created_x_hours_ago: 'erstellt: %{x} vor'
     here: Hier
@@ -311,6 +312,7 @@ de:
     question_about_this_recipe: Frage zu diesem Rezept? Frag mich! Klick hier
     return_to_recipes_listing: Zurück zur Rezeptliste
     save_submit: Klicken Sie hier, um Ihr Meisterwerk zu speichern
+    save_draft: Als Entwurf speichern
     show_all_recipes: Alle Rezepte anzeigen
     show_all_drafts: Alle Entwürfe anzeigen
     summary_placeholder: |-

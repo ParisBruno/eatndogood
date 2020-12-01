@@ -236,9 +236,11 @@ class ApplicationController < ActionController::Base
     @total_delivery = 0
     @total_tax = 0
     @current_cart.line_items.each do |line_item|
-      item_tax = line_item.quantity * line_item.recipe.price * (line_item.recipe.chef.user.product_tax/100)
-      @total_tax += item_tax
-      users << line_item.recipe.chef.user
+      unless line_item.recipe.is_draft
+        item_tax = line_item.quantity * line_item.recipe.price * (line_item.recipe.chef.user.product_tax/100)
+        @total_tax += item_tax
+        users << line_item.recipe.chef.user
+      end
     end
     users.uniq.each { |user| @total_delivery += user.delivery_price }
 

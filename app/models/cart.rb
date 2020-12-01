@@ -11,7 +11,7 @@ class Cart < ApplicationRecord
   def sub_total
     sum = 0
     self.line_items.each do |line_item|
-      sum+= line_item.total_price
+      sum+= line_item.total_price unless line_item.recipe.is_draft
     end
     return sum
   end

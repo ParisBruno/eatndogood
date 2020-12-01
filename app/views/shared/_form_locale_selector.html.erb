@@ -20,7 +20,18 @@ $(function() {
   hideAllExpect(locales, locale, elem)
   $('#<%=model%>_locale').change(function(){
     var selected_locale = $(this).val()
-    console.log(selected_locale)
+    var localeSelect = document.getElementById("recipe_locale");
+    var option;
+
+    for (var i=0; i<localeSelect.options.length; i++) {
+      option = localeSelect.options[i];
+      if (option.value == selected_locale) {
+        option.setAttribute('selected', 'selected');
+      } 
+      else {
+        option.removeAttribute('selected');
+      }
+    }
     hideAllExpect(locales, selected_locale, elem)
   })
 });

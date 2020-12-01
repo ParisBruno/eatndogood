@@ -141,7 +141,8 @@
         <div class="recepie-menu btn">
           <bold><%= t('recipes.max_pic_size', mb: 5) %></bold>
           
-          <%= f.submit(t('recipes.save_submit'), class: "btn btn-success btn-lg") %>
+          <%= f.submit t('recipes.save_submit'), class: "btn btn-success btn-lg", id: "save-button" %>
+          <%= f.submit t('recipes.save_draft'), class: "btn btn-outline-success btn-lg", id: "draft-button" %>
         </div>
       </div>
     <% end %>
@@ -209,8 +210,24 @@
   </div>
 
 <script type="text/javascript">
+  var draftButton = document.getElementById("draft-button");
+  var saveButton = document.getElementById("save-button");
 
+  saveButton.disabled = true;
+  draftButton.disabled = true;
 
+  document.body.addEventListener("mouseup", function () {
+    var currentLocale = document.getElementById("recipe_locale");
+    var recipeName = document.getElementById("recipe_name_" + currentLocale.value);
+    var recipeDescription = document.getElementById("recipe_description_" + currentLocale.value);
+    if (recipeName.value.length > 2 && recipeDescription.value.length > 0) {
+        saveButton.disabled = false;
+        draftButton.disabled = false;
+    } else {
+        saveButton.disabled = true;
+        draftButton.disabled = true;
+    }
+  })
 
   $(document).ready(function() {
     $("footer").removeClass('fixed-footer');

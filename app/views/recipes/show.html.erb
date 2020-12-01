@@ -53,10 +53,12 @@
       </div>
       </div>
       </div>
-    <% unless @recipe.is_draft %>
+
+      <% unless @recipe.is_draft %> 
         <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
           <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
+      <% end %> 
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
       <% if @recipe.food_image.attached? %>
@@ -79,7 +81,8 @@
 
 <br>
 
-<% if current_app_user.present? && session[:user_role] != 'super_admin' %>
+<% unless @recipe.is_draft %> 
+  <% if current_app_user.present? && session[:user_role] != 'super_admin' %>
   <div class="recipes-q">
  
     <center>
@@ -127,7 +130,8 @@
      
     </center>
   </div>
-<% end %>
+  <% end %>
+<% end %> 
 
 <center>
   <h5>
@@ -138,5 +142,3 @@
     <% end %>
   </h5>
 </center>
-
-<% end %>

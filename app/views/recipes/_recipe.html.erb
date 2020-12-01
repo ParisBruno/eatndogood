@@ -2,13 +2,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--div class="login-header">< render 'shared/page_title', title: "All Recipes" ></div-->
 <% 
-@hide_chef_tab = '';
-if @recipes.nil? 
-  @recipes = !@chef_recipes.nil? ? @chef_recipes : @ingredient_recipes
-  @hide_chef_tab = 'none';
-end
-
+  @hide_chef_tab = '';
+  if @recipes.nil? 
+    @recipes = !@chef_recipes.nil? ? @chef_recipes : @ingredient_recipes
+    @hide_chef_tab = 'none';
+  end
 %>
+
 <% if @display_flash %>
   <%#= render 'layouts/messages' %>
   <%= flash_toastr %> 
@@ -21,11 +21,14 @@ end
 
 <div class="col-md-12 margin-sec">
   <ul class="nav nav-tabs">
-    <li class="active">
+    <li class="<%= "active" unless @recipes.first&.is_draft %>">
       <%= link_to t('common.all_recipes'), app_recipes_path(app: current_app), {:style=>'font-size:20px'} %>
     </li>
     <li style="display: <%= @hide_chef_tab %>">
-      <%= link_to t('common.chefs'), app_chefs_path(app: current_app), {:style=>'font-size:20px'} %>
+      <%= link_to t('navigation.team'), app_chefs_path(app: current_app), {:style=>'font-size:20px'} %>
+    </li>
+    <li class="<%= "active" if @recipes.first&.is_draft %>">
+      <%= link_to t('common.drafts'), app_recipe_drafts_path(app: current_app), {:style=>'font-size:20px'} %>
     </li>
   </ul>
 </div>

@@ -68,7 +68,12 @@ class ChefsController < ApplicationController
 
   def add_coupon
     coupon_code = CouponCode.find_or_initialize_by(title: params[:coupon_code][:title], chef_id: current_app_user.chef_info.id)
-    coupon_code.assign_attributes(coupon_percent_off: params[:coupon_code][:coupon_percent_off], is_active: params[:coupon_code][:is_active])
+    coupon_percent_off = if params[:coupon_code][:coupon_percent_off].present?
+                           params[:coupon_code][:coupon_percent_off]
+                         else
+                           0
+                         end
+    coupon_code.assign_attributes(coupon_percent_off: coupon_percent_off, is_active: params[:coupon_code][:is_active])
     coupon_code.save!
 
     redirect_to edit_app_chef_path(current_app, current_app_user)

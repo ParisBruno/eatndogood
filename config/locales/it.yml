@@ -57,6 +57,7 @@ it:
     all_recipes: Tutte le ricette
     chef: Chef
     chefs: Chefs
+    drafts: Bozze
     confirm: Sei sicuro?
     created_x_hours_ago: 'creato: %{x} fa'
     here: Qui
@@ -344,6 +345,7 @@ it:
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
+    save_draft: Salva come bozza
     show_all_recipes: Lista delle ricette
     show_all_drafts: Lista delle bozze
     summary_placeholder: |-

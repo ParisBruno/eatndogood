@@ -57,6 +57,7 @@ es:
     all_recipes: toda las recetas
     chef: Chef
     chefs: Chefs
+    drafts: Borradores
     confirm: "¿Estás seguro?"
     created_x_hours_ago: 'creado: %{x} hace'
     here: aquí
@@ -329,6 +330,7 @@ es:
       aquí
     return_to_recipes_listing: Volver a la lista de recetas
     save_submit: Haga clic aquí para guardar su obra maestra
+    save_draft: Guardar como borrador
     show_all_recipes: Mostrando todas las recetas
     show_all_drafts: Mostrando todos los borradores
     summary_placeholder: |-

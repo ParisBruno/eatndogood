@@ -62,6 +62,7 @@ en:
     back: Back
     chef: Chef
     chefs: Chefs
+    drafts: Drafts
     confirm: Are you sure?
     created_x_hours_ago: 'created: %{x} ago'
     here: here
@@ -356,6 +357,7 @@ en:
     question_about_this_recipe: Question about this recipe? ask me! click here
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
+    save_draft: Save as Draft
     show_all_recipes: Showing all recipes
     show_all_drafts: Showing all drafts
     summary_placeholder: |-

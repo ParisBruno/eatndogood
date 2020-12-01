@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch" %>
-    <%= javascript_include_tag "https://js.stripe.com/v3/" %>
+    <%
+=begin%>
+ <%= javascript_include_tag "https://js.stripe.com/v3/" %> 
+<%
+=end%>
     <link rel="shortcut icon" type="image/png" href="/iTR-favicon 516x2.jpg"/>
     <!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
