@@ -37,7 +37,7 @@ gem 'hirb'
 gem "interactor-rails", "~> 2.0"
 gem 'image_processing', '~> 1.2'
 gem 'activestorage-validator'
-gem "font-awesome-rails",github: "bokmann/font-awesome-rails", branch: "master"
+gem "font-awesome-rails" #,github: "bokmann/font-awesome-rails", branch: "master"
 
 gem "aws-sdk-s3", require: false
 gem 'stripe'
