@@ -192,6 +192,7 @@ fr:
     new_ingredient: Créer un nouvel Ingredient
     new_style: Créer un nouveau style
     password: Mot de passe
+    password_confirmation: Confirmation mot de passe
     password_digest: Mot de passe condensé
     return_to_list: Cliquez ici pour voir la list complete, modifier et supprimer
     return_to_recipes: Annuler et retourner à la liste des recettes

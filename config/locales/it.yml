@@ -171,6 +171,7 @@ it:
     new_ingredient: Crea un nuovo ingrediente
     new_style: Create New Style
     password: Password
+    password_confirmation: Conferma Password
     password_digest: Password digest
     return_to_list: Fare clic qui per visualizzare l&#39;elenco completo e per modificarlo
       o eliminarlo

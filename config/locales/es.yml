@@ -163,6 +163,7 @@ es:
     new_ingredient: Crea un nuevo ingrediente
     new_style: Create New Style
     password: Contraseña
+    password_confirmation: Confirmación de Contraseña
     password_digest: Resumen de contraseña
     return_to_list: Haga clic aquí para ver la lista completa y editar o eliminar
     return_to_recipes: Cancel request and return to recipes listing

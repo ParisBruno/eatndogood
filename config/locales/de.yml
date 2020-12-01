@@ -166,6 +166,7 @@ de:
     new_ingredient: Erstellen Sie eine neue Zutat
     new_style: Create New Style
     password: Passwort
+    password_confirmation: Passwort Bestätigung
     password_digest: Passwort-Digest
     return_to_list: Klicken Sie hier, um die vollständige Liste anzuzeigen und zu
       bearbeiten oder zu lösche

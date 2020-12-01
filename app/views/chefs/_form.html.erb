@@ -115,10 +115,10 @@
         </div>
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :password, t('forms.password') %>
+            <%= f.label :password_confirmation, t('forms.password_confirmation') %>
           </div>
           <div class="col-md-8">
-            <%= f.password_field :password, class: "form-control", placeholder: t('forms.choose_password') %>
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.choose_password') %>
           </div>
         </div>
       <% if current_app_user.admin? %>
