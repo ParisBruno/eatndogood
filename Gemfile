@@ -54,6 +54,7 @@ gem 'country_select', '~> 4.0'
 gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'repost', '~> 0.3.4'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

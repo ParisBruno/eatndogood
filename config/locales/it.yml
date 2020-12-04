@@ -80,6 +80,32 @@ it:
     styles_colon: 'Stile:'
     take_a_tour_as_guest: Fai un tour come ospite
     updated_x_hours_ago: 'aggiornato: %{x} fa'
+  gift_cards:
+    create_card_number: Creeremo un numero ID della carta, invieremo un'e-card elegante al destinatario e ti copieremo.
+    gift_from: A partire dal
+    gift_to: Per
+    gift_name: Nome
+    gift_email: Email
+    gift_reenter_email: Inserisci nuovamente l'email
+    may_take: Potrebbero essere necessarie fino a 24-48 ore.
+    other_amount: Altro importo
+    purchase_fee: Verrà applicata una commissione di acquisto di $ 3,95 per carta
+    send_inbox: Invia una copia alla tua casella di posta
+    select_value: Seleziona Valore della carta
+    shopping: Continua a fare acquisti
+    description:
+      personal_message:
+        html: <b>Immettere il messaggio personale</b>
+      personal_message_not_html: <b>I messaggi personali NON possono:</b>
+      personal_message_first: Sii sessualmente esplicito o allusivo, inutilmente violento o dispregiativo di qualsiasi professione etnica, razziale, di genere, religiosa.
+      personal_message_second: Sii offensivo, approva qualsiasi forma di odio o gruppo di odio.
+      personal_message_third: Non è possibile promuovere o rappresentare attività che possono sembrare pericolose o pericolose, o qualsiasi programma o messaggio politico particolare
+    description_placeholder: |2-
+       Immettere il messaggio personale
+          I messaggi personali NON possono:
+            Sii sessualmente esplicito o allusivo, inutilmente violento o dispregiativo di qualsiasi professione etnica, razziale, di genere, religiosa.
+            Sii offensivo, approva qualsiasi forma di odio o gruppo di odio.
+            Non è possibile promuovere o rappresentare attività che possono sembrare pericolose o pericolose, o qualsiasi programma o messaggio politico particolare
   errors:
     email_content_blank: Il contenuto dell'email non può essere vuoto!
     image_atleas_dimensions: Per favore fornisci un' immagine di almeno queste dimensioni
@@ -115,6 +141,7 @@ it:
     problem_in_rendering: C'è qualche problema nel rendering!
     recipe_removed: Ricetta rimossa con successo!
     recipe_add_to_cart: La ricetta è stata aggiunta con successo al tuo carrello!
+    gift_add_to_cart: La carta regalo è stata aggiunta con successo al tuo carrello!
     send_note_with_your_thoughts: Bene! invia una nota con i tuoi pensieri
     style_removed: Stile rimosso con successo!
     success_stripe_payment: L'ordine è stato pagato con successo

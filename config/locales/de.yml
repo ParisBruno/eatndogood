@@ -80,6 +80,32 @@ de:
     styles_colon: 'der Stil:'
     take_a_tour_as_guest: Machen Sie eine Tour als Gast
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
+  gift_cards:
+    create_card_number: Wir erstellen eine Karten-ID-Nummer, senden eine elegante E-Card per E-Mail an den Empfänger und kopieren Sie.
+    gift_from: Von
+    gift_to: Zu
+    gift_name: Name
+    gift_email: Email
+    gift_reenter_email: E-Mail erneut eingeben
+    may_take: Kann bis zu 24-48 Stunden dauern.
+    other_amount: Andere Menge
+    purchase_fee: Es wird eine Kaufgebühr von $3,95 pro Karte erhoben
+    send_inbox: Senden Sie eine Kopie an Ihren Posteingang
+    select_value: Wählen Sie Kartenwert
+    shopping: Mit dem Einkaufen fortfahren
+    description:
+      personal_message:
+        html: <b>Geben Sie eine persönliche Nachricht ein</b>
+      personal_message_not_html: <b>Persönliche Nachrichten dürfen NICHT:</b>
+      personal_message_first: Seien Sie sexuell explizit oder suggestiv, unnötig gewalttätig oder abwertend gegenüber ethnischen, rassischen, geschlechtsspezifischen, religiösen oder beruflichen Aspekten.
+      personal_message_second: Sei beleidigend, unterstütze jede Form von Hass oder Hassgruppe.
+      personal_message_third: Aktivitäten, die unsicher oder gefährlich erscheinen, oder eine bestimmte politische Agenda oder Botschaft können nicht beworben oder dargestellt werden
+    description_placeholder: |2-
+       Geben Sie eine persönliche Nachricht ein
+          Persönliche Nachrichten dürfen NICHT:
+            Seien Sie sexuell explizit oder suggestiv, unnötig gewalttätig oder abwertend gegenüber ethnischen, rassischen, geschlechtsspezifischen, religiösen oder beruflichen Aspekten.
+            Sei beleidigend, unterstütze jede Form von Hass oder Hassgruppe.
+            Aktivitäten, die unsicher oder gefährlich erscheinen, oder eine bestimmte politische Agenda oder Botschaft können nicht beworben oder dargestellt werden
   errors:
     email_content_blank: E-Mail-Inhalt darf nicht leer sein!
     image_at_least_dimensions: Bitte geben Sie das Bild atleast %{dims} Dimensionen
@@ -112,6 +138,7 @@ de:
     problem_in_rendering: Beim Rendern gibt es einige Probleme!
     recipe_removed: Rezept erfolgreich entfernt!
     recipe_add_to_cart: Das Rezept wurde erfolgreich in Ihren Warenkorb gelegt!
+    gift_add_to_cart: Geschenkkarte wurde erfolgreich in Ihren Warenkorb gelegt!
     send_note_with_your_thoughts: Großartig! Senden Sie eine Notiz mit Ihren Toughts
     style_removed: Stil erfolgreich entfernt!
     success_stripe_payment: Die Bestellung wurde erfolgreich bezahlt

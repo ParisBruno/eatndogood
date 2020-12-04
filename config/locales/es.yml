@@ -80,6 +80,32 @@ es:
     styles_colon: 'el estilo:'
     take_a_tour_as_guest: toma un recorrido como un invitado
     updated_x_hours_ago: 'updated: %{x} ago'
+  gift_cards:
+    create_card_number: Crearemos un número de identificación de la tarjeta, enviaremos por correo electrónico una elegante tarjeta electrónica al destinatario y le copiaremos.
+    gift_from: Desde
+    gift_to: A
+    gift_name: Nombre
+    gift_email: Email
+    gift_reenter_email: Volver a introducir correo electrónico
+    may_take: Puede tardar entre 24 y 48 horas.
+    other_amount: Otra cantidad
+    purchase_fee: Se aplicará una tarifa de compra de $ 3.95 por tarjeta
+    send_inbox: Envíe una copia a su bandeja de entrada
+    select_value: Seleccione el valor de la tarjeta
+    shopping: Seguir comprando
+    description:
+      personal_message:
+        html: <b>Ingrese su mensaje personal</b>
+      personal_message_not_html: <b>Los mensajes personales NO pueden:</b>
+      personal_message_first: Ser sexualmente explícito o sugerente, innecesariamente violento o despectivo de cualquier profesión étnica, racial, de género, religiosa.
+      personal_message_second: Sea ofensivo, respalde cualquier forma de odio o grupo de odio.
+      personal_message_third: No se puede promover ni representar ninguna actividad que pueda parecer insegura o peligrosa, o cualquier agenda o mensaje político en particular.
+    description_placeholder: |2-
+       Ingrese su mensaje personal
+          Los mensajes personales NO pueden:
+            Ser sexualmente explícito o sugerente, innecesariamente violento o despectivo de cualquier profesión étnica, racial, de género, religiosa.
+            Sea ofensivo, respalde cualquier forma de odio o grupo de odio.
+            No se puede promover ni representar ninguna actividad que pueda parecer insegura o peligrosa, o cualquier agenda o mensaje político en particular.
   errors:
     email_content_blank: "¡El contenido del correo electrónico no puede estar en blanco!"
     image_atleas_dimensions: Por favor, proporcione imágenes al menos %{dims} dimensiones!
@@ -112,6 +138,7 @@ es:
     problem_in_rendering: "¡Hay algún problema en la prestación!"
     recipe_removed: Receta eliminado con éxito!
     recipe_add_to_cart: La receta se agregó correctamente a su carrito!
+    gift_add_to_cart: La tarjeta de regalo se agregó correctamente a su carrito!
     send_note_with_your_thoughts: "¡Genial! envía una nota con tus pensamientos"
     style_removed: Estilo eliminado con éxito!
     success_stripe_payment: El pedido se pagó con éxito

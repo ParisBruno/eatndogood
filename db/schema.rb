@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_224829) do
+ActiveRecord::Schema.define(version: 2020_12_04_121513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,21 @@ ActiveRecord::Schema.define(version: 2020_11_25_224829) do
     t.index ["chef_id"], name: "index_fundrasing_codes_on_chef_id"
   end
 
+  create_table "gift_cards", force: :cascade do |t|
+    t.string "name"
+    t.string "purchaser_name"
+    t.string "purchaser_email"
+    t.string "client_name"
+    t.string "client_email"
+    t.text "description"
+    t.decimal "price", precision: 8, scale: 2, default: "0.0"
+    t.datetime "last_used_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_gift_cards_on_user_id"
+  end
+
   create_table "ingredient_translations", force: :cascade do |t|
     t.integer "ingredient_id", null: false
     t.string "locale", null: false
@@ -199,12 +214,14 @@ ActiveRecord::Schema.define(version: 2020_11_25_224829) do
 
   create_table "line_items", force: :cascade do |t|
     t.integer "quantity", default: 1
-    t.bigint "recipe_id", null: false
-    t.bigint "cart_id", null: false
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "gift_card_id"
+    t.bigint "recipe_id"
+    t.bigint "cart_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["gift_card_id"], name: "index_line_items_on_gift_card_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["recipe_id"], name: "index_line_items_on_recipe_id"
   end
@@ -490,13 +507,12 @@ ActiveRecord::Schema.define(version: 2020_11_25_224829) do
   add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
   add_foreign_key "coupon_codes", "chefs"
   add_foreign_key "fundrasing_codes", "chefs"
+  add_foreign_key "gift_cards", "users"
   add_foreign_key "ingredients", "apps"
   add_foreign_key "ingredients", "apps", name: "ingredients_app_id_fk"
   add_foreign_key "likes", "apps"
   add_foreign_key "likes", "apps", name: "likes_app_id_fk"
   add_foreign_key "likes", "recipes", name: "likes_recipe_id_fk"
-  add_foreign_key "line_items", "carts"
-  add_foreign_key "line_items", "recipes"
   add_foreign_key "mail_attachments", "email_contents", name: "mail_attachments_email_content_id_fk"
   add_foreign_key "messages", "chefs", name: "messages_chef_id_fk"
   add_foreign_key "page_previews", "pages"

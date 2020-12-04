@@ -100,7 +100,32 @@ en:
       country: 'Country (optional)'
       password: 'Password'
       password_confirmation: 'Password Confirmation'
-        
+  gift_cards:
+    create_card_number: We will create a card ID number, email an elegant e-card to the recipient and copy you.
+    gift_from: From
+    gift_to: To
+    gift_name: Name
+    gift_email: Email
+    gift_reenter_email: Re-enter Email
+    may_take: May take up to 24-48 hours.
+    other_amount: Other amount
+    purchase_fee: A $3.95 purchase fee per card will apply
+    send_inbox: Send a copy to your inbox
+    select_value: Select Card Value
+    shopping: Continue Shopping
+    description:
+      personal_message:
+        html: <b>Enter Personal Message</b>
+      personal_message_not_html: <b>Personal messages may NOT:</b>
+      personal_message_first: Be sexually explicit or suggestive, unnecessarily violent or derogatory of any ethnic, racial, gender, religious, profession.
+      personal_message_second: Be offensive, endorse any form of hate or hate group.
+      personal_message_third: Cannot promote or portray any activities that may appear unsafe or dangerous, or any particular political agenda or message
+    description_placeholder: |2-
+       Enter Personal Message
+          Personal messages may NOT:
+            Be sexually explicit or suggestive, unnecessarily violent or derogatory of any ethnic, racial, gender, religious, profession.
+            Be offensive, endorse any form of hate or hate group.
+            Cannot promote or portray any activities that may appear unsafe or dangerous, or any particular political agenda or message
   errors:
     email_content_blank: Email content can not be blank!
     image_atleas_dimensions: Please provide image atleast %{dims} dimensions!
@@ -130,6 +155,7 @@ en:
     problem_in_rendering: There is some problem in rendering!
     recipe_removed: Recipe removed successfully!
     recipe_add_to_cart: Recipe was successfully added to your cart!
+    gift_add_to_cart: Gift Card was successfully added to your cart!
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Style removed successfully!
     success_stripe_payment: The order was successfully paid

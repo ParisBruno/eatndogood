@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     end
     resources :carts, only: %i[show destroy]
     resources :orders
+    resources :gift_cards, only: %i[new create]
   end
   resources :charges
   post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'

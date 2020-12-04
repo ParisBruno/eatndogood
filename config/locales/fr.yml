@@ -100,6 +100,32 @@ fr:
       country: 'Pays (optionel)'
       password: 'Mot de passe'
       password_confirmation: 'Confirmation de mot de passe'
+  gift_cards:
+    create_card_number: Nous créerons un numéro d'identification de carte, enverrons une carte électronique élégante au destinataire et vous copierons.
+    gift_from: De
+    gift_to: À
+    gift_name: Nom
+    gift_email: Email
+    gift_reenter_email: Entrez à nouveau l'e-mail
+    may_take: Peut prendre jusqu'à 24 à 48 heures.
+    other_amount: Autre montant
+    purchase_fee: Des frais d'achat de 3,95 $ par carte s'appliqueront
+    send_inbox: Envoyez une copie dans votre boîte de réception
+    select_value: Sélectionnez la valeur de la carte
+    shopping: Continuer vos achats
+    description:
+      personal_message:
+        html: <b>Entrez un message personnel</b>
+      personal_message_not_html: <b>Les messages personnels ne peuvent PAS:</b>
+      personal_message_first: Être sexuellement explicite ou suggestif, inutilement violent ou désobligeant à l'égard de toute profession ethnique, raciale, sexuelle, religieuse ou religieuse.
+      personal_message_second: Soyez offensant, approuvez toute forme de haine ou de groupe haineux.
+      personal_message_third: Ne peut pas promouvoir ou décrire des activités qui peuvent sembler dangereuses ou dangereuses, ou tout programme ou message politique particulier
+    description_placeholder: |2-
+       Entrez un message personnel
+          Les messages personnels ne peuvent PAS:
+            Être sexuellement explicite ou suggestif, inutilement violent ou désobligeant à l'égard de toute profession ethnique, raciale, sexuelle, religieuse ou religieuse.
+            Soyez offensant, approuvez toute forme de haine ou de groupe haineux.
+            Ne peut pas promouvoir ou décrire des activités qui peuvent sembler dangereuses ou dangereuses, ou tout programme ou message politique particulier  
   errors:
     email_content_blank: Le contenu des emails ne peut pas être vide!
     image_atleas_dimensions: Please provide image atleast %{dims} dimensions!
@@ -133,6 +159,7 @@ fr:
     problem_in_rendering: Il y a un problème de rendu!
     recipe_removed: Recette supprimée avec succès!
     recipe_add_to_cart: La recette a bien été ajoutée à votre panier!
+    gift_add_to_cart: La carte cadeau a bien été ajoutée à votre panier!
     send_note_with_your_thoughts: Génial! envoyer une note avec vos pensées
     style_removed: Style supprimé avec succès!
     success_stripe_payment: La commande a été payée avec succès

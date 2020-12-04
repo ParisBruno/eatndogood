@@ -92,8 +92,7 @@
                 <%= t('recipes.question_about_this_recipe') %>
               </a>
             </h3>
-            <br>
-            <br>
+
             <% if @recipe.is_reservation_enable %>
               <h3>
 <%
@@ -105,8 +104,7 @@
 =end%>
               </h3>
               <% end %>
-              <br/>
-              <br/>
+
               <% if @recipe.is_ask_catering_enable %>
                 <h3>
 <%
@@ -118,9 +116,10 @@
 =end%>
                 </h3>
                 <% end %>
-                <br/>
-                <br/>
+
           <% end %>
+
+          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "180x100"), new_app_gift_card_path(current_app) %></h3>
           
           <%= render 'shared_links' %>
 

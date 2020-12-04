@@ -1,0 +1,152 @@
+<style>
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  td {
+    text-align: center;
+    align: center;
+  }
+  td img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    max-height: 340px;
+  }
+  .gift-label {
+    padding: 5px;
+    margin-right: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .gift-input {
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    width: 80%;
+    font-size: 14px;
+  }
+  .gift-textarea {
+    font-size: 12px;
+    width: 90% !important;
+    margin-left: 5% !important;
+  }
+  .select-price {
+    text-align: center !important;
+    font-size: 14px !important;
+  }
+  .other-price {
+    text-align: center !important;
+  }
+  .other-price-input {
+    width: 200px;
+    font-size: 14px;
+    padding: 3px;
+    text-align: center !important;
+    align: center !important;
+  }
+  .label-price {
+    text-align: center !important;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  select { 
+    width: 250px; 
+    text-align-last:center; 
+    padding: 5px;
+  }
+  .buy-button {
+    border: double #46db68;
+    font-size: 16px;
+  }
+  .send-button {
+    border: double #44cde3;
+    font-size: 16px;
+  }
+  .shop-button {
+    border: double #60aaf7;
+    font-size: 16px;
+  }
+</style>
+  <div class="row">
+    <%= form_for(@gift_card, url: app_gift_cards_path(current_app), html: { method: :post }) do |f| %>
+      <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
+        <div class="col-md-8 well box-content">
+
+        <table>
+          <tr>
+            <td colspan="6"><%= image_tag('gift_card.png', size: "600x340") %></td>
+          </tr>
+          <tr>
+            <td class="label-price" colspan="6">
+              <p class="label-price"><b><%= t('gift_cards.select_value') %></b></p>
+              <p class="select-price"><%= f.select :price, [['$10', '10'], ['$25', '25'], ['$50', '50'], ['$75', '75'], ['$100', '100'], ['$150', '150'], ['$200', '200'], ['$250', '250'], ['$300', '300'], [t('gift_cards.other_amount'), 'other']], class: "form-control gift-input" %></p>
+              <p class="other-price"><%= f.number_field :other_price, class: "other-price-input", id: "other-price-id", step: 1, min: 0, max: 10000 %></p>
+              <p class="select-price"><%= t('gift_cards.purchase_fee') %></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="gift-label"><%= t('gift_cards.gift_from') %>: </td>
+            <td colspan="5" class="gift-input"><%= f.text_field :purchaser_name, required: true, autofocus: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_name'), required: true %></td>
+          </tr>
+          <tr>
+            <td class="gift-label"></td>
+            <td colspan="5" class="gift-input"><%= f.email_field :purchaser_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_email'), required: true %></td>
+          </tr>
+          <tr>
+            <td class="gift-label"><%= t('gift_cards.gift_to') %>: </td>
+            <td colspan="5" class="gift-input"><%= f.text_field :client_name, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_name'), required: true %></td>
+          </tr>
+          <tr>
+            <td class="gift-label"></td>
+            <td colspan="5" class="gift-input"><%= f.email_field :client_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_email'), required: true %></td>
+          </tr>
+          <tr>
+            <td class="gift-label"></td>
+            <td colspan="5" class="gift-input"><%= f.email_field :confrim_client_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_reenter_email'), required: true %></td>
+          </tr>
+          <tr>
+            <td colspan="6"><%= f.text_area :description, class: "form-control gift-textarea", placeholder: t('gift_cards.description_placeholder') %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"><%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg' %></td>
+            <td colspan="2"><%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %></td>
+            <td colspan="2"><%= link_to t('gift_cards.shopping'), app_recipes_path(current_app), class: 'shop-button btn btn-primary btn-lg' %></td>
+          </tr>
+
+          <tr>
+            <td colspan="6">
+              <p class="label-price"><%= t('gift_cards.create_card_number') %></p>
+              <p class="label-price"><%= t('gift_cards.may_take') %></p>
+            </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+<script type="text/javascript">
+    var giftSelect = document.getElementById("gift_card_price");
+    var otherPrice = document.getElementById("other-price-id");
+
+    otherPrice.setAttribute("type", "hidden");
+    otherPrice.value = '0.0';
+
+    giftSelect.addEventListener("change", function () {
+      var giftSelect = document.getElementById("gift_card_price");
+      if (giftSelect.value == 'other') {
+          otherPrice.removeAttribute("type", "hidden");
+      } else {
+          otherPrice.setAttribute("type", "hidden");
+          otherPrice.value = '0.0';
+      }
+    });
+</script>

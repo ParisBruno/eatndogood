@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
     @order.amount = amount
     @order.paypal_token = @@paypal_token
     @order.paypal_status = @@paypal_status
-
+    @order.save!
     if params['cash'].present?
       create_cash_or_paypal_order(@order, 'cash')
     elsif params['stripe'].present?
