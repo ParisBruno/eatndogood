@@ -13,8 +13,8 @@ class GiftCardsController < ApplicationController
 
     @gift_card = GiftCard.create!(user_id: current_app_user.id,
                                     price: price,
-                                    purchaser_name: gift_card_params[:purchaser_name],
-                                    purchaser_email: gift_card_params[:purchaser_email],
+                                    purchaser_name: current_app_user.full_name,
+                                    purchaser_email: current_app_user.email,
                                     client_name: gift_card_params[:client_name],
                                     client_email: gift_card_params[:client_email],
                                     description: gift_card_params[:description]
@@ -32,6 +32,6 @@ class GiftCardsController < ApplicationController
   end
 
   def gift_card_params
-    params.require(:gift_card).permit(:price, :other_price, :purchaser_name, :purchaser_email, :client_name, :client_email, :confrim_client_email, :description)
+    params.require(:gift_card).permit(:price, :other_price, :client_name, :client_email, :confrim_client_email, :description)
   end
 end

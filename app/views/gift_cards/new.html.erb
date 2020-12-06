@@ -31,6 +31,14 @@
     width: 80%;
     font-size: 14px;
   }
+  .gift-from {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px;
+    margin: 5px;
+    text-align: center !important;
+    width: 80%;
+  }
   .gift-textarea {
     font-size: 12px;
     width: 90% !important;
@@ -92,11 +100,11 @@
           </tr>
           <tr>
             <td class="gift-label"><%= t('gift_cards.gift_from') %>: </td>
-            <td colspan="5" class="gift-input"><%= f.text_field :purchaser_name, required: true, autofocus: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_name'), required: true %></td>
+            <td colspan="5"><p class="gift-from"><%= current_app_user.full_name %></p></td>
           </tr>
           <tr>
             <td class="gift-label"></td>
-            <td colspan="5" class="gift-input"><%= f.email_field :purchaser_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_email'), required: true %></td>
+            <td colspan="5"><p class="gift-from"><%= current_app_user.email %></p></td>
           </tr>
           <tr>
             <td class="gift-label"><%= t('gift_cards.gift_to') %>: </td>
@@ -107,7 +115,7 @@
             <td colspan="5" class="gift-input"><%= f.email_field :client_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_email'), required: true %></td>
           </tr>
           <tr>
-            <td class="gift-label"></td>
+            <td class="gift-label" id="confirm-email-error" style="color: red; font-size: 12px;"></td>
             <td colspan="5" class="gift-input"><%= f.email_field :confrim_client_email, required: true, class: "form-control gift-input", placeholder: t('gift_cards.gift_reenter_email'), required: true %></td>
           </tr>
           <tr>
@@ -115,7 +123,7 @@
           </tr>
 
           <tr>
-            <td colspan="2"><%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg' %></td>
+            <td colspan="2"><%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg', id: 'cart-button' %></td>
             <td colspan="2"><%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %></td>
             <td colspan="2"><%= link_to t('gift_cards.shopping'), app_recipes_path(current_app), class: 'shop-button btn btn-primary btn-lg' %></td>
           </tr>
@@ -137,6 +145,11 @@
     var giftSelect = document.getElementById("gift_card_price");
     var otherPrice = document.getElementById("other-price-id");
 
+    var addCartButton = document.getElementById("cart-button");
+    var confirmEmailField = document.getElementById("confirm-email-error");
+
+    addCartButton.disabled = true;
+
     otherPrice.setAttribute("type", "hidden");
     otherPrice.value = '0.0';
 
@@ -149,4 +162,20 @@
           otherPrice.value = '0.0';
       }
     });
+
+    document.querySelectorAll('#gift_card_client_email, #gift_card_confrim_client_email').forEach(event => {
+    event.addEventListener('change', () => {
+      
+      var giftEmail = document.getElementById("gift_card_client_email");
+      
+      var giftConfirm = document.getElementById("gift_card_confrim_client_email");
+      if (giftEmail.value === giftConfirm.value) {
+        addCartButton.disabled = false;
+        confirmEmailField.innerHTML = "";
+      } else {
+        addCartButton.disabled = true;
+        confirmEmailField.innerHTML = "Email doesn't match";
+      }
+    })
+    })
 </script>
