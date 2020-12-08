@@ -83,6 +83,7 @@ en:
     styles: Styles
     styles_colon: 'Styles:'
     take_a_tour_as_guest: Take a tour as Guest
+    add_to_home_screen: Add App to Home-Screen
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Welcome guest, your info is private and safe"
@@ -294,6 +295,7 @@ en:
     list_products: List of products
     send: send
     cash: Pay with Cash
+    gift_card: Pay your Gift Card
     stripe: Pay with Stripe
     full_name: Full name
     email: Email

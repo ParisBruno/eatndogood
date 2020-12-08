@@ -265,7 +265,9 @@
                 </div>
                 <div class="welcome-locale-selector">
                     <form>
-                      <%= render partial: 'shared/locale_selector' %>
+                        <% unless params[:app] == "dogoodeatwell" %>
+                            <%= render partial: 'shared/locale_selector' %>
+                        <% end %>
                       <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
                           <%=link_to 'Enter', about_app_pages_path(current_app), class: "btn-enter" %>
                           <% elsif current_app_user.present? %>

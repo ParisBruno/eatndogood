@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1 style="font-size:16px"><b><%= @gift_card.purchaser_name %></b> sent your a Gift Card on <%= link_to 'MyTopRecipes.com', root_url + @app %>.</h1>
+    <br>
+    <h1 style="font-size:14px">Click here to enjoy your Gift Card: <%= link_to 'MyTopRecipes.com', root_url + @app %></h1>
+
+    <div class="gift-card" style="background-image: url('<%= root_url + image_path('gift-card-email.jpg') %>'); border-radius: 12px; width: 480px; height: 280px; padding: 5px; margin: 8px; border: solid 1px black; font-family: Arial Narrow, sans-serif;">
+        <p style="font-size:48px; font-weight:500; color: white; padding: 0; margin: 0; padding-top: 5px; padding-left: 5px;">Gift Card</p>
+        <p style="font-size:22px; color: white; padding: 0; margin: 0; padding-left: 5px;"><%= @gift_card.name %></p>
+        <p style="font-size:22px; color: white; padding: 0; margin: 0; padding-top: 40px; padding-left: 5px;">From: <b><%= @gift_card.purchaser_name %></b></p>
+        <p style="font-size:22px; color: white; padding: 0; margin: 0; padding-top: 20px; padding-left: 5px;">To: <b><%= @gift_card.client_name %></b></p>
+        <p style="font-size:48px; font-weight:500; text-align: right; color: white; padding: 0; margin: 0; padding-top: 20px; padding-right: 5px;"><%= number_to_currency(@gift_card.price) %></p>
+    </div>
+    
+  </body>
+</html>

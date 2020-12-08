@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
     set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], 
                               params[:coupon_percent_off], params[:tip_value])
     @order = Order.new
+    @gift_card = GiftCard.where(client_email: current_app_user.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
   end
 
   def create
@@ -31,11 +32,13 @@ class OrdersController < ApplicationController
     @order.paypal_status = @@paypal_status
     @order.save!
     if params['cash'].present?
-      create_cash_or_paypal_order(@order, 'cash')
+      create_cash_gift_paypal_order(@order, 'cash')
     elsif params['stripe'].present?
       create_stripe_order(@order, @current_cart, amount)
+    elsif params['gift_card'].present?
+      create_cash_gift_paypal_order(@order, 'gift_card', order_params[:gift_card_id], @total_amount)
     else
-      create_cash_or_paypal_order(@order, 'paypal')
+      create_cash_gift_paypal_order(@order, 'paypal')
     end
   end
 
@@ -102,12 +105,21 @@ class OrdersController < ApplicationController
 
   private
 
-  def create_cash_or_paypal_order(order, pay_method)
+  def create_cash_gift_paypal_order(order, pay_method, gift_card_id = nil, total_amount = nil)
     order.pay_method = pay_method
     order.save!
 
+    @gift_card = GiftCard.find_by(id: gift_card_id)
+    @gift_card&.reduce_price(total_amount)
+
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
+
+    if order.line_items.where.not(gift_card_id: nil).present?
+      order.line_items.pluck(:gift_card_id).compact.each do |gift_card_id|
+        UserMailer.buy_gift_card_email(gift_card_id, current_app.slug).deliver_later
+      end
+    end
 
     flash[:success] = I18n.t 'flash.success_stripe_payment'
     redirect_to app_recipes_path(current_app)
@@ -173,7 +185,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:name, :email, :phone, :address, :coupon_code,
-                                  :delivery_price, :coupon_percent_off, :tip_value)
+                                  :delivery_price, :coupon_percent_off, :tip_value, :gift_card_id)
   end
 
   def set_delivery_discount_tip(delivery_price, coupon_code, coupon_percent_off, tip_value)

@@ -58,6 +58,7 @@
   .order-button {
     border: none;
     float: right;
+    padding-bottom: 10px;
   }
   .email-to {
     border: none;
@@ -190,6 +191,10 @@
           <td class="order-button"><%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
         </tr>
         <tr>
+        <% if @gift_card.present? %>
+          <%= f.hidden_field :gift_card_id, value: @gift_card.id %>
+          <td class="order-button"><%= f.submit t('orders.gift_card'), name: "gift_card", class: "btn btn-info btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+        <% end %>
           <%
 =begin%>
  <td class="order-button"><%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td> 

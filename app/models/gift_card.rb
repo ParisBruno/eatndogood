@@ -5,4 +5,10 @@ class GiftCard < ApplicationRecord
   
   belongs_to :user
   has_many :line_items, dependent: :destroy
+
+  def reduce_price(amount)
+    self.price = self.price - amount
+    self.last_used_date = DateTime.now
+    self.save
+  end
 end

@@ -23,6 +23,14 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'Guest registered notification')
 	end
 
+	def buy_gift_card_email(gift_card_id, app)
+		@app = app
+		@gift_card = GiftCard.find_by(id: gift_card_id)
+		@gift_card.is_active = true
+		@gift_card.save!
+		mail(to: @gift_card.user.email, subject: 'Present Gift Card!')
+	end
+
 	def chef_create_email(chef,password,admin,url)
 		@chef  = chef
 		@password  = password

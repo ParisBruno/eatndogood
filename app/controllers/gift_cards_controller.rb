@@ -19,7 +19,7 @@ class GiftCardsController < ApplicationController
                                     client_email: gift_card_params[:client_email],
                                     description: gift_card_params[:description]
                                   )
-    @gift_card.name = generate_name(@gift_card.id)
+    @gift_card.name = generate_name
     @gift_card.save!
 
     redirect_post line_items_path(gift_card_id: @gift_card.id)
@@ -27,8 +27,18 @@ class GiftCardsController < ApplicationController
 
   private
 
-  def generate_name(gift_card_id)
-    'MYTR' + format('%04d', gift_card_id)
+  def generate_name
+    date = Date.current.strftime("%m%d%y")
+    today_gift_cards = GiftCard.where('name LIKE ?', "EnDG#{date}%")
+    if today_gift_cards.empty?
+      'EnDG' + date + '01'
+    else
+      last_today_gift = today_gift_cards.last
+      next_today_gift = last_today_gift.name.last(2).to_i + 1
+      next_today_gift_to_string = next_today_gift.to_s
+      next_today_gift_to_string = '0' + next_today_gift_to_string if next_today_gift_to_string.length == 1
+      'EnDG' + date + next_today_gift_to_string
+    end
   end
 
   def gift_card_params
