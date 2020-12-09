@@ -79,6 +79,7 @@ it:
     styles: Stile
     styles_colon: 'Stile:'
     take_a_tour_as_guest: Fai un tour come ospite
+    add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
   gift_cards:
     create_card_number: Creeremo un numero ID della carta, invieremo un'e-card elegante al destinatario e ti copieremo.
@@ -280,6 +281,7 @@ it:
     list_products: Elenco dei prodotti
     send: spedire
     cash: Paga in contanti
+    gift_card: Paga la tua Gift Card
     stripe: Paga con Stripe
     full_name: Nome e cognome
     email: Email

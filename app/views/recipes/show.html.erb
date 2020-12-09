@@ -1,4 +1,7 @@
 <style>
+  .recipe-summary {
+    word-wrap: break-word;
+  }
   .buy-button {
     margin-top: 10px;
     float: right;
@@ -32,8 +35,8 @@
         <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
       </h2>
 
-      <h2>
-        <%= @recipe.summary&.html_safe %>
+      <h2 class="recipe-summary">
+        <%= raw(@recipe.summary) %>
       </h2>
 
       <div class="well-sec u-content">

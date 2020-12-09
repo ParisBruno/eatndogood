@@ -79,6 +79,7 @@ es:
     styles: el estilo
     styles_colon: 'el estilo:'
     take_a_tour_as_guest: toma un recorrido como un invitado
+    add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
   gift_cards:
     create_card_number: Crearemos un número de identificación de la tarjeta, enviaremos por correo electrónico una elegante tarjeta electrónica al destinatario y le copiaremos.
@@ -266,6 +267,7 @@ es:
     list_products: Lista de productos
     send: enviar
     cash: Pagar en efectivo
+    gift_card: Paga tu tarjeta regalo
     stripe: Pagar con Stripe
     full_name: Nombre completo
     email: Correo electrónico

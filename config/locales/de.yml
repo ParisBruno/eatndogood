@@ -79,6 +79,7 @@ de:
     styles: der Stil
     styles_colon: 'der Stil:'
     take_a_tour_as_guest: Machen Sie eine Tour als Gast
+    add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
   gift_cards:
     create_card_number: Wir erstellen eine Karten-ID-Nummer, senden eine elegante E-Card per E-Mail an den Empfänger und kopieren Sie.
@@ -269,6 +270,7 @@ de:
     list_products: Produktliste
     send: senden
     cash: Bezahle mit Bargeld
+    gift_card: Zahlen Sie Ihre Geschenkkarte
     stripe: Bezahlen mit Stripe
     full_name: Vollständiger Name
     email: Email

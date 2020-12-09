@@ -117,7 +117,7 @@ class OrdersController < ApplicationController
 
     if order.line_items.where.not(gift_card_id: nil).present?
       order.line_items.pluck(:gift_card_id).compact.each do |gift_card_id|
-        UserMailer.buy_gift_card_email(gift_card_id, current_app.slug).deliver_later
+        UserMailer.buy_gift_card_email(gift_card_id, current_app.id).deliver_later
       end
     end
 

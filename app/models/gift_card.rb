@@ -11,4 +11,9 @@ class GiftCard < ApplicationRecord
     self.last_used_date = DateTime.now
     self.save
   end
+
+  def to_active
+    self.is_active = true
+    self.save
+  end
 end

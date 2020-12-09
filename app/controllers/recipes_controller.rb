@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
   def index
     flash.discard
     if params[:filter]
-      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
       if params[:allergen_ids]
         selected_allergens = params[:allergen_ids].map(&:to_i)
         allergens = Allergen.where(id: selected_allergens)
@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       end
     else
       # @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
-      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
     end
   end
   
@@ -109,7 +109,7 @@ class RecipesController < ApplicationController
   end
 
   def drafts
-    @recipes = Recipe.where(chef_id: @chef_ids, is_draft: true).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
+    @recipes = Recipe.where(chef_id: @chef_ids, is_draft: true).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
   end
   
   private

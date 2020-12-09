@@ -84,6 +84,7 @@ fr:
     styles: la mode
     styles_colon: 'la mode:'
     take_a_tour_as_guest: Faites un tour en tant qu'invité
+    add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Bienvenue invité, vos informations sont privées et en sécurité"
@@ -304,6 +305,7 @@ fr:
     list_products: Liste des produits
     send: envoyer
     cash: Payer en espèces
+    gift_card: Payez votre carte cadeau
     stripe: Payer avec Stripe
     full_name: Nom complet
     email: Email
