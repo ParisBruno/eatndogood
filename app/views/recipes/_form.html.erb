@@ -216,6 +216,17 @@
   saveButton.disabled = true;
   draftButton.disabled = true;
 
+  var currentLocaleLoad = document.getElementById("recipe_locale");
+  var recipeNameLoad = document.getElementById("recipe_name_" + currentLocaleLoad.value);
+  var recipeDescriptionLoad = document.getElementById("recipe_description_" + currentLocaleLoad.value);
+  if (recipeNameLoad.value.length > 2 && recipeDescriptionLoad.value.length > 0) {
+      saveButton.disabled = false;
+      draftButton.disabled = false;
+  } else {
+      saveButton.disabled = true;
+      draftButton.disabled = true;
+  }
+
   document.body.addEventListener("mouseup", function () {
     var currentLocale = document.getElementById("recipe_locale");
     var recipeName = document.getElementById("recipe_name_" + currentLocale.value);
