@@ -94,7 +94,7 @@
       <tr>
         <th style='width: 25%'>
           <button type="button" class="btn btn-primary sendEmails"><%= t 'forms.send_emails' %></button>
-          <button type="button" class="btn btn-primary sendEmails" id="sendAll"><%= t 'forms.send_all_emails' %></button>
+          <button type="button" class="btn btn-primary" id="sendAll"><%= t 'forms.send_all_emails' %></button>
           <button type="button" class="btn btn-primary sendEmails" id="export"><%= t 'forms.export' %></button>
         </th>
         <th><%= t 'forms.s_no' %></th>
@@ -244,12 +244,18 @@
 
   
   $('#sendAll').on('click', function() {
-    $('#send_all').val(1);
-    $("input[type=checkbox]").prop('checked',true);
-    var  emails = $("input[type=checkbox]:checked").map(function () {
+    var atLeastOneIsChecked = $('input[type=checkbox]:checked').length;
+    
+    if (atLeastOneIsChecked > 0) {
+      $("input[type=checkbox]").prop('checked',false);
+    } else {
+      $('#send_all').val(1);
+      $("input[type=checkbox]").prop('checked',true);
+      var  emails = $("input[type=checkbox]:checked").map(function () {
         return $(this).data('email');
-    }).get();
-    sendEmail(emails);
+      }).get();
+      sendEmail(emails);
+    }    
   });
 
   function sendEmail(email) {
