@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myrecipes</title>
+  <%= app_title = 'Myrecipes' %>
+  <%= app_title = 'EatNDoGood' if request.domain.include? 'eatndogood' %>
+    <title><%= app_title %></title>
     <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
