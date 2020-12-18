@@ -588,8 +588,8 @@ section.chef_info.center h2 a:hover {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 1.5;
     border: 0;} 
-.margin-sec .image-box-shadow {    height: 220px;}
-.margin-sec .image-box-shadow img {height: 100% !important;}
+/* .margin-sec .image-box-shadow {    height: 220px;} */
+/* .margin-sec .image-box-shadow img {height: 100% !important;} */
 
 
 @media (max-width: 480px) {   
@@ -602,10 +602,10 @@ section.chef_info.center h2 a:hover {
     }
 .margin-sec .top-space .col-img {  width: 100%!important; margin-top: 0!important;  margin-right: 0!important; margin: 0;}
 .margin-sec .top-space .col-img .image-box-shadow { height: auto;  width: 100%; float: left; margin-left: 0; margin-right: 0; margin-top: 10px;}
-.margin-sec.top-recepi .thumb {    width: 100%;
+/* .margin-sec.top-recepi .thumb {    width: 100%;
     float: left; margin: 0 0% 20px 0%; overflow: hidden;
-    height: 290px!important; min-height: 290px;}
-.margin-sec.top-recepi .thumb img { min-height: 290px!important;}
+    height: 290px!important; min-height: 290px;} */
+/* .margin-sec.top-recepi .thumb img { min-height: 290px!important;} */
 .recipes-q h3 a { font-size: 17px; padding: 0 20px;}
 .recipe-detail .thumb-sec .image-box-shadow {    width: 100%;
     float: left;

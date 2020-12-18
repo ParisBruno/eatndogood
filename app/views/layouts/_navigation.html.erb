@@ -3,6 +3,10 @@
   font-size: 12px;
   font-weight: bold;
 }
+.cart-btn {
+  padding-top: 3% !important;
+  margin-bottom: -88px !important;
+}
 </style>
 <!-- <nav class="navbar navbar-default"> -->
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -145,7 +149,7 @@
       </div>
     </div>
     
-    <ul class="nav navbar-nav">
+    <ul class="cart-btn nav navbar-nav">
       <li class="dropdown nav-item">
         <%= button_to t('recipes.my_cart'), app_cart_path(current_app, id: @current_cart.id), class: "btn btn-purple", method: :get, disabled: @current_cart.line_items.count == 0 %>
       </li>
