@@ -12957,18 +12957,18 @@ section.chef_info.center h2 a:hover {
     }
 .margin-sec .top-space .col-img {  width: 100%!important; margin-top: 0!important;  margin-right: 0!important; margin: 0;}
 .margin-sec .top-space .col-img .image-box-shadow { height: auto;  width: 100%; float: left; margin-left: 0; margin-right: 0; margin-top: 10px;}
-.margin-sec.top-recepi .thumb {    width: 100%;
+/* .margin-sec.top-recepi .thumb {    width: 100%;
     float: left; margin: 0 0% 20px 0%; overflow: hidden;
     height: 290px!important; min-height: 290px;}
-.margin-sec.top-recepi .thumb img { min-height: 290px!important;}
+.margin-sec.top-recepi .thumb img { min-height: 290px!important;} */
 .recipes-q h3 a { font-size: 17px; padding: 0 20px;}
-.recipe-detail .thumb-sec .image-box-shadow {    width: 100%;
+/* .recipe-detail .thumb-sec .image-box-shadow {    width: 100%;
     float: left;
     margin: 0 0% 20px 0%;
     overflow: hidden;
     height: 290px!important;
     min-height: 290px;}
-.recipe-detail .thumb-sec .image-box-shadow img { min-height: 290px!important;}
+.recipe-detail .thumb-sec .image-box-shadow img { min-height: 290px!important;} */
 
 .custom-alert.alert {font-size: 15px!important; font-weight: 600!important;}
 .delete-btn-type { width: 100%; float: left; margin-bottom: 30px;}
@@ -13062,7 +13062,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .chef-main h3 {font-size: 18px;}
 .top-space .col-md-8 { padding-left: 0; padding-right: 0;}
 .top-space .col-md-2 { padding-left: 0; padding-right: 0;}
-.top-space .box-inner-sec.box-content { min-height: 240px!important; display: inline-block;}
+.top-space .box-inner-sec.box-content { display: inline-block;}
     .custom-alert.alert { top: 80px!important;}
    .login-sec.reply-answer.well { width: 96%; float: none; margin: 0 auto; display: table!important; padding: 12px!important;}
 .update-section.margin-sec .box-content input[type="submit"] {    word-wrap: break-word;
