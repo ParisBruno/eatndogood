@@ -13,9 +13,12 @@
     font-size: 20px;
   }
   .index-buttons {
-    margin-top: 80px;
+    margin-top: 7%;
     display: inline-block;
     width:360px;
+  }
+  .recipe-summary-index {
+    word-wrap: break-word;
   }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,7 +83,7 @@
     <div class="box-inner-sec well box-content">
     
       <h2><%= link_to recipe.name, app_recipe_path(current_app, recipe) %></h2>
-      <div>
+      <div class='recipe-summary-index'>
         <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
           <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(current_app, recipe) } %>
         <% else %>
