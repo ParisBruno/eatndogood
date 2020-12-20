@@ -633,9 +633,9 @@ section.chef_info.center h2 a:hover {
 .top-space .col-img { width: 100%!important; float: left!important; margin: 0 0% 20px 0%!important; overflow: hidden; height: 420px!important;}
 .chef-full.bio-section .col-md-3 {width: 50%; float: left;}
 .chef-full.bio-section .col-md-9 {width: 50%; float: right;}
-.margin-sec.top-recepi .thumb {    width: 100%;
-    float: left; margin: 0 0% 20px 0%; overflow: hidden; height: 420px!important;}
-.margin-sec.top-recepi .thumb img { min-height: 420px;}
+.margin-sec.top-recepi .thumb {    width: 50%;
+    float: left; margin: 0 0% 20px 0%; overflow: hidden; height: 250px!important;}
+.margin-sec.top-recepi .thumb img { min-height: 220px;}
 
 header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .login-sec form input.btn {font-size: 12px!important;}
@@ -670,7 +670,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .recipe-detail .thumb-sec { float: left; width: 100%; margin: 0 0 20px 0;}
 .thumb-sec .image-box-shadow img {  max-height: 350px;  height: auto;}
 .recipe-detail .thumb-sec .image-box-shadow {height: auto;}
-.margin-sec .image-box-shadow img {max-height: 350px;}
+/* .margin-sec .image-box-shadow img {max-height: 350px;} */
 .top-space .col-md-8 { width: 100%; float: left; padding: 0;} 
 .top-space .col-md-2 {    width: 48%;
     float: left;
