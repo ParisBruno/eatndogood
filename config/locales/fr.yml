@@ -26,17 +26,21 @@ fr:
     update: Mettre à jour l'allergène
   chefs:
     add_chef: Ajouter un chef
-    add_chef_account: Ajouter un compte chef
+    add_chef_account: Créer un compte de membre de l'équipe
     add_chef_contributor: Ajouter un chef / contributeur
     add_summary_bio: Ajouter un résumé bio
     admin_chef_name_will_appear: "(Le nom d'utilisateur Admin / Chef apparaîtra sur
       la page d'accueil et le créateur des recettes dans toutes leurs recettes). "
+    cart_func: Fonctionnalités du panier
     change_your_pic: Change your pic
     confirm_delete_account: Êtes-vous sûr! Vous souhaitez effacer un utilisateur invité?
     create_account: 'Créer mon compte '
     delete_profile: Supprimer le profil
+    delivery_price: Prix de livraison
+    product_tax: Taxe de recette
     edit_profile: Editer le profil
-    edit_your_profile: Edit Your Profile
+    edit_your_profile: Modifier votre profil
+    admin_panel: Panneau d'administration
     go_back_to_chef_list: Retour à la liste des chefs
     new_contributor: Nouveau contributeur
     note_chefname_must_be_url_friendly: 'Remarque: Le nom du chef doit être convivial,
@@ -48,6 +52,9 @@ fr:
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
     x_chefs_remaining_html: "%{x}&nbsp; chefs restants pour ajouter! Veuillez mettre
       à jour votre compte en cliquant dessus %{link}"
+    coupon_title: Titre
+    coupon_percent_off: Pour cent de reduction(%)
+    coupon_active: C'est actif
   common:
     admin: Admin
     allergens: allergènes
@@ -56,6 +63,7 @@ fr:
     back: Retour
     chef: Chef
     chefs: Chefs
+    drafts: Brouillons
     confirm: Êtes-vous sûr?
     created_x_hours_ago: 'créé: %{x} depuis'
     here: here
@@ -76,6 +84,7 @@ fr:
     styles: la mode
     styles_colon: 'la mode:'
     take_a_tour_as_guest: Faites un tour en tant qu'invité
+    add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Bienvenue invité, vos informations sont privées et en sécurité"
@@ -92,6 +101,32 @@ fr:
       country: 'Pays (optionel)'
       password: 'Mot de passe'
       password_confirmation: 'Confirmation de mot de passe'
+  gift_cards:
+    create_card_number: Nous créerons un numéro d'identification de carte, enverrons une carte électronique élégante au destinataire et vous copierons.
+    gift_from: De
+    gift_to: À
+    gift_name: Nom
+    gift_email: Email
+    gift_reenter_email: Entrez à nouveau l'e-mail
+    may_take: Peut prendre jusqu'à 24 à 48 heures.
+    other_amount: Autre montant
+    purchase_fee: Des frais d'achat de 3,95 $ par carte s'appliqueront
+    send_inbox: Envoyez une copie dans votre boîte de réception
+    select_value: Sélectionnez la valeur de la carte
+    shopping: Continuer vos achats
+    description:
+      personal_message:
+        html: <b>Entrez un message personnel</b>
+      personal_message_not_html: <b>Les messages personnels ne peuvent PAS:</b>
+      personal_message_first: Être sexuellement explicite ou suggestif, inutilement violent ou désobligeant à l'égard de toute profession ethnique, raciale, sexuelle, religieuse ou religieuse.
+      personal_message_second: Soyez offensant, approuvez toute forme de haine ou de groupe haineux.
+      personal_message_third: Ne peut pas promouvoir ou décrire des activités qui peuvent sembler dangereuses ou dangereuses, ou tout programme ou message politique particulier
+    description_placeholder: |2-
+       Entrez un message personnel
+          Les messages personnels ne peuvent PAS:
+            Être sexuellement explicite ou suggestif, inutilement violent ou désobligeant à l'égard de toute profession ethnique, raciale, sexuelle, religieuse ou religieuse.
+            Soyez offensant, approuvez toute forme de haine ou de groupe haineux.
+            Ne peut pas promouvoir ou décrire des activités qui peuvent sembler dangereuses ou dangereuses, ou tout programme ou message politique particulier  
   errors:
     email_content_blank: Le contenu des emails ne peut pas être vide!
     image_atleas_dimensions: Please provide image atleast %{dims} dimensions!
@@ -124,8 +159,11 @@ fr:
     please_login_as_superadmin: Veuillez vous connecter en tant que super administrateur!
     problem_in_rendering: Il y a un problème de rendu!
     recipe_removed: Recette supprimée avec succès!
+    recipe_add_to_cart: La recette a bien été ajoutée à votre panier!
+    gift_add_to_cart: La carte cadeau a bien été ajoutée à votre panier!
     send_note_with_your_thoughts: Génial! envoyer une note avec vos pensées
     style_removed: Style supprimé avec succès!
+    success_stripe_payment: La commande a été payée avec succès
     user_already_registered: utilisateur déjà enregistré
     user_not_registered: utilisateur non enregistré
     user_registered_as_guest: Utilisateur déjà inscrit en tant qu'invité!
@@ -182,6 +220,7 @@ fr:
     new_ingredient: Créer un nouvel Ingredient
     new_style: Créer un nouveau style
     password: Mot de passe
+    password_confirmation: Confirmation mot de passe
     password_digest: Mot de passe condensé
     return_to_list: Cliquez ici pour voir la list complete, modifier et supprimer
     return_to_recipes: Annuler et retourner à la liste des recettes
@@ -239,7 +278,7 @@ fr:
     all_recipes: 'Toutes les recettes '
     chef_list: Liste des chefs
     chef_login: Connexion du chef
-    create_chef: Créer un compte chef
+    create_chef: Crea un account membro del team
     edit_profile: Editer le profil
     guest_invitation: Invitation Invité
     guest_list: Liste des invités
@@ -258,9 +297,26 @@ fr:
     recipes: Recettes
     sign_up: 'Inscrivez-vous '
     styles: La mode
+    team: Équipe
     update_about_us_page: Mise à jour à propos de nous
     update_welcome_page: Mettre à jour la page d'accueil
     view_profile: Voir le profil
+  orders: 
+    list_products: Liste des produits
+    send: envoyer
+    cash: Payer en espèces
+    gift_card: Payez votre carte cadeau
+    stripe: Payer avec Stripe
+    full_name: Nom complet
+    email: Email
+    phone: Téléphone
+    home_address: Adresse du domicile
+    subtotal: Soustotal
+    total: TOTAL
+    tax: Impôt
+    tip: Pointe
+    delivery: Livraison
+    discount: Remise de coupon
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture
@@ -323,19 +379,37 @@ fr:
        4) Variables, le cas échéant:<br>
        5) Sélectionnez un style ou un ingrédient ou créez-en un nouveau dans la barre de menus.<br>
        6) Téléchargez votre image de chef-d’œuvre à l’aide du bouton Choisir un fichier, taille maximale de l’image 300x400 px. Ne vous inquiétez pas, vous pouvez modifier les recettes à tout moment.<br>
+    drafts: Brouillons de recettes
     edit_recipe: Modifier la recette
     max_pic_size: Taille maximale de l'image %{mb} megabytes
+    rec_pic_size: La taille d'image recommandée est 1366 x 768px
     new_title: Créer une nouvelle recette
     question_about_this_recipe: Question sur cette recette? demande moi! cliquez ici
     return_to_recipes_listing: Retour à la liste des recettes
     save_submit: Cliquez ici pour sauvegarder votre chef-d'œuvre
-    show_all_recipes: 'Voir toutes les recettes '
+    save_draft: Enregistrer comme brouillon
+    show_all_recipes: Voir toutes les recettes
+    show_all_drafts: Voir toutes les brouillons
     summary_placeholder: |-
       Description courte de la recette,
       Temps de préparation - Suggestion de boisson
     tips_ingredients_preparation: 'Conseils, ingrédients et préparation:'
     upload_drink_pic: Télécharger une photo de boisson
     upload_food_pic: Télécharger une image de recette terminée
+    price: Prix
+    shared_links: Partagez avec vos amis et votre famille
+    add_to_cart: Ajouter au chariot
+    my_cart: Mon panier
+    product_name: Nom du produit
+    quantity: Quantité
+    sub_total: Sous total
+    home_delivery: Livraison à domicile
+    subtotal: Soustotal
+    total: Total
+    proceed_checkout: Passer à la caisse
+    empty_cart: Panier vide
+    coupone_code: Code de coupon
+    fundraising_code: Code de collecte de fonds
     write_name: Écrivez le nom de la recette
   reservations:
     make_catering: Posez des questions sur la restauration et les services personnels

@@ -24,16 +24,20 @@ de:
     title: Erstellen Sie ein neues Allergen
   chefs:
     add_chef: Fügen Sie Koch hinzu
-    add_chef_account: Kocherkonto hinzufügen
+    add_chef_account: Erstellen Sie ein Teammitgliedskonto
     add_chef_contributor: Füge Chef / Teilnehmer hinzu
     add_summary_bio: Zusammenfassung hinzufügen bio
     admin_chef_name_will_appear: "(Der Benutzername des Admin / Chefs wird in der
       ersten Seite und der Rezepte-Ersteller in allen Rezepten angezeigt)."
+    cart_func: Wagenfunktionen
     change_your_pic: Ändere dein Bild
     confirm_delete_account: Bist du sicher! Sie möchten das Kochkonto löschen?
     delete_profile: Profil löschen
+    delivery_price: Lieferpreis
+    product_tax: Rezeptsteuer
     edit_profile: Profil bearbeiten
     edit_your_profile: Bearbeite dein Profil
+    admin_panel: Administrationsmenü
     go_back_to_chef_list: Zurück zur Chef-Liste
     new_contributor: Neuer Mitwirkender
     note_chefname_must_be_url_friendly: 'Hinweis: Chefname muss url freundlich sein
@@ -45,6 +49,9 @@ de:
     write_few_words_about_yourself: Bitte schreibe ein paar Worte über dich.
     x_chefs_remaining_html: "%{x}&nbsp; Köche bleiben für hinzufügen! Bitte aktualisieren
       Sie Ihr Konto, indem Sie auf %{link}"
+    coupon_title: Titel
+    coupon_percent_off: Prozent aus(%)
+    coupon_active: Ist aktiv
   common:
     admin: Administrator
     allergens: Allergene
@@ -52,6 +59,7 @@ de:
     all_recipes: Alle Rezepte
     chef: Koch
     chefs: Köche
+    drafts: Brouillons
     confirm: Bist du sicher?
     created_x_hours_ago: 'erstellt: %{x} vor'
     here: Hier
@@ -71,7 +79,34 @@ de:
     styles: der Stil
     styles_colon: 'der Stil:'
     take_a_tour_as_guest: Machen Sie eine Tour als Gast
+    add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
+  gift_cards:
+    create_card_number: Wir erstellen eine Karten-ID-Nummer, senden eine elegante E-Card per E-Mail an den Empfänger und kopieren Sie.
+    gift_from: Von
+    gift_to: Zu
+    gift_name: Name
+    gift_email: Email
+    gift_reenter_email: E-Mail erneut eingeben
+    may_take: Kann bis zu 24-48 Stunden dauern.
+    other_amount: Andere Menge
+    purchase_fee: Es wird eine Kaufgebühr von $3,95 pro Karte erhoben
+    send_inbox: Senden Sie eine Kopie an Ihren Posteingang
+    select_value: Wählen Sie Kartenwert
+    shopping: Mit dem Einkaufen fortfahren
+    description:
+      personal_message:
+        html: <b>Geben Sie eine persönliche Nachricht ein</b>
+      personal_message_not_html: <b>Persönliche Nachrichten dürfen NICHT:</b>
+      personal_message_first: Seien Sie sexuell explizit oder suggestiv, unnötig gewalttätig oder abwertend gegenüber ethnischen, rassischen, geschlechtsspezifischen, religiösen oder beruflichen Aspekten.
+      personal_message_second: Sei beleidigend, unterstütze jede Form von Hass oder Hassgruppe.
+      personal_message_third: Aktivitäten, die unsicher oder gefährlich erscheinen, oder eine bestimmte politische Agenda oder Botschaft können nicht beworben oder dargestellt werden
+    description_placeholder: |2-
+       Geben Sie eine persönliche Nachricht ein
+          Persönliche Nachrichten dürfen NICHT:
+            Seien Sie sexuell explizit oder suggestiv, unnötig gewalttätig oder abwertend gegenüber ethnischen, rassischen, geschlechtsspezifischen, religiösen oder beruflichen Aspekten.
+            Sei beleidigend, unterstütze jede Form von Hass oder Hassgruppe.
+            Aktivitäten, die unsicher oder gefährlich erscheinen, oder eine bestimmte politische Agenda oder Botschaft können nicht beworben oder dargestellt werden
   errors:
     email_content_blank: E-Mail-Inhalt darf nicht leer sein!
     image_at_least_dimensions: Bitte geben Sie das Bild atleast %{dims} Dimensionen
@@ -103,8 +138,11 @@ de:
     please_login_as_superadmin: Bitte melden Sie sich als Super-Admin an!
     problem_in_rendering: Beim Rendern gibt es einige Probleme!
     recipe_removed: Rezept erfolgreich entfernt!
+    recipe_add_to_cart: Das Rezept wurde erfolgreich in Ihren Warenkorb gelegt!
+    gift_add_to_cart: Geschenkkarte wurde erfolgreich in Ihren Warenkorb gelegt!
     send_note_with_your_thoughts: Großartig! Senden Sie eine Notiz mit Ihren Toughts
     style_removed: Stil erfolgreich entfernt!
+    success_stripe_payment: Die Bestellung wurde erfolgreich bezahlt
     user_already_registered: Benutzer bereits registriert
     user_not_registered: Benutzer nicht registriert
     user_registered_as_guest: Benutzer bereits als Gast registriert!
@@ -156,6 +194,7 @@ de:
     new_ingredient: Erstellen Sie eine neue Zutat
     new_style: Create New Style
     password: Passwort
+    password_confirmation: Passwort Bestätigung
     password_digest: Passwort-Digest
     return_to_list: Klicken Sie hier, um die vollständige Liste anzuzeigen und zu
       bearbeiten oder zu lösche
@@ -207,6 +246,7 @@ de:
     allergens: Allergene
     chef_list: Chefliste
     chef_login: Koch Anmeldung
+    create_chef: Erstellen Sie ein Teammitgliedskonto
     edit_profile: Profil bearbeiten
     guest_invitation: Gasteinladung
     guest_list: Gästeliste
@@ -222,9 +262,26 @@ de:
     new_style: Neuer Stil
     recipes: Rezepte
     styles: der Stil
+    team: Mannschaft
     update_about_us_page: Update Über uns Seite
     update_welcome_page: Startseite aktualisieren
     view_profile: Profil anzeigen
+  orders: 
+    list_products: Produktliste
+    send: senden
+    cash: Bezahle mit Bargeld
+    gift_card: Zahlen Sie Ihre Geschenkkarte
+    stripe: Bezahlen mit Stripe
+    full_name: Vollständiger Name
+    email: Email
+    phone: Telefon
+    home_address: Heimatadresse
+    subtotal: Zwischensumme
+    total: GESAMT
+    tax: MwSt
+    tip: Trinkgeld($)
+    delivery: Lieferung
+    discount: Gutscheinrabatt
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!
@@ -278,18 +335,37 @@ de:
        4) Variablen, falls vorhanden:<br>
        5) Wählen Sie einen Stil oder eine Zutat oder erstellen Sie einen neuen Stil oder eine neue Zutat in der Menüleiste<br>
        6) Laden Sie Ihr Meisterwerk Bild mit der Schaltfläche Datei auswählen, maximale Bildgröße 300x400 px<br>
+    drafts: Rezeptentwürfe
     edit_recipe: Bearbeiten Sie dieses Rezept
     max_pic_size: Max picture size %{mb} megabytes
+    rec_pic_size: Die empfohlene Bildgröße ist 1366 x 768px
     new_title: Erstelle ein neues Meisterstück-Rezept
     question_about_this_recipe: Frage zu diesem Rezept? Frag mich! Klick hier
     return_to_recipes_listing: Zurück zur Rezeptliste
     save_submit: Klicken Sie hier, um Ihr Meisterwerk zu speichern
+    save_draft: Als Entwurf speichern
+    show_all_recipes: Alle Rezepte anzeigen
+    show_all_drafts: Alle Entwürfe anzeigen
     summary_placeholder: |-
       Short Dish Beschreibung
       Zubereitungszeit - Trinkempfehlung
     tips_ingredients_preparation: 'Tipps, Zutaten und Zubereitung:'
     upload_drink_pic: Laden Sie ein Getränk hoch
     upload_food_pic: Bild hochladen
+    price: Preis
+    shared_links: Teilen Sie mit Freunden & Familie
+    add_to_cart: In den Warenkorb legen
+    my_cart: Mein Warenkorb
+    product_name: Produktname
+    quantity: Menge
+    sub_total: Zwischensumme
+    home_delivery: Hauslieferung
+    subtotal: Zwischensumme
+    total: Gesamt
+    proceed_checkout: Zur Kasse
+    empty_cart: Leerer Warenkorb
+    coupone_code: Gutscheincode
+    fundraising_code: Fundraising-Code
     write_name: Schreibe den Rezeptnamen
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen

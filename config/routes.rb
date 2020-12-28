@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   post 'guests/create',to: "guests#create", as: 'guestCreation'
   delete 'guest/:id', to: 'guests#destroy', as: "destroy_guest"
 
+  post 'line_items/:id/add' => "carts#add_quantity", as: "line_item_add"
+  post 'line_items/:id/reduce' => "carts#reduce_quantity", as: "line_item_reduce"
+  post 'line_items' => "line_items#create"
+  get 'line_items/:id' => "line_items#show", as: "line_item"
+  delete 'line_items/:id' => "carts#destroy_item"
+
   # resources :chefs #, except: [:new]
   # resources :ingredients, except: [:destroy]
   # resources :styles, except: [:destroy]
@@ -65,6 +71,13 @@ Rails.application.routes.draw do
     end
     devise_for :users
     get '/', to: 'pages#welcome'
+    get 'add_additional_params', to: 'carts#add_additional_params'
+    get 'return_stripe', to: 'orders#return_stripe'
+    post 'coupon_codes', to: "chefs#add_coupon", as: "add_coupon_codes"
+    delete 'coupon_codes/:code_id', to: "chefs#destroy_coupon", as: "coupon_codes"
+    post 'fundrasing_codes', to: "chefs#add_fundrasing", as: "add_fundrasing_codes"
+    delete 'fundrasing_codes/:code_id', to: "chefs#destroy_fundrasing", as: "fundrasing_codes"
+    get 'recipe_drafts', to: "recipes#drafts", as: "recipe_drafts"
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
     resources :chefs
@@ -93,6 +106,15 @@ Rails.application.routes.draw do
         get 'about',   to: 'about'
       end
     end
+    resources :carts, only: %i[show destroy]
+    resources :orders
+    resources :gift_cards, only: %i[new create]
   end
-
+  resources :charges
+  post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'
+  post 'check-coupon', to: 'carts#check_coupon'
+  post 'check-delivery', to: 'carts#check_delivery'
+  post 'check-tip', to: 'carts#check_tip'
+  post 'paypal_create_payment', to: 'orders#paypal_create_payment', as: "paypal_create_payment"
+  post 'paypal_execute_payment', to: 'orders#paypal_execute_payment', as: "paypal_execute_payment"
 end

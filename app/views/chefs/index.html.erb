@@ -1,4 +1,4 @@
-<%= render 'shared/page_title', title: "showing all chefs" %>
+<%= render 'shared/page_title', title: "showing all team" %>
 <!--
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <br>
@@ -21,7 +21,7 @@
       <%= link_to t('common.recipes'), app_recipes_path(current_app), {:style=>'font-size:16px'} %>
     </li>
     <li class="active">
-      <%= link_to t('common.chefs'), app_chefs_path(current_app), {:style=>'font-size:16px'} %>
+      <%= link_to t('navigation.team'), app_chefs_path(current_app), {:style=>'font-size:16px'} %>
     </li>
   </ul>
 </div>

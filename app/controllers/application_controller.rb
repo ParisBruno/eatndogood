@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :set_admin_id
   before_action :set_header_data
+  before_action :current_cart
 
   def current_chef
     @current_chef ||= Chef.find(current_app_user.chef_info.id) if current_app_user && !current_app_user.chef_info.nil?
@@ -208,11 +209,44 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_data
+    @current_app = current_app
     # @ingredients = Ingredient.where(user_id: @admin_id)
-    @all_ingredients = current_app.ingredients
+    @all_ingredients = @current_app.ingredients
     # @allergens = Allergen.where(user_id: @admin_id)
-    @all_allergens = current_app.allergens
+    @all_allergens = @current_app.allergens
     # @styles = Style.where(user_id: @admin_id)
-    @all_styles = current_app.styles
+    @all_styles = @current_app.styles
+  end
+
+  def current_cart
+    cart = Cart.find_by(id: session[:cart_id])
+    if cart
+      @current_cart = cart
+    else
+      session[:cart_id] = nil
+      @current_cart = Cart.create
+      session[:cart_id] = @current_cart.id
+    end
+  end
+
+  def set_delivery_and_tax
+    users = []
+    @total_delivery = 0
+    @total_tax = 0
+    @current_cart.line_items.each do |line_item|
+      if line_item.recipe && line_item.recipe.is_draft == false
+        item_tax = line_item.quantity * line_item.recipe.price * (line_item.recipe.chef.user.product_tax/100)
+        @total_tax += item_tax
+        users << line_item.recipe.chef.user
+      elsif line_item.gift_card
+        gift_card_tax = line_item.quantity * 3.95
+        @total_tax += gift_card_tax
+        users << line_item.gift_card.user
+      end
+    end
+    users.uniq.each { |user| @total_delivery += user.delivery_price }
+
+    @paypal_client_id = users.first&.paypal_client_id
+    @paypal_client_secret = users.first&.paypal_client_secret
   end
 end

@@ -7,18 +7,21 @@ class CreateAppWithAdmin
     ActiveRecord::Base.transaction do
       p full_name
       app = App.create!(name: full_name, plan_id: plan.id)
-      user = User.create!(
-        first_name: context.first_name,
-        last_name: context.last_name,
-        email: context.email,
-        password: context.password,
-        password_confirmation: context.password_confirmation,
-        admin: true,
-        chef: true,
-        guest: false,
-        app_id: app.id
-      )
-      create_chef(user.id, admin: true)
+      user = User.find_by(email: context.email)
+      if user.blank? && context.password.present?
+        user = User.create!(
+          first_name: context.first_name,
+          last_name: context.last_name,
+          email: context.email,
+          password: context.password,
+          password_confirmation: context.password_confirmation,
+          admin: true,
+          chef: true,
+          guest: false,
+          app_id: app.id
+        )
+      end
+      create_chef(user.id)
       app.create_pages
     end
     # TODO
@@ -29,8 +32,8 @@ class CreateAppWithAdmin
     [first_name, last_name].join(' ').strip
   end
 
-  def create_chef (user_id, admin)
-		Chef.create!({user_id: user_id, admin: admin})
+  def create_chef (user_id)
+		Chef.find_or_create_by!(user_id: user_id, admin: true)
 	end
 end
 

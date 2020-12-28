@@ -24,16 +24,20 @@ it:
     title: Crea un nuovo allergeno
   chefs:
     add_chef: Aggiungi Chef
-    add_chef_account: Aggiungi l'acconto dello Chef
+    add_chef_account: Crea un account membro del team
     add_chef_contributor: Aggiungi Chef / Collaboratore
     add_summary_bio: Aggiungi sintesi bio
     admin_chef_name_will_appear: "(Il nome utente dell'amministratore / dello chef
       apparirà in prima pagina e il creatore delle ricette in tutte le sue ricette)."
+    cart_func: Funzionalità del carrello
     change_your_pic: Cambia la tua foto
     confirm_delete_account: Sei sicuro! Vuoi cancellare l'account dello chef?
     delete_profile: Elimina profilo
+    delivery_price: Prezzo di consegna
+    product_tax: Imposta sulla ricetta
     edit_profile: Modifica Profilo
     edit_your_profile: Modifica il tuo profilo
+    admin_panel: Pannello di Amministrazione
     go_back_to_chef_list: Torna all'elenco degli chef
     new_contributor: Nuovo collaboratore
     note_chefname_must_be_url_friendly: 'Nota: il nome dello chef deve essere url
@@ -44,6 +48,9 @@ it:
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
     x_chefs_remaining_html: "%{x}&nbsp; cuochi rimasti per aggiungere! Aggiorna il
       tuo account facendo clic su %{link}"
+    coupon_title: Titolo
+    coupon_percent_off: Percentuale di sconto(%)
+    coupon_active: È attivo
   common:
     admin: Admin
     allergens: Allergeni
@@ -51,6 +58,7 @@ it:
     all_recipes: Tutte le ricette
     chef: Chef
     chefs: Chefs
+    drafts: Bozze
     confirm: Sei sicuro?
     created_x_hours_ago: 'creato: %{x} fa'
     here: Qui
@@ -71,7 +79,34 @@ it:
     styles: Stile
     styles_colon: 'Stile:'
     take_a_tour_as_guest: Fai un tour come ospite
+    add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
+  gift_cards:
+    create_card_number: Creeremo un numero ID della carta, invieremo un'e-card elegante al destinatario e ti copieremo.
+    gift_from: A partire dal
+    gift_to: Per
+    gift_name: Nome
+    gift_email: Email
+    gift_reenter_email: Inserisci nuovamente l'email
+    may_take: Potrebbero essere necessarie fino a 24-48 ore.
+    other_amount: Altro importo
+    purchase_fee: Verrà applicata una commissione di acquisto di $ 3,95 per carta
+    send_inbox: Invia una copia alla tua casella di posta
+    select_value: Seleziona Valore della carta
+    shopping: Continua a fare acquisti
+    description:
+      personal_message:
+        html: <b>Immettere il messaggio personale</b>
+      personal_message_not_html: <b>I messaggi personali NON possono:</b>
+      personal_message_first: Sii sessualmente esplicito o allusivo, inutilmente violento o dispregiativo di qualsiasi professione etnica, razziale, di genere, religiosa.
+      personal_message_second: Sii offensivo, approva qualsiasi forma di odio o gruppo di odio.
+      personal_message_third: Non è possibile promuovere o rappresentare attività che possono sembrare pericolose o pericolose, o qualsiasi programma o messaggio politico particolare
+    description_placeholder: |2-
+       Immettere il messaggio personale
+          I messaggi personali NON possono:
+            Sii sessualmente esplicito o allusivo, inutilmente violento o dispregiativo di qualsiasi professione etnica, razziale, di genere, religiosa.
+            Sii offensivo, approva qualsiasi forma di odio o gruppo di odio.
+            Non è possibile promuovere o rappresentare attività che possono sembrare pericolose o pericolose, o qualsiasi programma o messaggio politico particolare
   errors:
     email_content_blank: Il contenuto dell'email non può essere vuoto!
     image_atleas_dimensions: Per favore fornisci un' immagine di almeno queste dimensioni
@@ -106,8 +141,11 @@ it:
     please_login_as_superadmin: Effettua il login come super amministratore!
     problem_in_rendering: C'è qualche problema nel rendering!
     recipe_removed: Ricetta rimossa con successo!
+    recipe_add_to_cart: La ricetta è stata aggiunta con successo al tuo carrello!
+    gift_add_to_cart: La carta regalo è stata aggiunta con successo al tuo carrello!
     send_note_with_your_thoughts: Bene! invia una nota con i tuoi pensieri
     style_removed: Stile rimosso con successo!
+    success_stripe_payment: L'ordine è stato pagato con successo
     user_already_registered: utente e gia registrato
     user_not_registered: utente non e` registrato
     user_registered_as_guest: Utente già registrato come ospite!
@@ -161,6 +199,7 @@ it:
     new_ingredient: Crea un nuovo ingrediente
     new_style: Create New Style
     password: Password
+    password_confirmation: Conferma Password
     password_digest: Password digest
     return_to_list: Fare clic qui per visualizzare l&#39;elenco completo e per modificarlo
       o eliminarlo
@@ -215,7 +254,7 @@ it:
     all_recipes: tutte le ricette
     chef_list: Lista Chef
     chef_login: Chef Login
-    create_chef: 'aggiungi uno Chef '
+    create_chef: Crea un account membro del team
     edit_profile: Modifica Profilo
     guest_invitation: Invito per gli ospiti
     guest_list: Elenco degli ospiti
@@ -234,9 +273,26 @@ it:
     recipes: Ricette
     sign_up: inscriviti
     styles: Stile
+    team: Squadra
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
     view_profile: Vedi profilo
+  orders: 
+    list_products: Elenco dei prodotti
+    send: spedire
+    cash: Paga in contanti
+    gift_card: Paga la tua Gift Card
+    stripe: Paga con Stripe
+    full_name: Nome e cognome
+    email: Email
+    phone: Telefono
+    home_address: Indirizzo di casa
+    subtotal: Totale parziale
+    total: TOTALE
+    tax: Imposta
+    tip: Mancia
+    delivery: Consegna
+    discount: Sconto coupon
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta
@@ -312,19 +368,37 @@ it:
        4) Variabili, se presenti:<br>
        5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu<br>
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.<br>
+    drafts: Borradores de recetas
     edit_recipe: Modifica questa ricetta
     max_pic_size: Immagine dimensione max %{mb} megabyte
+    rec_pic_size: La dimensione dell'immagine consigliata è 1366 x 768px
     new_title: Crea una nuovo capolavoro di  ricetta
     question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
-    show_all_recipes: lista delle ricette
+    save_draft: Salva come bozza
+    show_all_recipes: Lista delle ricette
+    show_all_drafts: Lista delle bozze
     summary_placeholder: |-
       Breve descrizione del piatto
       Tempo di preparazione - Suggerisci una bevanda
     tips_ingredients_preparation: 'Suggerimenti, ingredienti e preparazione:'
     upload_drink_pic: Carica l'immagine della bevanda
     upload_food_pic: Carica la foto del cibo
+    price: Prezzo
+    shared_links: Condividi con amici e familiari
+    add_to_cart: Aggiungi al carrello
+    my_cart: La mia carta
+    product_name: Nome del prodotto
+    quantity: Quantità
+    sub_total: Totale parziale
+    home_delivery: Consegna a domicilio
+    subtotal: Totale parziale
+    total: Totale
+    proceed_checkout: Procedere al checkout
+    empty_cart: Carrello vuoto
+    coupone_code: Codice coupon
+    fundraising_code: Codice di raccolta fondi
     write_name: Scrivi il nome della ricetta
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali

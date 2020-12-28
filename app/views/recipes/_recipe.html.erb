@@ -1,14 +1,36 @@
-
+<style>
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  .index-recipe-price {
+    font-size: 18px;
+  }
+  .badge {
+    font-size: 20px;
+  }
+  .index-buttons {
+    margin-top: 7%;
+    display: inline-block;
+    width:360px;
+  }
+  .recipe-summary-index {
+    word-wrap: break-word;
+  }
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--div class="login-header">< render 'shared/page_title', title: "All Recipes" ></div-->
 <% 
-@hide_chef_tab = '';
-if @recipes.nil? 
-  @recipes = !@chef_recipes.nil? ? @chef_recipes : @ingredient_recipes
-  @hide_chef_tab = 'none';
-end
-
+  @hide_chef_tab = '';
+  if @recipes.nil? 
+    @recipes = !@chef_recipes.nil? ? @chef_recipes : @ingredient_recipes
+    @hide_chef_tab = 'none';
+  end
 %>
+
 <% if @display_flash %>
   <%#= render 'layouts/messages' %>
   <%= flash_toastr %> 
@@ -21,11 +43,14 @@ end
 
 <div class="col-md-12 margin-sec">
   <ul class="nav nav-tabs">
-    <li class="active">
-      <%= link_to t('common.all_recipes'), app_recipes_path(app: current_app), {:style=>'font-size:20px'} %>
+    <li class="<%= "active" unless @recipes.first&.is_draft %>">
+      <%= link_to t('common.all_recipes'), app_recipes_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
     <li style="display: <%= @hide_chef_tab %>">
-      <%= link_to t('common.chefs'), app_chefs_path(app: current_app), {:style=>'font-size:20px'} %>
+      <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
+    </li>
+    <li class="<%= "active" if @recipes.first&.is_draft %>">
+      <%= link_to t('common.drafts'), app_recipe_drafts_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
   </ul>
 </div>
@@ -56,11 +81,19 @@ end
   <div class="row">
     <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
-      <h2><%= link_to recipe.name, app_recipe_path(current_app, recipe) %></h2>
-      <div>
-        <%= (!recipe.summary.nil? && recipe.summary.size > 100) ? raw(enclose_tag(recipe.summary.slice(0,100) + '...')) : raw(recipe.summary) %>
+    
+      <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe) %></h2>
+      <div class='recipe-summary-index'>
+        <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
+          <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
+        <% else %>
+          <% length = recipe.summary&.size || 3 %>
+          <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
+        <% end %>
       </div>
-      <% if recipe.styles.any? %>
+      <%
+=begin%>
+ <% if recipe.styles.any? %>
         <p><%= t('common.styles_colon') %> <%= render recipe.styles %></p>
       <% end %>
       <% if recipe.ingredients.any? %>
@@ -68,21 +101,44 @@ end
       <% end %>
       <% if recipe.allergens.any? %>
         <p><%= t('common.allergens_colon') %> <%= render recipe.allergens %></p>
-      <% end %>
-      <div class="pull-right">
+      <% end %> 
+<%
+=end%>
+      <%
+=begin%>
+ <div class="pull-right">
         <%= link_to like_app_recipe_path(current_app, recipe, like: true), method: :post do %>
           <i class="glyphicon glyphicon-thumbs-up"></i> <%= recipe.thumbs_up_total %>
         <% end %> &nbsp;
         <%= link_to like_app_recipe_path(current_app, recipe, like: false), method: :post do %>
           <i class="glyphicon glyphicon-thumbs-down"></i> <%= recipe.thumbs_down_total %>
         <% end %>
-      </div>
-      <section class="chef_info center">
+      </div> 
+<%
+=end%>
+      <%
+=begin%>
+ <section class="chef_info center">
         <h2 style="text-align:right">
           <%= link_to t('recipes.crafted_by') + ' ' + recipe.chef.user.full_name, app_chef_path(current_app, recipe.chef), class: "btn btn-success btn-lg" %>
-        </h2>
-        
-      </section>
+        </h2>    
+      </section> 
+<%
+=end%>
+        <div class="index-buttons">
+          <table>
+            <tr>
+              <td class="index-recipe-price"><%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(recipe.price) %></span></td>
+              <td>
+                <% unless recipe.is_draft %> 
+                  <%= button_to line_items_path(recipe_id: recipe.id), class: 'index-buy-button btn btn-success btn-lg' do %>
+                    <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
     <% if recipe.food_image.attached? %>

@@ -1,3 +1,15 @@
+<style>
+  .recipe-summary {
+    word-wrap: break-word;
+  }
+  .buy-button {
+    margin-top: 10px;
+    float: right;
+  }
+  .fa-shopping-cart { 
+    transform: scale(-1, 1);
+  }
+</style>
   <div class="margin-sec top-space" style="margin-top: 50px;">
      <div class="col-md-12 margin-sec top-space recipe-detail">
      <div class="row">
@@ -19,9 +31,12 @@
           <%= link_to @recipe.name, app_recipe_path(current_app, @recipe) %>
         </h2>
       </center>
-
       <h2>
-        <%= @recipe.summary.html_safe %>
+        <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
+      </h2>
+
+      <h2 class="recipe-summary">
+        <%= raw(@recipe.summary) %>
       </h2>
 
       <div class="well-sec u-content">
@@ -41,6 +56,12 @@
       </div>
       </div>
       </div>
+
+      <% unless @recipe.is_draft %> 
+        <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
+          <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+        <% end %>
+      <% end %> 
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
       <% if @recipe.food_image.attached? %>
@@ -63,7 +84,8 @@
 
 <br>
 
-<% if current_app_user.present? && session[:user_role] != 'super_admin' %>
+<% unless @recipe.is_draft %> 
+  <% if current_app_user.present? && session[:user_role] != 'super_admin' %>
   <div class="recipes-q">
  
     <center>
@@ -73,27 +95,34 @@
                 <%= t('recipes.question_about_this_recipe') %>
               </a>
             </h3>
-            <br>
-            <br>
+
             <% if @recipe.is_reservation_enable %>
               <h3>
-                <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
+<%
+=begin%>
+ <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
                   <%= t('reservations.make_reservation')%>
-                </a>
+                </a> 
+<%
+=end%>
               </h3>
               <% end %>
-              <br/>
-              <br/>
+
               <% if @recipe.is_ask_catering_enable %>
                 <h3>
-                  <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
+<%
+=begin%>
+ <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
                     <%= t('reservations.make_catering') %>
-                  </a>
+                  </a> 
+<%
+=end%>
                 </h3>
                 <% end %>
-                <br/>
-                <br/>
+
           <% end %>
+
+          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "180x100"), new_app_gift_card_path(current_app) %></h3>
           
           <%= render 'shared_links' %>
 
@@ -111,7 +140,8 @@
      
     </center>
   </div>
-<% end %>
+  <% end %>
+<% end %> 
 
 <center>
   <h5>

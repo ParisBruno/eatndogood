@@ -1,3 +1,13 @@
+<style>
+.dropdown-menu > li > a {
+  font-size: 12px;
+  font-weight: bold;
+}
+.cart-btn {
+  padding-top: 3% !important;
+  margin-bottom: -88px !important;
+}
+</style>
 <!-- <nav class="navbar navbar-default"> -->
 <nav class="navbar navbar-expand-lg navbar-dark">
   
@@ -15,12 +25,12 @@
         <%= hidden_field_tag :filter, 1 %>
         <div class="navbar-header">
           
-          <%= link_to t('navigation.home'), app_path(current_app), class: "navbar-brand", id: "logo", style: "display: flex; justify-content: center; align-items: center;" %>
+          <%= link_to t('navigation.home'), app_path(@current_app), class: "navbar-brand", id: "logo", style: "display: flex; justify-content: center; align-items: center;" %>
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
           <li class="active nav-item">
-            <%= link_to app_recipes_path(current_app), class: "btn btn-success" do %>
+            <%= link_to app_recipes_path(@current_app), class: "btn btn-success" do %>
               <%= t('navigation.all_recipes') %><span class="sr-only">(current)</span>
             <% end %>
           </li>
@@ -40,7 +50,7 @@
               <% if current_app_user.admin?  || current_app_user.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
-                  <%= link_to t('navigation.new_style'), new_app_style_path(current_app) %>
+                  <%= link_to t('navigation.new_style'), new_app_style_path(@current_app) %>
                 </li>
               <% end %>
               
@@ -62,7 +72,7 @@
               <% if current_app_user.admin?  || current_app_user.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
-                  <%= link_to t('navigation.new_ingredient'), new_app_ingredient_path(current_app) %>
+                  <%= link_to t('navigation.new_ingredient'), new_app_ingredient_path(@current_app) %>
                 </li>
               <% end %>
               
@@ -85,25 +95,25 @@
               <% if current_app_user.admin?  || current_app_user.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
-                  <%= link_to t('navigation.new_allergen'), new_app_allergen_path(current_app) %>
+                  <%= link_to t('navigation.new_allergen'), new_app_allergen_path(@current_app) %>
                 </li>
                 <% end %>
             </ul>
               <% if current_app_user.admin? || current_app_user.chef? %>
               <li class="nav-item">
-                <%= link_to t('navigation.new_recipe'), new_app_recipe_path(current_app), class: "btn btn-success" %>
+                <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
               </li>
               <% end %>
               <li class="dropdown nav-item">
-                <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chefs</a>
+                <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.team') %></a>
                 <ul class="dropdown-menu">
                   <% if current_app_user.admin?  %>
                   <li>
-                    <%= link_to t('navigation.create_chef'), new_app_chef_path(current_app) %>
+                    <%= link_to t('navigation.create_chef'), new_app_chef_path(@current_app) %>
                   </li>
                   <% end %>
                   <li>
-                    <%= link_to t('navigation.list_chefs'), app_chefs_path(current_app) %>
+                    <%= link_to t('navigation.list_chefs'), app_chefs_path(@current_app) %>
                   </li>
                 </ul>
               </li>
@@ -117,17 +127,17 @@
             <ul class="dropdown-menu">
               
               <li>
-                <%= link_to t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
+                <%= link_to t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
               </li>
               <% if current_app_user.admin? %>
                 <li>
-                  <%= link_to t('navigation.guest_list'), app_guests_path(current_app) %>
+                  <%= link_to t('navigation.guest_list'), app_guests_path(@current_app) %>
                 </li>
                 <li>
-                  <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(current_app) %>
+                  <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(@current_app) %>
                 </li>
                 <li>
-                  <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(current_app) %>
+                  <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
                 </li>
               <% end %>
               <li role="separator" class="divider"></li>
@@ -139,16 +149,21 @@
       </div>
     </div>
     
+    <ul class="cart-btn nav navbar-nav">
+      <li class="dropdown nav-item">
+        <%= button_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple", method: :get, disabled: @current_cart.line_items.count == 0 %>
+      </li>
+    </ul>
   <% else %>
     <div class="row" style="width: 100%;">
       <div class="col-md-8"></div>
       
         <div class="col-md-4 login">
           <div class="login">
-            <%= link_to t('navigation.login'), new_app_user_session_path(current_app), class: 'btn btn-success btn-lg'%>
+            <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn btn-success btn-lg'%>
           </div>
           <div class="registration">
-            <%= link_to t('navigation.sign_up'), new_app_user_registration_path(current_app), class: 'btn btn-success btn-lg'%>
+            <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn btn-success btn-lg'%>
           </div>
         </div>
         

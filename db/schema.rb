@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_124050) do
+ActiveRecord::Schema.define(version: 2020_12_08_154437) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -47,20 +50,20 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "app_id"
+    t.bigint "app_id"
     t.index ["app_id"], name: "index_allergens_on_app_id"
   end
 
   create_table "allergens_recipes", id: false, force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "allergen_id", null: false
+    t.bigint "recipe_id", null: false
+    t.bigint "allergen_id", null: false
     t.index ["recipe_id", "allergen_id"], name: "index_allergens_recipes_on_recipe_id_and_allergen_id"
   end
 
   create_table "apps", force: :cascade do |t|
     t.string "name"
     t.string "slug"
-    t.integer "plan_id"
+    t.bigint "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_apps_on_plan_id"
@@ -70,10 +73,21 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
   create_table "autosaves", force: :cascade do |t|
     t.string "form"
     t.json "payload"
-    t.integer "app_id"
+    t.bigint "app_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_autosaves_on_app_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chef_translations", force: :cascade do |t|
@@ -86,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["locale"], name: "index_chef_translations_on_locale"
   end
 
-  create_table "chefs", force: :cascade do |t|
+  create_table "chefs", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
@@ -99,7 +113,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.integer "admin_id"
   end
 
-  create_table "ckeditor_assets", force: :cascade do |t|
+  create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
     t.string "data_uid", null: false
     t.string "data_name", null: false
     t.string "data_mime_type"
@@ -112,12 +126,22 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :serial, force: :cascade do |t|
     t.text "description"
     t.integer "chef_id"
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "coupon_codes", force: :cascade do |t|
+    t.string "title"
+    t.decimal "coupon_percent_off", precision: 5, scale: 2, default: "0.0"
+    t.boolean "is_active", default: true
+    t.bigint "chef_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_coupon_codes_on_chef_id"
   end
 
   create_table "email_contents", force: :cascade do |t|
@@ -139,6 +163,31 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "fundrasing_codes", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_active", default: true
+    t.bigint "chef_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_fundrasing_codes_on_chef_id"
+  end
+
+  create_table "gift_cards", force: :cascade do |t|
+    t.string "name"
+    t.string "purchaser_name"
+    t.string "purchaser_email"
+    t.string "client_name"
+    t.string "client_email"
+    t.text "description"
+    t.decimal "price", precision: 8, scale: 2, default: "0.0"
+    t.datetime "last_used_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_active", default: false
+    t.index ["user_id"], name: "index_gift_cards_on_user_id"
+  end
+
   create_table "ingredient_translations", force: :cascade do |t|
     t.integer "ingredient_id", null: false
     t.string "locale", null: false
@@ -149,19 +198,33 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["locale"], name: "index_ingredient_translations_on_locale"
   end
 
-  create_table "ingredients", force: :cascade do |t|
+  create_table "ingredients", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.integer "app_id"
+    t.bigint "app_id"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
   end
 
-  create_table "likes", force: :cascade do |t|
+  create_table "likes", id: :serial, force: :cascade do |t|
     t.boolean "like"
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "app_id"
+    t.bigint "app_id"
     t.index ["app_id"], name: "index_likes_on_app_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "quantity", default: 1
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "gift_card_id"
+    t.bigint "recipe_id"
+    t.bigint "cart_id"
+    t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["gift_card_id"], name: "index_line_items_on_gift_card_id"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["recipe_id"], name: "index_line_items_on_recipe_id"
   end
 
   create_table "mail_attachments", force: :cascade do |t|
@@ -174,11 +237,27 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.datetime "file_attach_updated_at"
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "messages", id: :serial, force: :cascade do |t|
     t.text "content"
     t.integer "chef_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.text "address"
+    t.string "pay_method"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "amount"
+    t.string "stripe_session_id"
+    t.string "stripe_status"
+    t.jsonb "stripe_shipping"
+    t.string "paypal_token"
+    t.string "paypal_status"
   end
 
   create_table "page_preview_translations", force: :cascade do |t|
@@ -197,7 +276,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.string "title"
     t.text "content"
     t.string "destination"
-    t.integer "page_id"
+    t.bigint "page_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["page_id"], name: "index_page_previews_on_page_id"
@@ -214,7 +293,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["page_id"], name: "index_page_translations_on_page_id"
   end
 
-  create_table "pages", force: :cascade do |t|
+  create_table "pages", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "title"
     t.text "content"
@@ -226,7 +305,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.integer "page_img_file_size"
     t.datetime "page_img_updated_at"
     t.text "admin_name"
-    t.integer "app_id"
+    t.bigint "app_id"
     t.index ["app_id"], name: "index_pages_on_app_id"
   end
 
@@ -260,7 +339,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -275,7 +354,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.string "img_type"
   end
 
-  create_table "recipe_ingredients", force: :cascade do |t|
+  create_table "recipe_ingredients", id: :serial, force: :cascade do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
   end
@@ -292,18 +371,22 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["recipe_id"], name: "index_recipe_translations_on_recipe_id"
   end
 
-  create_table "recipes", force: :cascade do |t|
+  create_table "recipes", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chef_id"
     t.text "summary"
+    t.decimal "price", precision: 8, scale: 2, default: "0.0"
+    t.bigint "subcategory_id"
+    t.boolean "is_draft", default: false
+    t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 
   create_table "recipes_styles", id: false, force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.integer "style_id", null: false
+    t.bigint "recipe_id", null: false
+    t.bigint "style_id", null: false
     t.index ["recipe_id", "style_id"], name: "index_recipes_styles_on_recipe_id_and_style_id"
   end
 
@@ -319,8 +402,8 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "re_type"
-    t.integer "app_id"
-    t.integer "user_id"
+    t.bigint "app_id"
+    t.bigint "user_id"
     t.index ["app_id"], name: "index_reservations_on_app_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
@@ -339,11 +422,19 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "app_id"
+    t.bigint "app_id"
     t.index ["app_id"], name: "index_styles_on_app_id"
   end
 
-  create_table "taggings", force: :cascade do |t|
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+  end
+
+  create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -362,13 +453,13 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
@@ -389,16 +480,64 @@ ActiveRecord::Schema.define(version: 2019_11_29_124050) do
     t.string "last_sign_in_ip"
     t.integer "user_id"
     t.integer "email_sent_counter", default: 0
-    t.integer "app_id"
+    t.bigint "app_id"
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "city"
     t.string "state"
     t.string "postal_code"
     t.string "country"
+    t.decimal "product_tax", precision: 5, scale: 2, default: "0.0"
+    t.decimal "delivery_price", precision: 5, scale: 2, default: "0.0"
+    t.string "paypal_client_id"
+    t.string "paypal_client_secret"
     t.index ["app_id"], name: "index_users_on_app_id"
     t.index ["email", "app_id"], name: "index_users_on_email_and_app_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "allergens", "apps"
+  add_foreign_key "allergens", "apps", name: "allergens_app_id_fk"
+  add_foreign_key "allergens_recipes", "allergens", name: "allergens_recipes_allergen_id_fk"
+  add_foreign_key "allergens_recipes", "recipes", name: "allergens_recipes_recipe_id_fk"
+  add_foreign_key "apps", "plans"
+  add_foreign_key "apps", "plans", name: "apps_plan_id_fk"
+  add_foreign_key "chefs", "users", name: "chefs_user_id_fk"
+  add_foreign_key "comments", "chefs", name: "comments_chef_id_fk"
+  add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
+  add_foreign_key "coupon_codes", "chefs"
+  add_foreign_key "fundrasing_codes", "chefs"
+  add_foreign_key "gift_cards", "users"
+  add_foreign_key "ingredients", "apps"
+  add_foreign_key "ingredients", "apps", name: "ingredients_app_id_fk"
+  add_foreign_key "likes", "apps"
+  add_foreign_key "likes", "apps", name: "likes_app_id_fk"
+  add_foreign_key "likes", "recipes", name: "likes_recipe_id_fk"
+  add_foreign_key "mail_attachments", "email_contents", name: "mail_attachments_email_content_id_fk"
+  add_foreign_key "messages", "chefs", name: "messages_chef_id_fk"
+  add_foreign_key "page_previews", "pages"
+  add_foreign_key "pages", "apps"
+  add_foreign_key "pages", "apps", name: "pages_app_id_fk"
+  add_foreign_key "plans", "plan_categories", name: "plans_plan_category_id_fk"
+  add_foreign_key "questions", "recipes", name: "questions_recipe_id_fk"
+  add_foreign_key "questions", "users"
+  add_foreign_key "questions", "users", name: "questions_user_id_fk"
+  add_foreign_key "recipe_images", "recipes", name: "recipe_images_recipe_id_fk"
+  add_foreign_key "recipe_ingredients", "ingredients", name: "recipe_ingredients_ingredient_id_fk"
+  add_foreign_key "recipe_ingredients", "recipes", name: "recipe_ingredients_recipe_id_fk"
+  add_foreign_key "recipes", "chefs", name: "recipes_chef_id_fk"
+  add_foreign_key "recipes", "subcategories"
+  add_foreign_key "recipes_styles", "recipes", name: "recipes_styles_recipe_id_fk"
+  add_foreign_key "recipes_styles", "styles", name: "recipes_styles_style_id_fk"
+  add_foreign_key "reservations", "apps"
+  add_foreign_key "reservations", "apps", name: "reservations_app_id_fk"
+  add_foreign_key "reservations", "recipes", name: "reservations_recipe_id_fk"
+  add_foreign_key "reservations", "users"
+  add_foreign_key "styles", "apps"
+  add_foreign_key "styles", "apps", name: "styles_app_id_fk"
+  add_foreign_key "subcategories", "categories"
+  add_foreign_key "taggings", "tags", name: "taggings_tag_id_fk"
+  add_foreign_key "users", "apps"
+  add_foreign_key "users", "apps", name: "users_app_id_fk"
 end

@@ -9,7 +9,8 @@ CKEDITOR.editorConfig = function (config) {
         ['TextColor'],
         ['Bold','Italic','Underline'], 
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-        ['Link','Unlink']
+        ['Link','Unlink'],
+        [ 'Image' ]
     ];
     config.extraPlugins = 'confighelper,placeholder,';
 

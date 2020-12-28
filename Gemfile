@@ -37,9 +37,11 @@ gem 'hirb'
 gem "interactor-rails", "~> 2.0"
 gem 'image_processing', '~> 1.2'
 gem 'activestorage-validator'
-gem "font-awesome-rails",github: "bokmann/font-awesome-rails", branch: "master"
+gem "font-awesome-rails" #,github: "bokmann/font-awesome-rails", branch: "master"
 
 gem "aws-sdk-s3", require: false
+gem 'stripe'
+gem 'paypal-checkout-sdk'
 
 gem 'immigrant'
 gem 'globalize', '~> 5.2.0'
@@ -52,6 +54,7 @@ gem 'country_select', '~> 4.0'
 gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'repost', '~> 0.3.4'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

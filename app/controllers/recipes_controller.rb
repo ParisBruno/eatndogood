@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
   def index
     flash.discard
     if params[:filter]
-      @recipes = Recipe.where(chef_id:@chef_ids).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
       if params[:allergen_ids]
         selected_allergens = params[:allergen_ids].map(&:to_i)
         allergens = Allergen.where(id: selected_allergens)
@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       end
     else
       # @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
-      @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 5)
+      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
     end
   end
   
@@ -35,12 +35,20 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new 
     @style = @recipe.styles.build
     @allergen = @recipe.allergens.build
-    @ingredient =  @recipe.ingredients.build
+    @ingredient = @recipe.ingredients.build
+    # byebug
+    @categories = Category.all
   end
   
   def create
-    @recipe = Recipe.new(recipe_params)
-    @recipe.chef_id = current_app_user.chef_info.id
+    selected_locale = params['recipe']['locale']
+    name = recipe_params["name_#{selected_locale}"]
+    @recipe = Recipe.find_or_initialize_by(name: name, chef_id: current_app_user.chef_info.id)
+    @recipe.assign_attributes(recipe_params)
+    @recipe.name = name
+    @recipe.summary = recipe_params["summary_#{selected_locale}"]
+    @recipe.description = recipe_params["description_#{selected_locale}"]
+    @recipe.is_draft = true if params['commit'] == t('recipes.save_draft')
     if @recipe.save
       # upload_images
       delete_draft
@@ -55,6 +63,7 @@ class RecipesController < ApplicationController
     @style = @recipe.styles.build
     @allergen = @recipe.allergens.build
     @ingredient =  @recipe.ingredients.build
+    @categories = Category.all
   end
 
   def email_question
@@ -66,11 +75,15 @@ class RecipesController < ApplicationController
   end
   
   def update
-    
+    if params['commit'] == t('recipes.save_submit')
+      @recipe.is_draft = false
+    elsif params['commit'] == t('recipes.save_draft')
+      @recipe.is_draft = true
+    end
     if @recipe.update(recipe_params)
       # upload_images
       make_tags
-      delete_draft(@recipe)
+      delete_draft
       flash[:success] = "Recipe was updated successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
@@ -93,6 +106,10 @@ class RecipesController < ApplicationController
       flash[:danger] = "You can only like/dislike a recipe once"
       redirect_back fallback_location: app_path(current_app)
     end
+  end
+
+  def drafts
+    @recipes = Recipe.where(chef_id: @chef_ids, is_draft: true).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
   end
   
   private
@@ -146,7 +163,7 @@ class RecipesController < ApplicationController
     end
   
     def recipe_params
-      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, ingredient_ids: [], allergen_ids: [], style_ids: []]
+      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
       params.require(:recipe).permit(*permitted)
     end
 
@@ -162,7 +179,7 @@ class RecipesController < ApplicationController
     end
     
     def require_user_like
-      if !user_signed_in?
+      if !app_user_signed_in?
         flash[:danger] = "You must be logged in to perform that action"
         redirect_to :back
       end
@@ -174,9 +191,9 @@ class RecipesController < ApplicationController
       else
         url =  "/#{current_app.slug}/recipes/#{recipe.id}"
       end
-      as = current_app.autosaves.where(form: url).first
+      as = current_app.autosaves.where(form: url)
       if as
-        as.destroy
+        as.destroy_all
       end
     end
 end

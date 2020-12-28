@@ -14,6 +14,20 @@
       line-height: 1.428571429;
       color: #333333;}
   .recipi-main {margin-top: 60px;}
+  #recipe_price {
+    max-width: 100px;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  #recipe_subcategory_id {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 5px;
+    border-radius: 4px;
+    border: 2px inset grey;
+  }
 </style>
 <%= render 'shared/errors', obj: @recipe %>
 
@@ -112,10 +126,23 @@
             <%= f.file_field "drink_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
           </div>
         </div>
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :price, t('recipes.price') %>
+            <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: 0.01, min: 0 %>
+          </div>
+        </div>
+        <div class="form-group recepie-menu">
+          <div class="col-md-12">
+            <%= f.label :category, t('recipes.category') %>
+            <%= f.select :subcategory_id, option_groups_from_collection_for_select(@categories, :subcategories, :name, :id, :name, @recipe.subcategory_id) %>
+          </div>
+        </div>
         <div class="recepie-menu btn">
           <bold><%= t('recipes.max_pic_size', mb: 5) %></bold>
           
-          <%= f.submit(t('recipes.save_submit'), class: "btn btn-success btn-lg") %>
+          <%= f.submit t('recipes.save_submit'), class: "btn btn-success btn-lg", id: "save-button" %>
+          <%= f.submit t('recipes.save_draft'), class: "btn btn-outline-success btn-lg", id: "draft-button" %>
         </div>
       </div>
     <% end %>
@@ -183,8 +210,35 @@
   </div>
 
 <script type="text/javascript">
+  var draftButton = document.getElementById("draft-button");
+  var saveButton = document.getElementById("save-button");
 
+  saveButton.disabled = true;
+  draftButton.disabled = true;
 
+  var currentLocaleLoad = document.getElementById("recipe_locale");
+  var recipeNameLoad = document.getElementById("recipe_name_" + currentLocaleLoad.value);
+  var recipeDescriptionLoad = document.getElementById("recipe_description_" + currentLocaleLoad.value);
+  if (recipeNameLoad.value.length > 2 && recipeDescriptionLoad.value.length > 0) {
+      saveButton.disabled = false;
+      draftButton.disabled = false;
+  } else {
+      saveButton.disabled = true;
+      draftButton.disabled = true;
+  }
+
+  document.body.addEventListener("mouseup", function () {
+    var currentLocale = document.getElementById("recipe_locale");
+    var recipeName = document.getElementById("recipe_name_" + currentLocale.value);
+    var recipeDescription = document.getElementById("recipe_description_" + currentLocale.value);
+    if (recipeName.value.length > 2 && recipeDescription.value.length > 0) {
+        saveButton.disabled = false;
+        draftButton.disabled = false;
+    } else {
+        saveButton.disabled = true;
+        draftButton.disabled = true;
+    }
+  })
 
   $(document).ready(function() {
     $("footer").removeClass('fixed-footer');

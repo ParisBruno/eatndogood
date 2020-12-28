@@ -26,17 +26,21 @@ en:
     update: Update Allergen
   chefs:
     add_chef: Add Chef
-    add_chef_account: Create Chef Account
+    add_chef_account: Create team member account
     add_chef_contributor: Add Chef/Contributor
     add_summary_bio: Add summary bio
     admin_chef_name_will_appear: "(Admin/Chef username will appear in front page and
       recipes creator in their all recipes)."
+    cart_func: Cart Functionalities
     change_your_pic: Change your pic
     confirm_delete_account: Are you sure! You want to delete chef account?
     create_account: Create my account
     delete_profile: Delete Profile
+    delivery_price: Delivery price
+    product_tax: Recipe's tax
     edit_profile: Edit profile
     edit_your_profile: Edit Your Profile
+    admin_panel: Admin panel
     go_back_to_chef_list: Go Back To Chef List
     new_contributor: New Contributor
     note_chefname_must_be_url_friendly: 'Note: Chefname must be url friendly like:
@@ -48,6 +52,9 @@ en:
     write_few_words_about_yourself: Please write few words about yourself.
     x_chefs_remaining_html: "%{x}&nbsp; chefs remaining for add! Please upgrade your
       account by click %{link}"
+    coupon_title: Title
+    coupon_percent_off: Percent off(%)
+    coupon_active: Is active
   common:
     admin: Admin
     allergens: Allergens
@@ -56,6 +63,7 @@ en:
     back: Back
     chef: Chef
     chefs: Chefs
+    drafts: Drafts
     confirm: Are you sure?
     created_x_hours_ago: 'created: %{x} ago'
     here: here
@@ -75,6 +83,7 @@ en:
     styles: Styles
     styles_colon: 'Styles:'
     take_a_tour_as_guest: Take a tour as Guest
+    add_to_home_screen: Add App to Home-Screen
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Welcome guest, your info is private and safe"
@@ -92,7 +101,32 @@ en:
       country: 'Country (optional)'
       password: 'Password'
       password_confirmation: 'Password Confirmation'
-        
+  gift_cards:
+    create_card_number: We will create a card ID number, email an elegant e-card to the recipient and copy you.
+    gift_from: From
+    gift_to: To
+    gift_name: Name
+    gift_email: Email
+    gift_reenter_email: Re-enter Email
+    may_take: May take up to 24-48 hours.
+    other_amount: Other amount
+    purchase_fee: A $3.95 purchase fee per card will apply
+    send_inbox: Send a copy to your inbox
+    select_value: Select Card Value
+    shopping: Continue Shopping
+    description:
+      personal_message:
+        html: <b>Enter Personal Message</b>
+      personal_message_not_html: <b>Personal messages may NOT:</b>
+      personal_message_first: Be sexually explicit or suggestive, unnecessarily violent or derogatory of any ethnic, racial, gender, religious, profession.
+      personal_message_second: Be offensive, endorse any form of hate or hate group.
+      personal_message_third: Cannot promote or portray any activities that may appear unsafe or dangerous, or any particular political agenda or message
+    description_placeholder: |2-
+       Enter Personal Message
+          Personal messages may NOT:
+            Be sexually explicit or suggestive, unnecessarily violent or derogatory of any ethnic, racial, gender, religious, profession.
+            Be offensive, endorse any form of hate or hate group.
+            Cannot promote or portray any activities that may appear unsafe or dangerous, or any particular political agenda or message
   errors:
     email_content_blank: Email content can not be blank!
     image_atleas_dimensions: Please provide image atleast %{dims} dimensions!
@@ -121,8 +155,11 @@ en:
     please_login_as_superadmin: Please login as a super admin!
     problem_in_rendering: There is some problem in rendering!
     recipe_removed: Recipe removed successfully!
+    recipe_add_to_cart: Recipe was successfully added to your cart!
+    gift_add_to_cart: Gift Card was successfully added to your cart!
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Style removed successfully!
+    success_stripe_payment: The order was successfully paid
     user_already_registered: user already registered
     user_not_registered: user not registered
     user_registered_as_guest: User already registered as an Guest!
@@ -176,6 +213,7 @@ en:
     new_ingredient: Create New Ingredient
     new_style: Create New Style
     password: Password
+    password_confirmation: Password Confirmation
     password_digest: Password digest
     return_to_list: Click here to see the full list and to edit, or delete
     return_to_recipes: Cancel request and return to recipes listing
@@ -230,7 +268,7 @@ en:
     all_recipes: All Recipes
     chef_list: Chef List
     chef_login: Chef Login
-    create_chef: Create Chef Account
+    create_chef: Create Team Member Account
     edit_profile: Edit Profile
     guest_invitation: Guest Invitation
     guest_list: Guest List
@@ -249,9 +287,26 @@ en:
     recipes: Recipes
     sign_up: Sign up
     styles: Styles
+    team: Team
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
     view_profile: View Profile
+  orders: 
+    list_products: List of products
+    send: send
+    cash: Pay with Cash
+    gift_card: Pay your Gift Card
+    stripe: Pay with Stripe
+    full_name: Full name
+    email: Email
+    phone: Phone
+    home_address: Home address
+    subtotal: Subtotal
+    total: TOTAL
+    tax: Tax
+    tip: Tips($)
+    delivery: Delivery
+    discount: Coupon discount
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories
@@ -324,19 +379,38 @@ en:
        4) Variables, if any:<br>
        5) Select a style or ingredient, or create a new style or an ingredient in menu bar<br>
        6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. D'ont worry about making mistakes you can edit the recipes anytime.<br>
+    drafts: Recipe Drafts
     edit_recipe: Edit Recipe
     max_pic_size: Max picture size %{mb} megabytes
+    rec_pic_size: The recommended picture size is 1366 x 768px
     new_title: Create A New Masterpiece Recipe
     question_about_this_recipe: Question about this recipe? ask me! click here
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
+    save_draft: Save as Draft
     show_all_recipes: Showing all recipes
+    show_all_drafts: Showing all drafts
     summary_placeholder: |-
       Short Dish Description
       Preparation Time - Drink Suggestion
     tips_ingredients_preparation: 'Tips, ingredients and preparation:'
     upload_drink_pic: Upload drink picture
     upload_food_pic: Upload food picture
+    price: Price
+    shared_links: Share with friends & family
+    add_to_cart: Add to cart
+    my_cart: My Cart
+    product_name: Product name
+    price: Price
+    quantity: Quantity
+    sub_total: Sub total
+    home_delivery: Home delivery
+    subtotal: Subtotal
+    total: Total
+    proceed_checkout: Proceed to checkout
+    empty_cart: Empty cart
+    coupone_code: Coupon code
+    fundraising_code: Fundraising Code
     write_name: Write Recipe name
   reservations:
     make_catering: Ask about catering & personal chef services

@@ -1,0 +1,284 @@
+<style>
+  .content {
+    padding: 10px;
+  }
+  .row > form {
+    padding: 10px;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  td, th {
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #dadada;
+  }
+  thead {
+    font-size: 1.4em;
+  }
+  .list-header {
+    padding: 2px;
+    padding-left: 5px;
+  }
+  .product-item {
+    padding: 5px;
+    font-size: 1.3em;
+  } 
+  .total-item {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+  }
+  .subtotal {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .subtotal-price {
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: center;
+  }
+  .form-control {
+    font-size: 1.3em;
+    text-align: center;
+  }
+  .order-table {
+    border: none;
+  }
+  .checkout {
+    margin-top: 10px;
+    font-size: 1.6em;
+  }
+  .order-button {
+    border: none;
+    float: right;
+    padding-bottom: 10px;
+  }
+  .email-to {
+    border: none;
+    font-size: 1.4em;
+  }
+</style>
+  <div class="row">
+      <%= form_for(@order, url: app_orders_path(current_app), html: { method: :post }) do |f| %>
+      <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
+        <div class="col-md-5 well box-content">  
+          <table>
+            <tr>
+              <td class="order-table">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :name, t('orders.full_name') %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.text_field :name, required: true, autofocus: true, class: "form-control", placeholder: t('orders.full_name') %><br>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="order-table">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :email, t('orders.email') %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.email_field :email, required: true, class: "form-control", placeholder: t('orders.email') %><br>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="order-table">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :phone, t('orders.phone') %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.text_field :phone, required: true, class: "form-control", placeholder: t('orders.phone') %><br>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="order-table">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :home_address, t('orders.home_address') %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
+                    <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
+                    <%= f.text_field :delivery_price, id: 'delivery-price', value: params[:delivery_price], hidden: true %>
+                    <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: params[:coupon_percent_off], hidden: true %>
+                    <%= f.text_field :tip_value, id: 'tip-value', value: params[:tip_value], hidden: true %>
+                    <%= f.text_field :total_amount, id: 'total-value', value: @total_amount, hidden: true %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row">
+  <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
+    <div class="col-md-5 well box-content">
+      <table>
+        <thead>
+          <tr>
+            <td colspan="4" class="list-header"><%= t('orders.list_products') %></td>
+          </tr>
+        </thead>
+        <tbody>
+      <% @current_cart.line_items.order(:created_at).each do |line_item| %>  
+        <% if line_item.recipe && line_item.recipe.is_draft == false %>
+          <tr>
+            <td colspan="3" class="product-item" id="product-item">
+              <%= line_item.recipe.name %>, <%= line_item.quantity %>x<%= number_to_currency(line_item.recipe.price) %>
+            </td>
+            <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
+          </tr>
+        <% elsif line_item.gift_card %>
+          <tr>
+            <td colspan="3" class="product-item" id="product-item">
+              <%= line_item.gift_card.name %>, <%= line_item.quantity %>x<%= number_to_currency(line_item.gift_card.price) %>
+            </td>
+            <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
+          </tr>
+        <% end %>
+      <% end %>
+        </tbody>
+      </table>
+
+      <table class="checkout">
+        <tr>
+          <td class="subtotal"><%= t('orders.subtotal') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total) %></td>
+        </tr>
+        <tr>
+          <td class="subtotal"><%= t('orders.discount') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@coupon_discount) %></td>
+        </tr>
+        <tr>
+          <td class="subtotal"><%= t('orders.delivery') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@delivery_price) %></td>
+        </tr>
+        <tr>
+          <td class="subtotal"><%= t('orders.tax') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@total_tax) %></td>
+        </tr>
+        <tr>
+          <td class="subtotal"><%= t('orders.tip') %>: </td>
+          <td class="subtotal-price"><%= number_to_currency(@tip_value) %></td>
+        </tr>
+        <tr>
+          <td class="subtotal"><%= t('orders.total') %>: </td>
+          <td class="subtotal-price" id="total-amount"><%= number_to_currency(@total_amount) %></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="order-button"><%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+        </tr>
+        <tr>
+        <% if @gift_card.present? %>
+          <%= f.hidden_field :gift_card_id, value: @gift_card.id %>
+          <td class="order-button"><%= f.submit t('orders.gift_card'), name: "gift_card", class: "btn btn-info btn-lg", disabled: @current_cart.line_items.count == 0 %></td>
+        <% end %>
+          <%
+=begin%>
+ <td class="order-button"><%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg", disabled: @current_cart.line_items.count == 0 %></td> 
+<%
+=end%>
+        </tr>
+        <tr>
+          <td class="order-button" id="paypal-button-container" style="width: 160px;"></td>
+        </tr>
+        <tr>
+          <td class="email-to">Receipt: Email to <b><%= current_app_user.email %></b> or Print: (dropdown list of printers)</td>
+        </tr>
+        <tr>
+          <td class="order-button"><%= f.submit t('orders.send'), class: "btn btn-primary btn-lg", disabled: true %></td>
+        </tr>
+      </table>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}" %>
+<script>
+  var paypalEnv = "<%= Rails.configuration.paypal[:env] %>"
+  var totalAmount = document.getElementById("total-value").value;
+  var formOrderName = document.getElementById("order_name");
+  var formOrderEmail = document.getElementById("order_email");
+  var formOrderPhone = document.getElementById("order_phone");
+  var formOrderAddress = document.getElementById("order_address");
+
+  paypal.Buttons({
+    style: {
+      layout: 'horizontal',
+      size: 'responsive',
+      color: 'gold',
+      label: 'pay'
+    },
+    onInit: function(data, actions) {
+    // Disable the buttons
+    actions.disable();
+
+    document.querySelectorAll('#order_name, #order_email, #order_phone, #order_address').forEach(event => {
+    event.addEventListener('change', () => {
+      // Enable or disable the button when the fields completed
+      if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+        actions.enable();
+      } else {
+        actions.disable();
+      }
+    })
+  })
+  },
+    env: paypalEnv, // Valid values are sandbox and live.
+    createOrder: async () => {
+    const response = await fetch('/paypal_create_payment', { 
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: totalAmount })
+    });
+    const responseData = await response.json();
+    if (responseData.token) {
+      return responseData.token;
+    } else {
+      return responseData.error;
+    }
+  },
+    onApprove: async (data) => {
+      const response = await fetch('/paypal_execute_payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({ order_id: data.orderID })
+    });
+    const responseData = await response.json();
+    if (responseData.data.table.status === 'COMPLETED') {
+      // REDIRECT TO CREATE-ORDER PAGE
+      document.getElementById("new_order").submit();
+    }
+  },
+  onError: async (error) => {
+    alert('INVALID_RESOURCE_ID');
+  }
+}).render('#paypal-button-container');
+</script>

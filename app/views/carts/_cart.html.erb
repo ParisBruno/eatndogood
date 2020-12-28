@@ -1,0 +1,312 @@
+<style>
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dadada;
+    font-size: 1.2em;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+  .title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #dadada;
+  }
+  .price-item {
+    font-size: 1.3em;
+    margin: 5px;
+    padding: 5px;
+  }
+  .total-item {
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .null-header {
+    border: none;
+  }
+  .remove-item {
+    border: none;
+    margin: 5px;
+    padding: 5px;
+  }
+  .remove-item-btn {
+    font-size: 1.4em;
+    float: right;
+  }
+  .change-item-up {
+    height: 17px;
+    border: 1px solid #8c8b8b;
+  }
+  .change-item-down {
+    height: 17px;
+    border: 1px solid #8c8b8b;
+  }
+  .quantity-item {
+    border-right: none;
+  }
+  .quantity-arrow-td {
+    border-left: none;
+  }
+  .quantity-arrow {
+    float: left;
+  }
+  #quantity {
+    text-align: center;
+    font-size: 1.5em;
+    margin-left: 40%;
+    vertical-align: middle; 
+  }
+  .fa-sort-down {
+    vertical-align: top;
+  }
+  .coupon-code {
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+  }
+  .fundraising-code {
+    margin: 0;
+    padding: 0;
+  }
+  #coupon_input {
+    text-align: center;
+    border: 2px solid #3e5ea3;
+    font-size: 1.1em;
+    padding: 3px;
+  }
+  #fundraising_input {
+    text-align: center;
+    border: 2px solid #3e5ea3;
+    border-top: none;
+    font-size: 1.1em;
+    padding: 3px;
+  }
+  .checkout {
+    font-size: 1.7em;
+    font-weight: bold;
+  }
+  .home-delivery {
+    width: 80%;
+    text-align: right;
+    border: none;
+    color: #8c8b8b;
+    font-size: 1em;
+    font-weight: normal;
+  }
+  #check-delivery {
+    width: 20px;
+    height: 20px;  
+  }
+  .delivery-price {
+    color: #8c8b8b;
+    border: none;
+    border-bottom: 2px solid #8c8b8b;
+  }
+  .tip {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .tip-price {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  #tip {
+    width: 90px;
+    text-align: center;
+    border: none;
+  }
+  .tax {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .tax-price {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  .subtotal {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .subtotal-price {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  .total {
+    width: 80%;
+    border: none;
+    text-align: right;
+  }
+  .total-price {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+
+  .order-button {
+    border: none;
+  }
+  .empty-cart {
+    float: right;
+    margin-top: 5px;
+  }
+  .order {
+    float: right;
+    margin-top: 5px;
+  }
+</style>
+
+<div>
+  <h1 class="title"><%= t('recipes.my_cart') %></h1>
+  <table>
+    <thead>
+      <tr>
+        <td colspan="5"><%= t('recipes.product_name') %></td>
+        <td colspan="3"><%= t('recipes.price') %></td>
+        <td colspan="3"><%= t('recipes.quantity') %></td>
+        <td colspan="3"><%= t('recipes.sub_total') %></td>
+        <td class="null-header"></td>
+      </tr>
+    </thead>
+    <tbody>
+  <% @current_cart.line_items.order(:created_at).each do |line_item| %>
+    <% if line_item.recipe %>
+      <% unless line_item.recipe.is_draft %>
+      <tr>
+        <td colspan="5">
+          <h4><%= line_item.recipe.name %></h4>
+        </td>
+        <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
+        <td colspan="2" class="quantity-item">
+          <div>
+            <span id="quantity"><%= line_item.quantity %></span>
+          </div>
+        </td>
+        <td colspan="1" class="quantity-arrow-td">
+          <div class="quantity-arrow">
+            <%= button_to line_item_add_path(id: line_item), class: 'change-item-up btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-up"></span>
+            <% end %>
+            <%= button_to line_item_reduce_path(id: line_item), class: 'change-item-down btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-down"></span>
+            <% end %>
+          </div>
+        </td>
+        <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
+        <td class="remove-item"><%= button_to "x", line_item_path(line_item), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+      </tr>
+      <% end %>
+    <% elsif line_item.gift_card %>
+      <tr>
+        <td colspan="5">
+          <h4><%= line_item.gift_card.name %></h4>
+        </td>
+        <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.gift_card.price.to_f) %>$</td>
+        <td colspan="2" class="quantity-item">
+          <div>
+            <span id="quantity"><%= line_item.quantity %></span>
+          </div>
+        </td>
+        <td colspan="1" class="quantity-arrow-td">
+          <div class="quantity-arrow">
+            <%= button_to line_item_add_path(id: line_item), class: 'change-item-up btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-up"></span>
+            <% end %>
+            <%= button_to line_item_reduce_path(id: line_item), class: 'change-item-down btn', remote: true, method: :post do %>
+              <span class="fa fa-sort-down"></span>
+            <% end %>
+          </div>
+        </td>
+        <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
+        <td class="remove-item"><%= button_to "x", line_item_path(line_item), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+      </tr>
+    <% end %>
+  <% end %>
+    </tbody>
+  </table>
+  <div>
+    <p class="coupon-code"><%= text_field_tag :coupon_input, @coupon_code_value, placeholder: t('recipes.coupone_code') %></p>
+    <p class="fundraising-code"><%= text_field_tag :fundraising_input, nil, placeholder: t('recipes.fundraising_code') %></p>
+  </div>
+  <table class="checkout">
+    <tr>
+      <td class="home-delivery"><%= check_box_tag 'check-delivery', @delivery_check_value, @delivery_check_value, data: { url: check_delivery_path, remote: true, method: :post } %> <%= t('recipes.home_delivery') %>: </td>
+      <td class="delivery-price"><%= number_to_currency(@total_delivery) %></td>
+    </tr>
+    <tr>
+      <td class="tip"><%= t('orders.tip') %>: </td>
+      <td class="tip-price"><%= number_field_tag 'tip', @tip, step: 1, min: 0, data: { url: check_tip_path, remote: true, method: :post } %></td>
+    </tr>
+    <tr>
+      <td class="tax"><%= t('orders.tax') %>: </td>
+      <td class="tax-price"><%= number_to_currency(@total_tax) %></td>
+    </tr>
+    <tr>
+      <td class="subtotal"><%= t('recipes.subtotal') %>: </td>
+      <td class="subtotal-price"><%= number_to_currency(@current_cart.sub_total) %></td>
+    </tr>
+    <tr>
+      <td class="total"><%= t('recipes.total') %>: </td>
+      <td class="total-price">
+        <% if @delivery_check_value %>
+          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + @tip.to_f + @total_delivery.to_f) %>
+        <% else %>
+          <%= number_to_currency(@current_cart.sub_total + @total_tax.to_f + @tip.to_f) %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_additional_params_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: current_app.slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: {confirm: "Are you sure?"} %></td> 
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+    // var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
+    // var stripe = Stripe(publishableKey);
+    var checkoutCoupon = document.getElementById("coupon_input");
+    
+    checkoutCoupon.addEventListener("change", function () {
+      fetch("/check-coupon", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'coupon_code': checkoutCoupon.value }),
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        var couponCode = document.getElementById("coupon_input");
+        if (result.error) {
+          couponCode.setCustomValidity(result.error);
+          couponCode.reportValidity();
+          couponCode.value = "";   
+        } else {
+          couponCode.style.border = '2px solid lime'
+          return result;
+        }
+      })  
+      .catch(function (error) {
+        console.log("Error: ", error);
+      })
+    });
+</script>
