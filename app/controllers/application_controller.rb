@@ -209,12 +209,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_header_data
+    @current_app = current_app
     # @ingredients = Ingredient.where(user_id: @admin_id)
-    @all_ingredients = current_app.ingredients
+    @all_ingredients = @current_app.ingredients
     # @allergens = Allergen.where(user_id: @admin_id)
-    @all_allergens = current_app.allergens
+    @all_allergens = @current_app.allergens
     # @styles = Style.where(user_id: @admin_id)
-    @all_styles = current_app.styles
+    @all_styles = @current_app.styles
   end
 
   def current_cart

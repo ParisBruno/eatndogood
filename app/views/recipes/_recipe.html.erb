@@ -44,13 +44,13 @@
 <div class="col-md-12 margin-sec">
   <ul class="nav nav-tabs">
     <li class="<%= "active" unless @recipes.first&.is_draft %>">
-      <%= link_to t('common.all_recipes'), app_recipes_path(app: current_app), {:style=>'font-size:20px'} %>
+      <%= link_to t('common.all_recipes'), app_recipes_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
     <li style="display: <%= @hide_chef_tab %>">
-      <%= link_to t('navigation.team'), app_chefs_path(app: current_app), {:style=>'font-size:20px'} %>
+      <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
     <li class="<%= "active" if @recipes.first&.is_draft %>">
-      <%= link_to t('common.drafts'), app_recipe_drafts_path(app: current_app), {:style=>'font-size:20px'} %>
+      <%= link_to t('common.drafts'), app_recipe_drafts_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
   </ul>
 </div>
@@ -82,13 +82,13 @@
     <div class="col-md-8 detail">
     <div class="box-inner-sec well box-content">
     
-      <h2><%= link_to recipe.name, app_recipe_path(current_app, recipe) %></h2>
+      <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe) %></h2>
       <div class='recipe-summary-index'>
         <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
-          <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(current_app, recipe) } %>
+          <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
         <% else %>
           <% length = recipe.summary&.size || 3 %>
-          <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(current_app, recipe) } %>
+          <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
         <% end %>
       </div>
       <%

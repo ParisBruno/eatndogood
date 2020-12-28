@@ -265,7 +265,7 @@
                 </div>
                 <div class="welcome-locale-selector">
                     <form>
-                        <% unless params[:app] == "dogoodeatwell" %>
+                        <% if params[:app] != "dogoodeatwell" || request.url.include?('eatndogood') %>
                             <%= render partial: 'shared/locale_selector' %>
                         <% end %>
                       <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
