@@ -93,14 +93,16 @@ class ApplicationController < ActionController::Base
   # end
 
   def set_app
-    # raise current_app_user.inspect
-    unless params[:app]
-      redirect_to '/live'
-    else
-      @app = current_app
-      # @app.tap do
-      #   session[:app_id] = @app.id if session[:app].nil?
-      # end
+    if controller_name != 'pictures'
+      # raise current_app_user.inspect
+      unless params[:app]
+        redirect_to '/live'
+      else
+        @app = current_app
+        # @app.tap do
+        #   session[:app_id] = @app.id if session[:app].nil?
+        # end
+      end
     end
   end
 

@@ -1,28 +1,28 @@
-/* line 1, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 1, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 body {
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* line 6, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 6, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 img {
   border: 0;
 }
 
-/* line 9, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 9, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder {
   display: block;
   overflow: hidden;
   padding: 20px;
 }
 
-/* line 14, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 14, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item:first-child {
   float: left;
 }
 
-/* line 17, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 17, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item {
   display: inline-block;
   width: 150px;
@@ -31,7 +31,7 @@ img {
   margin: 0 12px 12px 0;
 }
 
-/* line 24, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 24, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-del {
   display: block;
   position: absolute;
@@ -42,31 +42,31 @@ img {
   height: 17px;
 }
 
-/* line 33, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 33, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .preloader {
   background: url("/assets/ckeditor/filebrowser/preloader-3799a3e41d7787a31dac5796ebccc242951da2f2b57eb088326ab3bffe15056a.gif") no-repeat center center;
   width: 118px;
   height: 100px;
 }
 
-/* line 38, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 38, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-del:hover {
   -moz-opacity: 0.7;
   -khtml-opacity: 0.7;
   opacity: 0.7;
 }
 
-/* line 43, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 43, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-upload-holder input {
   height: 162px;
 }
 
-/* line 46, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 46, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-upload-holder .add:hover {
   text-decoration: underline;
 }
 
-/* line 49, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 49, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder, .gal-holder .gal-item .gal-upload-holder {
   display: block;
   margin: 6px 6px 0 0;
@@ -77,19 +77,19 @@ img {
   min-height: 138px;
 }
 
-/* line 58, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 58, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder.hover {
   background: #DFF1FF;
   border: solid 1px #99CCFF;
 }
 
-/* line 62, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 62, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder.selected {
   background: #B4D9FF;
   border: solid 1px #6565FE;
 }
 
-/* line 66, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 66, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-upload-holder .add {
   display: block;
   color: #2e5aff;
@@ -101,21 +101,21 @@ img {
   font-size: 14px;
 }
 
-/* line 76, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 76, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img {
   height: 100px;
   overflow: hidden;
   cursor: pointer;
 }
 
-/* line 81, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 81, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img-data {
   display: block;
   overflow: hidden;
   padding-top: 5px;
 }
 
-/* line 86, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 86, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img-data .img-name {
   display: block;
   color: #333;
@@ -125,13 +125,13 @@ img {
   width: 500px;
 }
 
-/* line 94, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 94, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .img-name {
   word-wrap: break-word;
   width: auto !important;
 }
 
-/* line 98, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 98, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img-data .time-size {
   display: block;
   overflow: hidden;
@@ -139,19 +139,19 @@ img {
   color: #666;
 }
 
-/* line 104, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 104, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img-data .time-size .time {
   display: block;
   float: left;
 }
 
-/* line 108, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 108, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-holder .gal-item .gal-inner-holder .img-data .time-size .size {
   display: block;
   float: right;
 }
 
-/* line 112, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 112, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-more {
   display: block;
   overflow: hidden;
@@ -160,7 +160,7 @@ img {
   text-align: center;
 }
 
-/* line 119, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 119, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-more a {
   color: #2e5aff;
   background: url("/assets/ckeditor/filebrowser/gal_more-93d8887361f4dd7f757c20a186a2dae6e5cc6698da238814eacbff7b19a43f51.gif") no-repeat left center;
@@ -169,12 +169,12 @@ img {
   text-decoration: none;
 }
 
-/* line 126, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 126, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .gal-more a:hover {
   text-decoration: underline;
 }
 
-/* line 130, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 130, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .pagination {
   margin: 0;
   padding: 0;
@@ -186,7 +186,7 @@ img {
   vertical-align: middle;
 }
 
-/* line 141, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 141, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .pagination a {
   height: 40px;
   width: 50%;
@@ -212,7 +212,7 @@ img {
   border-radius: 2px;
 }
 
-/* line 170, /Users/yannakoun/Project/iTopRecipes/MyiTR/.vendor/ruby/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
+/* line 170, /Users/admin/.rbenv/versions/2.6.3/lib/ruby/gems/2.6.0/bundler/gems/ckeditor-ab55dff21599/app/assets/stylesheets/ckeditor/filebrowser/uploader.scss */
 .pagination a:hover {
   background: #fff;
 }
