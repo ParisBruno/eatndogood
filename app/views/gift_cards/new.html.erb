@@ -71,14 +71,23 @@
   .buy-button {
     border: double #46db68;
     font-size: 16px;
+    white-space: normal;
   }
   .send-button {
     border: double #44cde3;
     font-size: 16px;
+    white-space: normal;
   }
   .shop-button {
     border: double #60aaf7;
     font-size: 16px;
+    white-space: normal;
+  }
+  .gift-image img {
+    max-width: 600px;
+    max-height: 340px;
+    width: 75%; 
+    height: auto;
   }
 </style>
   <div class="row">
@@ -88,7 +97,7 @@
 
         <table>
           <tr>
-            <td colspan="6"><%= image_tag('gift_card.png', size: "600x340") %></td>
+            <td colspan="6" class="gift-image"><%= image_tag('gift_card.png') %></td>
           </tr>
           <tr>
             <td class="label-price" colspan="6">
