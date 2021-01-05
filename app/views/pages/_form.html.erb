@@ -1,4 +1,4 @@
-<%= form_for([current_app,@page], html: { class: "autosave", multipart: true}, remote: true)do |f| %>
+<%= form_for([current_app,@page], url: { action: "update" }, html: { method: :put, class: "autosave", multipart: true}, remote: true)do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "page"} %>
   <%= f.hidden_field :destination %>
   <div class=" col-md-offset-4 margin-sec full-width-sec edit-chef new-cheif">

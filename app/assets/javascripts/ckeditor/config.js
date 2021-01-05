@@ -34,14 +34,14 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Easy =
     [
         ['Undo','Redo','-','RemoveFormat'],
-        ['Styles','Format'],
-        ['TextColor'],
+        ['Styles','Format','Font','FontSize'],
+        ['TextColor','BGColor'],
         ['Bold','Italic','Underline'], 
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
         ['Link','Unlink'],
         [ 'Image' ]
     ];
-    config.extraPlugins = 'confighelper,placeholder,';
+    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,';
 
 };
 
