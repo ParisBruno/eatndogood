@@ -9,7 +9,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 Rails.application.config.assets.precompile += %w(ckeditor/*)
-Rails.application.config.assets.precompile += %w[ckeditor/config.js ckeditor/plugins/placeholder/* ckeditor/plugins/placeholder/**/* ckeditor/plugins/confighelper/* ckeditor/plugins/confighelper/**/*]
+Rails.application.config.assets.precompile += %w[ckeditor/config.js ckeditor/plugins/placeholder/* ckeditor/plugins/placeholder/**/* ckeditor/plugins/confighelper/* ckeditor/plugins/confighelper/**/* ckeditor/plugins/colorbutton/* ckeditor/plugins/colorbutton/**/* ckeditor/plugins/font/* ckeditor/plugins/font/**/* ckeditor/plugins/panelbutton/* ckeditor/plugins/panelbutton/**/*]
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

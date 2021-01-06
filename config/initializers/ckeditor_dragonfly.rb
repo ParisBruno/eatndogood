@@ -1,5 +1,6 @@
 # Load Dragonfly if it isn't loaded already.
 require 'dragonfly'
+require 'dragonfly/s3_data_store'
 
 Dragonfly.app(:ckeditor).configure do
   plugin :imagemagick
@@ -8,8 +9,15 @@ Dragonfly.app(:ckeditor).configure do
   # Store files in public/uploads/ckeditor. This is not
   # mandatory and the files don't even have to be stored under
   # public. See http://markevans.github.io/dragonfly/data-stores
-  datastore :file, root_path: Rails.root.join('public/uploads/ckeditor', Rails.env).to_s,
-                   server_root: 'public'
+
+  datastore :s3,
+    bucket_name: ENV['AWS_BUCKET'],
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_ACCESS_KEY_SECRET'],
+    region: 'us-east-1'
+
+  # datastore :file, root_path: Rails.root.join('public/uploads/ckeditor', Rails.env).to_s,
+  #                  server_root: 'public'
 
   # Accept asset requests on /ckeditor_assets. Again, this path is
   # not mandatory. Just be sure to include :job somewhere.
