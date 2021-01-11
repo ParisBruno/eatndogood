@@ -403,7 +403,11 @@ CKEDITOR.config.font_names = 'Arial/Arial, Helvetica, sans-serif;' +
 	'Comic Sans MS/Comic Sans MS, cursive;' +
 	'Courier New/Courier New, Courier, monospace;' +
 	'Georgia/Georgia, serif;' +
+	'Franklin Gothic Medium/Franklin Gothic Medium, Franklin Gothic Medium, sans-serif;' +
+	'Monaco/Monaco, Monaco, monospace;' +
+	'Helvetica Narrow/Helvetica Narrow, Helvetica Narrow, sans-serif;' +
 	'Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;' +
+	'Rockwell/Rockwell, Rockwell, serif;' +
 	'Tahoma/Tahoma, Geneva, sans-serif;' +
 	'Times New Roman/Times New Roman, Times, serif;' +
 	'Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;' +
@@ -419,7 +423,7 @@ CKEDITOR.config.font_names = 'Arial/Arial, Helvetica, sans-serif;' +
  * @cfg {String} [font_defaultLabel='']
  * @member CKEDITOR.config
  */
-CKEDITOR.config.font_defaultLabel = '';
+CKEDITOR.config.font_defaultLabel = 'Arial';
 
 /**
  * The style definition to be used to apply the font in the text.
@@ -474,7 +478,7 @@ CKEDITOR.config.fontSize_sizes = '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16
  * @cfg {String} [fontSize_defaultLabel='']
  * @member CKEDITOR.config
  */
-CKEDITOR.config.fontSize_defaultLabel = '';
+CKEDITOR.config.fontSize_defaultLabel = '12';
 
 /**
  * The style definition to be used to apply the font size in the text.
