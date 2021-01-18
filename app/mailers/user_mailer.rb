@@ -23,6 +23,10 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'Guest registered notification')
 	end
 
+	def guest_create_email_to_guest(email)
+		mail(to: email, subject: 'Welcome to our Team')
+	end
+
 	def buy_gift_card_email(gift_card_id, app_id)
 		@app = App.find_by(id: app_id)
 		@gift_card = GiftCard.find_by(id: gift_card_id)

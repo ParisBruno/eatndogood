@@ -28,7 +28,7 @@ class User < ApplicationRecord
   validates :delivery_price, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
 
   validate :limit_guests, on: :create
-  #after_create :send_guest_email_to_admin
+  after_create :send_guest_email_to_admin
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
   scope :guests, -> { where(guest: true)}
@@ -61,8 +61,9 @@ class User < ApplicationRecord
 
   def send_guest_email_to_admin
     if self.guest?
-      admin = self.app.admin
-      UserMailer.guest_create_email_to_admin(admin.email, self).deliver_later
+      @admin = self.app.main_admin
+      UserMailer.guest_create_email_to_admin(@admin.email, self).deliver_later if @admin
+      UserMailer.guest_create_email_to_guest(self.email).deliver_later if @admin
     end
   end
 

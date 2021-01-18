@@ -159,10 +159,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:chef_id] = current_app_user.chef_id
-    if resource.guest
-      @admin = resource.app.main_admin
-      UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver_later if @admin 
-    end
+    # if resource.guest
+    #   @admin = resource.app.main_admin
+    #   UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver_later if @admin
+    #   UserMailer.guest_create_email_to_guest(resource.email).deliver_later if @admin
+    # end
     app_recipes_path(app: current_app.slug)
   end
 
