@@ -4,20 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to <%= link_to root_url, root_url %></h1>
-    <p>
-      A guest have successfully registered on <%= link_to root_url, root_url %>,
-      <br>
-    </p>
-    <p>
-     Here are the guest information:
-    </p>
-    <br>
-    <ul>
-      <li>Guest First Name: <%= @guest.first_name.capitalize %></li>
-      <li>Guest Last Name: <%= @guest.last_name.capitalize %></li>
-      <li>Guest Email <%= @guest.email %></li>
-    </ul>
-    
+    <% app_title = 'My.ITopRecipes' %>
+    <% app_title = 'Eat`nDoGood' if root_url.include?('eatndogood') %>
+    <h3>We appreciate you for joining as our guest, Thank you.</br>
+        What would you like for us to add on the menu?</br>
+        We are looking forward to be of service.</br>
+        Have a safe and joyful time ahead.</br>
+        The <%= app_title %> Team
+    </h3>
   </body>
 </html>
