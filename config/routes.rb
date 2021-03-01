@@ -109,6 +109,9 @@ Rails.application.routes.draw do
     resources :carts, only: %i[show destroy]
     resources :orders
     resources :gift_cards, only: %i[new create]
+    resources :reports, only: %i[index]
+    post 'recipe-sales', to: 'reports#recipe_sales', as: "recipe_sales"
+    post 'category-sales', to: 'reports#category_sales', as: "category_sales"
   end
   resources :charges
   post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'

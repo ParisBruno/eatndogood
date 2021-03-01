@@ -80,8 +80,8 @@ en:
     recipes_for_food: Recipes for %{name} food
     recipes_with: 'Recipes with: %{name}'
     register: Register
-    styles: Styles
-    styles_colon: 'Styles:'
+    styles: Categories
+    styles_colon: 'Categories:'
     take_a_tour_as_guest: Take a tour as Guest
     add_to_home_screen: Add App to Home-Screen
     update: Update
@@ -158,7 +158,7 @@ en:
     recipe_add_to_cart: Recipe was successfully added to your cart!
     gift_add_to_cart: Gift Card was successfully added to your cart!
     send_note_with_your_thoughts: Great! send a note with your toughts
-    style_removed: Style removed successfully!
+    style_removed: Category removed successfully!
     success_stripe_payment: The order was successfully paid
     user_already_registered: user already registered
     user_not_registered: user not registered
@@ -182,7 +182,7 @@ en:
     you_can_not_create_chef_upgrade_plan: Your can not create chef account, Please
       upgrade your plan!
     you_created_new_recipe: Brilliant! you created and saved a New Masterpiece!
-    you_created_new_style: Congratulation you just creates a New Style.
+    you_created_new_style: Congratulation you just creates a New Category.
     you_have_logged_out: You have logged out
     you_must_be_logged_in: You must be logged in to perform that action
     you_must_log_out_from_app: Please Logout from %{current_app} before accessing
@@ -211,7 +211,7 @@ en:
     name: Name
     new_allergen: Create New Allergen
     new_ingredient: Create New Ingredient
-    new_style: Create New Style
+    new_style: Create New Category
     password: Password
     password_confirmation: Password Confirmation
     password_digest: Password digest
@@ -283,10 +283,11 @@ en:
     new_allergen: New Allergen
     new_ingredient: New Ingredient
     new_recipe: New Recipe
-    new_style: New Style
+    new_style: New Category
     recipes: Recipes
+    sales_reports: Sale reports
     sign_up: Sign up
-    styles: Styles
+    styles: Categories
     team: Team
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
@@ -377,7 +378,7 @@ en:
        2) Ingredients: (create a list from most to the least important items)<br>
        3) Preparation tips:<br>
        4) Variables, if any:<br>
-       5) Select a style or ingredient, or create a new style or an ingredient in menu bar<br>
+       5) Select a category or ingredient, or create a new category or an ingredient in menu bar<br>
        6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. D'ont worry about making mistakes you can edit the recipes anytime.<br>
     drafts: Recipe Drafts
     edit_recipe: Edit Recipe
@@ -415,14 +416,22 @@ en:
   reservations:
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
+  reports:
+    category_title: Category Reports
+    recipe_title: Recipe Reports
+    category_name: Category name
+    recipe_name: Recipe name
+    items: Items
+    sales: Sales
+    total_sales: Total Sales
   shared:
     please_correct_errors: 'Please correct the following errors:'
   styles:
-    add: Add Style
-    delete: Delete Style
-    submit: Write the name of your new style then click or tap to Save
-    title: Create a new Style
-    update: Update Style
+    add: Add Category
+    delete: Delete Category
+    submit: Write the name of your new category then click or tap to Save
+    title: Create a new Category
+    update: Update Category
   users:
     edit_user: Edit user
     leave_blank: leave blank if you don't want to change it

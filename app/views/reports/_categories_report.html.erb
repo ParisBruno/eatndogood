@@ -1,0 +1,88 @@
+<style>
+  .report-table {
+    margin-left: 7%;
+    margin-right: 3%;
+    padding-bottom: 5%;
+    max-width: 590px;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dadada;
+    font-size: 1.4em;
+    padding: 5px 0 5px 0;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .total-report {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .total-report-label {
+    text-align: left;
+    padding-left: 25px;
+  }
+  .report-category {
+    text-align: left;
+    padding-left: 25px;
+  }
+  .report-filter {
+    margin-left: 5px;
+  }
+  .date-field-report {
+    text-align: center;
+    font-size: 1.4em;
+    margin-bottom: 5px;
+  }
+  .button-field-report {
+    font-size: 1.5em;
+    display: block;
+    margin: 0 auto;
+    min-width: 180px;
+  }
+</style>
+
+<div class="report-table">
+  <h3 style="text-align: center; padding-bottom: 5px;"><%= t('reports.category_title') %></h3>
+  <div class="report-filter">
+    <%= form_for('category_sales', url: app_category_sales_path(@current_app), remote: true) do |f| %>
+      <%= f.date_field :date_from, value: category_date_from, class: 'date-field-report form-control col-md-4' %>
+      <%= f.date_field :date_to, value: category_date_to, class: 'date-field-report form-control col-md-4' %>
+      <%= f.submit "Filter", class: 'button-field-report btn btn-primary btn-lg' %>
+    <% end %> 
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <td><%= t('reports.category_name') %></td>
+        <td><%= t('reports.items') %></td>
+        <td><%= t('reports.sales') %></td>
+      </tr>
+    </thead>
+    <tbody>
+    <% categories.each do |key, value| %>
+      <tr>
+        <td class="report-category"><%= key %></td>
+        <td><%= value['category_item'] %></td>
+        <td><%= number_to_currency(value['category_amount']/100.0) %></td>
+      </tr>
+    <% end %>
+
+      <tr class="total-report">
+        <td class="total-report-label"><%= t('reports.total_sales') %></td>
+        <td><%= @category_total_item %></td>
+        <td><%= number_to_currency(@category_total_amount/100.0) %></td>
+      <tr>
+    </tbody>
+  </table>
+</div>

@@ -76,8 +76,8 @@ it:
     recipes_for_food: Ricette per %{name} cibo
     recipes_with: 'Ricette con: %{name}'
     register: Registra
-    styles: Stile
-    styles_colon: 'Stile:'
+    styles: Categoria
+    styles_colon: 'Categoria:'
     take_a_tour_as_guest: Fai un tour come ospite
     add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
@@ -144,7 +144,7 @@ it:
     recipe_add_to_cart: La ricetta è stata aggiunta con successo al tuo carrello!
     gift_add_to_cart: La carta regalo è stata aggiunta con successo al tuo carrello!
     send_note_with_your_thoughts: Bene! invia una nota con i tuoi pensieri
-    style_removed: Stile rimosso con successo!
+    style_removed: Categoria rimosso con successo!
     success_stripe_payment: L'ordine è stato pagato con successo
     user_already_registered: utente e gia registrato
     user_not_registered: utente non e` registrato
@@ -169,7 +169,7 @@ it:
     you_can_not_create_chef_upgrade_plan: Non puoi creare un account chef, per favore
       aggiorna il tuo piano!
     you_created_new_recipe: Congratulazioni! hai creato e salvato un nuovo capolavoro!
-    you_created_new_style: Congratulazioni hai appena creato uno Stile Nuovo.
+    you_created_new_style: Congratulazioni hai appena creato uno Categoria Nuovo.
     you_have_logged_out: sei uscito
     you_must_be_logged_in: Devi essere loggato per eseguire quell'azione
     you_received_notification_email_you_cant_create_more_recipes: Hai ricevuto un'email
@@ -197,7 +197,7 @@ it:
     name: Nome
     new_allergen: Create New Allergen
     new_ingredient: Crea un nuovo ingrediente
-    new_style: Create New Style
+    new_style: Create New Categoria
     password: Password
     password_confirmation: Conferma Password
     password_digest: Password digest
@@ -269,10 +269,11 @@ it:
     new_allergen: Nuovo allergeno
     new_ingredient: Nuovo ingrediente
     new_recipe: Nuova ricetta
-    new_style: Nuovo stile
+    new_style: Nuovo categoria
     recipes: Ricette
+    sales_reports: Rapporti di vendita
     sign_up: inscriviti
-    styles: Stile
+    styles: Categoria
     team: Squadra
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
@@ -366,7 +367,7 @@ it:
        2) Ingredienti: (crea una lista con gli ingredienti piu, ai meno iimportanti)<br>
        3) Suggerimenti per la preparazione:<br>
        4) Variabili, se presenti:<br>
-       5) Seleziona uno stile o un ingrediente, oppure crea un nuovo stile o ingrediente nella barra dei menu<br>
+       5) Seleziona uno categoria o un ingrediente, oppure crea un nuovo categoria o ingrediente nella barra dei menu<br>
        6) Carica la tua foto del capolavoro utilizzando il pulsante Scegli file, dimensione massima dell'immagine 300x400 px. Non preoccuparti di commettere errori, puoi modificare le ricette in qualsiasi momento.<br>
     drafts: Borradores de recetas
     edit_recipe: Modifica questa ricetta
@@ -403,14 +404,22 @@ it:
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali
     make_reservation: Crea prenotazione
+  reports:
+    category_title: Rapporti di categoria
+    recipe_title: Rapporti sulle ricette
+    category_name: Nome della categoria
+    recipe_name: Nome della ricetta
+    items: Elementi
+    sales: I saldi
+    total_sales: Vendite totali
   shared:
     please_correct_errors: 'Per favore correggi i seguenti errori:'
   styles:
     add: aggiungi
-    delete: Elimina lo stile
-    submit: scrivi il nome del tuo nuovo stile di cottura, quindi fai clic o tocca
+    delete: Elimina lo categoria
+    submit: scrivi il nome del tuo nuovo categoria di cottura, quindi fai clic o tocca
       per salvare
-    title: Crea un nuovo stile
+    title: Crea un nuovo categoria
     update: aggiorna
   users:
     edit_user: aggiorna utente

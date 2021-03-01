@@ -76,8 +76,8 @@ de:
     recipes_for_food: Rezepte für %{name} Lebensmittel
     recipes_with: 'Rezepte mit: %{name}'
     register: Registrieren
-    styles: der Stil
-    styles_colon: 'der Stil:'
+    styles: der Kategorie
+    styles_colon: 'der Kategorie:'
     take_a_tour_as_guest: Machen Sie eine Tour als Gast
     add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
@@ -141,7 +141,7 @@ de:
     recipe_add_to_cart: Das Rezept wurde erfolgreich in Ihren Warenkorb gelegt!
     gift_add_to_cart: Geschenkkarte wurde erfolgreich in Ihren Warenkorb gelegt!
     send_note_with_your_thoughts: Großartig! Senden Sie eine Notiz mit Ihren Toughts
-    style_removed: Stil erfolgreich entfernt!
+    style_removed: Kategorie erfolgreich entfernt!
     success_stripe_payment: Die Bestellung wurde erfolgreich bezahlt
     user_already_registered: Benutzer bereits registriert
     user_not_registered: Benutzer nicht registriert
@@ -168,7 +168,7 @@ de:
     you_can_not_create_chef_upgrade_plan: Sie können keinen Chef-Account erstellen.
       Bitte aktualisieren Sie Ihren Plan!
     you_created_new_recipe: Brillant! Du hast ein neues Meisterwerk erstellt und gespeichert!
-    you_created_new_style: Herzlichen Glückwunsch, Sie erstellen nur einen neuen Stil.
+    you_created_new_style: Herzlichen Glückwunsch, Sie erstellen nur einen neuen Kategorie.
     you_have_logged_out: Du hast dich ausgeloggt
     you_must_be_logged_in: Sie müssen angemeldet sein, um diese Aktion ausführen zu
       können
@@ -192,7 +192,7 @@ de:
     name: der Name
     new_allergen: Create New Allergen
     new_ingredient: Erstellen Sie eine neue Zutat
-    new_style: Create New Style
+    new_style: Create New Kategorie
     password: Passwort
     password_confirmation: Passwort Bestätigung
     password_digest: Passwort-Digest
@@ -259,9 +259,10 @@ de:
     new_allergen: Neue Allergene
     new_ingredient: Neue Zutat
     new_recipe: neues Rezept
-    new_style: Neuer Stil
+    new_style: Neuer Kategorie
     recipes: Rezepte
-    styles: der Stil
+    styles: der Kategorie
+    sales_reports: Verkaufsberichte
     team: Mannschaft
     update_about_us_page: Update Über uns Seite
     update_welcome_page: Startseite aktualisieren
@@ -333,7 +334,7 @@ de:
        2) Zutaten: (Erstellen Sie eine Liste von den meisten zu den am wenigsten wichtigen Punkten)<br>
        3) Vorbereitung Tipps:<br>
        4) Variablen, falls vorhanden:<br>
-       5) Wählen Sie einen Stil oder eine Zutat oder erstellen Sie einen neuen Stil oder eine neue Zutat in der Menüleiste<br>
+       5) Wählen Sie einen Kategorie oder eine Zutat oder erstellen Sie einen neuen Kategorie oder eine neue Zutat in der Menüleiste<br>
        6) Laden Sie Ihr Meisterwerk Bild mit der Schaltfläche Datei auswählen, maximale Bildgröße 300x400 px<br>
     drafts: Rezeptentwürfe
     edit_recipe: Bearbeiten Sie dieses Rezept
@@ -370,13 +371,21 @@ de:
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen
     make_reservation: Reservierung erstellen
+  reports:
+    category_title: Kategorieberichte
+    recipe_title: Rezeptberichte
+    category_name: Kategoriename
+    recipe_name: Rezeptname
+    items: Artikel
+    sales: Der Umsatz
+    total_sales: Gesamtumsatz
   shared:
     please_correct_errors: 'Bitte korrigieren sie die folgenden Fehler:'
   styles:
-    delete: Stil löschen
-    submit: Geben Sie den Namen Ihres neuen Stils ein und klicken Sie dann auf oder
+    delete: Kategorie löschen
+    submit: Geben Sie den Namen Ihres neuen Kategorie ein und klicken Sie dann auf oder
       tippen Sie auf Speichern
-    title: Erstellen Sie einen neuen Stil
+    title: Erstellen Sie einen neuen Kategorie
   will_paginate:
     next_label: Nächste &#8594;
     previous_label: "&#8592; Vorherige"

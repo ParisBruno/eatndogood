@@ -81,8 +81,8 @@ fr:
     recipes_for_food: Recette pour %{name} l' aliment
     recipes_with: 'Recettes avec: %{name}'
     register: Register
-    styles: la mode
-    styles_colon: 'la mode:'
+    styles: la catégorie
+    styles_colon: 'la catégorie:'
     take_a_tour_as_guest: Faites un tour en tant qu'invité
     add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
@@ -162,7 +162,7 @@ fr:
     recipe_add_to_cart: La recette a bien été ajoutée à votre panier!
     gift_add_to_cart: La carte cadeau a bien été ajoutée à votre panier!
     send_note_with_your_thoughts: Génial! envoyer une note avec vos pensées
-    style_removed: Style supprimé avec succès!
+    style_removed: Catégorie supprimé avec succès!
     success_stripe_payment: La commande a été payée avec succès
     user_already_registered: utilisateur déjà enregistré
     user_not_registered: utilisateur non enregistré
@@ -188,7 +188,7 @@ fr:
     you_can_not_create_chef_upgrade_plan: Votre compte ne peut pas créer de chef,
       s'il vous plaît mettre à jour votre plan!
     you_created_new_recipe: Brillant! vous avez créé et enregistré un nouveau chef-d'œuvre!
-    you_created_new_style: Félicitations, vous créez juste un nouveau style.
+    you_created_new_style: Félicitations, vous créez juste un nouveau catégorie.
     you_have_logged_out: Vous êtes déconnecté
     you_must_be_logged_in: Vous devez être connecté pour effectuer cette action
     you_must_log_out_from_app: 'Vous devez vous déconnecter de %{current_app} avant
@@ -218,7 +218,7 @@ fr:
     name: le nom
     new_allergen: Créer un nouvel allergène
     new_ingredient: Créer un nouvel Ingredient
-    new_style: Créer un nouveau style
+    new_style: Créer un nouveau catégorie
     password: Mot de passe
     password_confirmation: Confirmation mot de passe
     password_digest: Mot de passe condensé
@@ -293,10 +293,11 @@ fr:
     new_allergen: nouveaux allergènes
     new_ingredient: nouveaux ingrédients
     new_recipe: Recette Nouvelle
-    new_style: Nouveau style
+    new_style: Nouveau catégorie
     recipes: Recettes
     sign_up: 'Inscrivez-vous '
-    styles: La mode
+    styles: La catégorie
+    sales_reports: Rapports de vente
     team: Équipe
     update_about_us_page: Mise à jour à propos de nous
     update_welcome_page: Mettre à jour la page d'accueil
@@ -377,7 +378,7 @@ fr:
        2) Ingrédients: (créer une liste des articles les plus importants aux moins importants)<br>
        3) Conseils de préparation:<br>
        4) Variables, le cas échéant:<br>
-       5) Sélectionnez un style ou un ingrédient ou créez-en un nouveau dans la barre de menus.<br>
+       5) Sélectionnez un catégorie ou un ingrédient ou créez-en un nouveau dans la barre de menus.<br>
        6) Téléchargez votre image de chef-d’œuvre à l’aide du bouton Choisir un fichier, taille maximale de l’image 300x400 px. Ne vous inquiétez pas, vous pouvez modifier les recettes à tout moment.<br>
     drafts: Brouillons de recettes
     edit_recipe: Modifier la recette
@@ -414,15 +415,23 @@ fr:
   reservations:
     make_catering: Posez des questions sur la restauration et les services personnels
     make_reservation: Créer une réservation
+  reports:
+    category_title: Rapports de catégorie
+    recipe_title: Rapports de recettes
+    category_name: Nom de catégorie
+    recipe_name: Nom de la recette
+    items: Articles
+    sales: Ventes
+    total_sales: Ventes totales
   shared:
     please_correct_errors: 'Veuillez corriger les erreurs suivantes:'
   styles:
-    add: 'Ajouter un style '
-    delete: Supprimer le style
+    add: 'Ajouter un catégorie '
+    delete: Supprimer le catégorie
     submit: Écrivez le nom de votre nouvel ingrédient, puis cliquez ou appuyez pour
       enregistrer
-    title: Créer un nouveau style
-    update: Mettre à jour un style
+    title: Créer un nouveau catégorie
+    update: Mettre à jour un catégorie
   users:
     edit_user: 'Modifier l''utilisateur '
     leave_blank: ne pas remplir si inchangé

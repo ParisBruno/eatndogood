@@ -139,6 +139,9 @@
                 <li>
                   <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
                 </li>
+                <li>
+                  <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
+                </li>
               <% end %>
               <li role="separator" class="divider"></li>
               <li><%= link_to t('navigation.logout'), destroy_app_user_session_path, method: :delete %></li>
