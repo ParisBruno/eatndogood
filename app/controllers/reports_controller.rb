@@ -4,7 +4,6 @@ class ReportsController < ApplicationController
   def index
     line_items_with_recipe_and_order = LineItem.joins(:recipe)
                                                .where.not(recipe_id: nil, order_id: nil)
-                                               .where(recipes: { chef_id: check_admin })
     set_recipes(line_items_with_recipe_and_order)
     set_categories(line_items_with_recipe_and_order)        # use recipe.styles
   end
@@ -19,11 +18,10 @@ class ReportsController < ApplicationController
       set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                             .where(created_at: @date_from..@date_to)
     else
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(recipes: { chef_id: check_admin })
     end
 
     respond_to do |format|
@@ -46,11 +44,10 @@ class ReportsController < ApplicationController
       set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                          .where(created_at: @date_from..@date_to)
     else
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(recipes: { chef_id: check_admin })
     end
 
     respond_to do |format|
