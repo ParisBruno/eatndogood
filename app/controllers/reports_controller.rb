@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
   def index
     line_items_with_recipe_and_order = LineItem.joins(:recipe)
                                                .where.not(recipe_id: nil, order_id: nil)
+                                               .where(recipes: { chef_id: check_admin })
     set_recipes(line_items_with_recipe_and_order)
     set_categories(line_items_with_recipe_and_order)        # use recipe.styles
   end
@@ -18,10 +19,11 @@ class ReportsController < ApplicationController
       set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(created_at: @date_from..@date_to)
+                             .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
+                             .where(recipes: { chef_id: check_admin })
     end
 
     respond_to do |format|
@@ -44,10 +46,11 @@ class ReportsController < ApplicationController
       set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(created_at: @date_from..@date_to)
+                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
+                          .where(recipes: { chef_id: check_admin })
     end
 
     respond_to do |format|
@@ -123,7 +126,7 @@ class ReportsController < ApplicationController
   end
 
   def check_admin
-    return current_app_user&.chef_id if current_app_user.admin?
+    return current_app_user&.chef_info&.id if current_app_user.admin? && current_app_user.chef_info
     
     redirect_to app_recipes_path(current_app)
   end
