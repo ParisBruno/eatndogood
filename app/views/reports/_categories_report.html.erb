@@ -92,7 +92,7 @@
 
   <div>
     <%= button_to 'EXCEL download', app_category_sales_path(@current_app, format: :xlsx),
-                  class: 'excel-download btn btn-outline-success',
+                  class: 'excel-download btn btn-outline-success', disabled: categories.keys.empty? ? true : false,
                   params: { categories: categories, date_from: category_date_from, 
                             date_to: category_date_to, total_item: @category_total_item, 
                             total_amount: @category_total_amount } %>

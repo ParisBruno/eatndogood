@@ -92,7 +92,7 @@
 
   <div>
     <%= button_to 'EXCEL download', app_recipe_sales_path(@current_app, format: :xlsx),
-                  class: 'excel-download btn btn-outline-success',
+                  class: 'excel-download btn btn-outline-success', disabled: recipes.keys.empty? ? true : false,
                   params: { recipes: recipes, date_from: recipe_date_from, 
                             date_to:recipe_date_to, total_item: @recipe_total_item, 
                             total_amount: @recipe_total_amount } %>
