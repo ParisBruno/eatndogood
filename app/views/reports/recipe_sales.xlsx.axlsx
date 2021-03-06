@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Recipe Name") do |sheet|
+  sheet.add_row [ "Date", @date_from, @date_to ] 
+  sheet.add_row ["Recipe Name", "Items", "Sales"]
+  @recipes.each do |key, value|
+    sheet.add_row [
+      key,
+      value['recipe_item'],
+      (value['recipe_amount'].to_i/100.0).to_s,
+    ]
+  end
+  sheet.add_row [ t('reports.total_sales'), @recipe_total_item, (@recipe_total_amount.to_i/100.0).to_s ]
+end

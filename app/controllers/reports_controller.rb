@@ -1,39 +1,80 @@
 class ReportsController < ApplicationController
+  before_action :check_admin
 
   def index
-    line_items_with_recipe_and_order = LineItem.where.not(recipe_id: nil, order_id: nil)
+    line_items_with_recipe_and_order = LineItem.joins(:recipe)
+                                               .where.not(recipe_id: nil, order_id: nil)
+                                               .where(recipes: { chef_id: check_admin })
     set_recipes(line_items_with_recipe_and_order)
     set_categories(line_items_with_recipe_and_order)        # use recipe.styles
   end
 
   def category_sales
-    if params[:category_sales].present?
-      set_date(params[:category_sales])
-      set_categories(LineItem.where.not(recipe_id: nil, order_id: nil).where(created_at: @date_from..@date_to))
+    if request.params["format"] == 'xlsx'
+      @categories = params["categories"]
+      @category_total_item = params["total_item"]
+      @category_total_amount =  params["total_amount"]
+      set_date(params["date_from"], params["date_to"])
+    elsif params[:category_sales].present?
+      set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
+      set_categories LineItem.joins(:recipe)
+                             .where.not(recipe_id: nil, order_id: nil)
+                             .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
-      set_categories(LineItem.where.not(recipe_id: nil, order_id: nil))
+      set_categories LineItem.joins(:recipe)
+                             .where.not(recipe_id: nil, order_id: nil)
+                             .where(recipes: { chef_id: check_admin })
+    end
+
+    respond_to do |format|
+      format.js { render :category_sales }
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=category_sales.xlsx"
+      }
     end
   end
 
   def recipe_sales
-    if params[:recipe_sales].present?
-      set_date(params[:recipe_sales])
-      set_recipes(LineItem.where.not(recipe_id: nil, order_id: nil).where(created_at: @date_from..@date_to))
+    if request.params["format"] == 'xlsx'
+      @recipes = params["recipes"]
+      @recipe_total_item = params["total_item"]
+      @recipe_total_amount =  params["total_amount"]
+      set_date(params["date_from"], params["date_to"])
+    elsif params[:recipe_sales].present?
+      set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
+      set_recipes LineItem.joins(:recipe)
+                          .where.not(recipe_id: nil, order_id: nil)
+                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
-      set_recipes(LineItem.where.not(recipe_id: nil, order_id: nil))
+      set_recipes LineItem.joins(:recipe)
+                          .where.not(recipe_id: nil, order_id: nil)
+                          .where(recipes: { chef_id: check_admin })
+    end
+
+    respond_to do |format|
+      format.js { render :recipe_sales }
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=recipe_sales.xlsx"
+      }
     end
   end
 
-  def set_date(sales_params)
-    @date_from = if sales_params[:date_from].present?
-                   sales_params[:date_from]
+  private
+
+  def set_date(date_from, date_to)
+    @date_from = if date_from.present?
+                   date_from
                  else
                    (Date.today - 1.years).strftime("%F")
                  end
-    @date_to = if sales_params[:date_to].present?
-                 sales_params[:date_to]
+    @date_to = if date_to.present?
+                 date_to
                else
-                (Date.today + 1.days).strftime("%F")
+                 (Date.today + 1.days).strftime("%F")
                end
   end
 
@@ -82,5 +123,11 @@ class ReportsController < ApplicationController
       @category_total_item += value['category_item']
       @category_total_amount += value['category_amount']
     end
+  end
+
+  def check_admin
+    return current_app_user&.chef_id if current_app_user.admin?
+    
+    redirect_to app_recipes_path(current_app)
   end
 end
