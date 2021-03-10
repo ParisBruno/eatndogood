@@ -31,6 +31,9 @@
     text-align: left;
     padding-left: 25px;
   }
+  .coupon-report {
+    font-size: 1.1em;
+  }
   .report-category {
     text-align: left;
     padding-left: 25px;
@@ -62,7 +65,7 @@
     <%= form_for('recipe_sales', url: app_recipe_sales_path(@current_app), remote: true) do |f| %>
       <%= f.date_field :date_from, value: recipe_date_from, class: 'date-field-report form-control col-md-4' %>
       <%= f.date_field :date_to, value: recipe_date_to, class: 'date-field-report form-control col-md-4' %>
-      <%= f.submit "Filter", class: 'button-field-report btn btn-primary btn-lg' %>
+      <%= f.submit "Create Report", class: 'button-field-report btn btn-primary btn-lg' %>
     <% end %> 
   </div>
 
@@ -77,7 +80,7 @@
     <tbody>
     <% recipes.each do |key, value| %>
       <tr>
-        <td class="report-category"><%= key %></td>
+        <td class="report-category"><%= key.split[0...3].join(' ') %></td>
         <td><%= value['recipe_item'] %></td>
         <td><%= number_to_currency(value['recipe_amount']/100.0) %></td>
       </tr>
@@ -88,6 +91,26 @@
         <td><%= @recipe_total_item %></td>
         <td><%= number_to_currency(@recipe_total_amount/100.0) %></td>
       <tr>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.credit_sales') %></td>
+        <td><%= number_to_currency(@recipe_credit_total/100.0) %></td>
+      <tr>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.cash_sales') %></td>
+        <td><%= number_to_currency(@recipe_cash_total/100.0) %></td>
+      <tr>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.tax_sales') %></td>
+        <td><%= number_to_currency(@recipe_tax) %></td>
+      <tr>
+      <tr class="coupon-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.coupon_sales') %></td>
+        <td><%= @recipe_coupon_count %> / <%= number_to_currency(@recipe_coupon_discount * (-1)) %></td>
+      <tr>
+      <tr class="coupon-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.fundrasing_sales') %></td>
+        <td><%= @recipe_fundrasing_count %></td>
+      <tr>
     </tbody>
   </table>
 
@@ -96,6 +119,8 @@
                   class: 'excel-download btn btn-outline-success', disabled: recipes.keys.empty? ? true : false,
                   params: { recipes: recipes, date_from: recipe_date_from, 
                             date_to:recipe_date_to, total_item: @recipe_total_item, 
-                            total_amount: @recipe_total_amount } %>
+                            total_amount: @recipe_total_amount, credit_total: @recipe_credit_total,
+                            cash_total: @recipe_cash_total, tax: @recipe_tax, coupon_count: @recipe_coupon_count,
+                            coupon_discount: @recipe_coupon_discount, fundrasing_count: @recipe_fundrasing_count } %>
   </div>
 </div>

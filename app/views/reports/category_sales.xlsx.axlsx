@@ -4,10 +4,15 @@ wb.add_worksheet(name: "Category Name") do |sheet|
   sheet.add_row ["Category Name", "Items", "Sales"]
   @categories.each do |key, value|
     sheet.add_row [
-      key,
+      key.capitalize,
       value['category_item'],
       (value['category_amount'].to_i/100.0).to_s,
     ]
   end
   sheet.add_row [ t('reports.total_sales'), @category_total_item, (@category_total_amount.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.credit_sales'), "", (@category_credit_total.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.cash_sales'), "", (@category_cash_total.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.tax_sales'), "", @category_tax.to_s ]
+  sheet.add_row [ t('reports.coupon_sales'), "", @category_coupon_count + " / " + @category_coupon_discount ]
+  sheet.add_row [ t('reports.fundrasing_sales'), "", @category_fundrasing_count ]
 end

@@ -423,7 +423,12 @@ en:
     recipe_name: Recipe name
     items: Items
     sales: Sales
-    total_sales: Total Sales
+    total_sales: Net Sales
+    credit_sales: Credit card sales
+    cash_sales: Cash sales
+    tax_sales: Sale Tax
+    coupon_sales: Total coupon used/total discount by coupon code
+    fundrasing_sales: Total orders by fundraising code
   shared:
     please_correct_errors: 'Please correct the following errors:'
   styles:

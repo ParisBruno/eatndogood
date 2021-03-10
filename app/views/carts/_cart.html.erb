@@ -77,7 +77,7 @@
     padding: 0;
     margin-top: 30px;
   }
-  .fundraising-code {
+  .fundrasing-code {
     margin: 0;
     padding: 0;
   }
@@ -87,7 +87,7 @@
     font-size: 1.1em;
     padding: 3px;
   }
-  #fundraising_input {
+  #fundrasing_input {
     text-align: center;
     border: 2px solid #3e5ea3;
     border-top: none;
@@ -240,7 +240,7 @@
   </table>
   <div>
     <p class="coupon-code"><%= text_field_tag :coupon_input, @coupon_code_value, placeholder: t('recipes.coupone_code') %></p>
-    <p class="fundraising-code"><%= text_field_tag :fundraising_input, nil, placeholder: t('recipes.fundraising_code') %></p>
+    <p class="fundrasing-code"><%= text_field_tag :fundrasing_input, @fundrasing_code_value, placeholder: t('recipes.fundraising_code') %></p>
   </div>
   <table class="checkout">
     <tr>
@@ -282,6 +282,7 @@
     // var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
     // var stripe = Stripe(publishableKey);
     var checkoutCoupon = document.getElementById("coupon_input");
+    var checkoutFundCoupon = document.getElementById("fundrasing_input");
     
     checkoutCoupon.addEventListener("change", function () {
       fetch("/check-coupon", {
@@ -296,6 +297,33 @@
       })
       .then(function (result) {
         var couponCode = document.getElementById("coupon_input");
+        if (result.error) {
+          couponCode.setCustomValidity(result.error);
+          couponCode.reportValidity();
+          couponCode.value = "";   
+        } else {
+          couponCode.style.border = '2px solid lime'
+          return result;
+        }
+      })  
+      .catch(function (error) {
+        console.log("Error: ", error);
+      })
+    });
+
+    checkoutFundCoupon.addEventListener("change", function () {
+      fetch("/check-fundrasing", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'coupon_code': checkoutFundCoupon.value }),
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        var couponCode = document.getElementById("fundrasing_input");
         if (result.error) {
           couponCode.setCustomValidity(result.error);
           couponCode.reportValidity();

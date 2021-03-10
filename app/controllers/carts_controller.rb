@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[check_stripe_coupon check_coupon add_additional_params check_delivery check_tip]
+  skip_before_action :verify_authenticity_token, only: %i[check_stripe_coupon check_coupon check_fundrasing add_additional_params check_delivery check_tip]
   skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
@@ -7,6 +7,7 @@ class CartsController < ApplicationController
   @@delivery_price ||= 0
   @@delivery_value ||= false
   @@coupon_value ||= nil
+  @@fundrasing_value ||= nil
   @@tip_value ||= 0
 
   def show
@@ -17,8 +18,10 @@ class CartsController < ApplicationController
     @@delivery_price = 0
     @@tip_value = 0
     @@coupon_value = nil
+    @@fundrasing_value = nil
 
     @coupon_code_value = @@coupon_value
+    @fundrasing_code_value = @@fundrasing_value
     @delivery_check_value = @@delivery_value
     @tip = @@tip_value
 
@@ -28,6 +31,7 @@ class CartsController < ApplicationController
   def add_additional_params
     redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id,
                                                           coupon_percent_off: @@coupon_percent_off,
+                                                          fundrasing_code: @@fundrasing_value,
                                                           delivery_price: @@delivery_price,
                                                           tip_value: @@tip_value
                                                         })
@@ -46,6 +50,7 @@ class CartsController < ApplicationController
       @@delivery_price = 0
     end
     @coupon_code_value = @@coupon_value
+    @fundrasing_code_value = @@fundrasing_value
     @tip = @@tip_value
 
     respond_to do |format|
@@ -67,6 +72,7 @@ class CartsController < ApplicationController
       @delivery_check_value = @@delivery_value
     end
     @coupon_code_value = @@coupon_value
+    @fundrasing_code_value = @@fundrasing_value
 
     respond_to do |format|
       format.js
@@ -110,6 +116,7 @@ class CartsController < ApplicationController
     coupon = CouponCode.find_by(title: params[:coupon_code], is_active: true)
     @delivery_check_value = @@delivery_value
     @tip = @@tip_value
+    @fundrasing_code_value = @@fundrasing_value
 
     if coupon
       @@coupon_id = coupon.title
@@ -129,6 +136,27 @@ class CartsController < ApplicationController
     end
   end
 
+  def check_fundrasing
+    coupon = FundrasingCode.find_by(title: params[:coupon_code], is_active: true)
+    @delivery_check_value = @@delivery_value
+    @coupon_code_value = @@coupon_value
+
+    if coupon
+      @@fundrasing_value = params[:coupon_code]
+      @fundrasing_code_value = params[:coupon_code]
+
+      respond_to do |format|
+        format.json { render json: { data: coupon.title }, status: :ok }
+      end
+    else
+      respond_to do |format|
+        @@fundrasing_value = nil
+        @fundrasing_code_value = nil
+        format.json { render json: { error: "No such coupon '#{params[:coupon_code]}'" }, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy_item
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
@@ -136,6 +164,7 @@ class CartsController < ApplicationController
     set_delivery_and_tax
     @delivery_check_value = @@delivery_value
     @coupon_code_value = @@coupon_value
+    @fundrasing_code_value = @@fundrasing_value
     @tip = @@tip_value
 
     respond_to do |format|
@@ -153,6 +182,7 @@ class CartsController < ApplicationController
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
         @coupon_code_value = @@coupon_value
+        @fundrasing_code_value = @@fundrasing_value
         @tip = @@tip_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js
@@ -173,6 +203,7 @@ class CartsController < ApplicationController
         set_delivery_and_tax
         @delivery_check_value = @@delivery_value
         @coupon_code_value = @@coupon_value
+        @fundrasing_code_value = @@fundrasing_value
         @tip = @@tip_value
         format.html { redirect_to app_cart_path(current_app, @current_cart) }
         format.js

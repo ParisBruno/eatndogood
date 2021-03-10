@@ -310,6 +310,16 @@
       extraPlugins: 'placeholder',
     });
   }
+
+  $('#recipe_all_styles input[type=checkbox]').change(function(){
+    if($(this).is(':checked')){
+  $('#recipe_all_styles input[type=checkbox]').attr('disabled', true);
+      $(this).attr('disabled', false);
+  }
+    else{
+    $('#recipe_all_styles input[type=checkbox]').attr('disabled', false);
+      }
+  });
 </script>
 
 
