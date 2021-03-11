@@ -197,7 +197,7 @@ class OrdersController < ApplicationController
                         0.0
                        end
     @tip_value = tip_value.to_f
-    @total_amount = @current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price + @tip_value.to_f
+    @total_amount = @current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price
   end
 
   def paypal_init
