@@ -38,6 +38,20 @@
     text-align: left;
     padding-left: 25px;
   }
+  .report-category-title {
+    text-align: center;
+    font-size: 1.3em;
+  }
+  .recipe-list {
+    font-size: 0.8em;
+    margin-left: 2px;
+    color: black;
+    border: 1px solid black;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 1px;
+    padding-top: -3px !important;
+  }
   .report-filter {
     margin-left: 5px;
   }
@@ -78,12 +92,21 @@
       </tr>
     </thead>
     <tbody>
-    <% recipes.each do |key, value| %>
-      <tr>
-        <td class="report-category"><%= key.split[0...3].join(' ') %></td>
-        <td><%= value['recipe_item'] %></td>
-        <td><%= number_to_currency(value['recipe_amount']/100.0) %></td>
-      </tr>
+    <% recipes.each do |key, values| %>
+        <tr class="report-category-title">
+          <td colspan="3">
+            <span ><%= key %> </span><%= link_to '+', "#link_#{key}", id: 'link_' + key, class: 'recipe-list' %>
+          </td>
+        </tr>
+        <div >
+          <% values.each_with_index  do |recipe, i| %>            
+            <tr id="<%= "#{key}_#{i}" %>" class="dropdown-add" style="display:none;">
+              <td class="report-category"><%= recipe['recipe_name'].split[0...3].join(' ') %></td>
+              <td><%= recipe['recipe_item'] %></td>
+              <td><%= number_to_currency(recipe['recipe_amount']/100.0) %></td>
+            </tr>
+          <% end %>
+        </div>
     <% end %>
 
       <tr class="total-report">
@@ -124,3 +147,23 @@
                             coupon_discount: @recipe_coupon_discount, fundrasing_count: @recipe_fundrasing_count } %>
   </div>
 </div>
+
+<script type="text/javascript">
+  var recipeRows = document.getElementsByClassName('dropdown-add');
+
+  Array.prototype.forEach.call(recipeRows, function(row) {
+      row_style = row.id.split("_")[0]
+      var recipeLink = document.getElementById('link_' + row_style);
+      
+      recipeLink.addEventListener('click', () => {
+        var recipe = document.getElementById(row.id);
+
+        if (recipe.style.display === 'none') {
+          recipe.style.display = 'table-row';
+        } else {
+          recipe.style.display = 'none';
+        }
+      })
+    })
+
+</script>

@@ -42,7 +42,6 @@ class ReportsController < ApplicationController
 
   def recipe_sales
     if request.params['format'] == 'xlsx'
-      @recipes = params['recipes']
       @recipe_total_item = params['total_item']
       @recipe_total_amount =  params['total_amount']
       @recipe_credit_total = params['credit_total']
@@ -51,7 +50,11 @@ class ReportsController < ApplicationController
       @recipe_coupon_count = params['coupon_count'] 
       @recipe_coupon_discount = (params['coupon_discount'].to_f * (-1)).to_s
       @recipe_fundrasing_count = params['fundrasing_count']
+      
       set_date(params["date_from"], params["date_to"])
+      set_recipes LineItem.joins(:recipe)
+                          .where.not(recipe_id: nil, order_id: nil)
+                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     elsif params[:recipe_sales].present?
       set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
       set_recipes LineItem.joins(:recipe)
@@ -116,9 +119,17 @@ class ReportsController < ApplicationController
       hash[line_item.recipe.name] = recipe_data[line_item.recipe.name]
       hash[line_item.recipe.name]['recipe_item'] += line_item.quantity
       hash[line_item.recipe.name]['recipe_amount'] += line_item.order.amount
-      hash[line_item.recipe.name]['recipe_styles'] = line_item.recipe.styles.map(&:name)
+      hash[line_item.recipe.name]['recipe_styles'] = line_item.recipe.styles.map(&:name).join
+      hash[line_item.recipe.name]['recipe_name'] = line_item.recipe.name
     end
     set_recipe_totals(@recipes)
+    styles_names = Style.all.pluck(:name)
+    styles_data = styles_names.uniq.each_with_object(Hash.new(0)) { |styles_name, hash| hash[styles_name] = Array.new }
+
+    @recipes.each do |key, value|
+      styles_data.keys.each { |style| styles_data[value['recipe_styles']] << value if value['recipe_styles'] == style }
+    end
+    @recipes = styles_data
   end
 
   def set_categories(line_items)
