@@ -129,7 +129,7 @@ class ReportsController < ApplicationController
     @recipes.each do |key, value|
       styles_data.keys.each { |style| styles_data[value['recipe_styles']] << value if value['recipe_styles'] == style }
     end
-    @recipes = styles_data
+    @recipes = styles_data.reject { |key, value| value.empty? }
   end
 
   def set_categories(line_items)
