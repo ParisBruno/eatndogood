@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_154437) do
+ActiveRecord::Schema.define(version: 2021_03_10_131333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,13 @@ ActiveRecord::Schema.define(version: 2020_12_08_154437) do
     t.jsonb "stripe_shipping"
     t.string "paypal_token"
     t.string "paypal_status"
+    t.decimal "delivery_price", precision: 5, scale: 2, default: "0.0"
+    t.decimal "tip_value", precision: 5, scale: 2, default: "0.0"
+    t.decimal "total_tax", precision: 5, scale: 2, default: "0.0"
+    t.decimal "coupon_discount", precision: 5, scale: 2, default: "0.0"
+    t.integer "sub_total"
+    t.string "coupon_code"
+    t.string "fundrasing_code"
   end
 
   create_table "page_preview_translations", force: :cascade do |t|

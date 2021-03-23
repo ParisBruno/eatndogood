@@ -115,6 +115,7 @@
                   <div class="col-md-8">
                     <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
                     <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
+                    <%= f.text_field :fundrasing_code, id: 'fundrasing-id', value: params[:fundrasing_code], hidden: true %>
                     <%= f.text_field :delivery_price, id: 'delivery-price', value: params[:delivery_price], hidden: true %>
                     <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: params[:coupon_percent_off], hidden: true %>
                     <%= f.text_field :tip_value, id: 'tip-value', value: params[:tip_value], hidden: true %>

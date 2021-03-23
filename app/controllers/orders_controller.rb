@@ -7,10 +7,6 @@ class OrdersController < ApplicationController
   @@paypal_token ||= nil
   @@paypal_status ||= nil
 
-  def index
-    @orders = Order.all
-  end
-
   def new
     @@paypal_token = nil
     @@paypal_status = nil
@@ -28,6 +24,11 @@ class OrdersController < ApplicationController
 
     @current_cart.line_items.each { |item| @order.line_items << item }
     @order.amount = amount
+    @order.total_tax = @total_tax.to_f
+    @order.coupon_discount = @coupon_discount.to_f
+    @order.delivery_price = @delivery_price.to_f
+    @order.tip_value = @tip_value.to_f
+    @order.sub_total = (@current_cart.sub_total * 100).to_i
     @order.paypal_token = @@paypal_token
     @order.paypal_status = @@paypal_status
     @order.save!
@@ -184,7 +185,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code,
+    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :fundrasing_code,
                                   :delivery_price, :coupon_percent_off, :tip_value, :gift_card_id)
   end
 
@@ -196,7 +197,7 @@ class OrdersController < ApplicationController
                         0.0
                        end
     @tip_value = tip_value.to_f
-    @total_amount = @current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price + @tip_value.to_f
+    @total_amount = @current_cart.sub_total + @coupon_discount + @total_tax.to_f + @delivery_price
   end
 
   def paypal_init

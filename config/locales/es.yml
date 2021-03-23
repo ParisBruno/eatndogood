@@ -76,8 +76,8 @@ es:
     recipes_for_food: Recetas para%{name} comida
     recipes_with: 'Recetas con: %{name}'
     register: Registro
-    styles: el estilo
-    styles_colon: 'el estilo:'
+    styles: el catégorie
+    styles_colon: 'el catégorie:'
     take_a_tour_as_guest: toma un recorrido como un invitado
     add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
@@ -141,7 +141,7 @@ es:
     recipe_add_to_cart: La receta se agregó correctamente a su carrito!
     gift_add_to_cart: La tarjeta de regalo se agregó correctamente a su carrito!
     send_note_with_your_thoughts: "¡Genial! envía una nota con tus pensamientos"
-    style_removed: Estilo eliminado con éxito!
+    style_removed: Catégorie eliminado con éxito!
     success_stripe_payment: El pedido se pagó con éxito
     user_already_registered: usuario ya registrado
     user_not_registered: usuario no registrado
@@ -166,7 +166,7 @@ es:
     you_can_like_dislike_once: Solo puedes gustar / disgustar una receta una vez
     you_can_not_create_chef_upgrade_plan: No puedes borrar tu propio perfil.
     you_created_new_recipe: "¡Brillante! ¡Has creado y guardado una Nueva Obra Maestra!"
-    you_created_new_style: Felicidades, solo creas un nuevo estilo.
+    you_created_new_style: Felicidades, solo creas un nuevo catégorie.
     you_have_logged_out: te has desconectado
     you_must_be_logged_in: Debes iniciar sesión para realizar esa acción.
     you_received_notification_email_you_cant_create_more_recipes: Recibió un correo
@@ -189,7 +189,7 @@ es:
     name: nombre
     new_allergen: Create New Allergen
     new_ingredient: Crea un nuevo ingrediente
-    new_style: Create New Style
+    new_style: Create New Catégorie
     password: Contraseña
     password_confirmation: Confirmación de Contraseña
     password_digest: Resumen de contraseña
@@ -256,9 +256,10 @@ es:
     new_allergen: nuevos alérgenos
     new_ingredient: nuevo ingredientes
     new_recipe: neues Rezept
-    new_style: Nuevo estilo
+    new_style: Nuevo catégorie
     recipes: Rezepte
-    styles: estilos
+    styles: catégories
+    sales_reports: Informes de venta
     team: Equipo
     update_about_us_page: Actualizar acerca de nosotros página
     update_welcome_page: Actualizar página de bienvenida
@@ -350,7 +351,7 @@ es:
        2) Ingredientes: (crea una lista de la mayoría a los elementos menos importantes)<br>
        3) consejos de preparación:<br>
        4) Variables, si las hay:<br>
-       5) Seleccione un estilo o ingrediente, o cree un nuevo estilo o ingrediente en la barra de menú<br>
+       5) Seleccione un catégorie o ingrediente, o cree un nuevo catégorie o ingrediente en la barra de menú<br>
        6) Cargue la imagen de su obra maestra con el botón Elegir archivo, tamaño máximo de la imagen 300x400 px<br>
     drafts: Borradores de recetas
     edit_recipe: editar esta receta
@@ -388,12 +389,20 @@ es:
   reservations:
     make_catering: hacer catering
     make_reservation: hacer reservacion
+  reports:
+    category_title: Informes de categoría
+    recipe_title: Informes de recetas
+    category_name: Nombre de la categoría
+    recipe_name: Nombre de la receta
+    items: Artículos
+    sales: Ventas
+    total_sales: Ventas totales
   shared:
     please_correct_errors: 'Por favor corrige los siguientes errores:'
   styles:
-    delete: Eliminar estilo
-    submit: Escriba el nombre de su nuevo estilo y luego haga clic o toque para Save
-    title: Crea un nuevo estilo
+    delete: Eliminar catégorie
+    submit: Escriba el nombre de su nuevo catégorie y luego haga clic o toque para Save
+    title: Crea un nuevo catégorie
   will_paginate:
     next_label: Siguiente &#8594;
     previous_label: "&#8592; anterior"

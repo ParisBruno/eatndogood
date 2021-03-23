@@ -1,0 +1,13 @@
+<%= render 'shared/page_title', title: t('navigation.sales_reports') %>
+
+<div class="row col-lg-6">
+  <div id="categories-report">
+    <%= render 'categories_report', categories: @categories, category_date_from: @date_from, category_date_to: @date_to %>
+  </div>
+</div>
+
+<div class="row col-lg-6">
+  <div id="recipes-report">
+    <%= render 'recipes_report', recipes: @recipes, recipe_date_from: @date_from, recipe_date_to: @date_to %>
+  </div>
+</div>

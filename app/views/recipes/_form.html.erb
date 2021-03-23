@@ -132,12 +132,6 @@
             <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: 0.01, min: 0 %>
           </div>
         </div>
-        <div class="form-group recepie-menu">
-          <div class="col-md-12">
-            <%= f.label :category, t('recipes.category') %>
-            <%= f.select :subcategory_id, option_groups_from_collection_for_select(@categories, :subcategories, :name, :id, :name, @recipe.subcategory_id) %>
-          </div>
-        </div>
         <div class="recepie-menu btn">
           <bold><%= t('recipes.max_pic_size', mb: 5) %></bold>
           
@@ -316,6 +310,16 @@
       extraPlugins: 'placeholder',
     });
   }
+
+  $('#recipe_all_styles input[type=checkbox]').change(function(){
+    if($(this).is(':checked')){
+  $('#recipe_all_styles input[type=checkbox]').attr('disabled', true);
+      $(this).attr('disabled', false);
+  }
+    else{
+    $('#recipe_all_styles input[type=checkbox]').attr('disabled', false);
+      }
+  });
 </script>
 
 
