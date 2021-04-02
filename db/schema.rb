@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_131333) do
+ActiveRecord::Schema.define(version: 2021_03_23_180743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_131333) do
     t.integer "sub_total"
     t.string "coupon_code"
     t.string "fundrasing_code"
+    t.integer "status", default: 0, null: false
   end
 
   create_table "page_preview_translations", force: :cascade do |t|

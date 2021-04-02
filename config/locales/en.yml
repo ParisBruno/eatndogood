@@ -308,6 +308,15 @@ en:
     tip: Tips($)
     delivery: Delivery
     discount: Coupon discount
+    not_defined: Order is not defined
+    active_orders: Active orders
+    date: Created Date
+    status: Status
+    add_recipe: Add recipe
+    pay_method: Payment method
+    new: New Order
+    save: Update order
+    tax_desc: Individual for each recipe
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories

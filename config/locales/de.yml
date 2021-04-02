@@ -283,6 +283,15 @@ de:
     tip: Trinkgeld($)
     delivery: Lieferung
     discount: Gutscheinrabatt
+    not_defined: Reihenfolge ist nicht definiert
+    active_orders: Aktive Bestellungen
+    date: Erstellungsdatum
+    status: Status
+    add_recipe: Rezept hinzufügen
+    pay_method: Bezahlverfahren
+    new: Neue Ordnung
+    save: Reihenfolge aktualisieren
+    tax_desc: Individuell für jedes Rezept
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!

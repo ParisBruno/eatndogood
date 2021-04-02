@@ -182,10 +182,4 @@ class ReportsController < ApplicationController
       @category_total_amount += value['category_amount']
     end
   end
-
-  def check_admin
-    return current_app_user&.chef_info&.id if current_app_user.admin? && current_app_user.chef_info
-    
-    redirect_to app_recipes_path(current_app)
-  end
 end

@@ -56,6 +56,7 @@ gem "select2-rails"
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'repost', '~> 0.3.4'
+gem 'cocoon'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

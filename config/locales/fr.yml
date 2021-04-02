@@ -318,6 +318,15 @@ fr:
     tip: Pointe
     delivery: Livraison
     discount: Remise de coupon
+    not_defined: L'ordre n'est pas défini
+    active_orders: Ordres actifs
+    date: Date de création
+    status: Statut
+    add_recipe: Ajouter une recette
+    pay_method: Mode de paiement
+    new: Nouvelle commande
+    save: Mise à jour de la commande
+    tax_desc: Individuel pour chaque recette
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture

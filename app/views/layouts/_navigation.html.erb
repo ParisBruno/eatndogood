@@ -142,6 +142,9 @@
                 <li>
                   <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
                 </li>
+                <li>
+                  <%= link_to t('orders.active_orders'), app_orders_path(@current_app) %>
+                </li>
               <% end %>
               <li role="separator" class="divider"></li>
               <li><%= link_to t('navigation.logout'), destroy_app_user_session_path, method: :delete %></li>

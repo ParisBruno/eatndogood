@@ -112,6 +112,8 @@ Rails.application.routes.draw do
     resources :reports, only: %i[index]
     post 'recipe-sales', to: 'reports#recipe_sales', as: "recipe_sales"
     post 'category-sales', to: 'reports#category_sales', as: "category_sales"
+    get 'new-order', to: 'orders#new_staff_order', as: "new_staff_order"
+    post 'create-staff-order', to: 'orders#create_staff_order', as: "create_staff_order"
   end
   resources :charges
   post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'

@@ -252,4 +252,14 @@ class ApplicationController < ActionController::Base
     @paypal_client_id = users.first&.paypal_client_id
     @paypal_client_secret = users.first&.paypal_client_secret
   end
+
+  def set_chef_ids
+    @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
+  end
+
+  def check_admin
+    return current_app_user&.chef_info&.id if current_app_user.admin? && current_app_user.chef_info
+    
+    redirect_to app_recipes_path(current_app)
+  end
 end

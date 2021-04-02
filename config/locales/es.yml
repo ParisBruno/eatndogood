@@ -280,6 +280,15 @@ es:
     tip: Propina
     delivery: Entrega
     discount: Cupón de descuento
+    not_defined: El orden no está definido
+    active_orders: Órdenes activas
+    date: Fecha de creación
+    status: Estado
+    add_recipe: Agregar receta
+    pay_method: Método de pago
+    new: Nuevo orden
+    save: Orden de actualización
+    tax_desc: Individual para cada receta   
   pages:
     index:
       be_inspired_to_play: "¡Déjate inspirar a jugar con tu comida otra vez! ¡Cuente

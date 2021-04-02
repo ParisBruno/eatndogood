@@ -125,12 +125,6 @@ class RecipesController < ApplicationController
       end
     end
 
-    def set_chef_ids
-      # @admin = User.find(@admin_id)
-      # @chef_ids = @admin.chefs.pluck(:id)
-      @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
-    end
-
     def make_tags
       @recipe.tag_list = (@recipe.styles.pluck(:name) + @recipe.ingredients.pluck(:name) + @recipe.allergens.pluck(:name)).map(&:inspect).join(', ')
      

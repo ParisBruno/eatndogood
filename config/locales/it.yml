@@ -294,6 +294,15 @@ it:
     tip: Mancia
     delivery: Consegna
     discount: Sconto coupon
+    not_defined: L'ordine non è definito
+    active_orders: Ordini attivi
+    date: Data di Creazione
+    status: Stato
+    add_recipe: Aggiungi la ricetta
+    pay_method: Metodo di pagamento
+    new: Nuovo ordine
+    save: Aggiorna l'ordine
+    tax_desc: Individuale per ogni ricetta
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta

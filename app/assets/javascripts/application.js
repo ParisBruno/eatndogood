@@ -25,6 +25,7 @@
 //= require ckeditor/config
 //= require_tree .
 //= require jquery.remotipart 
+//= require cocoon
 
 function scrollToBottom(){
   if($('#messages').length > 0) {

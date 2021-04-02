@@ -1,0 +1,331 @@
+<style>
+  .order-table {
+    margin-left: 6%;
+    margin-right: 3%;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.3em;
+    padding: 5px 0 5px 0;
+    word-break: break-all;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .order-item {
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 600;
+    font-size: 1.4em;
+    max-width: 140px;
+    min-width: 60px;
+  }
+  select {
+    width: 180px;
+    padding: 0 10px 0 60px;
+    border-radius: 5px;
+    border: solid 2px <%= order.status == 'active' ? '#93d86e' : '#ff3333' %>;
+    background-color: <%= order.status == 'active' ? '#93d86e' : '#ff3333' %>;
+    font-size: 1.3em;
+  }
+  .order-field {
+    text-align: center;
+    width: 80%;
+    padding: .375rem .75rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  #add-new-recipe {
+    text-align: left;
+    font-size: 1.4rem;
+    margin-left: 5px;
+  }
+  #remove-new-recipe {
+    margin-top: 3px;
+    margin-left: 15px;
+  }
+  #order-button {
+    margin-bottom: 30px;
+  }
+  .new-order-select {
+    padding: .87rem;
+    width: 185px;
+  }
+
+  @media all and (max-width: 600px) {
+    #remove-new-recipe {
+      margin-left: -15px;
+    }
+    .order-item {
+      font-size: 1.2em;
+    }
+    .order-field {
+      font-size: 1.2em;
+    }
+    .new-order-select {
+      font-size: 1em;
+      width: 120px;
+    }
+    select {
+      width: 120px;
+      padding: 0 10px 0 25px;
+    }
+  }
+</style>
+
+<%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <div class="order-table">
+      <table>
+        <tbody>
+          <tr>
+            <td class="order-item"><%= t('orders.date') %></td>
+            <td>
+              <%= order.new_record? ? Date.current.strftime("%A %d of %B, %Y") : order.created_at.strftime("%A %d of %B, %Y") %>
+            </td>
+          </tr>
+          <% unless order.new_record? %>
+          <tr>
+            <td class="order-item"><%= form.label :status, t('orders.status') %></td>
+            <td><%= form.select :status, Order.statuses.collect { |key, value| [key.capitalize, key] }, { class: 'order-status' } %></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td class="order-item"><%= form.label :name, t('orders.full_name') %></td>
+            <td><%= form.text_field :name, class: 'order-field', id: 'new_order_name' %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :email, t('orders.email') %></td>
+            <td><%= form.email_field :email, class: 'order-field', id: 'new_order_email' %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :phone, t('orders.phone') %></td>
+            <td><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone' %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :address, t('orders.home_address') %></h2></td>
+            <td><%= form.text_area :address, class: 'order-field', id: 'new_order_address' %></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+            <%= form.fields_for :line_items do |line_item| %>
+              <%= render 'line_item_fields', f: line_item %>
+            <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="row field" id="new-items">
+                <div class="col-1">
+                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, {"data-association-insertion-node" => '#new-items', class: 'btn btn-lg btn-outline-primary', id: 'add-new-recipe', onmouseover: 'changeNewRecipe();', onclick: 'addNewRecipe();'} %>
+                </div>
+              </div>
+            </td>  
+          </tr>
+
+          <tr>
+            <td class="order-item"><%= t('recipes.total') %></td>
+            <td><%= order.new_record? ? '$0.00' : number_to_currency(order.amount&./100.0) %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('orders.pay_method') %></td>
+            <% if order.new_record? %>
+              <td><%= 'Cash' %></td>
+            <% else %>
+              <td><%= order.pay_method&.capitalize %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('orders.tax') %></td>
+            <% if order.new_record? %>
+              <td><%= t('orders.tax_desc') %></td>
+            <% else %>
+              <td><%= number_to_currency(order.total_tax) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('orders.delivery') %></td>
+            <% if order.new_record? %>
+              <td><%= form.check_box :delivery_price, class: 'order-field' %></td>
+            <% else %>
+              <td><%= number_to_currency(order.delivery_price) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('orders.tip') %></td>
+            <% if order.new_record? %>
+              <td><%= form.number_field :tip_value, class: 'order-field', step: 1, min: 0 %></td>
+            <% else %>
+              <td><%= number_to_currency(order.tip_value) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+            <% if order.new_record? %>
+              <td><%= form.text_field :coupon_code, class: 'order-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
+            <% else %>
+              <td><%= order.coupon_code.present? ? order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) : '---' %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('recipes.fundraising_code') %></td>
+            <% if order.new_record? %>
+              <td><%= form.text_field :fundrasing_code, class: 'order-field', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
+            <% else %>
+              <td><%= order.fundrasing_code.present? ? order.fundrasing_code : '---' %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  var orderBtn = document.getElementById("order-button");
+  var formOrderName = document.getElementById("new_order_name");
+  var formOrderEmail = document.getElementById("new_order_email");
+  var formOrderPhone = document.getElementById("new_order_phone");
+  var formOrderAddress = document.getElementById("new_order_address");
+
+  function changeNewRecipe() {
+    orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
+
+    if (orderItems.length > 0 && formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+      orderBtn.disabled = false;
+    } else {
+      orderBtn.disabled = true;
+    }
+  }
+
+  function addNewRecipe() {
+    if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+      orderBtn.disabled = false;
+    } else {
+      orderBtn.disabled = true;
+    }
+  }
+
+  function removeNewRecipe() {
+    orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
+
+    if (orderItems.length > 3 && formOrderName.value.length > 3 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+      orderBtn.disabled = false;
+    } else {
+      orderBtn.disabled = true;
+    }
+  }
+
+  document.querySelectorAll('#new_order_name, #new_order_email, #new_order_phone, #new_order_address').forEach(event => {
+    event.addEventListener('change', () => {
+      orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]')
+      if (orderItems.length > 0 && formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+        orderBtn.disabled = false;
+      } else {
+        orderBtn.disabled = true;
+      }
+    })
+  })
+
+  function changeQuantity() {
+    orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
+
+    Array.from(orderItems).some((element) => {
+      if (element.type === 'number') {
+        if (parseInt(element.value, 10) >= 1 && parseInt(element.value, 10) !== NaN) {
+          orderBtn.disabled = false;
+        } 
+        else {
+          return orderBtn.disabled = true;;
+        }
+      }
+    });
+  }
+
+  function checkCoupon() {
+    var checkCouponInput = document.getElementById("coupon_code_input");
+
+    fetch("/check-coupon", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'coupon_code': checkCouponInput.value }),
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (result) {
+      var couponCode = document.getElementById("coupon_code_input");
+      if (result.error) {
+        couponCode.setCustomValidity(result.error);
+        couponCode.reportValidity();
+        couponCode.value = "";   
+      } else {
+        couponCode.style.border = '2px solid lime'
+        return result;
+      }
+    })  
+    .catch(function (error) {
+      console.log("Error: ", error);
+    })
+  }
+
+  function checkFundCoupon() {
+    var checkFundCouponInput = document.getElementById("fundrasing_code_input");
+
+    fetch("/check-fundrasing", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'coupon_code': checkFundCouponInput.value }),
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (result) {
+      var couponCode = document.getElementById("fundrasing_code_input");
+      if (result.error) {
+        couponCode.setCustomValidity(result.error);
+        couponCode.reportValidity();
+        couponCode.value = "";   
+      } else {
+        couponCode.style.border = '2px solid lime'
+        return result;
+      }
+    })  
+    .catch(function (error) {
+      console.log("Error: ", error);
+    })
+  }
+</script>
