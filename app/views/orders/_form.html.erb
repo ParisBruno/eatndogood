@@ -47,7 +47,7 @@
     border: 1px solid #ced4da;
     border-radius: .25rem;
   }
-  #add-new-recipe {
+  .new-order-item {
     text-align: left;
     font-size: 1.4rem;
     margin-left: 5px;
@@ -142,7 +142,7 @@
             <td colspan="2">
               <div class="row field" id="new-items">
                 <div class="col-1">
-                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, {"data-association-insertion-node" => '#new-items', class: 'btn btn-lg btn-outline-primary', id: 'add-new-recipe', onmouseover: 'changeNewRecipe();', onclick: 'addNewRecipe();'} %>
+                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, {"data-association-insertion-node" => '#new-items', class: 'btn btn-lg btn-outline-primary new-order-item', id: 'add-new-recipe', onmouseover: 'changeNewRecipe();', onclick: 'addNewRecipe();'} %>
                 </div>
               </div>
             </td>  
