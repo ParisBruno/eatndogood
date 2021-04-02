@@ -63,7 +63,6 @@
         <td><%= order.address %></td>
         <td class="order-amount">
           <%= number_to_currency(order.amount/100.0) %>
-          <p style="margin-bottom: 0; background: <%= order.status == 'active' ? '#93d86e' : '#ff4d4d' %>;"><%= order.status %></p>
         </td>
       </tr>
     <% end %>
