@@ -38,7 +38,7 @@
   }
 </style>
 
-<%= render 'shared/page_title', title: t('orders.active_orders') %>
+<%= render 'shared/page_title', title: t('orders.all') %>
 
 <div class="order-table">
   <%= link_to t('orders.new'), app_new_staff_order_path(current_app), class: 'btn btn-lg btn-primary mb-3' %>
@@ -62,7 +62,7 @@
         </td>
         <td><%= order.address %></td>
         <td class="order-amount">
-          <%= number_to_currency(order.amount/100.0) %>
+          <%= number_to_currency(order.amount&./100.0) %>
         </td>
       </tr>
     <% end %>
