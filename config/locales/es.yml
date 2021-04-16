@@ -258,6 +258,10 @@ es:
     new_recipe: neues Rezept
     new_style: Nuevo catégorie
     recipes: Rezepte
+    sales_reports: Informes de ventas
+    sales_point: Punto de venta
+    managers: Gerente
+    staff: Personal
     styles: catégories
     sales_reports: Informes de venta
     team: Equipo
@@ -281,7 +285,11 @@ es:
     delivery: Entrega
     discount: Cupón de descuento
     not_defined: El orden no está definido
-    active_orders: Órdenes activas
+    all: pedidos
+    active: pedidos activos (por día)
+    closed: pedidos cerrados (por día)
+    total_sales: Ventas totales del personal (por día)
+    client_name: Nombre del cliente
     date: Fecha de creación
     status: Estado
     add_recipe: Agregar receta

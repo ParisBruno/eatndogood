@@ -29,6 +29,24 @@
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
+           <% if current_app_user.admin? || current_app_user.chef? %>
+           <li class="dropdown nav-item">
+           <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <%= t('navigation.sales_point') %></a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to t('navigation.managers'), app_managers_path(@current_app) %>
+              </li>
+              <li>
+                <%= link_to t('navigation.staff'), app_staff_path(@current_app) %>
+              </li>
+              <li>
+                <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
+              </li>
+            </ul>
+          </li>
+          <% end %>
+
           <li class="active nav-item">
             <%= link_to app_recipes_path(@current_app), class: "btn btn-success" do %>
               <%= t('navigation.all_recipes') %><span class="sr-only">(current)</span>
@@ -138,12 +156,6 @@
                 </li>
                 <li>
                   <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
-                </li>
-                <li>
-                  <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
-                </li>
-                <li>
-                  <%= link_to t('orders.active_orders'), app_orders_path(@current_app) %>
                 </li>
               <% end %>
               <li role="separator" class="divider"></li>

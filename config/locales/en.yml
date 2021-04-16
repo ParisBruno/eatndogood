@@ -285,7 +285,10 @@ en:
     new_recipe: New Recipe
     new_style: New Category
     recipes: Recipes
-    sales_reports: Sale reports
+    sales_reports: Sales reports
+    sales_point: Point of Sale
+    managers: Manager
+    staff: Staff
     sign_up: Sign up
     styles: Categories
     team: Team
@@ -309,7 +312,11 @@ en:
     delivery: Delivery
     discount: Coupon discount
     not_defined: Order is not defined
-    active_orders: Active orders
+    all: orders
+    active: active orders (per day)
+    closed: closed orders (per day)
+    total_sales: Staff total Sales (per day)
+    client_name: Client name
     date: Created Date
     status: Status
     add_recipe: Add recipe

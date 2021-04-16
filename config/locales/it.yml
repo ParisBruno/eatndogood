@@ -271,6 +271,10 @@ it:
     new_recipe: Nuova ricetta
     new_style: Nuovo categoria
     recipes: Ricette
+    sales_reports: Rapporti sulle vendite
+    sales_point: Punto vendita
+    managers: Manager
+    staff: Personale
     sales_reports: Rapporti di vendita
     sign_up: inscriviti
     styles: Categoria
@@ -295,7 +299,11 @@ it:
     delivery: Consegna
     discount: Sconto coupon
     not_defined: L'ordine non è definito
-    active_orders: Ordini attivi
+    all: ordini
+    active: ordini attivi (al giorno)
+    closed: ordini chiusi (al giorno)
+    total_sales: Vendite totali del personale (al giorno)
+    client_name: Nome del cliente
     date: Data di Creazione
     status: Stato
     add_recipe: Aggiungi la ricetta

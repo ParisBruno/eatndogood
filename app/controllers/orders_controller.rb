@@ -9,10 +9,8 @@ class OrdersController < ApplicationController
   @@paypal_status ||= nil
 
   def index
-    @orders = Order.joins(:line_items).joins(:recipes)
-                   .where.not(line_items: { recipe_id: nil, order_id: nil })
-                   .where(status: 0, line_items: { recipes: { chef_id: check_admin } })
-                   .order(created_at: :desc)
+    app = App.find_by(id: params[:id])
+    @orders = Order.where(user_id: app&.user_ids).order(created_at: :desc)
   end
 
   def new
@@ -36,7 +34,7 @@ class OrdersController < ApplicationController
 
     @current_cart.line_items.each { |item| @order.line_items << item }
 
-    set_orders_amounts(@order)
+    set_orders_amounts(@order, current_app.admins.first&.id)
     @order.sub_total = (@current_cart.sub_total * 100).to_i
     @order.paypal_token = @@paypal_token
     @order.paypal_status = @@paypal_status
@@ -72,7 +70,7 @@ class OrdersController < ApplicationController
 
     set_delivery_discount_tip(delivery_price, coupon&.title, coupon&.coupon_percent_off,
                               update_order_params[:tip_value], true)      
-    set_orders_amounts(@order)
+    set_orders_amounts(@order, current_app_user&.id)
 
     @order.sub_total = (@order.sub_total * 100).to_i
     @order.pay_method = 'cash'
@@ -83,11 +81,11 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    if @order.blank? || @order&.status == 'closed'
-      redirect_to app_orders_path(current_app), notice: t('orders.not_defined')
-    else
+    if @order && current_app.users.include?(@order.user)
       recipe_ids = @order.line_items.pluck(:recipe_id)
-      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).where.not(id: recipe_ids).order(created_at: :desc)  
+      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).where.not(id: recipe_ids).order(created_at: :desc)   
+    else
+      redirect_to app_orders_path(current_app), notice: t('orders.not_defined')
     end
   end
 
@@ -103,7 +101,7 @@ class OrdersController < ApplicationController
       set_order_data(@order)
       set_delivery_discount_tip(@order.delivery_price, @order.coupon_code,
                                 @order.coupon_percent_off, @order.tip_value, true)
-      set_orders_amounts(@order)
+      set_orders_amounts(@order, current_app_user&.id)
       @order.sub_total = (@order.sub_total * 100).to_i
       @order.save!
 
@@ -282,12 +280,13 @@ class OrdersController < ApplicationController
     @total_amount = sub_total + @coupon_discount + @total_tax.to_f + @delivery_price
   end
 
-  def set_orders_amounts(order)
+  def set_orders_amounts(order, user_id)
     order.amount = (@total_amount * 100).to_i
     order.total_tax = @total_tax.to_f
     order.coupon_discount = @coupon_discount.to_f
     order.delivery_price = @delivery_price.to_f
     order.tip_value = @tip_value.to_f
+    order.user_id = user_id
     order.save!
   end
 

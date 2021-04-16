@@ -261,6 +261,10 @@ de:
     new_recipe: neues Rezept
     new_style: Neuer Kategorie
     recipes: Rezepte
+    sales_reports: Verkaufsberichte
+    sales_point: Kasse
+    managers: Manager
+    staff: Mitarbeiter
     styles: der Kategorie
     sales_reports: Verkaufsberichte
     team: Mannschaft
@@ -284,7 +288,11 @@ de:
     delivery: Lieferung
     discount: Gutscheinrabatt
     not_defined: Reihenfolge ist nicht definiert
-    active_orders: Aktive Bestellungen
+    all: Bestellungen
+    active: aktive Bestellungen (pro Tag)
+    closed: geschlossene Bestellungen (pro Tag)
+    total_sales: Gesamtumsatz des Personals (pro Tag)
+    client_name: Kundenname
     date: Erstellungsdatum
     status: Status
     add_recipe: Rezept hinzufügen

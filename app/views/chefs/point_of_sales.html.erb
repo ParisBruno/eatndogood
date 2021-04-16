@@ -1,0 +1,50 @@
+<style>
+  .orders-card {
+    padding-bottom: 30px;
+  }
+  .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.175), inset 2px 2px 10px -1px rgba(0,0,0,0.175);
+    margin: 5px !important;
+  }
+  .badge {
+    font-size: 1.0em;
+  }
+  .new-order-table {
+    min-width: 33.33%;
+  }
+  .new-order-card {
+    border: solid 2px #93d86e;
+    background-color: #93d86e;
+  }
+  .card-title {
+    font-size: 1.9em;
+    text-align: center;
+    margin: 0;
+  }
+  .order-card-link {
+    text-decoration: none !important;
+    color: black;
+  }
+</style>
+
+<div class="margin-sec" style="margin-top: 20px; margin-bottom: 50px !important;">
+    <div class="col-md-12 recipe-detail">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <div class="box-inner-sec well box-content">
+          <div class="card-deck">
+            <div class="new-order-table">
+              <div class="card new-order-card">
+                <div class="card-body">
+                  <h5 class="card-title"><%= link_to t('orders.new'), app_new_staff_order_path(current_app) %></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= render action_name %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

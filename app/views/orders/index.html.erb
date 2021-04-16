@@ -54,7 +54,7 @@
     <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td class="order-id"><%= link_to "##{order.id}", app_order_path(id: order.id) %></td>
+        <td class="order-id"><%= "##{order.id}" %></td>
         <td class="order-data">
           <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
           <p style="margin-bottom: 0;"><%= order.email %></p>

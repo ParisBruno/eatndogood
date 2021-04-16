@@ -100,6 +100,16 @@ class ChefsController < ApplicationController
 
     redirect_to edit_app_chef_path(current_app, current_app_user)
   end
+
+  def managers
+    @apps = App.all
+    render 'chefs/point_of_sales'
+  end
+
+  def staff
+    @orders = Order.where(user_id: current_app&.user_ids).order(created_at: :desc)
+    render 'chefs/point_of_sales'
+  end
   
   private
 

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   belongs_to :app
 
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   accepts_nested_attributes_for :chef_info, allow_destroy: true
   accepts_nested_attributes_for :app
