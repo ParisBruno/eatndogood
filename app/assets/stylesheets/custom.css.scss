@@ -1044,3 +1044,9 @@ ul.listing li {
 .new_elem_recipe {
   font-size: 14px;
 }
+
+@media screen and (max-width: 600px) {
+  h2 p img {
+    max-width: 100%;
+  }
+}
