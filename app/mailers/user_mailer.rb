@@ -62,8 +62,9 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'Email alert! itoprecipes.com')
 	end
 
-	def message_to_manager_email(data, filename, content_type, blob)
-		if filename && content_type && blob
+	def message_to_manager_email(data, filename, content_type, blob_content)
+		if filename && content_type && blob_content
+			blob = Base64.decode64(blob_content)
 			attachments[filename] = { mime_type: content_type, content: blob }
 		end
 		@sender_name = data[:sender_name]
