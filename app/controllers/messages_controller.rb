@@ -18,7 +18,12 @@ class MessagesController < ApplicationController
   end
 
   def send_email
-    UserMailer.message_to_manager_email(email_message_params, params[:message][:attachment]).deliver_later
+    if params[:message][:attachment]
+      @filename = params[:message][:attachment][0].original_filename
+      @content_type = params[:message][:attachment][0].content_type
+      @blob = File.read(params[:message][:attachment][0].tempfile.to_path.to_s)
+    end
+    UserMailer.message_to_manager_email(email_message_params, @filename, @content_type, @blob).deliver_later
     redirect_to app_managers_path(current_app), notice: t('chefs.success_email')
   end
   

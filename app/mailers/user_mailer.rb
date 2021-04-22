@@ -62,16 +62,15 @@ class UserMailer < ActionMailer::Base
 		mail(to: email, subject: 'Email alert! itoprecipes.com')
 	end
 
-	def message_to_manager_email(params, attachment)
-		if attachment
-			attachments[attachment[0].original_filename] = { mime_type: attachment[0].content_type, 
-																									content: File.read(attachment[0].tempfile.to_path.to_s) }
+	def message_to_manager_email(data, filename, content_type, blob)
+		if filename && content_type && blob
+			attachments[filename] = { mime_type: content_type, content: blob }
 		end
-		@sender_name = params[:sender_name]
-		@sender_email = params[:sender_email]
-		@recipient_name = params[:recipient_name]
-		@content = params[:content]
-		@subject = params[:subject].present? ? params[:subject] : "New message from #{@sender_name}"
-		mail(to: params[:recipient_email], subject: @subject)
+		@sender_name = data[:sender_name]
+		@sender_email = data[:sender_email]
+		@recipient_name = data[:recipient_name]
+		@content = data[:content]
+		@subject = data[:subject].present? ? data[:subject] : "New message from #{@sender_name}"
+		mail(to: data[:recipient_email], subject: @subject)
 	end
 end
