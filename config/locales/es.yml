@@ -51,6 +51,9 @@ es:
     coupon_title: Título
     coupon_percent_off: Porciento descontado(%)
     coupon_active: Está activo
+    not_defined: El administrador no está definido
+    success_email: ¡Su correo electrónico se envió correctamente al gerente!
+    content: Contenido
   common:
     admin: Administración
     allergens: Alérgenos

@@ -52,6 +52,9 @@ de:
     coupon_title: Titel
     coupon_percent_off: Prozent aus(%)
     coupon_active: Ist aktiv
+    not_defined: Manager ist nicht definiert
+    success_email: Ihre E-Mail wurde erfolgreich an den Manager gesendet!
+    content: Inhalt
   common:
     admin: Administrator
     allergens: Allergene

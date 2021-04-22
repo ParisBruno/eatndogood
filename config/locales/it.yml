@@ -51,6 +51,9 @@ it:
     coupon_title: Titolo
     coupon_percent_off: Percentuale di sconto(%)
     coupon_active: È attivo
+    not_defined: Manager non è definito
+    success_email: La tua email è stata inviata con successo al manager!
+    content: Soddisfare
   common:
     admin: Admin
     allergens: Allergeni

@@ -93,7 +93,10 @@ Rails.application.routes.draw do
     # resources :chefs #, except: [:new]
     resources :ingredients
     resources :styles
-    resources :messages, only: [:create]
+    resources :messages, only: [:create] do
+      get 'managers', on: :collection
+      post 'send_email', on: :collection
+    end
     resources :reservations, only: [:new, :create]
     resources :pages do
       member do

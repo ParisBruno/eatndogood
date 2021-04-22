@@ -4,7 +4,8 @@
   <div class="col-lg-4 col-md-6 col-sm-12">
     <div class="card">
       <div class="card-body">
-        <p class="card-text"><%= t('navigation.managers') %> - <%= link_to app.admins.first&.full_name %></p>       
+        <% admin = app.admins.first %>
+        <p class="card-text"><%= t('navigation.managers') %> - <%= link_to admin&.full_name, managers_app_messages_path(current_app, recipient_id: admin&.id), target: '_blank' %></p>       
         <%= link_to app_orders_path(current_app, app_id: app.id), class: 'order-card-link' do %>
           <p class="card-text">
             <% staff_names = [] %>

@@ -55,6 +55,9 @@ fr:
     coupon_title: Titre
     coupon_percent_off: Pour cent de reduction(%)
     coupon_active: C'est actif
+    not_defined: Le gestionnaire n'est pas défini
+    success_email: Votre e-mail a bien été envoyé au responsable!
+    content: Contenu
   common:
     admin: Admin
     allergens: allergènes
