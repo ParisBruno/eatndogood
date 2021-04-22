@@ -21,7 +21,8 @@ class MessagesController < ApplicationController
     if params[:message][:attachment]
       @filename = params[:message][:attachment][0].original_filename
       @content_type = params[:message][:attachment][0].content_type
-      @blob = File.read(params[:message][:attachment][0].tempfile.to_path.to_s)
+      file_content = File.read(params[:message][:attachment][0].tempfile.to_path.to_s)
+      @blob = file_content.force_encoding("ISO-8859-1").encode("UTF-8")
     end
     UserMailer.message_to_manager_email(email_message_params, @filename, @content_type, @blob).deliver_later
     redirect_to app_managers_path(current_app), notice: t('chefs.success_email')
