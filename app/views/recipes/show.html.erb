@@ -47,11 +47,6 @@
           <%= simple_format(@recipe.description) %>
         </p>
         <div class="chef_info center">
-          <h2 style="text-align:right">
-            <a href="/chefs/<%= @recipe.chef.id%>" class="btn btn-success btn-lg">
-              <%= t('recipes.crafted_by') %> <%= @recipe.chef.user.full_name.capitalize %>
-            </a>
-          </h2>
         </div>
       </div>
       </div>

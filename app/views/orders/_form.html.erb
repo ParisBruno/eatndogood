@@ -115,20 +115,20 @@
           </tr>
           <% end %>
           <tr>
-            <td class="order-item"><%= form.label :name, t('orders.full_name') %></td>
-            <td><%= form.text_field :name, class: 'order-field', id: 'new_order_name' %></td>
+            <td class="order-item"><%= form.label :name, t('orders.client_name') %></td>
+            <td><%= form.text_field :name, class: 'order-field', id: 'new_order_name', disabled: order.new_record? ? false : true %></td>
           </tr>
           <tr>
             <td class="order-item"><%= form.label :email, t('orders.email') %></td>
-            <td><%= form.email_field :email, class: 'order-field', id: 'new_order_email' %></td>
+            <td><%= form.email_field :email, class: 'order-field', id: 'new_order_email', disabled: order.new_record? ? false : true %></td>
           </tr>
           <tr>
             <td class="order-item"><%= form.label :phone, t('orders.phone') %></td>
-            <td><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone' %></td>
+            <td><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone', disabled: order.new_record? ? false : true %></td>
           </tr>
           <tr>
             <td class="order-item"><%= form.label :address, t('orders.home_address') %></h2></td>
-            <td><%= form.text_area :address, class: 'order-field', id: 'new_order_address' %></td>
+            <td><%= form.text_area :address, class: 'order-field', id: 'new_order_address', disabled: order.new_record? ? false : true %></td>
           </tr>
 
           <tr>
@@ -265,7 +265,7 @@
           orderBtn.disabled = false;
         } 
         else {
-          return orderBtn.disabled = true;;
+          return orderBtn.disabled = true;
         }
       }
     });
