@@ -164,10 +164,12 @@ class ReportsController < ApplicationController
       end
       @category_coupon_discount += line_item.coupon_discount
 
-      style_name = line_item.recipe.styles.first.name
-      hash[style_name] = styles_data[style_name]
-      hash[style_name]['category_item'] += line_item.quantity
-      hash[style_name]['category_amount'] += line_item.sub_total
+      style_name = line_item.recipe.styles.first&.name
+      if style_name
+        hash[style_name] = styles_data[style_name]
+        hash[style_name]['category_item'] += line_item.quantity
+        hash[style_name]['category_amount'] += line_item.sub_total
+      end
     end
   end
 end
