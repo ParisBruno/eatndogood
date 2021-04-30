@@ -432,6 +432,7 @@ it:
     items: Elementi
     sales: I saldi
     total_sales: Vendite totali
+    gross_sales: Vendite lorde
   shared:
     please_correct_errors: 'Per favore correggi i seguenti errori:'
   styles:

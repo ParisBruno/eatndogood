@@ -443,6 +443,7 @@ fr:
     items: Articles
     sales: Ventes
     total_sales: Ventes totales
+    gross_sales: Ventes brutes
   shared:
     please_correct_errors: 'Veuillez corriger les erreurs suivantes:'
   styles:

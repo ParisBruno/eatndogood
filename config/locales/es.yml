@@ -417,6 +417,7 @@ es:
     items: Artículos
     sales: Ventas
     total_sales: Ventas totales
+    gross_sales: Ventas brutas
   shared:
     please_correct_errors: 'Por favor corrige los siguientes errores:'
   styles:

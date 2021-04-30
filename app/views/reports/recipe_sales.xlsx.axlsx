@@ -12,10 +12,11 @@ wb.add_worksheet(name: "Recipe Name") do |sheet|
       ]
     end
   end
-  sheet.add_row [ t('reports.total_sales'), @recipe_total_item, (@recipe_total_amount.to_i/100.0).to_s ]
-  sheet.add_row [ t('reports.credit_sales'), "", (@recipe_credit_total.to_i/100.0).to_s ]
-  sheet.add_row [ t('reports.cash_sales'), "", (@recipe_cash_total.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.gross_sales'), @recipe_total_item, (@recipe_gross_sales.to_i/100.0).to_s ]
   sheet.add_row [ t('reports.tax_sales'), "", @recipe_tax.to_s ]
   sheet.add_row [ t('reports.coupon_sales'), "", @recipe_coupon_count.to_s + " / " + @recipe_coupon_discount.to_s ]
   sheet.add_row [ t('reports.fundrasing_sales'), "", @recipe_fundrasing_count.to_s ]
+  sheet.add_row [ t('reports.total_sales'), "", (@recipe_total_amount.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.credit_sales'), "", (@recipe_credit_total.to_i/100.0).to_s ]
+  sheet.add_row [ t('reports.cash_sales'), "", (@recipe_cash_total.to_i/100.0).to_s ]
 end

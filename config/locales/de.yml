@@ -399,6 +399,7 @@ de:
     items: Artikel
     sales: Der Umsatz
     total_sales: Gesamtumsatz
+    gross_sales: Bruttoumsatz
   shared:
     please_correct_errors: 'Bitte korrigieren sie die folgenden Fehler:'
   styles:

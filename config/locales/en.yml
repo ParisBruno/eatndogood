@@ -448,6 +448,7 @@ en:
     tax_sales: Sale Tax
     coupon_sales: Total coupon used/total discount by coupon code
     fundrasing_sales: Total orders by fundraising code
+    gross_sales: Gross Sales
   shared:
     please_correct_errors: 'Please correct the following errors:'
   styles:

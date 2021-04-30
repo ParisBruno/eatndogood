@@ -11,6 +11,7 @@ class ReportsController < ApplicationController
     if request.params['format'] == 'xlsx'
       @categories = params['categories']
       @category_total_item = params['total_item']
+      @category_gross_sales = params['gross_sales']
       @category_total_amount =  params['total_amount']
       @category_credit_total = params['credit_total']
       @category_cash_total = params['cash_total']
@@ -23,7 +24,7 @@ class ReportsController < ApplicationController
       set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                             .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
@@ -43,6 +44,7 @@ class ReportsController < ApplicationController
   def recipe_sales
     if request.params['format'] == 'xlsx'
       @recipe_total_item = params['total_item']
+      @recipe_gross_sales = params['gross_sales']
       @recipe_total_amount =  params['total_amount']
       @recipe_credit_total = params['credit_total']
       @recipe_cash_total = params['cash_total']
@@ -54,12 +56,12 @@ class ReportsController < ApplicationController
       set_date(params["date_from"], params["date_to"])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     elsif params[:recipe_sales].present?
       set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(created_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
     else
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
@@ -99,30 +101,33 @@ class ReportsController < ApplicationController
 
     @recipe_credit_total = 0
     @recipe_cash_total = 0
-    @recipe_coupon_count = 0
     @recipe_coupon_discount = 0
-    @recipe_fundrasing_count = 0
-    @recipe_tax = 0
+
+    order_ids = line_items.pluck(:order_id).uniq
+    orders = Order.where(id: order_ids)
+    @recipe_coupon_count = orders.where.not(coupon_code: '').count
+    @recipe_fundrasing_count = orders.where.not(fundrasing_code: '').count
     
+    @recipe_total_amount = line_items.sum(:amount)
+    @recipe_total_item = line_items.sum(:quantity)
+    @recipe_gross_sales = line_items.sum(:sub_total)
+    @recipe_tax = line_items.sum(:total_tax)
+
     @recipes = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method
       when "cash"
-        @recipe_cash_total += line_item.order.amount
+        @recipe_cash_total += line_item.amount
       else
-        @recipe_credit_total += line_item.order.amount
+        @recipe_credit_total += line_item.amount
       end
-      @recipe_coupon_count += 1 if line_item.order.coupon_code.present?
-      @recipe_fundrasing_count += 1 if line_item.order.fundrasing_code.present?
-      @recipe_coupon_discount += line_item.order.coupon_discount
-      @recipe_tax += line_item.order.total_tax
+      @recipe_coupon_discount += line_item.coupon_discount
 
       hash[line_item.recipe.name] = recipe_data[line_item.recipe.name]
       hash[line_item.recipe.name]['recipe_item'] += line_item.quantity
-      hash[line_item.recipe.name]['recipe_amount'] += line_item.order.amount
+      hash[line_item.recipe.name]['recipe_amount'] += line_item.sub_total
       hash[line_item.recipe.name]['recipe_styles'] = line_item.recipe.styles.map(&:name).join
       hash[line_item.recipe.name]['recipe_name'] = line_item.recipe.name
     end
-    set_recipe_totals(@recipes)
     styles_names = Style.all.pluck(:name)
     styles_data = styles_names.uniq.each_with_object(Hash.new(0)) { |styles_name, hash| hash[styles_name] = Array.new }
 
@@ -138,48 +143,31 @@ class ReportsController < ApplicationController
 
     @category_credit_total = 0
     @category_cash_total = 0
-    @category_coupon_count = 0
     @category_coupon_discount = 0
-    @category_fundrasing_count = 0
-    @category_tax = 0
+    order_ids = line_items.pluck(:order_id).uniq
+    orders = Order.where(id: order_ids)
+
+    @category_coupon_count = orders.where.not(coupon_code: '').count
+    @category_fundrasing_count = orders.where.not(fundrasing_code: '').count
+
+    @category_total_amount = line_items.sum(:amount)
+    @category_total_item = line_items.sum(:quantity)
+    @category_gross_sales = line_items.sum(:sub_total)
+    @category_tax = line_items.sum(:total_tax)
 
     @categories = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method
       when "cash"
-        @category_cash_total += line_item.order.amount
+        @category_cash_total += line_item.amount
       else
-        @category_credit_total += line_item.order.amount
+        @category_credit_total += line_item.amount
       end
-      @category_coupon_count += 1 if line_item.order.coupon_code.present?
-      @category_fundrasing_count += 1 if line_item.order.fundrasing_code.present?
-      @category_coupon_discount += line_item.order.coupon_discount
-      @category_tax += line_item.order.total_tax
+      @category_coupon_discount += line_item.coupon_discount
 
-      line_item.recipe.styles.each do |style|
-        hash[style.name] = styles_data[style.name]
-        hash[style.name]['category_item'] += line_item.quantity
-        hash[style.name]['category_amount'] += line_item.order.amount
-      end
-    end
-
-    set_category_totals(@categories)
-  end
-
-  def set_recipe_totals(recipes)
-    @recipe_total_item = 0
-    @recipe_total_amount = 0
-    recipes.each do |key, value|
-      @recipe_total_item += value['recipe_item']
-      @recipe_total_amount += value['recipe_amount']
-    end
-  end
-
-  def set_category_totals(categories)
-    @category_total_item = 0
-    @category_total_amount = 0
-    categories.each do |key, value|
-      @category_total_item += value['category_item']
-      @category_total_amount += value['category_amount']
+      style_name = line_item.recipe.styles.first.name
+      hash[style_name] = styles_data[style_name]
+      hash[style_name]['category_item'] += line_item.quantity
+      hash[style_name]['category_amount'] += line_item.sub_total
     end
   end
 end
