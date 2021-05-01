@@ -27,6 +27,7 @@ class Recipe < ApplicationRecord
 
   validates :food_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :drink_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
+  validates :styles, presence: true
   # accepts_nested_attributes_for :recipe_images
 
   acts_as_ordered_taggable

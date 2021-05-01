@@ -421,6 +421,7 @@ it:
     coupone_code: Codice coupon
     fundraising_code: Codice di raccolta fondi
     write_name: Scrivi il nome della ricetta
+    choose_style: Scegli lo stile, per favore
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali
     make_reservation: Crea prenotazione

@@ -388,6 +388,7 @@ de:
     coupone_code: Gutscheincode
     fundraising_code: Fundraising-Code
     write_name: Schreibe den Rezeptnamen
+    choose_style: Wählen Sie bitte den Stil
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen
     make_reservation: Reservierung erstellen

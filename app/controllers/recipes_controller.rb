@@ -49,13 +49,13 @@ class RecipesController < ApplicationController
     @recipe.summary = recipe_params["summary_#{selected_locale}"]
     @recipe.description = recipe_params["description_#{selected_locale}"]
     @recipe.is_draft = true if params['commit'] == t('recipes.save_draft')
-    if @recipe.save
+    if @recipe.save && @recipe.styles.present?
       # upload_images
       delete_draft
       flash[:success] = "Recipe was created successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
-      render 'new'
+      redirect_to new_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
     end
   end
   
@@ -80,14 +80,14 @@ class RecipesController < ApplicationController
     elsif params['commit'] == t('recipes.save_draft')
       @recipe.is_draft = true
     end
-    if @recipe.update(recipe_params)
+    if @recipe.update(recipe_params) && @recipe.styles.present?
       # upload_images
       make_tags
       delete_draft
       flash[:success] = "Recipe was updated successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
-      render 'edit'
+      redirect_to edit_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
     end
   end
   

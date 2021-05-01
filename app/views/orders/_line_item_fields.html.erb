@@ -3,7 +3,7 @@
       <% if f.object.recipe || f.object.gift_card %>
         <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
       <% else %>
-        <%= f.select :recipe_id, @recipes.collect  {|p| [ p.name, p.id ] }, {}, class: 'order-field' %>
+        <%= f.select :recipe_id, @recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {}, class: 'order-field', id: 'select-new-recipe' %>
       <% end %>
   </div>
   <div class="col-5"><%= f.number_field :quantity, class: 'order-field', step: 1, min: 1, onchange: 'changeQuantity();' %></div>

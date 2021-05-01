@@ -406,6 +406,7 @@ es:
     coupone_code: Código promocional
     fundraising_code: Código de recaudación de fondos
     write_name: Escriba el nombre de la receta
+    choose_style: Elige estilo, por favor
   reservations:
     make_catering: hacer catering
     make_reservation: hacer reservacion

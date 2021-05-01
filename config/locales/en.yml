@@ -432,6 +432,7 @@ en:
     coupone_code: Coupon code
     fundraising_code: Fundraising Code
     write_name: Write Recipe name
+    choose_style: Choose style, please
   reservations:
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
