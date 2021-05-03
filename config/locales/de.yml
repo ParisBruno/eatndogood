@@ -399,8 +399,14 @@ de:
     recipe_name: Rezeptname
     items: Artikel
     sales: Der Umsatz
+    sale: Verkauf
     total_sales: Gesamtumsatz
     gross_sales: Bruttoumsatz
+    coupon_sales: Coupon
+    coupon_count: Gesamtcoupon
+    fundrasing_sales: Spendensammlung
+    fundrasing_count: Total fundraising
+    credit_card_sales: Kreditkartenverkäufe @3%
   shared:
     please_correct_errors: 'Bitte korrigieren sie die folgenden Fehler:'
   styles:

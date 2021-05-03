@@ -417,8 +417,14 @@ es:
     recipe_name: Nombre de la receta
     items: Artículos
     sales: Ventas
+    sale: Venta
     total_sales: Ventas totales
     gross_sales: Ventas brutas
+    coupon_sales: Cupón
+    coupon_count: Cupón total
+    fundrasing_sales: Recaudación de fondos
+    fundrasing_count: Recaudación de fondos total
+    credit_card_sales: Ventas con tarjeta de crédito @3%
   shared:
     please_correct_errors: 'Por favor corrige los siguientes errores:'
   styles:

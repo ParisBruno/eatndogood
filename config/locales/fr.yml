@@ -443,8 +443,14 @@ fr:
     recipe_name: Nom de la recette
     items: Articles
     sales: Ventes
+    sale: Vente
     total_sales: Ventes totales
     gross_sales: Ventes brutes
+    coupon_sales: Coupon
+    coupon_count: Total coupon
+    fundrasing_sales: Collecte de fonds
+    fundrasing_count: Collecte de fonds totale
+    credit_card_sales: Ventes par carte de crédit @3%
   shared:
     please_correct_errors: 'Veuillez corriger les erreurs suivantes:'
   styles:

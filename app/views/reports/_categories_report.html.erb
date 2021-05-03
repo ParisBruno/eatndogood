@@ -91,29 +91,49 @@
         <td><%= @category_total_item %></td>
         <td><%= number_to_currency(@category_gross_sales/100.0) %></td>
       <tr>
-      <tr class="total-report">
-        <td class="total-report-label" colspan="2"><%= t('reports.tax_sales') %></td>
-        <td><%= number_to_currency(@category_tax) %></td>
-      <tr>
       <tr class="coupon-report">
         <td class="total-report-label" colspan="2"><%= t('reports.coupon_sales') %></td>
-        <td><%= @category_coupon_count %> / <%= number_to_currency(@category_coupon_discount * (-1)) %></td>
+        <td><%= number_to_currency(@category_coupon_discount) %></td>
       <tr>
+      <% @sale = @category_gross_sales/100.0 + @category_coupon_discount %>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.sale') %></td>
+        <td><%= number_to_currency(@sale) %></td>
+      <tr>
+      <% @credit_card_sales = @category_credit_total/100.0 * -0.03 %>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.credit_card_sales') %></td>
+        <td><%= number_to_currency(@credit_card_sales) %></td>
+      <tr>
+      <% @category_fundrasing = 0 %>
       <tr class="coupon-report">
         <td class="total-report-label" colspan="2"><%= t('reports.fundrasing_sales') %></td>
-        <td><%= @category_fundrasing_count %></td>
+        <td><%= number_to_currency(@category_fundrasing) %></td>
       <tr>
+      <% @net_sales = @sale + @credit_card_sales - @category_fundrasing %>
       <tr class="total-report">
         <td class="total-report-label" colspan="2"><%= t('reports.total_sales') %></td>
-        <td><%= number_to_currency(@category_total_amount/100.0) %></td>
-      <tr>
-      <tr class="total-report">
-        <td class="total-report-label" colspan="2"><%= t('reports.credit_sales') %></td>
-        <td><%= number_to_currency(@category_credit_total/100.0) %></td>
+        <td><%= number_to_currency(@net_sales) %></td>
       <tr>
       <tr class="total-report">
         <td class="total-report-label" colspan="2"><%= t('reports.cash_sales') %></td>
         <td><%= number_to_currency(@category_cash_total/100.0) %></td>
+      <tr>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.credit_sales') %></td>
+        <td><%= number_to_currency(@category_credit_total/100.0) %></td>
+      <tr> 
+      <tr class="coupon-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.coupon_count') %></td>
+        <td><%= @category_coupon_count %></td>
+      <tr>
+      <tr class="coupon-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.fundrasing_count') %></td>
+        <td><%= @category_fundrasing_count %></td>
+      <tr>
+      <tr class="total-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.tax_sales') %></td>
+        <td><%= number_to_currency(@category_tax) %></td>
       <tr>
     </tbody>
   </table>
@@ -122,9 +142,11 @@
     <%= button_to 'EXCEL download', app_category_sales_path(@current_app, format: :xlsx),
                   class: 'excel-download btn btn-outline-success', disabled: categories.keys.empty? ? true : false,
                   params: { categories: categories, date_from: category_date_from, date_to: category_date_to,
-                            total_item: @category_total_item, gross_sales: @category_gross_sales,
-                            total_amount: @category_total_amount, credit_total: @category_credit_total,
-                            cash_total: @category_cash_total, tax: @category_tax, coupon_count: @category_coupon_count,
-                            coupon_discount: @category_coupon_discount, fundrasing_count: @category_fundrasing_count } %>
+                            gross_sales: @category_gross_sales, coupon_discount: @category_coupon_discount, 
+                            sale: @sale, credit_card_sales: @credit_card_sales, category_fundrasing: @category_fundrasing,
+                            net_sales: @net_sales, cash_total: @category_cash_total,
+                            credit_total: @category_credit_total, coupon_count: @category_coupon_count,
+                            fundrasing_count: @category_fundrasing_count, tax: @category_tax,
+                            total_item: @category_total_item } %>
   </div>
 </div>

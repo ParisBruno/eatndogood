@@ -432,8 +432,14 @@ it:
     recipe_name: Nome della ricetta
     items: Elementi
     sales: I saldi
+    sale: Vendita
     total_sales: Vendite totali
     gross_sales: Vendite lorde
+    coupon_sales: Coupon
+    coupon_count: Cedola totale
+    fundrasing_sales: Raccolta fondi
+    fundrasing_count: Raccolta fondi totale
+    credit_card_sales: Vendita con carta di credito @3%
   shared:
     please_correct_errors: 'Per favore correggi i seguenti errori:'
   styles:
