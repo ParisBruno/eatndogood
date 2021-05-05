@@ -10,15 +10,18 @@ class ReportsController < ApplicationController
   def category_sales
     if request.params['format'] == 'xlsx'
       @categories = params['categories']
-      @category_total_item = params['total_item']
       @category_gross_sales = params['gross_sales']
-      @category_total_amount =  params['total_amount']
-      @category_credit_total = params['credit_total']
+      @category_coupon_discount = params['coupon_discount']
+      @sale = params['sale']
+      @credit_card_sales = params['credit_card_sales']
+      @category_fundrasing = params['category_fundrasing']
+      @net_sales = params['net_sales']
       @category_cash_total = params['cash_total']
-      @category_tax = params['tax']
-      @category_coupon_count = params['coupon_count'] 
-      @category_coupon_discount = (params['coupon_discount'].to_f * (-1)).to_s
+      @category_credit_total = params['credit_total']
+      @category_coupon_count = params['coupon_count']
       @category_fundrasing_count = params['fundrasing_count']
+      @category_tax = params['tax']
+      @category_total_item = params['total_item']
       set_date(params["date_from"], params["date_to"])
     elsif params[:category_sales].present?
       set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
@@ -43,16 +46,18 @@ class ReportsController < ApplicationController
 
   def recipe_sales
     if request.params['format'] == 'xlsx'
-      @recipe_total_item = params['total_item']
       @recipe_gross_sales = params['gross_sales']
-      @recipe_total_amount =  params['total_amount']
-      @recipe_credit_total = params['credit_total']
+      @recipe_coupon_discount = params['coupon_discount']
+      @sale = params['sale']
+      @credit_card_sales = params['credit_card_sales']
+      @recipe_fundrasing = params['recipe_fundrasing']
+      @net_sales = params['net_sales']
       @recipe_cash_total = params['cash_total']
-      @recipe_tax = params['tax']
-      @recipe_coupon_count = params['coupon_count'] 
-      @recipe_coupon_discount = (params['coupon_discount'].to_f * (-1)).to_s
+      @recipe_credit_total = params['credit_total']
+      @recipe_coupon_count = params['coupon_count']
       @recipe_fundrasing_count = params['fundrasing_count']
-      
+      @recipe_tax = params['tax']
+      @recipe_total_item = params['total_item']      
       set_date(params["date_from"], params["date_to"])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
@@ -108,7 +113,7 @@ class ReportsController < ApplicationController
     @recipe_coupon_count = orders.where.not(coupon_code: '').count
     @recipe_fundrasing_count = orders.where.not(fundrasing_code: '').count
     
-    @recipe_total_amount = line_items.sum(:amount)
+    # @recipe_total_amount = line_items.sum(:amount)
     @recipe_total_item = line_items.sum(:quantity)
     @recipe_gross_sales = line_items.sum(:sub_total)
     @recipe_tax = line_items.sum(:total_tax)
@@ -116,9 +121,9 @@ class ReportsController < ApplicationController
     @recipes = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method
       when "cash"
-        @recipe_cash_total += line_item.amount
+        @recipe_cash_total += line_item.sub_total
       else
-        @recipe_credit_total += line_item.amount
+        @recipe_credit_total += line_item.sub_total
       end
       @recipe_coupon_discount += line_item.coupon_discount
 
@@ -150,7 +155,7 @@ class ReportsController < ApplicationController
     @category_coupon_count = orders.where.not(coupon_code: '').count
     @category_fundrasing_count = orders.where.not(fundrasing_code: '').count
 
-    @category_total_amount = line_items.sum(:amount)
+    # @category_total_amount = line_items.sum(:amount)
     @category_total_item = line_items.sum(:quantity)
     @category_gross_sales = line_items.sum(:sub_total)
     @category_tax = line_items.sum(:total_tax)
@@ -158,9 +163,9 @@ class ReportsController < ApplicationController
     @categories = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method
       when "cash"
-        @category_cash_total += line_item.amount
+        @category_cash_total += line_item.sub_total
       else
-        @category_credit_total += line_item.amount
+        @category_credit_total += line_item.sub_total
       end
       @category_coupon_discount += line_item.coupon_discount
 

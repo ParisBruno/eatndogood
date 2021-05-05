@@ -258,8 +258,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin
-    return current_app_user&.chef_info&.id if current_app_user.admin? && current_app_user.chef_info
-    
+    if (current_app_user.admin? && current_app_user.chef_info) || (current_app_user.manager? && current_app_user.chef_info)
+      return current_app_user&.chef_info&.id 
+    end
+
     redirect_to app_recipes_path(current_app)
   end
 end

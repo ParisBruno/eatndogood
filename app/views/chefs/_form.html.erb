@@ -53,6 +53,11 @@
     width: 30px;
     height: 30px;
  }
+ .manager-check {
+    width: 30px;
+    height: 30px;
+    margin-top: -5px !important;
+ }
  .coupon-code-input {
    text-align: center;
  }
@@ -127,7 +132,16 @@
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.choose_password') %>
           </div>
         </div>
-      <% if @current_app_user.admin? && @current_app_user == @current_app.main_admin %>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= f.label :manager, 'Manager' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.check_box :manager, class: "manager-check" %>
+          </div>
+        </div>
+
+      <% if @current_app_user == @user && @current_app_user.admin? && @current_app_user == @current_app.main_admin %>
         
         <div class="form-group cart-functional">
         <h3 style="text-align: center; padding-bottom: 10px;"><%= t('chefs.cart_func') %></h3>
@@ -210,7 +224,7 @@
     <% end %>
       </div>
 
-    <% if @current_app_user&.admin? && @current_app_user == @current_app.main_admin %>
+    <% if @current_app_user == @user && @current_app_user&.admin? && @current_app_user == @current_app.main_admin %>
     <div class="copupon-codes">
       <table>
         <h3 style="text-align: center;"><%= t('recipes.coupone_code') %></h3>

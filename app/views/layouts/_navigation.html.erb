@@ -29,7 +29,7 @@
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
-           <% if current_app_user.admin? || current_app_user.chef? %>
+           <% if current_app_user.admin? || current_app_user.manager? %>
            <li class="dropdown nav-item">
            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <%= t('navigation.sales_point') %></a>
