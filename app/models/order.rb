@@ -7,9 +7,6 @@ class Order < ApplicationRecord
   has_many :recipes, through: :line_items
   belongs_to :user
 
-  validates :email, presence: true
-  validates :phone, presence: true
-
   scope :active_of_day, ->(user_ids) { where(user_id: user_ids, status: 0).where('orders.created_at >= ?', Date.today.beginning_of_day) }
   scope :closed_of_day, ->(user_ids) { where(user_id: user_ids, status: 1).where('orders.created_at >= ?', Date.today.beginning_of_day) }
 

@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
   end
 
   def new_staff_order
+    set_paypal_credentials
     @order = Order.new
     @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc)
   end
@@ -43,6 +44,8 @@ class OrdersController < ApplicationController
     @order.paypal_token = @@paypal_token
     @order.paypal_status = @@paypal_status
     @order.save!
+
+    UserMailer.send_receipt_to_client(current_app_user.email, @order.id, current_app.main_admin&.email).deliver_later
 
     if params['cash'].present?
       create_cash_gift_paypal_order(@order, 'cash')
@@ -80,14 +83,21 @@ class OrdersController < ApplicationController
     @order.pay_method = 'cash'
     @order.save!
 
+    UserMailer.send_receipt_to_client(@order.email, @order.id).deliver_later if @order.email.present?
     redirect_to app_order_path(id: @order, app: current_app.slug)
   end
 
   def show
+    set_paypal_credentials
     @order = Order.find_by(id: params[:id])
     if @order && current_app.users.include?(@order.user)
-      recipe_ids = @order.line_items.pluck(:recipe_id)
-      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).where.not(id: recipe_ids).order(created_at: :desc)   
+      file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
+      respond_to do |format|
+        format.html
+        format.pdf do
+          send_data create_pdf, filename: "#{file_name}.pdf", type: 'application/pdf'
+        end
+      end
     else
       redirect_to app_orders_path(current_app), notice: t('orders.not_defined')
     end
@@ -95,22 +105,25 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find_by(id: params[:id])
-    @order.update!(update_order_params)
+    if @order.update(update_order_params)
+      unless @order.line_items.present?
+        @order.destroy
 
-    unless @order.line_items.present?
-      @order.destroy
+        redirect_to app_orders_path(current_app)
+      else
+        set_order_data(@order)
+        set_delivery_discount_tip(@order.delivery_price, @order.coupon_code,
+                                  @order.coupon_percent_off, @order.tip_value, true)
+        set_orders_amounts(@order, current_app_user&.id)
+        @order.sub_total = (@order.sub_total * 100).to_i
+        @order.status = 1 if update_order_params[:pay_method] == 'paypal'
+        @order.save!
 
-      redirect_to app_orders_path(current_app)
+        redirect_to app_order_path(id: @order, app: current_app.slug)
+      end
     else
-      set_order_data(@order)
-      set_delivery_discount_tip(@order.delivery_price, @order.coupon_code,
-                                @order.coupon_percent_off, @order.tip_value, true)
-      set_orders_amounts(@order, current_app_user&.id)
-      @order.sub_total = (@order.sub_total * 100).to_i
-      @order.save!
-
-      redirect_to app_order_path(id: @order, app: current_app.slug)
-    end    
+      redirect_to app_order_path(id: @order, app: current_app.slug), alert: @order.errors.full_messages.join
+    end
   end
 
   def return_stripe
@@ -124,7 +137,7 @@ class OrdersController < ApplicationController
     order.stripe_shipping = payment.shipping.to_hash
     order.save!
 
-    flash[:success] = I18n.t 'flash.success_stripe_payment'
+    flash[:success] = I18n.t 'flash.client_create_order'
     redirect_to app_recipes_path(current_app)
   rescue Stripe::InvalidRequestError => e
     flash[:danger] = e.message
@@ -188,7 +201,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    flash[:success] = I18n.t 'flash.success_stripe_payment'
+    flash[:success] = I18n.t 'flash.client_create_order'
     redirect_to app_recipes_path(current_app)
   end
 
@@ -251,7 +264,7 @@ class OrdersController < ApplicationController
   end
 
   def paypal_init
-    set_delivery_and_tax
+    set_paypal_credentials
     environment = PayPal::SandboxEnvironment.new(@paypal_client_id, @paypal_client_secret)
     @client = PayPal::PayPalHttpClient.new(environment)
   end
@@ -262,7 +275,7 @@ class OrdersController < ApplicationController
   end
 
   def update_order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :status, :coupon_code, :fundrasing_code, :delivery_price, :tip_value,
+    params.require(:order).permit(:name, :email, :phone, :address, :pay_method, :status, :coupon_code, :fundrasing_code, :delivery_price, :tip_value,
                                   line_items_attributes: [:id, :quantity, :recipe_id, :_destroy, recipe_attributes: [:id, :name]])
   end
 
@@ -310,5 +323,20 @@ class OrdersController < ApplicationController
       end
     end
     users.uniq.each { |user| @total_delivery += user.delivery_price }
+  end
+
+  def create_pdf
+    WickedPdf.new.pdf_from_string(
+      render_to_string('orders/show.pdf.erb', layout: 'pdf'),
+      margin: {
+        top: 0, bottom: '2.85cm', left: 0, right: 0
+      }
+    )
+  end
+
+  def set_paypal_credentials
+    main_admin = current_app.main_admin
+    @paypal_client_id = main_admin&.paypal_client_id
+    @paypal_client_secret = main_admin&.paypal_client_secret
   end
 end

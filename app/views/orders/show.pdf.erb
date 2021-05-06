@@ -1,0 +1,70 @@
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td><b><%= t('orders.date') %></b></td>
+        <td>
+          <%= @order.created_at.strftime("%A %d of %B, %Y") %>
+        </td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.client_name') %></b></td>
+        <td><%= @order.name.present? ? @order.name : '---' %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.email') %></b></td>
+        <td><%= @order.email.present? ? @order.email : '---' %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.phone') %></b></td>
+        <td><%= @order.phone.present? ? @order.phone : '---' %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.home_address') %></b></td>
+        <td><%= @order.address.present? ? @order.address : '---' %></td>
+      </tr>
+
+      <tr>
+        <td><i>Products:</i></td>
+      </tr>
+      <% @order.line_items.each do |line_item| %>
+      <tr>
+        <td><b><%= line_item.gift_card ? line_item&.gift_card&.name : line_item&.recipe&.name %></b></td>
+        <td><b><%= line_item.quantity %></b> (<%= number_to_currency(line_item.sub_total&./100) %>)</td>
+      </tr>
+      <% end %>
+      <tr>
+        <td><br></td>
+      </tr>
+
+      <tr>
+        <td><b><%= t('recipes.total') %></b></td>
+        <td><%= number_to_currency(@order.amount&./100.0) %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.pay_method') %></b></td>
+        <td><%= @order.pay_method %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.tax') %></b></td>
+        <td><%= number_to_currency(@order.total_tax) %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.delivery') %></b></td>
+        <td><%= number_to_currency(@order.delivery_price) %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('orders.tip') %></b></td>
+        <td><%= number_to_currency(@order.tip_value) %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></b></td>
+        <td><%= @order.coupon_code.present? ? @order.coupon_code + ' / ' + number_to_currency(@order.coupon_discount) : '---' %></td>
+      </tr>
+      <tr>
+        <td><b><%= t('recipes.fundraising_code') %></b></td>
+        <td><%= @order.fundrasing_code.present? ? @order.fundrasing_code : '---' %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -52,20 +52,28 @@
     font-size: 1.4rem;
     margin-left: 5px;
   }
-  #remove-new-recipe {
+  .remove-new-recipe {
     margin-top: 3px;
     margin-left: 15px;
   }
   #order-button {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+  }
+  #print-button {
+    position: relative;
+    bottom: -10px;
+    left: 50%;
   }
   .new-order-select {
     padding: .87rem;
     width: 185px;
   }
+  .order-paymethod {
+    border: none;
+  }
 
   @media all and (max-width: 600px) {
-    #remove-new-recipe {
+    .remove-new-recipe {
       margin-left: -15px;
     }
     .order-item {
@@ -85,14 +93,12 @@
   }
 </style>
 
-<%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true) do |form| %>
+<%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true, html: { id: "staff_order" } ) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
-      <ul>
+      <ul style="padding-left: 5%;">
       <% order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li style="font-size: 12px; color: red;"><%= message %></li>
       <% end %>
       </ul>
     </div>
@@ -127,13 +133,13 @@
             <td><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone', disabled: order.new_record? ? false : true %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= form.label :address, t('orders.home_address') %></h2></td>
+            <td class="order-item"><%= form.label :address, t('orders.home_address') %></td>
             <td><%= form.text_area :address, class: 'order-field', id: 'new_order_address', disabled: order.new_record? ? false : true %></td>
           </tr>
 
           <tr>
             <td colspan="2">
-            <%= form.fields_for :line_items do |line_item| %>
+            <%= form.fields_for :line_items, @order.line_items.order(:created_at) do |line_item| %>
               <%= render 'line_item_fields', f: line_item %>
             <% end %>
             </td>
@@ -142,7 +148,10 @@
             <td colspan="2">
               <div class="row field" id="new-items">
                 <div class="col-1">
-                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, {"data-association-insertion-node" => '#new-items', class: 'btn btn-lg btn-outline-primary new-order-item', id: 'add-new-recipe', onmouseover: 'changeNewRecipe();', onclick: 'addNewRecipe();'} %>
+                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, { "data-association-insertion-node": '#new-items', 
+                              class: 'btn btn-lg btn-outline-primary new-order-item',
+                              onmouseover: 'changeNewRecipe();',
+                              onmouseout: order.new_record? ? '' : 'addRecipeForm();' } %>
                 </div>
               </div>
             </td>  
@@ -153,11 +162,11 @@
             <td><%= order.new_record? ? '$0.00' : number_to_currency(order.amount&./100.0) %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= t('orders.pay_method') %></td>
+            <td class="order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
             <% if order.new_record? %>
-              <td><%= 'Cash' %></td>
+              <td><%= 'Cash'.capitalize %></td>
             <% else %>
-              <td><%= order.pay_method&.capitalize %></td>
+              <td><%= form.text_field :pay_method, class: 'order-field order-paymethod', id: 'staff-order-paymethod', readonly: true %></td>
             <% end %>
           </tr>
           <tr>
@@ -201,7 +210,15 @@
             <% end %>
           </tr>
           <tr>
-            <td class="order-item"><%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %></td>
+            <td class="order-item">
+              <%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
+              <p id="paypal-button-container" style="max-width: 200px; margin-bottom: 30px;"></p>
+            </td>
+            <% unless order.new_record? %>
+            <td class="order-item">
+              <p><%= link_to 'Print', app_order_path(current_app, order, format: :pdf), class: 'btn btn-lg btn-info', id: 'print-button' %></p>
+            </td>
+            <% end %>
           </tr>
         </tbody>
       </table>
@@ -209,26 +226,20 @@
   </div>
 <% end %>
 
-
+<%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}" %>
 <script type="text/javascript">
+  var paypalEnv = "<%= Rails.configuration.paypal[:env] %>"
+  var totalAmount = "<%= order&.amount&./100.0 %>"
+  var newOrder = "<%= order.new_record? ? '1' : '0' %>"
   var orderBtn = document.getElementById("order-button");
-  var formOrderName = document.getElementById("new_order_name");
-  var formOrderEmail = document.getElementById("new_order_email");
-  var formOrderPhone = document.getElementById("new_order_phone");
-  var formOrderAddress = document.getElementById("new_order_address");
+  // var formOrderName = document.getElementById("new_order_name");
+  // var formOrderEmail = document.getElementById("new_order_email");
+  // var formOrderPhone = document.getElementById("new_order_phone");
+  // var formOrderAddress = document.getElementById("new_order_address");
 
   function changeNewRecipe() {
     orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
-
-    if (orderItems.length > 0 && formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
-      orderBtn.disabled = false;
-    } else {
-      orderBtn.disabled = true;
-    }
-  }
-
-  function addNewRecipe() {
-    if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+    if (orderItems.length > 0) {
       orderBtn.disabled = false;
     } else {
       orderBtn.disabled = true;
@@ -238,23 +249,23 @@
   function removeNewRecipe() {
     orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
 
-    if (orderItems.length > 3 && formOrderName.value.length > 3 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+    if (orderItems.length > 3) {
       orderBtn.disabled = false;
     } else {
       orderBtn.disabled = true;
     }
   }
 
-  document.querySelectorAll('#new_order_name, #new_order_email, #new_order_phone, #new_order_address').forEach(event => {
-    event.addEventListener('change', () => {
-      orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]')
-      if (orderItems.length > 0 && formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
-        orderBtn.disabled = false;
-      } else {
-        orderBtn.disabled = true;
-      }
-    })
-  })
+  // document.querySelectorAll('#new_order_name, #new_order_email, #new_order_phone, #new_order_address').forEach(event => {
+  //   event.addEventListener('change', () => {
+  //     orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]')
+  //     if (orderItems.length > 0 && formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+  //       orderBtn.disabled = false;
+  //     } else {
+  //       orderBtn.disabled = true;
+  //     }
+  //   })
+  // })
 
   function changeQuantity() {
     orderItems = document.querySelectorAll('[id ^= "order_line_items_attributes_"]');
@@ -269,6 +280,27 @@
         }
       }
     });
+  }
+
+  function addRecipeForm() {
+    paypalBtn = document.getElementById("paypal-button-container");
+    paypalBtn.style.display = 'none';
+  }
+
+  function changeRecipeForm() {
+    orderForm = document.getElementById("staff_order");
+    orderForm.submit();
+  }
+
+  function changeQuantityRecipeForm() {
+    quantityField = event.currentTarget
+    
+    if (parseInt(quantityField.value, 10) >= 1 && parseInt(quantityField.value, 10) !== NaN) {
+      orderForm = document.getElementById("staff_order");
+      orderForm.submit();
+    } else {
+      quantityField.style.border = '1px solid red';
+    }
   }
 
   function checkCoupon() {
@@ -328,4 +360,55 @@
       console.log("Error: ", error);
     })
   }
+
+  paypal.Buttons({
+    style: {
+      layout: 'horizontal',
+      size: 'responsive',
+      color: 'gold',
+      label: 'pay'
+    },
+    onInit: function(data, actions) {
+    // Disable the buttons
+      if (newOrder == '1') {
+        actions.disable();
+      }
+    },
+    env: paypalEnv, // Valid values are sandbox and live.
+    createOrder: async () => {
+    const response = await fetch('/paypal_create_payment', { 
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: totalAmount })
+    });
+    const responseData = await response.json();
+    if (responseData.token) {
+      return responseData.token;
+    } else {
+      return responseData.error;
+    }
+  },
+    onApprove: async (data) => {
+      const response = await fetch('/paypal_execute_payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({ order_id: data.orderID })
+    });
+    const responseData = await response.json();
+    if (responseData.data.table.status === 'COMPLETED') {
+      // REDIRECT TO UPDATE-ORDER PAGE
+      orderForm = document.getElementById("staff_order");
+      var payMethod = document.getElementById("staff-order-paymethod");
+      payMethod.value = 'paypal';
+      orderForm.submit();
+    }
+  },
+  onError: async (error) => {
+    alert('INVALID_RESOURCE_ID');
+  }
+}).render('#paypal-button-container');
 </script>

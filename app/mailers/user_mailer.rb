@@ -74,4 +74,18 @@ class UserMailer < ActionMailer::Base
 		@subject = data[:subject].present? ? data[:subject] : "New message from #{@sender_name}"
 		mail(to: data[:recipient_email], subject: @subject)
 	end
+
+	def send_receipt_to_client(client_email, order_id, admin_email = nil)
+		@order = Order.find_by(id: order_id)
+		receipt_file = WickedPdf.new.pdf_from_string(
+      render_to_string('orders/show.pdf.erb', layout: 'pdf'),
+      margin: {
+        top: 0, bottom: '2.85cm', left: 0, right: 0
+      }
+		)
+		file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
+		attachments["#{file_name}.pdf"] = receipt_file
+		@client_email = client_email
+		mail(to: [client_email, admin_email], subject: 'Thank You for Your Order')
+	end
 end

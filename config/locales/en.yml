@@ -163,6 +163,7 @@ en:
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Category removed successfully!
     success_stripe_payment: The order was successfully paid
+    client_create_order: Thank You for Your Order, the receipt is in your inbox shortly
     user_already_registered: user already registered
     user_not_registered: user not registered
     user_registered_as_guest: User already registered as an Guest!
