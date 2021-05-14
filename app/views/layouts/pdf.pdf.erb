@@ -2,35 +2,36 @@
 <html>
   <head>
     <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "receipt" -%>
     <%= stylesheet_link_tag wicked_pdf_asset_base64("application") %>
     <style>
       body {
         line-height: 1.5;
         padding: 1.5cm 3.4cm 0 3cm;
-        font-size: 12pt;
+        font-size: 11pt;
         font-family: Helvetica, Arial, Sans-Serif;
       }
       table {
         font-family: Helvetica, sans-serif;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+        border: 2px double black;
+        width: 50%;
+      }
+      thead {
+        background-color: #f0f0f5;
+        text-align: center;
+      }
+      tfoot {
+        background-color: #f0f0f5;
+        text-align: center;
       }
       td, th {
-        font-size: 1.2em;
-        padding: 5px 0 5px 0;
+        font-size: 1.1em;
+        padding: 0 20px 0 10px;
         word-break: break-all;
       }
-      .order-item {
-        text-align: left;
-        padding-left: 20px;
-        font-size: 1.2em;
-        max-width: 140px;
-      }
-      .order-field {
-        text-align: center;
-        width: 80%;
-        font-size: 1.1rem;
+      p {
+        padding: 0;
+        margin: 0;
       }
     </style>
   </head>

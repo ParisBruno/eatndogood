@@ -1,70 +1,97 @@
 <div>
   <table>
+    <thead>
+        <tr>
+          <td colspan="3" class="header-table">
+            <span class="title">Eat`nDoGood</span>
+            <p><%= @admin.store_address %></p>
+            <p><%= @admin.phone %></p>
+          </td>
+        </tr>
+    </thead>
+
     <tbody>
       <tr>
-        <td><b><%= t('orders.date') %></b></td>
-        <td>
-          <%= @order.created_at.strftime("%A %d of %B, %Y") %>
-        </td>
+        <td><br></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.client_name') %></b></td>
-        <td><%= @order.name.present? ? @order.name : '---' %></td>
+        <td colspan="3" class="client-data">Date: <%= @order.created_at.strftime("%d-%m-%y") %>  Order Receipt #<%= @order.id %></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.email') %></b></td>
-        <td><%= @order.email.present? ? @order.email : '---' %></td>
+        <td colspan="3" class="client-data"><%= @order.name if @order.name.present? %></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.phone') %></b></td>
-        <td><%= @order.phone.present? ? @order.phone : '---' %></td>
+        <td colspan="3" class="client-data"><%= @order.address if @order.address.present? %></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.home_address') %></b></td>
-        <td><%= @order.address.present? ? @order.address : '---' %></td>
+        <td colspan="3" class="client-data"><%= @order.email if @order.email.present? %></td>
+      </tr>
+      <tr>
+        <td colspan="3" class="client-data"><%= @order.phone if @order.phone.present? %></td>
+      </tr>
+      <tr>
+        <td><br></td>
       </tr>
 
-      <tr>
-        <td><i>Products:</i></td>
-      </tr>
-      <% @order.line_items.each do |line_item| %>
-      <tr>
-        <td><b><%= line_item.gift_card ? line_item&.gift_card&.name : line_item&.recipe&.name %></b></td>
-        <td><b><%= line_item.quantity %></b> (<%= number_to_currency(line_item.sub_total&./100) %>)</td>
-      </tr>
+ 
+      <% @items_with_styles.each do |key, value| %>
+          <tr>
+            <td colspan="3"><b><%= key.capitalize %></b></td>
+          </tr>
+          <% value.each do |line_item| %>
+          <tr>
+            <td colspan="2" class="product-name"><%= line_item.gift_card ? line_item&.gift_card&.name : line_item.recipe.name %></td>
+            <td><%= number_to_currency(line_item.sub_total&./100) %></td>
+          </tr>
+          <% end %>
       <% end %>
       <tr>
         <td><br></td>
       </tr>
 
+
       <tr>
-        <td><b><%= t('recipes.total') %></b></td>
-        <td><%= number_to_currency(@order.amount&./100.0) %></td>
+        <td colspan="2" class="amount-data sub-total"><b><%= t('recipes.sub_total') %></b></td>
+        <td class="sub-total"><b><%= number_to_currency(@order.sub_total) %></b></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.pay_method') %></b></td>
-        <td><%= @order.pay_method %></td>
+        <td colspan="2" class="amount-data"><%= t('reports.coupon_sales') %></td>
+        <td><%= @order.coupon_code.present? ? number_to_currency(@order.coupon_discount) : '' %></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.tax') %></b></td>
-        <td><%= number_to_currency(@order.total_tax) %></td>
-      </tr>
-      <tr>
-        <td><b><%= t('orders.delivery') %></b></td>
+        <td colspan="2" class="amount-data"><%= t('orders.delivery') %></td>
         <td><%= number_to_currency(@order.delivery_price) %></td>
       </tr>
       <tr>
-        <td><b><%= t('orders.tip') %></b></td>
+        <td colspan="2" class="amount-data"><%= t('orders.tax') %></td>
+        <td><%= number_to_currency(@order.total_tax) %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="amount-data"><%= t('orders.tip') %></td>
         <td><%= number_to_currency(@order.tip_value) %></td>
       </tr>
       <tr>
-        <td><b><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></b></td>
-        <td><%= @order.coupon_code.present? ? @order.coupon_code + ' / ' + number_to_currency(@order.coupon_discount) : '---' %></td>
+        <td colspan="2" class="amount-data total"><b><%= t('recipes.total').upcase %></b></td>
+        <td class="total"><b><%= number_to_currency(@order.amount&./100.0) %></b></td>
       </tr>
       <tr>
-        <td><b><%= t('recipes.fundraising_code') %></b></td>
-        <td><%= @order.fundrasing_code.present? ? @order.fundrasing_code : '---' %></td>
+        <td colspan="3" class="amount-data"><b><i>Paid <%= @order.pay_method == 'cash' ? 'cash' : ' Credit card' %></i></b></td>
+      </tr>
+      <tr>
+        <td><br></td>
+      </tr>
+      <tr>
+        <td><br></td>
       </tr>
     </tbody>
+      
+    <tfoot>
+      <tr>
+        <td colspan="3" class="footer-table">
+          <p>Weekly delicious special, tips & more visit: Eat`nDoGood.com/<%= @admin.app.slug %></p>
+          <p class="greeting_message"><%= @admin.greeting_message %></p>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </div>

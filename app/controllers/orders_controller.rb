@@ -92,9 +92,11 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
     if @order && current_app.users.include?(@order.user)
       file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
+      @admin = current_app.main_admin
       respond_to do |format|
         format.html
         format.pdf do
+          set_items_by_style(@order)
           send_data create_pdf, filename: "#{file_name}.pdf", type: 'application/pdf'
         end
       end
@@ -338,5 +340,26 @@ class OrdersController < ApplicationController
     main_admin = current_app.main_admin
     @paypal_client_id = main_admin&.paypal_client_id
     @paypal_client_secret = main_admin&.paypal_client_secret
+  end
+
+  def set_items_by_style(order)
+    styles_names = ['APPETIZERS', 'DESERT', 'DRINKS', 'GIFT CARD']
+
+    order.line_items.where.not(recipe_id: nil).each do |line_item|
+      style_name = line_item.recipe.styles&.first&.name
+      styles_names.insert(1, style_name) unless styles_names.include?(style_name)
+    end
+
+    styles_data = styles_names.uniq.each_with_object(Hash.new(0)) { |style_name, hash| hash[style_name] = [] }
+    
+    order.line_items.each do |line_item|
+      if line_item.recipe
+        style_name = line_item.recipe.styles&.first&.name
+        styles_data[style_name] << line_item
+      else
+        styles_data['GIFT CARD'] << line_item
+      end
+    end
+    @items_with_styles = styles_data.reject { |key, value| value.empty? }
   end
 end
