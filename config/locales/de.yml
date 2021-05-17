@@ -81,7 +81,7 @@ de:
     register: Registrieren
     styles: der Kategorie
     styles_colon: 'der Kategorie:'
-    take_a_tour_as_guest: Machen Sie eine Tour als Gast
+    take_a_tour_as_guest: Sei unser Gast
     add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
   gift_cards:

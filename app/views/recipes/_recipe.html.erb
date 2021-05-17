@@ -46,12 +46,14 @@
     <li class="<%= "active" unless @recipes.first&.is_draft %>">
       <%= link_to t('common.all_recipes'), app_recipes_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
+    <% if current_app_user %>
     <li style="display: <%= @hide_chef_tab %>">
       <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
     <li class="<%= "active" if @recipes.first&.is_draft %>">
       <%= link_to t('common.drafts'), app_recipe_drafts_path(app: @current_app), {:style=>'font-size:20px'} %>
     </li>
+    <% end %>
   </ul>
 </div>
 
@@ -130,7 +132,7 @@
             <tr>
               <td class="index-recipe-price"><%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(recipe.price) %></span></td>
               <td>
-                <% unless recipe.is_draft %> 
+                <% unless recipe.is_draft || !current_app_user %> 
                   <%= button_to line_items_path(recipe_id: recipe.id), class: 'index-buy-button btn btn-success btn-lg' do %>
                     <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
                   <% end %>

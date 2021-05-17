@@ -81,7 +81,7 @@ it:
     register: Registra
     styles: Categoria
     styles_colon: 'Categoria:'
-    take_a_tour_as_guest: Fai un tour come ospite
+    take_a_tour_as_guest: Sii nostro ospite
     add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
   gift_cards:
