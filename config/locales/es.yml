@@ -81,7 +81,7 @@ es:
     register: Registro
     styles: el catégorie
     styles_colon: 'el catégorie:'
-    take_a_tour_as_guest: Ser nuestro invitado
+    take_a_tour_as_guest: Registrarse como invitado
     see_meals: Consulte las comidas por categoría,<br> ingredientes y alérgenos.
     menu: Menú
     add_to_home_screen: Agregar aplicación a la pantalla de inicio

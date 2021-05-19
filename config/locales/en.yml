@@ -85,7 +85,7 @@ en:
     register: Register
     styles: Categories
     styles_colon: 'Categories:'
-    take_a_tour_as_guest: Be Our Guest
+    take_a_tour_as_guest: Signup as a guest
     see_meals: See meals by category,<br> ingredients and allergens.
     menu: Menu
     add_to_home_screen: Add App to Home-Screen
