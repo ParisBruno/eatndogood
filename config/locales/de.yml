@@ -82,6 +82,8 @@ de:
     styles: der Kategorie
     styles_colon: 'der Kategorie:'
     take_a_tour_as_guest: Sei unser Gast
+    see_meals: Siehe Mahlzeiten nach Kategorie,<br> Zutaten und Allergenen.
+    menu: Speisekarte
     add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
   gift_cards:

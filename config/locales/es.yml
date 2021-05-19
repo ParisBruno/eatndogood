@@ -82,6 +82,8 @@ es:
     styles: el catégorie
     styles_colon: 'el catégorie:'
     take_a_tour_as_guest: Ser nuestro invitado
+    see_meals: Consulte las comidas por categoría,<br> ingredientes y alérgenos.
+    menu: Menú
     add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
   gift_cards:

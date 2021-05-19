@@ -37,7 +37,6 @@
       font-size: 20px !important;
   }
   .page-title {
-    margin-bottom: 20px;
     font-size: 20px;
   }
   .text-center {
@@ -151,8 +150,9 @@
       <% unless current_app_user %>
         <div class="row">
           <div class="col-md-12 text-center" style="width: 100%;">  
-            <%= link_to(tl('common.see_meals', locale).html_safe, app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center;'}) %>
+            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center;'}) %>
             <!--/button-->
+            <p><%= t('common.see_meals').html_safe %></p>
           </div>
         </div>
         <div class="row">

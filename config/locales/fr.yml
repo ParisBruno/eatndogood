@@ -87,6 +87,8 @@ fr:
     styles: la catégorie
     styles_colon: 'la catégorie:'
     take_a_tour_as_guest: Sois notre invité
+    see_meals: Voir les repas par catégorie,<br> ingrédients et allergènes.
+    menu: Menu
     add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
