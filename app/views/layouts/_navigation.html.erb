@@ -15,11 +15,8 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
-  <% if app_user_signed_in? %>
-     
     <div class="container-fluid collapse navbar-collapse" id="responsive-nav">
 
-      
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
         <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "frmRecipes") do |f| %> 
         <%= hidden_field_tag :filter, 1 %>
@@ -29,7 +26,7 @@
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
-           <% if current_app_user.admin? || current_app_user.manager? %>
+           <% if current_app_user&.admin? || current_app_user&.manager? %>
            <li class="dropdown nav-item">
            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <%= t('navigation.sales_point') %></a>
@@ -65,7 +62,7 @@
               
               <% end %>
 
-              <% if current_app_user.admin?  || current_app_user.chef? %>
+              <% if current_app_user&.admin? || current_app_user&.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
                   <%= link_to t('navigation.new_style'), new_app_style_path(@current_app) %>
@@ -87,7 +84,7 @@
               
               <% end %>
 
-              <% if current_app_user.admin?  || current_app_user.chef? %>
+              <% if current_app_user&.admin? || current_app_user&.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
                   <%= link_to t('navigation.new_ingredient'), new_app_ingredient_path(@current_app) %>
@@ -110,18 +107,20 @@
               
               <% end %>
 
-              <% if current_app_user.admin?  || current_app_user.chef? %>
+              <% if current_app_user&.admin? || current_app_user&.chef? %>
                 <li role="separator" class="divider"></li>
                 <li class="nav-item">
                   <%= link_to t('navigation.new_allergen'), new_app_allergen_path(@current_app) %>
                 </li>
-                <% end %>
+              <% end %>
             </ul>
-              <% if current_app_user.admin? || current_app_user.chef? %>
+              <% if current_app_user&.admin? || current_app_user&.chef? %>
               <li class="nav-item">
                 <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
               </li>
               <% end %>
+
+              <% if current_app_user %>
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.team') %></a>
                 <ul class="dropdown-menu">
@@ -135,9 +134,11 @@
                   </li>
                 </ul>
               </li>
+              <% end %>
           </li>
        </ul>
         
+      <% if current_app_user %>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -163,29 +164,26 @@
             </ul>
           </li>
         </ul>
-        <% end %>
+        </div>
+      </div>
+    
+      <ul class="cart-btn nav navbar-nav">
+        <li class="dropdown nav-item">
+          <%= button_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple", method: :get, disabled: @current_cart.line_items.count == 0 %>
+        </li>
+      </ul>
+      <% end %>
+  <% end %>
+
+  <% unless app_user_signed_in? %>
+    <div style="width: 33%;">
+      <div class="login">
+        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn btn-success btn-lg'%>
+      </div>
+      <div class="registration">
+        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn btn-success btn-lg'%>
       </div>
     </div>
-    
-    <ul class="cart-btn nav navbar-nav">
-      <li class="dropdown nav-item">
-        <%= button_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple", method: :get, disabled: @current_cart.line_items.count == 0 %>
-      </li>
-    </ul>
-  <% else %>
-    <div class="row" style="width: 100%;">
-      <div class="col-md-8"></div>
-      
-        <div class="col-md-4 login">
-          <div class="login">
-            <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn btn-success btn-lg'%>
-          </div>
-          <div class="registration">
-            <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn btn-success btn-lg'%>
-          </div>
-        </div>
-        
-      </div>
   <% end %>
 </nav> 
 <script type="text/javascript">

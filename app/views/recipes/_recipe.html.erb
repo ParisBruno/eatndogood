@@ -86,12 +86,16 @@
     
       <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe) %></h2>
       <div class='recipe-summary-index'>
+      <% if current_app_user %>
         <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
           <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
         <% else %>
           <% length = recipe.summary&.size || 3 %>
           <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
         <% end %>
+      <% else %>
+        <%= recipe.summary.html_safe %>
+      <% end %>
       </div>
       <%
 =begin%>
