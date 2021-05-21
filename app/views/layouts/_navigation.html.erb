@@ -169,7 +169,9 @@
     
       <ul class="cart-btn nav navbar-nav">
         <li class="dropdown nav-item">
-          <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple", disabled: @current_cart.line_items.count == 0 %>
+        <% unless @current_cart.line_items.count == 0 %>
+          <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple" %>
+        <% end %>
         </li>
       </ul>
       <% end %>
