@@ -52,10 +52,12 @@
       </div>
       </div>
 
-      <% unless @recipe.is_draft %> 
+      <% unless @recipe.is_draft || !current_app_user %> 
         <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
           <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
+      <% else %>
+          <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
       <% end %> 
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
@@ -80,11 +82,11 @@
 <br>
 
 <% unless @recipe.is_draft %> 
-  <% if current_app_user.present? && session[:user_role] != 'super_admin' %>
+  <% if session[:user_role] != 'super_admin' %>
   <div class="recipes-q">
  
     <center>
-          <% if current_app_user.id != @recipe.chef.id %>
+          <% if current_app_user && current_app_user.id != @recipe.chef.id %>
             <h3>
               <a href="<%= new_app_question_path(@recipe, user_id: current_app_user.id, email: @recipe.chef.user.email, recipe_id: @recipe.id) %>">
                 <%= t('recipes.question_about_this_recipe') %>
@@ -117,7 +119,7 @@
 
           <% end %>
 
-          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "180x100"), new_app_gift_card_path(current_app) %></h3>
+          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "180x100"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %></h3>
           
           <%= render 'shared_links' %>
 
