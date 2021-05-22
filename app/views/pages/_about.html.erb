@@ -150,9 +150,9 @@
       <% unless current_app_user %>
         <div class="row">
           <div class="col-md-12 text-center" style="width: 100%;">  
-            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center;'}) %>
+            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center; margin-bottom: 10px;'}) %>
             <!--/button-->
-            <p><%= t('common.see_meals').html_safe %></p>
+            <p style="font-size:20px;"><%= t('common.see_meals').html_safe %></p>
           </div>
         </div>
         <div class="row">
