@@ -4,8 +4,20 @@
   font-weight: bold;
 }
 .cart-btn {
-  padding-top: 3% !important;
-  margin-bottom: -88px !important;
+  position: absolute; 
+  right: 10px;
+  top: 70px;
+}
+@media screen and (width: 1024px) {
+  .cart-btn {
+    top: 160px !important;
+    right: 25px;
+  }
+}
+@media screen and (max-width: 1167px) and (min-width: 767px) {
+  .cart-btn {
+    top: 110px;
+  }
 }
 </style>
 <!-- <nav class="navbar navbar-default"> -->
@@ -166,15 +178,7 @@
         </ul>
         </div>
       </div>
-    
-      <ul class="cart-btn nav navbar-nav">
-        <li class="dropdown nav-item">
-        <% unless @current_cart.line_items.count == 0 %>
-          <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple" %>
-        <% end %>
-        </li>
-      </ul>
-      <% end %>
+    <% end %>
   <% end %>
 
   <% unless app_user_signed_in? %>
@@ -188,6 +192,15 @@
     </div>
   <% end %>
 </nav> 
+
+<ul class="cart-btn nav navbar-nav">
+  <li class="dropdown nav-item">
+  <% unless @current_cart.line_items.count == 0 %>
+    <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple" %>
+  <% end %>
+  </li>
+</ul>
+
 <script type="text/javascript">
   $.fn.toggleCheck  =function() {
     if(this.tagName === 'INPUT') {

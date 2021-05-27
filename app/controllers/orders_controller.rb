@@ -2,7 +2,9 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[paypal_create_payment paypal_execute_payment]
   before_action :set_delivery_and_tax, only: %i[new create]
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
-  before_action :set_chef_ids, :check_admin
+  before_action :set_chef_ids
+  before_action :set_paypal_credentials, only: %i[new create new_staff_order show]
+  before_action :check_admin, except: %i[new create paypal_create_payment paypal_execute_payment]
   skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
   @@paypal_token ||= nil
@@ -20,22 +22,29 @@ class OrdersController < ApplicationController
   def new
     @@paypal_token = nil
     @@paypal_status = nil
-    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], 
-                              params[:coupon_percent_off], params[:tip_value])
+    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_percent_off],
+                              params[:tip_value], params[:fundrasing_code])
     @order = Order.new
-    @gift_card = GiftCard.where(client_email: current_app_user.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
+    @gift_card = GiftCard.where(client_email: current_app_user&.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
   end
 
   def new_staff_order
-    set_paypal_credentials
     @order = Order.new
     @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc)
   end
 
   def create
     set_delivery_discount_tip(order_params[:delivery_price], order_params[:coupon_code],
-                              order_params[:coupon_percent_off], order_params[:tip_value])
+                              order_params[:coupon_percent_off], order_params[:tip_value], order_params[:fundrasing_code])
     @order = Order.new(order_params)
+
+    unless app_user_signed_in?
+      @guest = User.new(email: order_params[:email], first_name: order_params[:name], app_id: current_app.id,
+                            password: order_params[:password], password_confirmation: order_params[:password_confirmation],
+                            address_line_1: order_params[:address], phone: order_params[:phone])
+
+      render 'new' and return unless @guest.save
+    end
 
     @current_cart.line_items.each { |item| @order.line_items << item }
 
@@ -44,8 +53,10 @@ class OrdersController < ApplicationController
     @order.paypal_token = @@paypal_token
     @order.paypal_status = @@paypal_status
     @order.save!
-
-    UserMailer.send_receipt_to_client(current_app_user.email, @order.id, current_app.main_admin&.email).deliver_later
+        
+    set_items_by_style(@order)
+    email = @guest&.valid? ? @guest.email : current_app_user.email
+    UserMailer.send_receipt_to_client(email, @order.id, @items_with_styles, current_app.main_admin&.email).deliver_later
 
     if params['cash'].present?
       create_cash_gift_paypal_order(@order, 'cash')
@@ -76,19 +87,19 @@ class OrdersController < ApplicationController
     end
 
     set_delivery_discount_tip(delivery_price, coupon&.title, coupon&.coupon_percent_off,
-                              update_order_params[:tip_value], true)      
+                              update_order_params[:tip_value], update_order_params[:fundrasing_code], true)      
     set_orders_amounts(@order, current_app_user&.id)
 
     @order.sub_total = (@order.sub_total * 100).to_i
     @order.pay_method = 'cash'
     @order.save!
 
-    UserMailer.send_receipt_to_client(@order.email, @order.id).deliver_later if @order.email.present?
+    set_items_by_style(@order)
+    UserMailer.send_receipt_to_client(@order.email, @order.id, @items_with_styles).deliver_later if @order.email.present?
     redirect_to app_order_path(id: @order, app: current_app.slug)
   end
 
   def show
-    set_paypal_credentials
     @order = Order.find_by(id: params[:id])
     if @order && current_app.users.include?(@order.user)
       file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
@@ -114,8 +125,8 @@ class OrdersController < ApplicationController
         redirect_to app_orders_path(current_app)
       else
         set_order_data(@order)
-        set_delivery_discount_tip(@order.delivery_price, @order.coupon_code,
-                                  @order.coupon_percent_off, @order.tip_value, true)
+        set_delivery_discount_tip(@order.delivery_price, @order.coupon_code, @order.coupon_percent_off,
+                                  @order.tip_value, update_order_params[:fundrasing_code], true)
         set_orders_amounts(@order, current_app_user&.id)
         @order.sub_total = (@order.sub_total * 100).to_i
         @order.status = 1 if update_order_params[:pay_method] == 'paypal'
@@ -147,7 +158,19 @@ class OrdersController < ApplicationController
   end
 
   def paypal_create_payment
-    amount = params[:amount]
+    amount = order_params[:amount]
+
+    unless app_user_signed_in?
+      errors = []
+      errors << "<li>email has already been taken</li>" if User.exists?(email: order_params[:email])
+      errors << "<li>email is invalid</li>" unless order_params[:email] =~ URI::MailTo::EMAIL_REGEXP
+      errors << "<li>password confirmation doesn't match password</li>" if order_params[:password] != order_params[:password_confirmation]
+      
+      if errors.present?
+        render json: { error: errors.join('') }, status: :unprocessable_entity and return
+      end
+    end
+
     request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new
     request.request_body({
                           intent: "CAPTURE",
@@ -272,8 +295,8 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :fundrasing_code,
-                                  :delivery_price, :coupon_percent_off, :tip_value, :gift_card_id)
+    params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :fundrasing_code, :amount, :delivery_price,
+                                  :coupon_percent_off, :tip_value, :gift_card_id, :password, :password_confirmation)
   end
 
   def update_order_params
@@ -281,7 +304,7 @@ class OrdersController < ApplicationController
                                   line_items_attributes: [:id, :quantity, :recipe_id, :_destroy, recipe_attributes: [:id, :name]])
   end
 
-  def set_delivery_discount_tip(delivery_price, coupon_code, coupon_percent_off, tip_value, update_order = false)
+  def set_delivery_discount_tip(delivery_price, coupon_code, coupon_percent_off, tip_value, fundrasing_code, update_order = false)
     sub_total = if update_order
                    @order.sub_total
                 else
@@ -290,6 +313,9 @@ class OrdersController < ApplicationController
 
     @delivery_price = delivery_price.to_f
     coupon_percent_off = CouponCode.find_by(title: coupon_code)&.coupon_percent_off if update_order
+    @coupon_code = coupon_code
+    @coupon_percent_off = coupon_percent_off
+    @fundrasing_code = fundrasing_code
     @coupon_discount = if coupon_code.present?
                         sub_total * (-1) * (coupon_percent_off.to_f/100)
                        else

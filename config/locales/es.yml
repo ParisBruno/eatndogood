@@ -397,6 +397,7 @@ es:
     price: Precio
     shared_links: Comparte con amigos y familiares
     add_to_cart: Añadir al carrito
+    start_order: Orden de inicio
     my_cart: Mi carrito
     product_name: Nombre del producto
     quantity: Cantidad

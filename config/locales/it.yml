@@ -412,6 +412,7 @@ it:
     price: Prezzo
     shared_links: Condividi con amici e familiari
     add_to_cart: Aggiungi al carrello
+    start_order: Inizia l'ordine
     my_cart: La mia carta
     product_name: Nome del prodotto
     quantity: Quantità

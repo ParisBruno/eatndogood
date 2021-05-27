@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
 		@app = App.find_by(id: app_id)
 		@gift_card = GiftCard.find_by(id: gift_card_id)
 		@gift_card.to_active
-		emails = [ @gift_card.user.email, @app&.users.where(admin: true).first.email, @gift_card.client_email ].uniq
+		emails = [ @gift_card.user.email, @app&.main_admin.email, @gift_card.client_email ].uniq
 
 		mail(to: emails, subject: 'Present Gift Card!')
 	end
@@ -75,7 +75,9 @@ class UserMailer < ActionMailer::Base
 		mail(to: data[:recipient_email], subject: @subject)
 	end
 
-	def send_receipt_to_client(client_email, order_id, admin_email = nil)
+	def send_receipt_to_client(client_email, order_id, items_styles, admin_email = nil)
+		@admin = User.find_by(email: admin_email) if admin_email
+		@items_with_styles = items_styles
 		@order = Order.find_by(id: order_id)
 		receipt_file = WickedPdf.new.pdf_from_string(
       render_to_string('orders/show.pdf.erb', layout: 'pdf'),

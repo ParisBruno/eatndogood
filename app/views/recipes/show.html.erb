@@ -9,6 +9,15 @@
   .fa-shopping-cart { 
     transform: scale(-1, 1);
   }
+  @media screen and (max-width: 600px) {
+    .buy-button {
+      position: fixed;
+      bottom: 20px;
+      left: 33%;
+      z-index:100;
+      font-size: 18px;
+    }
+  }
 </style>
   <div class="margin-sec top-space" style="margin-top: 50px;">
      <div class="col-md-12 margin-sec top-space recipe-detail">
@@ -52,9 +61,9 @@
       </div>
       </div>
 
-      <% unless @recipe.is_draft || !current_app_user %> 
-        <%= button_to line_items_path(recipe_id: @recipe.id), class: 'buy-button btn btn-success btn-lg' do %>
-          <%= t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+      <% unless @recipe.is_draft %> 
+        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg" do %>
+          <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
       <% else %>
           <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
