@@ -401,7 +401,7 @@ it:
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
     save_draft: Salva come bozza
-    show_all_recipes: Lista delle ricette
+    show_all_recipes: Sfoglia per
     show_all_drafts: Lista delle bozze
     summary_placeholder: |-
       Breve descrizione del piatto

@@ -412,7 +412,7 @@ fr:
     return_to_recipes_listing: Retour à la liste des recettes
     save_submit: Cliquez ici pour sauvegarder votre chef-d'œuvre
     save_draft: Enregistrer comme brouillon
-    show_all_recipes: Voir toutes les recettes
+    show_all_recipes: Parcourir par
     show_all_drafts: Voir toutes les brouillons
     summary_placeholder: |-
       Description courte de la recette,
