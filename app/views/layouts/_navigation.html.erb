@@ -19,6 +19,17 @@
     top: 110px;
   }
 }
+@media screen and (max-width: 600px) {
+  .navbar {
+    display: <%= app_user_signed_in? ? 'block' : 'none' %>;
+  }
+  .header {
+    height: <%= app_user_signed_in? ? '70px' : '0' %>;
+  }
+  .cart-btn {
+    top: 10px;
+  }
+}
 </style>
 <!-- <nav class="navbar navbar-default"> -->
 <nav class="navbar navbar-expand-lg navbar-dark">

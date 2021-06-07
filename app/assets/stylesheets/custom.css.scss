@@ -139,10 +139,6 @@ footer ul li {
   height: 320px !important;
 }
 
-.image-box-shadow img {
-  height: 295px !important;
-}
-
 .detail-sec .detail-list center {
 width: 100%;
 float: left;
@@ -266,7 +262,8 @@ color: #337ab7;
 }
 
 .img-inner img {
-    height: 210px !important;
+    height: 220px !important;
+    padding: 5px;
 }
 
 .chef-full .box-content.box-main {
@@ -1051,5 +1048,12 @@ ul.listing li {
   }
   span img {
     max-width: 100%;
+  }
+  .content {
+    margin-top: 10px;
+    padding: 0;
+  }
+  .image-box-shadow img {
+    height: 295px !important;
   }
 }

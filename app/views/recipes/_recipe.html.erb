@@ -8,6 +8,7 @@
   }
   .index-recipe-price {
     font-size: 18px;
+    font-family: WhitneySSm;
   }
   .badge {
     font-size: 20px;
@@ -19,6 +20,21 @@
   }
   .recipe-summary-index {
     word-wrap: break-word;
+  }
+  .recipe-title {
+    font-family: MillerDisplay-Roman;
+    color: '#f04123' !important;
+  }
+  .index-buy-button {
+    font-family: WhitneySSm;
+  }
+  @media screen and (max-width: 600px) {
+    .top-paginate {
+      display: none;
+    }
+    .nav-links-cont {
+      display: none;
+    }
   }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,13 +51,13 @@
   <%#= render 'layouts/messages' %>
   <%= flash_toastr %> 
 <% end %>
-<div class="col-md-12 margin-sec pagin-top">
+<div class="col-md-12 margin-sec pagin-top top-paginate">
   <div class="pagination-tab">
     <%= will_paginate @recipes  %>
   </div>
 </div>
 
-<div class="col-md-12 margin-sec">
+<div class="col-md-12 margin-sec nav-links-cont">
   <ul class="nav nav-tabs">
     <li class="<%= "active" unless @recipes.first&.is_draft %>">
       <%= link_to t('common.all_recipes'), app_recipes_path(app: @current_app), {:style=>'font-size:20px'} %>
@@ -80,11 +96,11 @@
 <% @recipes.each do |recipe| %>
   <div class="col-md-12 margin-sec">
   <div class="margin-sec top-recepi top-space">
-  <div class="row">
+  <div class="row" style="margin-top: 10px;">
     <div class="col-md-8 detail">
-    <div class="box-inner-sec well box-content">
+    <div class="box-inner-sec well box-content" style="padding: 10px !important;">
     
-      <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe) %></h2>
+      <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
       <div class='recipe-summary-index'>
       <% if current_app_user %>
         <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
@@ -94,7 +110,7 @@
           <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
         <% end %>
       <% else %>
-        <%= recipe.summary.html_safe %>
+        <%= sanitize recipe.summary %>
       <% end %>
       </div>
       <%
@@ -150,7 +166,7 @@
       </div>
     </div>
     <% if recipe.food_image.attached? %>
-      <div class="col-md-2 thumb">
+      <div class="col-md-2 thumb" style="width: <%= recipe.drink_image.attached? ? '49%' : '99%' %>;">
         <div class="img-inner image-box-shadow">
           <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
         </div>

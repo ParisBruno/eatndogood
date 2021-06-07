@@ -35,7 +35,7 @@
 
 <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "filterRecipes") do |f| %>
 <%= hidden_field_tag :filter, 1 %>
-<div class="browsed-buttons">
+<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
   <div class="browsed-button-cont">
     <button class="brow-button dropdown nav-item">
       <a href="#" class="brow-button-text btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.styles') %></a>

@@ -9,6 +9,23 @@
   .fa-shopping-cart { 
     transform: scale(-1, 1);
   }
+  .recipe-title {
+    font-family: MillerDisplay-Roman;
+  }
+  .box-content-font {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @media screen and (min-width: 768px) {
+   .col-md-4.thumb-sec {
+      position: absolute;
+      right: -45%;
+      top: 0;
+    }
+    .recipe-detail .image-box-shadow {
+      padding: 5px;
+    }
+  }
   @media screen and (max-width: 600px) {
     .buy-button {
       position: fixed;
@@ -17,38 +34,49 @@
       z-index:100;
       font-size: 18px;
     }
+    .recipe-title {
+      color: #f04123;
+      text-align: center;
+    }
   }
 </style>
-  <div class="margin-sec top-space" style="margin-top: 50px;">
+  <div class="margin-sec top-space" style="margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;">
      <div class="col-md-12 margin-sec top-space recipe-detail">
      <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12 detail-sec">
       <div class="box-inner-sec well box-content">
+
+       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
+      <% if @recipe.food_image.attached? %>
+        <div class="image-box-shadow">
+          <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
+        </div>
+      <% end %>
+      </div>
       <div class="detail-list">
       <% if (current_app_user and (@recipe.chef.id == current_app_user.id) || current_app_user.admin?) %>
-        <%= link_to t('recipes.delete_recipe'), [current_app, @recipe], class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+        <%= link_to t('recipes.delete_recipe'), [current_app, @recipe], class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px; font-family: WhitneySSm;",  method: :delete, data: { confirm: t('common.confirm') } %>
       <% end %>
 
       
       <% if (current_app_user and (@recipe.chef.id == current_app_user.id)|| current_app_user.admin? ) %>
-        <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right  btn-lg" %>
+        <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg", style: 'font-family: WhitneySSm;' %>
       <% end %>
  
 
-      <center>
-        <h2>
-          <%= link_to @recipe.name, app_recipe_path(current_app, @recipe) %>
-        </h2>
+      <center class="box-content-font" style="margin-bottom:0;">
+        <h1 class='recipe-title'>
+          <%= @recipe.name %>
+        </h1>
       </center>
-      <h2>
+
+      <h2 class="recipe-summary box-content-font">
+        <%= sanitize(@recipe.summary) %>
+      </h2>
+      <h2 class="box-content-font" style="margin-top: 0 !important;">
         <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
       </h2>
-
-      <h2 class="recipe-summary">
-        <%= raw(@recipe.summary) %>
-      </h2>
-
-      <div class="well-sec u-content">
+      <div class="well-sec u-content box-content-font">
         <p>
           <strong><%= t 'recipes.tips_ingredients_preparation' %></strong>
         </p>
@@ -62,25 +90,14 @@
       </div>
 
       <% unless @recipe.is_draft %> 
-        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg" do %>
+        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
           <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
       <% else %>
           <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
       <% end %> 
       </div>
-      <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
-      <% if @recipe.food_image.attached? %>
-        <div class="image-box-shadow" style="margin-bottom: 10px;">
-          <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
-        </div>
-      <% end %>
-      <% if @recipe.drink_image.attached? %>
-        <div class="image-box-shadow" style="margin-bottom: 10px;">
-          <%=image_tag(@recipe.drink_image, class:'img', alt: t('common.no_image')) %>
-        </div>
-      <% end %>
-      </div>
+     
       
 
       </div>
