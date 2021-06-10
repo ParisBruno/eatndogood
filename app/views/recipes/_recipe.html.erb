@@ -97,8 +97,8 @@
   <div class="col-md-12 margin-sec">
   <div class="margin-sec top-recepi top-space">
   <div class="row" style="margin-top: 10px;">
-    <div class="col-md-8 detail">
-    <div class="box-inner-sec well box-content" style="padding: 10px !important;">
+    <div class="col-md-10 detail">
+    <div class="box-inner-sec well box-content">
     
       <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
       <div class='recipe-summary-index'>
@@ -166,16 +166,9 @@
       </div>
     </div>
     <% if recipe.food_image.attached? %>
-      <div class="col-md-2 thumb" style="width: <%= recipe.drink_image.attached? ? '49%' : '99%' %>;">
-        <div class="img-inner image-box-shadow">
-          <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
-        </div>
-      </div>
-    <% end %>
-    <% if recipe.drink_image.attached?%>
       <div class="col-md-2 thumb">
         <div class="img-inner image-box-shadow">
-          <%=image_tag(recipe.sized(:drink_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
+          <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
         </div>
       </div>
     <% end %>

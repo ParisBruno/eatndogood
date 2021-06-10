@@ -17,13 +17,21 @@
     padding-right: 10px;
   }
   @media screen and (min-width: 768px) {
-   .col-md-4.thumb-sec {
+   .col-md-3.thumb-sec {
       position: absolute;
-      right: -45%;
+      right: -36%;
       top: 0;
+    }
+    .col-md-3 {
+      max-width: 35%;
     }
     .recipe-detail .image-box-shadow {
       padding: 5px;
+    }
+  }
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .col-md-3.thumb-sec {
+      right: -50%;
     }
   }
   @media screen and (max-width: 600px) {
@@ -38,15 +46,19 @@
       color: #f04123;
       text-align: center;
     }
+    .margin-sec .top-space {
+      margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
+    }
+    
   }
 </style>
-  <div class="margin-sec top-space" style="margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;">
+  <div class="margin-sec top-space">
      <div class="col-md-12 margin-sec top-space recipe-detail">
      <div class="row">
-      <div class="col-md-8 col-sm-12 col-xs-12 detail-sec">
+      <div class="col-md-9 col-sm-12 col-xs-12 detail-sec">
       <div class="box-inner-sec well box-content">
 
-       <div class="col-md-4 col-sm-12 col-xs-12 thumb-sec">
+       <div class="col-md-3 col-sm-12 col-xs-12 thumb-sec">
       <% if @recipe.food_image.attached? %>
         <div class="image-box-shadow">
           <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
