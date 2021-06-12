@@ -412,7 +412,7 @@ button.btn-bottom:hover {
     z-index: 99;
 }
 .margin-sec .box-content {    background-color: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 0;
     border: 1px solid #9999994f;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -933,7 +933,7 @@ header#main_header #responsive-nav {  float: left;
  .margin-sec .detail .pull-right {
     position: absolute; right: 22px!important; bottom: 30px!important; margin: 0!important;}
 .margin-sec .box-content .pull-right { position: absolute; right: 15px; bottom: 20px; }
-.margin-sec .detail { width: calc(100% - 420px); padding-right: 15px; float: left; flex: 0 0 43.666667%  !important;}
+.margin-sec .detail { width: calc(100% - 420px); padding-right: 15px; float: left;}
 .margin-sec .thumb { width: 200px; margin-top: 0!important; margin-right: 10px;
     margin-left: 0; float: left;     flex: 0 0 26.666667% !important;
     max-width: 200px !important;} 

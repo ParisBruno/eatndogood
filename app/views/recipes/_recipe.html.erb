@@ -14,9 +14,12 @@
     font-size: 20px;
   }
   .index-buttons {
-    margin-top: 7%;
-    display: inline-block;
-    width:360px;
+    position: absolute;
+    right: 3%;
+    bottom: 8%;
+  }
+  .index-title {
+    padding-left: 10px !important;
   }
   .recipe-summary-index {
     word-wrap: break-word;
@@ -34,6 +37,22 @@
     }
     .nav-links-cont {
       display: none;
+    }
+    .image-box-shadow {
+      min-height: 100px;
+      margin-right: 8px !important; 
+    }
+    .image-box-shadow img {
+      height: 100px;
+    }
+    .index-title {
+      padding-top: 15px !important;
+    }
+    .margin-sec .box-content h2 {
+      font-size: 14px;
+    }
+    .margin-sec .image-box-shadow {
+      width: 40%;
     }
   }
 </style>
@@ -94,14 +113,26 @@
 <% end %>
 
 <% @recipes.each do |recipe| %>
-  <div class="col-md-12 margin-sec">
+  <div class="col-md-6 margin-sec">
   <div class="margin-sec top-recepi top-space">
   <div class="row" style="margin-top: 10px;">
-    <div class="col-md-10 detail">
+    <div class="col-md-12 detail">
     <div class="box-inner-sec well box-content">
-    
-      <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
-      <div class='recipe-summary-index'>
+      <% if recipe.food_image.attached? %>
+        <%= link_to app_recipe_path(@current_app, recipe), class: 'recipe-title' do %>
+        <div class="col-md-4 thumb">
+          <div class="img-inner image-box-shadow">
+            <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="col-md-6 index-title">
+        <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
+      </div>
+      <%
+=begin%>
+ <div class='recipe-summary-index'>
       <% if current_app_user %>
         <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
           <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
@@ -112,7 +143,9 @@
       <% else %>
         <%= sanitize recipe.summary %>
       <% end %>
-      </div>
+      </div> 
+<%
+=end%>
       <%
 =begin%>
  <% if recipe.styles.any? %>
@@ -148,10 +181,22 @@
 <%
 =end%>
         <div class="index-buttons">
-          <table>
-            <tr>
-              <td class="index-recipe-price"><%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(recipe.price) %></span></td>
-              <td>
+          <%
+=begin%>
+ <table>
+            <tr> 
+<%
+=end%>
+              <%
+=begin%>
+ <td class="index-recipe-price"><%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(recipe.price) %></span></td> 
+<%
+=end%>
+              <%
+=begin%>
+ <td> 
+<%
+=end%>
                 <% unless recipe.is_draft %>
                   <%= button_to line_items_path(recipe_id: recipe.id), params: { app: @current_app.slug }, class: "index-buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg" do %>
                     <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
@@ -159,19 +204,17 @@
                 <% else %>
                   <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'btn btn-success btn-lg'} %>
                 <% end %>
-              </td>
+              <%
+=begin%>
+ </td>
             </tr>
-          </table>
+          </table> 
+<%
+=end%>
         </div>
       </div>
     </div>
-    <% if recipe.food_image.attached? %>
-      <div class="col-md-2 thumb">
-        <div class="img-inner image-box-shadow">
-          <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
-        </div>
-      </div>
-    <% end %>
+
   </div>
     <!-- '250x150'-->
   </div>
