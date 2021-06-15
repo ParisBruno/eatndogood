@@ -49,7 +49,6 @@
     .margin-sec .top-space {
       margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
     }
-    
   }
 </style>
   <div class="margin-sec top-space">
@@ -102,7 +101,7 @@
       </div>
 
       <% unless @recipe.is_draft %> 
-        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
+        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
           <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
         <% end %>
       <% else %>

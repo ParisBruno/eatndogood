@@ -26,7 +26,7 @@
   }
   .recipe-title {
     font-family: MillerDisplay-Roman;
-    color: '#f04123' !important;
+    color: #808080;
   }
   .index-buy-button {
     font-family: WhitneySSm;
@@ -46,7 +46,7 @@
       height: 100px;
     }
     .index-title {
-      padding-top: 15px !important;
+      padding-top: 20px !important;
     }
     .margin-sec .box-content h2 {
       font-size: 14px;
@@ -197,13 +197,17 @@
  <td> 
 <%
 =end%>
-                <% unless recipe.is_draft %>
+                <%
+=begin%>
+ <% unless recipe.is_draft %>
                   <%= button_to line_items_path(recipe_id: recipe.id), params: { app: @current_app.slug }, class: "index-buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'primary' : 'success'} btn-lg" do %>
                     <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
                   <% end %>
                 <% else %>
                   <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'btn btn-success btn-lg'} %>
-                <% end %>
+                <% end %> 
+<%
+=end%>
               <%
 =begin%>
  </td>
