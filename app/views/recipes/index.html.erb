@@ -33,7 +33,9 @@
 </style>
 <%= render 'shared/page_title', title: t('recipes.show_all_recipes') %>
 
-<%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "filterRecipes") do |f| %>
+<%
+=begin%>
+ <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "filterRecipes") do |f| %>
 <%= hidden_field_tag :filter, 1 %>
 <div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
   <div class="browsed-button-cont">
@@ -84,11 +86,31 @@
     </button>
   </div>
 </div>
-<% end %>
+<% end %> 
+<%
+=end%>
+
+<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_styles_path(current_app) %>" class="brow-button-text btn" role="button"><%= t('navigation.styles') %></a>
+    </button>
+  </div>
+
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_ingredients_path(current_app) %>" class="brow-button-text btn" role="button"><%= t('navigation.ingredients')%></a>
+    </button>
+  </div>
+
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_allergens_path(current_app) %>" class="brow-button-text btn"><%= t('navigation.allergens')%></a>
+    </button>
+  </div>
+</div>
 
 <div id="current-recipes">
-  
-
   <%= render 'recipe', obj: @recipes %>
 </div>
 

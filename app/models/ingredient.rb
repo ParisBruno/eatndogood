@@ -8,6 +8,7 @@ class Ingredient < ApplicationRecord
   validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
   has_many :recipe_ingredients
   has_many :recipes, through: :recipe_ingredients
+  has_one_attached :image
   belongs_to :app
   translates :name, fallbacks_for_empty_translations: true
   globalize_accessors :locales => I18n.available_locales, :attributes => [:name]
@@ -19,5 +20,15 @@ class Ingredient < ApplicationRecord
 
     errors.add(:base, "This ingredient is used by #{self.recipes.count} recipes")
     false
+  end
+
+  def self.sizes
+    {
+      thumb: "300x300"
+    }
+  end
+
+  def sized(image_type, size)
+    self.send(image_type).variant(resize: Ingredient.sizes[size]).processed
   end
 end

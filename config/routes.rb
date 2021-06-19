@@ -82,7 +82,9 @@ Rails.application.routes.draw do
     resources :guests, only: %i[index send_emails]
     resources :chefs
     resources :questions
-    resources :allergens
+    resources :allergens do
+      get 'table', on: :collection
+    end
     resources :recipes do
       resources :comments, only: [:create]
       member do
@@ -91,8 +93,12 @@ Rails.application.routes.draw do
     end
     # to change
     # resources :chefs #, except: [:new]
-    resources :ingredients
-    resources :styles
+    resources :ingredients do
+      get 'table', on: :collection
+    end
+    resources :styles do
+      get 'table', on: :collection
+    end
     resources :messages, only: [:create] do
       get 'managers', on: :collection
       post 'send_email', on: :collection
