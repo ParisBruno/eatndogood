@@ -1,13 +1,19 @@
-<%= render 'shared/page_title', title: "#{@allergen.name}" %>
-<% if @allergen.recipes.count != 0 %>
-  
-  	<center><h1 align="center">Recipe's containing <%= @allergen.name %></h1></center>
-  
-  
+<style>
+  @media screen and (max-width: 600px) {
+    .category-page-title {
+      margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+    }
+  }
+</style>
+
+<div class="category-page-title" style="color: #F04123;">
+  <%= render 'shared/page_title', title: "#{@allergen.name}" %>
+</div>
+
+<% if @allergen.recipes.count != 0 %>  
   <%= render 'recipes/recipe', obj: @allergen %>
-  
 <% else %>
-  <div class="row">
+  <div class="row" style="margin-left: 10px;">
     <h4 align="center">No recipes yet!</h4>
   </div>
 <% end %>
