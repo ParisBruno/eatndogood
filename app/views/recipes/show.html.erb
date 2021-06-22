@@ -38,9 +38,16 @@
     .buy-button {
       position: fixed;
       bottom: 20px;
-      left: 33%;
+      left: 50%;
+      transform: translateX(-50%);
       z-index:100;
       font-size: 18px;
+      max-width: 328px;
+      width: 280px;
+      height: 48px;
+      border-radius: 30px;
+      background-color: #555;
+      font-weight: 600;
     }
     .recipe-title {
       color: #f04123;
@@ -155,12 +162,14 @@
                 <% end %>
 
           <% end %>
-
-          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "180x100"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %></h3>
-          
+          <br>
+          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %></h3>
+          <br>
           <%= render 'shared_links' %>
 
-          <%= link_to like_app_recipe_path(current_app, @recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
+          <%
+=begin%>
+ <%= link_to like_app_recipe_path(current_app, @recipe, like: true), method: :post, :style => "font-size:30px; color: #337ab7 !important" do %>
             <i class="glyphicon glyphicon-thumbs-up" ></i>
             &nbsp;
             <%= @recipe.thumbs_up_total %>
@@ -170,7 +179,9 @@
               <i class="glyphicon glyphicon-thumbs-down"></i>
               &nbsp;
               <%= @recipe.thumbs_down_total %>
-          <% end %>
+          <% end %> 
+<%
+=end%>
      
     </center>
   </div>
@@ -185,4 +196,5 @@
       <%= link_to t('recipes.return_to_recipes_listing'), app_recipes_path(current_app), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     <% end %>
   </h5>
+  <br><br><br><br><br>
 </center>
