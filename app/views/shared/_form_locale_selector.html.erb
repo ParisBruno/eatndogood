@@ -37,7 +37,7 @@ $(function() {
 });
 
 function hideAllExpect(locales, locale, elem) {
-  _.each(locales, function(locale) {
+  locales.forEach(function(locale) {
     $("."+elem+"_"+locale).hide()
   })
   $("."+elem+"_"+locale).show()
