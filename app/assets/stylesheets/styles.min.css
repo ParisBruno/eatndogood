@@ -732,7 +732,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     line-height: 36px!important;}
 
     .receipy-top-sec textarea {    height: auto!important; min-height: 80px!important;}
-    .margin-sec.top-recepi.top-space .box-content {margin-top: 0px; margin-right: 0px; padding: 10px !important;}
+    .margin-sec.top-recepi.top-space .box-content {margin-top: 0px; margin-right: 0px;}
     .margin-sec.receipy-top-sec .rht-box-sec {margin-top: 20px;}
     .top-recepi.top-space .box-content {margin-top: 20px;}
 .margin-sec .box-content { min-height: inherit!important;}

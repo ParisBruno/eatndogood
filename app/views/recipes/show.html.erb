@@ -55,6 +55,7 @@
     }
     .margin-sec .top-space {
       margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
+      margin-bottom: 10px;
     }
   }
 </style>
@@ -162,7 +163,7 @@
                 <% end %>
 
           <% end %>
-          <br>
+          
           <h3><%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %></h3>
           <br>
           <%= render 'shared_links' %>
