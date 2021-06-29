@@ -4,13 +4,14 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
+  before_action :check_admin, only: [:managers, :staff]
   
   before_action :check_limit_chefs, only: [:new, :create]
   
   def index
     # @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(:created_at).paginate(page: params[:page], per_page: 5)
     users_id = current_app.users.pluck(:id)
-    @chefs = Chef.where(user_id: users_id).order(:created_at).paginate(page: params[:page], per_page: 5)
+    @chefs = Chef.joins(:user).where(user_id: users_id).order('users.admin asc, users.manager desc').paginate(page: params[:page], per_page: 5)
   end
   
   def new
@@ -100,6 +101,16 @@ class ChefsController < ApplicationController
 
     redirect_to edit_app_chef_path(current_app, current_app_user)
   end
+
+  def managers
+    @apps = App.all
+    render 'chefs/point_of_sales'
+  end
+
+  def staff
+    @orders = Order.where(user_id: current_app&.user_ids).order(created_at: :desc)
+    render 'chefs/point_of_sales'
+  end
   
   private
 
@@ -122,8 +133,10 @@ class ChefsController < ApplicationController
     # params.require(:chef).permit(:my_bio, :chef_avatar, user_attributes: [:first_name, :last_name, :email, 
     #                               :password, :password_confirmation])
     chef_info_permitted_attributes = Chef.globalize_attribute_names + [:chef_avatar, :admin_id, :id]
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug, :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, chef_info_attributes: 
-                                    chef_info_permitted_attributes, app_attributes: [:slug, :id])
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug,
+                                 :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, :manager,
+                                 :store_address, :phone, :greeting_message,
+                                 chef_info_attributes: chef_info_permitted_attributes, app_attributes: [:slug, :id])
   end
 
   def set_user

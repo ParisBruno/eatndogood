@@ -13,6 +13,7 @@ class User < ApplicationRecord
   belongs_to :app
 
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   accepts_nested_attributes_for :chef_info, allow_destroy: true
   accepts_nested_attributes_for :app
@@ -28,6 +29,7 @@ class User < ApplicationRecord
   validates :delivery_price, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
 
   validate :limit_guests, on: :create
+  validate :check_managers_count
   after_create :send_guest_email_to_admin
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
@@ -84,4 +86,10 @@ class User < ApplicationRecord
     #self.user_id = params[:user][:admin_id] if self.guest? 
   end
 
+  def check_managers_count
+    managers = app.users.where(manager: true)
+    if (new_record? && manager?) || (manager? && managers.exclude?(self))
+      errors.add(:manager, "- you can't create more than 2 managers") if managers.count >= 2
+    end
+  end
 end

@@ -51,6 +51,9 @@ it:
     coupon_title: Titolo
     coupon_percent_off: Percentuale di sconto(%)
     coupon_active: È attivo
+    not_defined: Manager non è definito
+    success_email: La tua email è stata inviata con successo al manager!
+    content: Soddisfare
   common:
     admin: Admin
     allergens: Allergeni
@@ -78,7 +81,9 @@ it:
     register: Registra
     styles: Categoria
     styles_colon: 'Categoria:'
-    take_a_tour_as_guest: Fai un tour come ospite
+    take_a_tour_as_guest: Registrati come ospite
+    see_meals: Visualizza i pasti per categoria,<br> ingredienti e allergeni.
+    menu: Menù
     add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
   gift_cards:
@@ -271,10 +276,15 @@ it:
     new_recipe: Nuova ricetta
     new_style: Nuovo categoria
     recipes: Ricette
+    sales_reports: Rapporti sulle vendite
+    sales_point: Punto vendita
+    managers: Manager
+    staff: Personale
     sales_reports: Rapporti di vendita
     sign_up: inscriviti
     styles: Categoria
     team: Squadra
+    the_team: La Squadra
     update_about_us_page: Aggiornamento sulla nostra pagina
     update_welcome_page: Aggiorna pagina di benvenuto
     view_profile: Vedi profilo
@@ -294,6 +304,19 @@ it:
     tip: Mancia
     delivery: Consegna
     discount: Sconto coupon
+    not_defined: L'ordine non è definito
+    all: ordini
+    active: ordini attivi (al giorno)
+    closed: ordini chiusi (al giorno)
+    total_sales: Vendite totali del personale (al giorno)
+    client_name: Nome del cliente
+    date: Data di Creazione
+    status: Stato
+    add_recipe: Aggiungi la ricetta
+    pay_method: Metodo di pagamento
+    new: Nuovo ordine
+    save: Aggiorna l'ordine
+    tax_desc: Individuale per ogni ricetta
   pages:
     index:
       be_inspired_to_play: Lasciati ispirare e gioca di nuovo con il tuo cibo! Racconta
@@ -378,7 +401,7 @@ it:
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
     save_draft: Salva come bozza
-    show_all_recipes: Lista delle ricette
+    show_all_recipes: Sfoglia per
     show_all_drafts: Lista delle bozze
     summary_placeholder: |-
       Breve descrizione del piatto
@@ -389,6 +412,7 @@ it:
     price: Prezzo
     shared_links: Condividi con amici e familiari
     add_to_cart: Aggiungi al carrello
+    start_order: Inizia l'ordine
     my_cart: La mia carta
     product_name: Nome del prodotto
     quantity: Quantità
@@ -401,6 +425,7 @@ it:
     coupone_code: Codice coupon
     fundraising_code: Codice di raccolta fondi
     write_name: Scrivi il nome della ricetta
+    choose_style: Scegli lo stile, per favore
   reservations:
     make_catering: Chiedi informazioni sulla ristorazione e sui servizi personali
     make_reservation: Crea prenotazione
@@ -411,7 +436,14 @@ it:
     recipe_name: Nome della ricetta
     items: Elementi
     sales: I saldi
+    sale: Vendita
     total_sales: Vendite totali
+    gross_sales: Vendite lorde
+    coupon_sales: Coupon
+    coupon_count: Cedola totale
+    fundrasing_sales: Raccolta fondi
+    fundrasing_count: Raccolta fondi totale
+    credit_card_sales: Vendita con carta di credito @3%
   shared:
     please_correct_errors: 'Per favore correggi i seguenti errori:'
   styles:

@@ -1,0 +1,79 @@
+<style>
+  .col-xs-12 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .col-xs-8 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  img {
+    width: 100%;
+  }
+  .col-xs-8 {
+    width: 100%;
+    height: auto;
+  }
+  .col-md-8 {
+    width: 100%;
+    height: auto;
+  }
+  .category-title {
+    font-weight: 400;
+    color: #808080;
+  }
+  @media screen and (max-width: 1024px) and (min-width: 768px) {
+    .category-style {
+      width: 100% !important;
+      height: 180px !important;
+    }
+    .page-title {
+      margin-top: 3%;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .category-style {
+      width: 100% !important;
+      height: 260px !important;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .page-title {
+      margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+    }
+  }
+</style>
+
+<div class="page-title">
+  <%= render 'shared/page_title', title: "Ingredients" %>
+</div>
+
+<div>
+  <% @ingredients.each do |ingredient| %>
+    <div class="col-xs-6">
+      <div class="margin-sec top-recepi top-space">
+
+            <div class="box-inner-sec well box-content">
+                <div class="col-md-2 col-xs-2">
+                </div>
+              <% if ingredient.image.attached? %>
+                <%= link_to app_ingredient_path(@current_app, ingredient) do %>
+                <div class="col-md-8 col-xs-8">
+                    <%=image_tag(ingredient.sized(:image, :thumb), class:'category-style', size: "120x70", alt: t('common.no_image')) %>
+                </div>
+                <% end %>
+              <% end %>
+
+                <div class="col-md-2 col-xs-2">
+                </div>
+
+                <div class="col-md-12 col-xs-12">
+                  <h2 style="text-align: center; margin-bottom: 0 !important;"><%= link_to ingredient.name.capitalize, app_ingredient_path(@current_app, ingredient), class: 'category-title' %></h2>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

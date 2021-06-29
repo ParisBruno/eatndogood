@@ -1,0 +1,18 @@
+<div class="card-deck orders-card">
+<% admin = current_app.admins.first %>
+<% @orders.each do |order| %>
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><%= t('navigation.managers') %> - <%= link_to admin&.full_name, managers_app_messages_path(current_app, recipient_id: admin&.id), target: '_blank' %></p>
+        <%= link_to app_order_path(current_app, order), class: 'order-card-link' do %>
+          <p class="card-text"><%= t('navigation.staff') %> -  <%= order.user.full_name %></p>
+          <p class="card-text"><%= "Order ##{order.id}" %></p>
+          <p class="card-text"><%= t('navigation.client_name') %> -  <%= order.name %></p>
+          <p class="card-text"><%= number_to_currency(order.amount/100.0) %></p>
+          <p class="card-text"><span class="badge badge-<%= order.status == 'active' ? 'success' : 'danger' %>"><%= order.status.capitalize %></span></p>
+        <% end %>
+      </div>            
+    </div>
+  </div>        
+<% end %>

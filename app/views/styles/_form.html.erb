@@ -11,6 +11,17 @@
     </div>
   <% end %>
   <div class="form-group">
+    <div class="control-label col-md-2" style="padding-left: 15px !important">
+      <%= f.label :image %>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+      <% if @style.image.attached? %>
+        <%=image_tag(@style.sized(:image, :thumb), class:'img', alt: t('common.no_image')) %>
+      <% end %>
+      <%= f.file_field "image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <%= f.submit(@style.new_record? ? t('styles.add') : t('styles.update'),
                                     class: "btn btn-primary btn-lg btn-xlarge") %>

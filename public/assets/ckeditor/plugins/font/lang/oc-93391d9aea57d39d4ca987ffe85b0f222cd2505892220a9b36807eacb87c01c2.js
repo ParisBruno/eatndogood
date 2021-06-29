@@ -1,0 +1,1 @@
+CKEDITOR.plugins.setLang("font","oc",{fontSize:{label:"Talha",voiceLabel:"Talha de poli\xe7a",panelTitle:"Talha de poli\xe7a"},label:"Poli\xe7a",panelTitle:"Estil de poli\xe7a",voiceLabel:"Poli\xe7a"});

@@ -1,4 +1,150 @@
+<style>
+  .browsed-buttons {
+    display: none;
+    margin-bottom: 10px;
+  }
+  .browsed-button-cont {
+    display: inline-block;
+    width: 32%;
+  }
+  .brow-button {
+    background-color: #f15f23;
+    border-color: #f15f23;
+    border-radius: 5px;
+    margin-left: 20%;
+  }
+  .brow-button-text {
+    color: white;
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+  @media screen and (max-width: 600px) {
+  .browsed-buttons {
+    display: block;
+  }
+  .dropdown .dropdown-menu {
+    min-width: 140px;
+    left: 0;
+  }
+  .right-drop-element {
+    left: -60px !important;
+  }
+}
+</style>
 <%= render 'shared/page_title', title: t('recipes.show_all_recipes') %>
 
+<%
+=begin%>
+ <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "filterRecipes") do |f| %>
+<%= hidden_field_tag :filter, 1 %>
+<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="#" class="brow-button-text btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.styles') %></a>
+      <ul class="dropdown-menu">
+        <% @all_styles.each do |style| %>
+        <li class="nav-item">
+          <a href="#" class='checkbox_anchor'>
+            <input id="<%= "checkbox_style_#{style.id}"%>" type="checkbox" name="style_ids[]" onclick="search()" class="styles" value="<%= style.id %>" <%= (params[:style_ids] && params[:style_ids].include?(style.id)) ? 'checked = true' : '' %> />
+            <label for="<%= "checkbox_style_#{style.id}"%>"><%= style.name %></label>
+          </a>
+        </li>
+        <% end %>
+      </ul>
+    </button>
+  </div>
 
-<%= render 'recipe', obj: @recipes %>
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="#" class="brow-button-text btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.ingredients')%></a>
+      <ul class="dropdown-menu">
+        <% @all_ingredients.each do |ingredient| %>
+        <li class="nav-item">
+          <a href="#" class='checkbox_anchor'>
+            <input id="<%= "checkbox_ingredient_#{ingredient.id}"%>" type="checkbox" name="ingredient_ids[]" onclick="search()" class="ingredients" value="<%= ingredient.id %>" <%= (params[:ingredient_ids] && params[:ingredient_ids].include?(ingredient.id)) ? 'checked = true' : '' %> />
+            <label for="<%= "checkbox_ingredient_#{ingredient.id}"%>"><%= ingredient.name %></label>
+          </a>
+        </li>
+        <% end %>
+      </ul>
+    </button>
+  </div>
+
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="#" class="brow-button-text btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.allergens')  %></a>
+      <ul class="dropdown-menu right-drop-element">
+        <% @all_allergens.each do |allergen| %>
+        <li class="nav-item">
+          <a href="#" class='checkbox_anchor'>
+            <input id="<%= "checkbox_allergen_#{allergen.id}"%>" type="checkbox" name="allergen_ids[]" onclick="search()" class="allergens" value="<%= allergen.id %>" <%= (params[:allergen_ids] && params[:allergen_ids].include?(allergen.id)) ? 'checked = true' : '' %> />
+            <label for="<%= "checkbox_allergen_#{allergen.id}"%>"><%= allergen.name %></label>
+          </a>
+        </li>
+        <% end %>
+      </ul>
+    </button>
+  </div>
+</div>
+<% end %> 
+<%
+=end%>
+
+<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_styles_path(current_app) %>" class="brow-button-text btn" role="button"><%= t('navigation.styles') %></a>
+    </button>
+  </div>
+
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_ingredients_path(current_app) %>" class="brow-button-text btn" role="button"><%= t('navigation.ingredients')%></a>
+    </button>
+  </div>
+
+  <div class="browsed-button-cont">
+    <button class="brow-button dropdown nav-item">
+      <a href="<%= table_app_allergens_path(current_app) %>" class="brow-button-text btn"><%= t('navigation.allergens')%></a>
+    </button>
+  </div>
+</div>
+
+<div id="current-recipes">
+  <%= render 'recipe', obj: @recipes %>
+</div>
+
+<script type="text/javascript">
+  $.fn.toggleCheck  =function() {
+    if(this.tagName === 'INPUT') {
+      $(this).prop('checked', !($(this).is(':checked')));
+    }
+
+  }
+  function search() {
+    var style_ids = $("input[class=styles]:checked").map(function () {
+        return $(this).val();
+    }).get();
+    console.log(style_ids);
+
+    var ingredient_ids = $("input[class=ingredients]:checked").map(function () {
+        return $(this).val();
+    }).get();
+    console.log(ingredient_ids);
+
+    var allergens_ids = $("input[class=allergens]:checked").map(function () {
+        return $(this).val();
+    }).get();
+    console.log(allergens_ids);
+
+    $('#filterRecipes').submit();
+  }
+
+  $('.checkbox_anchor').on('click', function(e) {
+    e.stopPropagation();
+    var target = e.target
+    var input = $(target).children('input')
+    var checked = $(input).prop( "checked")
+    $(input).trigger("click")
+  })
+</script>

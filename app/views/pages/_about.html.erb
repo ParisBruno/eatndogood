@@ -37,9 +37,10 @@
       font-size: 20px !important;
   }
   .page-title {
-    margin-top: 20px;
-    margin-bottom: 20px;
     font-size: 20px;
+  }
+  .text-center {
+    margin-bottom: 10px !important;
   }
 
   @media (max-width: 480px) {
@@ -146,21 +147,21 @@
     <div class="col-md-12 text-center custom-second-sec">
     <%# <div id="move-right">
       <div id="btn"> %>
+      <% unless current_app_user %>
         <div class="row">
-          <div class="col-md-12 text-center" style="width: 100%;">
-            <% if @admin_id.blank? || @guest_email.blank? %>
-               <%= link_to tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app), {:style=>'position:center;', :class => "btn btn-success btn-lg"} %>
-            <% else %>
-              <% if current_app_user.present? %>
-                <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_session_path(current_app),{ :class => 'btn btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>
-              <% else %>
-                <%= link_to(tl('common.take_a_tour_as_guest', locale), newguest_path(@admin_id.to_s, @guest_email), { :class => 'btn-success btn-lg',:style=>'position:center;', :id => "btn"}) %>
-              <% end %>
-            <% end %>
+          <div class="col-md-12 text-center" style="width: 100%;">  
+            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center; margin-bottom: 10px;'}) %>
             <!--/button-->
+            <p style="font-size:20px;"><%= t('common.see_meals').html_safe %></p>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-12 text-center" style="width: 100%;">  
+            <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app),{ class: 'btn btn-success btn-lg', style: 'position:center;'}) %>
+            <!--/button-->
+          </div>
+        </div>  
+      <% end %>
       <%# </div> %>
         <div class="row page-title">
           <div class="col-md-12 text-center">

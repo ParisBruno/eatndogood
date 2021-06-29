@@ -1,0 +1,1 @@
+CKEDITOR.plugins.setLang("placeholder","et",{title:"Kohahoidja omadused",toolbar:"Kohahoidja loomine",name:"Kohahoidja nimi",invalidName:"Kohahoidja ei saa olla t\xfchi ega sisaldada \xfchtegi j\xe4rgnevatest m\xe4rkidest: [, ], <, >",pathName:"kohahoidja"});

@@ -1,6 +1,7 @@
 class AllergensController < ApplicationController
   before_action :set_allergen, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
+  before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /allergens
   # GET /allergens.json
@@ -62,6 +63,10 @@ class AllergensController < ApplicationController
     end
   end
 
+  def table
+    @allergens = Allergen.where(app_id: current_app.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_allergen
@@ -70,6 +75,6 @@ class AllergensController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allergen_params
-      params.require(:allergen).permit(*Allergen.globalize_attribute_names)
+      params.require(:allergen).permit(*Allergen.globalize_attribute_names + [:image])
     end
 end

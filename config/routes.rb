@@ -82,7 +82,9 @@ Rails.application.routes.draw do
     resources :guests, only: %i[index send_emails]
     resources :chefs
     resources :questions
-    resources :allergens
+    resources :allergens do
+      get 'table', on: :collection
+    end
     resources :recipes do
       resources :comments, only: [:create]
       member do
@@ -91,9 +93,16 @@ Rails.application.routes.draw do
     end
     # to change
     # resources :chefs #, except: [:new]
-    resources :ingredients
-    resources :styles
-    resources :messages, only: [:create]
+    resources :ingredients do
+      get 'table', on: :collection
+    end
+    resources :styles do
+      get 'table', on: :collection
+    end
+    resources :messages, only: [:create] do
+      get 'managers', on: :collection
+      post 'send_email', on: :collection
+    end
     resources :reservations, only: [:new, :create]
     resources :pages do
       member do
@@ -112,6 +121,10 @@ Rails.application.routes.draw do
     resources :reports, only: %i[index]
     post 'recipe-sales', to: 'reports#recipe_sales', as: "recipe_sales"
     post 'category-sales', to: 'reports#category_sales', as: "category_sales"
+    get 'new-order', to: 'orders#new_staff_order', as: "new_staff_order"
+    post 'create-staff-order', to: 'orders#create_staff_order', as: "create_staff_order"
+    get 'managers', to: 'chefs#managers', as: "managers"
+    get 'staff', to: 'chefs#staff', as: "staff"
   end
   resources :charges
   post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'

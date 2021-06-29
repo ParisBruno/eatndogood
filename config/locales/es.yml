@@ -51,6 +51,9 @@ es:
     coupon_title: Título
     coupon_percent_off: Porciento descontado(%)
     coupon_active: Está activo
+    not_defined: El administrador no está definido
+    success_email: ¡Su correo electrónico se envió correctamente al gerente!
+    content: Contenido
   common:
     admin: Administración
     allergens: Alérgenos
@@ -78,7 +81,9 @@ es:
     register: Registro
     styles: el catégorie
     styles_colon: 'el catégorie:'
-    take_a_tour_as_guest: toma un recorrido como un invitado
+    take_a_tour_as_guest: Registrarse como invitado
+    see_meals: Consulte las comidas por categoría,<br> ingredientes y alérgenos.
+    menu: Menú
     add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
   gift_cards:
@@ -258,9 +263,14 @@ es:
     new_recipe: neues Rezept
     new_style: Nuevo catégorie
     recipes: Rezepte
+    sales_reports: Informes de ventas
+    sales_point: Punto de venta
+    managers: Gerente
+    staff: Personal
     styles: catégories
     sales_reports: Informes de venta
     team: Equipo
+    the_team: El Equipo
     update_about_us_page: Actualizar acerca de nosotros página
     update_welcome_page: Actualizar página de bienvenida
     view_profile: ver perfil
@@ -280,6 +290,19 @@ es:
     tip: Propina
     delivery: Entrega
     discount: Cupón de descuento
+    not_defined: El orden no está definido
+    all: pedidos
+    active: pedidos activos (por día)
+    closed: pedidos cerrados (por día)
+    total_sales: Ventas totales del personal (por día)
+    client_name: Nombre del cliente
+    date: Fecha de creación
+    status: Estado
+    add_recipe: Agregar receta
+    pay_method: Método de pago
+    new: Nuevo orden
+    save: Orden de actualización
+    tax_desc: Individual para cada receta   
   pages:
     index:
       be_inspired_to_play: "¡Déjate inspirar a jugar con tu comida otra vez! ¡Cuente
@@ -363,7 +386,7 @@ es:
     return_to_recipes_listing: Volver a la lista de recetas
     save_submit: Haga clic aquí para guardar su obra maestra
     save_draft: Guardar como borrador
-    show_all_recipes: Mostrando todas las recetas
+    show_all_recipes: Navegar por
     show_all_drafts: Mostrando todos los borradores
     summary_placeholder: |-
       Plato Descripción corto
@@ -374,6 +397,7 @@ es:
     price: Precio
     shared_links: Comparte con amigos y familiares
     add_to_cart: Añadir al carrito
+    start_order: Orden de inicio
     my_cart: Mi carrito
     product_name: Nombre del producto
     quantity: Cantidad
@@ -386,6 +410,7 @@ es:
     coupone_code: Código promocional
     fundraising_code: Código de recaudación de fondos
     write_name: Escriba el nombre de la receta
+    choose_style: Elige estilo, por favor
   reservations:
     make_catering: hacer catering
     make_reservation: hacer reservacion
@@ -396,7 +421,14 @@ es:
     recipe_name: Nombre de la receta
     items: Artículos
     sales: Ventas
+    sale: Venta
     total_sales: Ventas totales
+    gross_sales: Ventas brutas
+    coupon_sales: Cupón
+    coupon_count: Cupón total
+    fundrasing_sales: Recaudación de fondos
+    fundrasing_count: Recaudación de fondos total
+    credit_card_sales: Ventas con tarjeta de crédito @3%
   shared:
     please_correct_errors: 'Por favor corrige los siguientes errores:'
   styles:

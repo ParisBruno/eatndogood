@@ -138,6 +138,7 @@ GEM
     caxlsx_rails (0.6.2)
       actionpack (>= 3.1)
       caxlsx (>= 3.0)
+    cocoon (1.2.15)
     codeclimate-engine-rb (0.4.1)
       virtus (~> 1.0)
     coercible (1.0.0)
@@ -494,7 +495,10 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    wicked_pdf (2.1.0)
+      activesupport
     will_paginate (3.1.8)
+    wkhtmltopdf-binary (0.12.6.5)
 
 PLATFORMS
   ruby
@@ -521,6 +525,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   ckeditor!
+  cocoon
   coffee-rails (~> 4.2, >= 4.2.2)
   country_select (~> 4.0)
   cypress-on-rails (~> 1.0)
@@ -574,7 +579,9 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console
+  wicked_pdf
   will_paginate (= 3.1.8)
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 2.6.3p62

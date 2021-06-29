@@ -52,6 +52,9 @@ de:
     coupon_title: Titel
     coupon_percent_off: Prozent aus(%)
     coupon_active: Ist aktiv
+    not_defined: Manager ist nicht definiert
+    success_email: Ihre E-Mail wurde erfolgreich an den Manager gesendet!
+    content: Inhalt
   common:
     admin: Administrator
     allergens: Allergene
@@ -78,7 +81,9 @@ de:
     register: Registrieren
     styles: der Kategorie
     styles_colon: 'der Kategorie:'
-    take_a_tour_as_guest: Machen Sie eine Tour als Gast
+    take_a_tour_as_guest: Melden Sie sich als Gast an
+    see_meals: Siehe Mahlzeiten nach Kategorie,<br> Zutaten und Allergenen.
+    menu: Speisekarte
     add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
   gift_cards:
@@ -261,9 +266,14 @@ de:
     new_recipe: neues Rezept
     new_style: Neuer Kategorie
     recipes: Rezepte
+    sales_reports: Verkaufsberichte
+    sales_point: Kasse
+    managers: Manager
+    staff: Mitarbeiter
     styles: der Kategorie
     sales_reports: Verkaufsberichte
     team: Mannschaft
+    the_team: Die Mannschaft
     update_about_us_page: Update Über uns Seite
     update_welcome_page: Startseite aktualisieren
     view_profile: Profil anzeigen
@@ -283,6 +293,19 @@ de:
     tip: Trinkgeld($)
     delivery: Lieferung
     discount: Gutscheinrabatt
+    not_defined: Reihenfolge ist nicht definiert
+    all: Bestellungen
+    active: aktive Bestellungen (pro Tag)
+    closed: geschlossene Bestellungen (pro Tag)
+    total_sales: Gesamtumsatz des Personals (pro Tag)
+    client_name: Kundenname
+    date: Erstellungsdatum
+    status: Status
+    add_recipe: Rezept hinzufügen
+    pay_method: Bezahlverfahren
+    new: Neue Ordnung
+    save: Reihenfolge aktualisieren
+    tax_desc: Individuell für jedes Rezept
   pages:
     index:
       be_inspired_to_play: Lass dich inspirieren, wieder mit deinem Essen zu spielen!
@@ -345,7 +368,7 @@ de:
     return_to_recipes_listing: Zurück zur Rezeptliste
     save_submit: Klicken Sie hier, um Ihr Meisterwerk zu speichern
     save_draft: Als Entwurf speichern
-    show_all_recipes: Alle Rezepte anzeigen
+    show_all_recipes: Gesucht von
     show_all_drafts: Alle Entwürfe anzeigen
     summary_placeholder: |-
       Short Dish Beschreibung
@@ -356,6 +379,7 @@ de:
     price: Preis
     shared_links: Teilen Sie mit Freunden & Familie
     add_to_cart: In den Warenkorb legen
+    start_order: Bestellung starten
     my_cart: Mein Warenkorb
     product_name: Produktname
     quantity: Menge
@@ -368,6 +392,7 @@ de:
     coupone_code: Gutscheincode
     fundraising_code: Fundraising-Code
     write_name: Schreibe den Rezeptnamen
+    choose_style: Wählen Sie bitte den Stil
   reservations:
     make_catering: Fragen Sie nach Catering und persönlichen Dienstleistungen
     make_reservation: Reservierung erstellen
@@ -378,7 +403,14 @@ de:
     recipe_name: Rezeptname
     items: Artikel
     sales: Der Umsatz
+    sale: Verkauf
     total_sales: Gesamtumsatz
+    gross_sales: Bruttoumsatz
+    coupon_sales: Coupon
+    coupon_count: Gesamtcoupon
+    fundrasing_sales: Spendensammlung
+    fundrasing_count: Total fundraising
+    credit_card_sales: Kreditkartenverkäufe @3%
   shared:
     please_correct_errors: 'Bitte korrigieren sie die folgenden Fehler:'
   styles:

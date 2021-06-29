@@ -1,10 +1,10 @@
 class RecipesController < ApplicationController
   respond_to :html, :js
-  before_action :require_logged_in
+  before_action :require_logged_in, except: [:index, :show, :like]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like]
   before_action :require_user, except: [:index, :show, :like]
   before_action :require_same_user, only: [:edit, :update, :destroy]
-  before_action :require_user_like, only: [:like]
+  # before_action :require_user_like, only: [:like]
   before_action :set_chef_ids
   before_action :check_limit_recipes, only: [:new, :create]
   
@@ -49,13 +49,13 @@ class RecipesController < ApplicationController
     @recipe.summary = recipe_params["summary_#{selected_locale}"]
     @recipe.description = recipe_params["description_#{selected_locale}"]
     @recipe.is_draft = true if params['commit'] == t('recipes.save_draft')
-    if @recipe.save
+    if @recipe.save && @recipe.styles.present?
       # upload_images
       delete_draft
       flash[:success] = "Recipe was created successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
-      render 'new'
+      redirect_to new_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
     end
   end
   
@@ -80,14 +80,14 @@ class RecipesController < ApplicationController
     elsif params['commit'] == t('recipes.save_draft')
       @recipe.is_draft = true
     end
-    if @recipe.update(recipe_params)
+    if @recipe.update(recipe_params) && @recipe.styles.present?
       # upload_images
       make_tags
       delete_draft
       flash[:success] = "Recipe was updated successfully!"
       redirect_to app_recipe_path(current_app, @recipe)
     else
-      render 'edit'
+      redirect_to edit_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
     end
   end
   
@@ -123,12 +123,6 @@ class RecipesController < ApplicationController
         flash[:danger] = "Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan."
         redirect_to recipes_path
       end
-    end
-
-    def set_chef_ids
-      # @admin = User.find(@admin_id)
-      # @chef_ids = @admin.chefs.pluck(:id)
-      @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
     end
 
     def make_tags

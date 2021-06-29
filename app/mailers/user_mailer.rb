@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
 		@app = App.find_by(id: app_id)
 		@gift_card = GiftCard.find_by(id: gift_card_id)
 		@gift_card.to_active
-		emails = [ @gift_card.user.email, @app&.users.where(admin: true).first.email, @gift_card.client_email ].uniq
+		emails = [ @gift_card.user.email, @app&.main_admin.email, @gift_card.client_email ].uniq
 
 		mail(to: emails, subject: 'Present Gift Card!')
 	end
@@ -60,5 +60,34 @@ class UserMailer < ActionMailer::Base
 		@url  = url
 		@email_body = email_body
 		mail(to: email, subject: 'Email alert! itoprecipes.com')
+	end
+
+	def message_to_manager_email(data, filename, content_type, blob_content)
+		if filename && content_type && blob_content
+			blob = Base64.decode64(blob_content)
+			attachments[filename] = { mime_type: content_type, content: blob }
+		end
+		@sender_name = data[:sender_name]
+		@sender_email = data[:sender_email]
+		@recipient_name = data[:recipient_name]
+		@content = data[:content]
+		@subject = data[:subject].present? ? data[:subject] : "New message from #{@sender_name}"
+		mail(to: data[:recipient_email], subject: @subject)
+	end
+
+	def send_receipt_to_client(client_email, order_id, items_styles, admin_email = nil)
+		@admin = User.find_by(email: admin_email) if admin_email
+		@items_with_styles = items_styles
+		@order = Order.find_by(id: order_id)
+		receipt_file = WickedPdf.new.pdf_from_string(
+      render_to_string('orders/show.pdf.erb', layout: 'pdf'),
+      margin: {
+        top: 0, bottom: '2.85cm', left: 0, right: 0
+      }
+		)
+		file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
+		attachments["#{file_name}.pdf"] = receipt_file
+		@client_email = client_email
+		mail(to: [client_email, admin_email], subject: 'Thank You for Your Order')
 	end
 end

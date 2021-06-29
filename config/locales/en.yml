@@ -55,6 +55,9 @@ en:
     coupon_title: Title
     coupon_percent_off: Percent off(%)
     coupon_active: Is active
+    not_defined: Manager is not defined
+    success_email: Your email was successfully sent to manager!
+    content: Content
   common:
     admin: Admin
     allergens: Allergens
@@ -82,7 +85,9 @@ en:
     register: Register
     styles: Categories
     styles_colon: 'Categories:'
-    take_a_tour_as_guest: Take a tour as Guest
+    take_a_tour_as_guest: Signup as a guest
+    see_meals: See meals by category,<br> ingredients and allergens.
+    menu: Menu
     add_to_home_screen: Add App to Home-Screen
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'
@@ -160,6 +165,7 @@ en:
     send_note_with_your_thoughts: Great! send a note with your toughts
     style_removed: Category removed successfully!
     success_stripe_payment: The order was successfully paid
+    client_create_order: Thank You for Your Order, the receipt is in your inbox shortly
     user_already_registered: user already registered
     user_not_registered: user not registered
     user_registered_as_guest: User already registered as an Guest!
@@ -285,10 +291,14 @@ en:
     new_recipe: New Recipe
     new_style: New Category
     recipes: Recipes
-    sales_reports: Sale reports
+    sales_reports: Sales reports
+    sales_point: Point of Sale
+    managers: Manager
+    staff: Staff
     sign_up: Sign up
     styles: Categories
     team: Team
+    the_team: The Team
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
     view_profile: View Profile
@@ -308,6 +318,19 @@ en:
     tip: Tips($)
     delivery: Delivery
     discount: Coupon discount
+    not_defined: Order is not defined
+    all: orders
+    active: active orders (per day)
+    closed: closed orders (per day)
+    total_sales: Staff total Sales (per day)
+    client_name: Client name
+    date: Created Date
+    status: Status
+    add_recipe: Add recipe
+    pay_method: Payment method
+    new: New Order
+    save: Update order
+    tax_desc: Individual for each recipe
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories
@@ -389,7 +412,7 @@ en:
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
     save_draft: Save as Draft
-    show_all_recipes: Showing all recipes
+    show_all_recipes: Browse by
     show_all_drafts: Showing all drafts
     summary_placeholder: |-
       Short Dish Description
@@ -400,6 +423,7 @@ en:
     price: Price
     shared_links: Share with friends & family
     add_to_cart: Add to cart
+    start_order: Start order
     my_cart: My Cart
     product_name: Product name
     price: Price
@@ -413,6 +437,7 @@ en:
     coupone_code: Coupon code
     fundraising_code: Fundraising Code
     write_name: Write Recipe name
+    choose_style: Choose style, please
   reservations:
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
@@ -423,12 +448,17 @@ en:
     recipe_name: Recipe name
     items: Items
     sales: Sales
+    sale: Sale
     total_sales: Net Sales
     credit_sales: Credit card sales
     cash_sales: Cash sales
     tax_sales: Sale Tax
-    coupon_sales: Total coupon used/total discount by coupon code
-    fundrasing_sales: Total orders by fundraising code
+    gross_sales: Gross Sales
+    coupon_sales: Coupon
+    coupon_count: Total coupon
+    fundrasing_sales: Fundraising
+    fundrasing_count: Total fundraising
+    credit_card_sales: Credit Card sales @3%
   shared:
     please_correct_errors: 'Please correct the following errors:'
   styles:

@@ -248,8 +248,17 @@ class ApplicationController < ActionController::Base
       end
     end
     users.uniq.each { |user| @total_delivery += user.delivery_price }
+  end
 
-    @paypal_client_id = users.first&.paypal_client_id
-    @paypal_client_secret = users.first&.paypal_client_secret
+  def set_chef_ids
+    @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
+  end
+
+  def check_admin
+    if (current_app_user.admin? && current_app_user.chef_info) || (current_app_user.manager? && current_app_user.chef_info)
+      return current_app_user&.chef_info&.id 
+    end
+
+    redirect_to app_recipes_path(current_app)
   end
 end

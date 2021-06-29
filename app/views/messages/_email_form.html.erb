@@ -1,0 +1,106 @@
+<style>
+  .email-table {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  td, th {
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.3em;
+    padding: 5px 0 5px 0;
+    word-break: break-all;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .order-item {
+    font-size: 1.4em;
+    max-width: 50px;
+    min-width: 40px;
+  }
+  .order-field {
+    width: 95%;
+    padding: .375rem .75rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  #email-manager-button {
+    margin-bottom: 30px;
+  }
+
+  @media all and (max-width: 600px) {
+    .order-item {
+      font-size: 1.2em;
+    }
+    .order-field {
+      font-size: 1.2em;
+    }
+  }
+</style>
+<% sender = current_app_user %>
+<%= form_with(model: Message.new, url: send_email_app_messages_path(current_app), local: true) do |form| %>
+  <div>
+    <div>
+      <h5 style="margin-left: 2%;"><i><%= Date.current.strftime("%A %d of %B, %Y") %></i></h3>
+      <table class="email-table">
+        <tbody>
+          <tr>
+            <td class="order-item"><%= form.label :from, t('gift_cards.gift_from') %></td>
+            <td><%= sender.full_name %></td>
+            <%= form.text_field :sender_name, value: sender.full_name, hidden: true %>
+            <%= form.text_field :sender_email, value: sender.email, hidden: true %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :to, t('gift_cards.gift_to') %></td>
+            <td><%= @recipient.full_name %></td>
+            <%= form.text_field :recipient_name, value: @recipient.full_name, hidden: true %>
+            <%= form.text_field :recipient_email, value: @recipient.email, hidden: true %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :subject, t('forms.subject') %> (optional)</td>
+            <td><%= form.text_field :subject, class: 'order-field' %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :content, t('chefs.content') %></td>
+            <td><%= form.text_area :content, rows: 5, class: 'order-field', id: 'email-content' %></td>
+          </tr>
+          <tr>
+            <td class="order-item"></td>
+            <td><%= form.file_field :attachment, multiple: true %></td>
+          </tr>
+
+          <tr>
+            <td class="order-item"><%= form.submit t('guests.send_email'), class: 'btn btn-lg btn-primary', id: 'email-manager-button' %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  var emailBtn = document.getElementById("email-manager-button");
+  var emailContent = document.getElementById("email-content");
+
+  emailBtn.disabled = true;
+
+  emailContent.addEventListener('change', () => {
+    if (emailContent.value.length > 0) {
+      emailBtn.disabled = false;
+    } else {
+      emailBtn.disabled = true;
+    }
+  })
+</script>

@@ -1,26 +1,19 @@
-<%= render 'shared/page_title', title: "#{@ingredient.name}" %>
-<% if @ingredient.recipes.count != 0 %>
-  
-  	<center><h1 align="center">Recipe's containing <%= @ingredient.name %></h1></center>
-  
-  <div class="row">
-  	<div class="col-md-4"></div>
-  	<div class="col-md-4" align="center">
-    <%= will_paginate @ingredient_recipes %>
-    </div>
-    <div class="col-md-4"></div>
-  </div>
-  
+<style>
+  @media screen and (max-width: 600px) {
+    .category-page-title {
+      margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+    }
+  }
+</style>
+
+<div class="category-page-title" style="color: #F04123;">
+  <%= render 'shared/page_title', title: "#{@ingredient.name}" %>
+</div>
+
+<% if @ingredient.recipes.count != 0 %>  
   <%= render 'recipes/recipe', obj: @ingredient_recipes %>
-  <div class="row">
-  	<div class="col-md-4"></div>
-  	<div class="col-md-4" align="center">
-    <%= will_paginate @ingredient_recipes %>
-    </div>
-    <div class="col-md-4"></div>
-  </div>
 <% else %>
-  <div class="row">
+  <div class="row" style="margin-left: 10px;">
     <h4 align="center">No recipes yet!</h4>
   </div>
 <% end %>

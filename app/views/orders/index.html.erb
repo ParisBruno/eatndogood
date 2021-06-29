@@ -1,0 +1,71 @@
+<style>
+  .order-table {
+    margin-left: 6%;
+    margin-right: 3%;
+    padding-bottom: 5%;
+    max-width: 1100px;
+  }
+  table {
+    font-family: Helvetica, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dadada;
+    font-size: 1.3em;
+    padding: 5px 0 5px 0;
+    word-break: break-all;
+  }
+  thead {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .order-id {
+    font-weight: 600;
+    font-size: 1.5em;
+    max-width: 60px;
+    min-width: 40px;
+  }
+  .order-amount {
+    min-width: 60px;
+  }
+  .order-data {
+    margin-bottom: 0 !important;
+    min-width: 150px;
+  }
+</style>
+
+<%= render 'shared/page_title', title: t('orders.all') %>
+
+<div class="order-table">
+  <%= link_to t('orders.new'), app_new_staff_order_path(current_app), class: 'btn btn-lg btn-primary mb-3' %>
+  <table>
+    <thead>
+      <tr>
+        <td><%= 'Id' %></td>
+        <td><%= t('orders.full_name') %></td>
+        <td><%= t('orders.home_address') %></td>
+        <td class="order-amount"><%= t('orders.total') %></td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td class="order-id"><%= "##{order.id}" %></td>
+        <td class="order-data">
+          <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
+          <p style="margin-bottom: 0;"><%= order.email %></p>
+          <p style="margin-bottom: 0;"><%= order.phone %></p>
+        </td>
+        <td><%= order.address %></td>
+        <td class="order-amount">
+          <%= number_to_currency(order.amount&./100.0) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

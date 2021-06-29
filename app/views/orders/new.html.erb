@@ -69,6 +69,15 @@
       <%= form_for(@order, url: app_orders_path(current_app), html: { method: :post }) do |f| %>
       <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
         <div class="col-md-5 well box-content">  
+          <ul style="font-size: 12px; display: none; margin-left: 5%; margin-bottom: 5px;" id="paypal-errors"><li></li></ul>
+          <ul id="cash-errors">
+            <% if @guest %>
+              <% @guest.errors.full_messages.each do |msg| %>
+                <li style="font-size: 12px; margin-left: 5%;"><%= sanitize(msg) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+
           <table>
             <tr>
               <td class="order-table">
@@ -94,6 +103,33 @@
                 </div>
               </td>
             </tr>
+            <tr style="display: <%= app_user_signed_in? ? 'none' : 'table-row' %>;">
+              <td class="order-table" style="padding-bottom: 10px;">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :phone, 'Password' %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.password_field :password, autocomplete: 'new-password', class: "form-control",
+                          placeholder: t('activerecord.attributes.user.password').capitalize, value: app_user_signed_in? ? current_app_user.encrypted_password : '' %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr style="display: <%= app_user_signed_in? ? 'none' : 'table-row' %>;">
+              <td class="order-table">
+                <div class="form-group">
+                  <div class="control-label col-md-2">
+                    <%= f.label :phone, 'Password Confirmation' %><br>
+                  </div>
+                  <div class="col-md-8">
+                    <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "form-control",
+                          placeholder: t('activerecord.attributes.user.password_confirmation').capitalize, value: app_user_signed_in? ? current_app_user.encrypted_password : '' %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
             <tr>
               <td class="order-table">
                 <div class="form-group">
@@ -114,12 +150,12 @@
                   </div>
                   <div class="col-md-8">
                     <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
-                    <%= f.text_field :coupon_code, id: 'coupon-id', value: params[:coupon_code], hidden: true %>
-                    <%= f.text_field :fundrasing_code, id: 'fundrasing-id', value: params[:fundrasing_code], hidden: true %>
-                    <%= f.text_field :delivery_price, id: 'delivery-price', value: params[:delivery_price], hidden: true %>
-                    <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: params[:coupon_percent_off], hidden: true %>
-                    <%= f.text_field :tip_value, id: 'tip-value', value: params[:tip_value], hidden: true %>
-                    <%= f.text_field :total_amount, id: 'total-value', value: @total_amount, hidden: true %>
+                    <%= f.text_field :coupon_code, id: 'coupon-id', value: @coupon_code, hidden: true %>
+                    <%= f.text_field :fundrasing_code, id: 'fundrasing-id', value: @fundrasing_code, hidden: true %>
+                    <%= f.text_field :delivery_price, id: 'delivery-price', value: @delivery_price, hidden: true %>
+                    <%= f.text_field :coupon_percent_off, id: 'coupon-percent-off', value: @coupon_percent_off, hidden: true %>
+                    <%= f.text_field :tip_value, id: 'tip-value', value: @tip_value, hidden: true %>
+                    <%= f.text_field :amount, id: 'total-value', value: @total_amount, hidden: true %>
                   </div>
                 </div>
               </td>
@@ -205,12 +241,6 @@
         <tr>
           <td class="order-button" id="paypal-button-container" style="width: 160px;"></td>
         </tr>
-        <tr>
-          <td class="email-to">Receipt: Email to <b><%= current_app_user.email %></b> or Print: (dropdown list of printers)</td>
-        </tr>
-        <tr>
-          <td class="order-button"><%= f.submit t('orders.send'), class: "btn btn-primary btn-lg", disabled: true %></td>
-        </tr>
       </table>
     <% end %>
     </div>
@@ -220,11 +250,16 @@
 <%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}" %>
 <script>
   var paypalEnv = "<%= Rails.configuration.paypal[:env] %>"
+  var appSlug = "<%= current_app.slug %>"
   var totalAmount = document.getElementById("total-value").value;
   var formOrderName = document.getElementById("order_name");
   var formOrderEmail = document.getElementById("order_email");
   var formOrderPhone = document.getElementById("order_phone");
   var formOrderAddress = document.getElementById("order_address");
+  var formOrderPassword = document.getElementById("order_password");
+  var formOrderPasswordConfirm = document.getElementById("order_password_confirmation");
+  var paypalErrorField = document.getElementById("paypal-errors");
+  var cashErrorField = document.getElementById("cash-errors");
 
   paypal.Buttons({
     style: {
@@ -237,10 +272,11 @@
     // Disable the buttons
     actions.disable();
 
-    document.querySelectorAll('#order_name, #order_email, #order_phone, #order_address').forEach(event => {
+    document.querySelectorAll('#order_name, #order_email, #order_phone, #order_address, #order_password, #order_password_confirmation').forEach(event => {
     event.addEventListener('change', () => {
-      // Enable or disable the button when the fields completed
-      if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 && formOrderAddress.value.length > 0) {
+    // Enable or disable the button when the fields completed
+      if (formOrderName.value.length > 0 && formOrderEmail.value.length > 0 && formOrderPhone.value.length > 0 &&
+          formOrderAddress.value.length > 0 && formOrderPassword.value.length > 5 && formOrderPasswordConfirm.value.length > 5 ) {
         actions.enable();
       } else {
         actions.disable();
@@ -255,12 +291,24 @@
       headers: {
       'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ amount: totalAmount })
+      body: JSON.stringify({
+        app: appSlug,
+        order: {
+          amount: totalAmount,
+          email: formOrderEmail.value,
+          password: formOrderPassword.value,
+          password_confirmation: formOrderPasswordConfirm.value,
+        }
+      })
     });
     const responseData = await response.json();
     if (responseData.token) {
       return responseData.token;
     } else {
+      paypalErrorField.innerHTML = responseData.error;
+      paypalErrorField.style.display = 'block';
+      cashErrorField.style.display = 'none';
+
       return responseData.error;
     }
   },
@@ -270,7 +318,7 @@
       headers: {
         'Content-Type': 'application/json'
     },
-      body: JSON.stringify({ order_id: data.orderID })
+      body: JSON.stringify({ order_id: data.orderID, app: appSlug })
     });
     const responseData = await response.json();
     if (responseData.data.table.status === 'COMPLETED') {

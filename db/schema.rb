@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_131333) do
+ActiveRecord::Schema.define(version: 2021_05_12_205532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,10 @@ ActiveRecord::Schema.define(version: 2021_03_10_131333) do
     t.bigint "gift_card_id"
     t.bigint "recipe_id"
     t.bigint "cart_id"
+    t.integer "amount"
+    t.integer "sub_total"
+    t.decimal "total_tax", precision: 5, scale: 2, default: "0.0"
+    t.decimal "coupon_discount", precision: 5, scale: 2, default: "0.0"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["gift_card_id"], name: "index_line_items_on_gift_card_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
@@ -265,6 +269,9 @@ ActiveRecord::Schema.define(version: 2021_03_10_131333) do
     t.integer "sub_total"
     t.string "coupon_code"
     t.string "fundrasing_code"
+    t.integer "status", default: 0, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "page_preview_translations", force: :cascade do |t|
@@ -498,6 +505,10 @@ ActiveRecord::Schema.define(version: 2021_03_10_131333) do
     t.decimal "delivery_price", precision: 5, scale: 2, default: "0.0"
     t.string "paypal_client_id"
     t.string "paypal_client_secret"
+    t.boolean "manager", default: false
+    t.string "store_address", default: ""
+    t.string "phone", default: ""
+    t.string "greeting_message", default: ""
     t.index ["app_id"], name: "index_users_on_app_id"
     t.index ["email", "app_id"], name: "index_users_on_email_and_app_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

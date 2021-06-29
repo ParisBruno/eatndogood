@@ -1,6 +1,7 @@
 class StylesController < ApplicationController
   before_action :set_style, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
+  before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /styles
   # GET /styles.json
@@ -67,6 +68,16 @@ class StylesController < ApplicationController
     end
   end
 
+  def table
+    @current_app_id = current_app.id
+    @styles = [ Style.find_by(app_id: @current_app_id, name: 'APPETIZERS'),
+                Style.find_by(app_id: @current_app_id, name: 'DESERT'),
+                Style.find_by(app_id: @current_app_id, name: 'DRINKS')
+              ]
+    Style.where(app_id: @current_app_id).each { |style| @styles.insert(1, style) unless @styles.include?(style) }
+    @styles.compact!
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_style
@@ -75,6 +86,6 @@ class StylesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def style_params
-      params.require(:style).permit(*Style.globalize_attribute_names)
+      params.require(:style).permit(*Style.globalize_attribute_names + [:image])
     end
 end

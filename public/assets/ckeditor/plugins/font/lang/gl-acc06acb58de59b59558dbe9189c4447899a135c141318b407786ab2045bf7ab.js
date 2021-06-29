@@ -1,0 +1,1 @@
+CKEDITOR.plugins.setLang("font","gl",{fontSize:{label:"Tama\xf1o",voiceLabel:"Tama\xf1o da letra",panelTitle:"Tama\xf1o da letra"},label:"Tipo de letra",panelTitle:"Nome do tipo de letra",voiceLabel:"Tipo de letra"});

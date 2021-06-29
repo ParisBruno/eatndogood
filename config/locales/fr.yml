@@ -55,6 +55,9 @@ fr:
     coupon_title: Titre
     coupon_percent_off: Pour cent de reduction(%)
     coupon_active: C'est actif
+    not_defined: Le gestionnaire n'est pas défini
+    success_email: Votre e-mail a bien été envoyé au responsable!
+    content: Contenu
   common:
     admin: Admin
     allergens: allergènes
@@ -83,7 +86,9 @@ fr:
     register: Register
     styles: la catégorie
     styles_colon: 'la catégorie:'
-    take_a_tour_as_guest: Faites un tour en tant qu'invité
+    take_a_tour_as_guest: Inscrivez-vous en tant qu'invité
+    see_meals: Voir les repas par catégorie,<br> ingrédients et allergènes.
+    menu: Menu
     add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
@@ -295,10 +300,15 @@ fr:
     new_recipe: Recette Nouvelle
     new_style: Nouveau catégorie
     recipes: Recettes
+    sales_reports: Rapports de ventes
+    sales_point: Point de vente
+    managers: Directeur
+    staff: Personnel
     sign_up: 'Inscrivez-vous '
     styles: La catégorie
     sales_reports: Rapports de vente
     team: Équipe
+    the_team: L' Équipe
     update_about_us_page: Mise à jour à propos de nous
     update_welcome_page: Mettre à jour la page d'accueil
     view_profile: Voir le profil
@@ -318,6 +328,19 @@ fr:
     tip: Pointe
     delivery: Livraison
     discount: Remise de coupon
+    not_defined: L'ordre n'est pas défini
+    all: commandes
+    active: commandes actives (par jour)
+    closed: commandes fermées (par jour)
+    total_sales: Ventes totales du personnel (par jour)
+    client_name: Nom du client
+    date: Date de création
+    status: Statut
+    add_recipe: Ajouter une recette
+    pay_method: Mode de paiement
+    new: Nouvelle commande
+    save: Mise à jour de la commande
+    tax_desc: Individuel pour chaque recette
   pages:
     index:
       be_inspired_to_play: Laissez-vous inspirer pour jouer avec votre nourriture
@@ -389,7 +412,7 @@ fr:
     return_to_recipes_listing: Retour à la liste des recettes
     save_submit: Cliquez ici pour sauvegarder votre chef-d'œuvre
     save_draft: Enregistrer comme brouillon
-    show_all_recipes: Voir toutes les recettes
+    show_all_recipes: Parcourir par
     show_all_drafts: Voir toutes les brouillons
     summary_placeholder: |-
       Description courte de la recette,
@@ -400,6 +423,7 @@ fr:
     price: Prix
     shared_links: Partagez avec vos amis et votre famille
     add_to_cart: Ajouter au chariot
+    start_order: Commencer la commande
     my_cart: Mon panier
     product_name: Nom du produit
     quantity: Quantité
@@ -412,6 +436,7 @@ fr:
     coupone_code: Code de coupon
     fundraising_code: Code de collecte de fonds
     write_name: Écrivez le nom de la recette
+    choose_style: Choisissez le style, s'il vous plaît
   reservations:
     make_catering: Posez des questions sur la restauration et les services personnels
     make_reservation: Créer une réservation
@@ -422,7 +447,14 @@ fr:
     recipe_name: Nom de la recette
     items: Articles
     sales: Ventes
+    sale: Vente
     total_sales: Ventes totales
+    gross_sales: Ventes brutes
+    coupon_sales: Coupon
+    coupon_count: Total coupon
+    fundrasing_sales: Collecte de fonds
+    fundrasing_count: Collecte de fonds totale
+    credit_card_sales: Ventes par carte de crédit @3%
   shared:
     please_correct_errors: 'Veuillez corriger les erreurs suivantes:'
   styles:
