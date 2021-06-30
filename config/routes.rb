@@ -134,4 +134,5 @@ Rails.application.routes.draw do
   post 'check-tip', to: 'carts#check_tip'
   post 'paypal_create_payment', to: 'orders#paypal_create_payment', as: "paypal_create_payment"
   post 'paypal_execute_payment', to: 'orders#paypal_execute_payment', as: "paypal_execute_payment"
+  post 'error_message', to: 'messages#error_message'
 end

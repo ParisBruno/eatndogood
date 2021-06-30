@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :require_user
+  skip_before_action :verify_authenticity_token, :set_app, only: %i[error_message]
   
   def create
     @message = Message.new(message_params)
@@ -28,6 +29,11 @@ class MessagesController < ApplicationController
     redirect_to app_managers_path(current_app), notice: t('chefs.success_email')
   end
   
+  def error_message
+    UserMailer.error_message_from_user(params[:message]).deliver_later
+    redirect_to app_recipes_path(current_app)
+  end
+
   private
 
   def email_message_params

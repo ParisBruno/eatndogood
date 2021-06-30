@@ -90,4 +90,9 @@ class UserMailer < ActionMailer::Base
 		@client_email = client_email
 		mail(to: [client_email, admin_email], subject: 'Thank You for Your Order')
 	end
+
+	def error_message_from_user(content)
+		@content = content
+		mail(to: "bruno@itoprecipes.com", subject: 'New error message')
+	end
 end
