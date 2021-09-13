@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.6.3"
 
-gem 'bootsnap'
+gem 'bootsnap', require: false
 gem 'bcrypt', '~> 3.1.12'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap-will_paginate', '0.0.10'
