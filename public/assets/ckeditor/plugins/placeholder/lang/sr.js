@@ -1,13 +1,1 @@
-/**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
- */
-
-
-CKEDITOR.plugins.setLang( 'placeholder', 'sr', {
-	title: 'Подешавање резервног места',
-	toolbar: 'Припремање резервног места',
-	name: 'Назив резервног места',
-	invalidName: 'Резервно место не може бити празно, не може да садржи следеће карактере: [, ], <, >',
-	pathName: 'Резервно место'
-} );
+CKEDITOR.plugins.setLang("placeholder","sr",{title:"\u041f\u043e\u0434\u0435\u0448\u0430\u0432\u0430\u045a\u0435 \u0440\u0435\u0437\u0435\u0440\u0432\u043d\u043e\u0433 \u043c\u0435\u0441\u0442\u0430",toolbar:"\u041f\u0440\u0438\u043f\u0440\u0435\u043c\u0430\u045a\u0435 \u0440\u0435\u0437\u0435\u0440\u0432\u043d\u043e\u0433 \u043c\u0435\u0441\u0442\u0430",name:"\u041d\u0430\u0437\u0438\u0432 \u0440\u0435\u0437\u0435\u0440\u0432\u043d\u043e\u0433 \u043c\u0435\u0441\u0442\u0430",invalidName:"\u0420\u0435\u0437\u0435\u0440\u0432\u043d\u043e \u043c\u0435\u0441\u0442\u043e \u043d\u0435 \u043c\u043e\u0436\u0435 \u0431\u0438\u0442\u0438 \u043f\u0440\u0430\u0437\u043d\u043e, \u043d\u0435 \u043c\u043e\u0436\u0435 \u0434\u0430 \u0441\u0430\u0434\u0440\u0436\u0438 \u0441\u043b\u0435\u0434\u0435\u045b\u0435 \u043a\u0430\u0440\u0430\u043a\u0442\u0435\u0440\u0435: [, ], <, >",pathName:"\u0420\u0435\u0437\u0435\u0440\u0432\u043d\u043e \u043c\u0435\u0441\u0442\u043e"});
