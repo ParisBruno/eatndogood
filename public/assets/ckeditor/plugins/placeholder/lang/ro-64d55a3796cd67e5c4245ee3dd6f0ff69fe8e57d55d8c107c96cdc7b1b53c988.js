@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("placeholder","ro",{title:"\xcenlocuitor",toolbar:"\xcenlocuitor",name:"\xcenlocuitor",invalidName:"Nume invalid",pathName:"Cale elemente"});

@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("placeholder","fi",{title:"Paikkamerkin ominaisuudet",toolbar:"Luo paikkamerkki",name:"Paikkamerkin nimi",invalidName:"Paikkamerkki ei voi olla tyhj\xe4 eik\xe4 sis\xe4lt\xe4\xe4 seuraavia merkkej\xe4: [, ], <, >",pathName:"paikkamerkki"});

@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","de",{fontSize:{label:"Gr\xf6\xdfe",voiceLabel:"Schrifgr\xf6\xdfe",panelTitle:"Schriftgr\xf6\xdfe"},label:"Schriftart",panelTitle:"Schriftartname",voiceLabel:"Schriftart"});

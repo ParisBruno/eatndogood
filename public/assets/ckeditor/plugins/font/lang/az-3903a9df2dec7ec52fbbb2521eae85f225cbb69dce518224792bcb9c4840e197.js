@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","az",{fontSize:{label:"\u015erift \xf6l\xe7\xfcs\xfc",voiceLabel:"\u015erift \xf6l\xe7\xfcs\xfc",panelTitle:"\u015erift \xf6l\xe7\xfcs\xfc"},label:"\u015erift",panelTitle:"\u015erift",voiceLabel:"\u015erift"});

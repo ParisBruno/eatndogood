@@ -1,1 +1,76 @@
-CKEDITOR.plugins.setLang("colorbutton","el",{auto:"\u0391\u03c5\u03c4\u03cc\u03bc\u03b1\u03c4\u03b1",bgColorTitle:"\u03a7\u03c1\u03ce\u03bc\u03b1 \u03a6\u03cc\u03bd\u03c4\u03bf\u03c5",colors:{"000":"\u039c\u03b1\u03cd\u03c1\u03bf",8e5:"\u039a\u03b1\u03c3\u03c4\u03b1\u03bd\u03ad\u03c1\u03c5\u03b8\u03c1\u03bf","8B4513":"Saddle Brown","2F4F4F":"Dark Slate Gray","008080":"\u0392\u03b1\u03b8\u03c5\u03ba\u03cd\u03b1\u03bd\u03bf","000080":"\u039c\u03c0\u03bb\u03b5 \u03bc\u03b1\u03c1\u03ad\u03bd","4B0082":"\u0399\u03bd\u03b4\u03b9\u03ba\u03cc",696969:"\u03a3\u03ba\u03bf\u03cd\u03c1\u03bf \u0393\u03ba\u03c1\u03b9",B22222:"\u0391\u03bd\u03bf\u03b9\u03ba\u03c4\u03cc \u039a\u03cc\u03ba\u03ba\u03b9\u03bd\u03bf",A52A2A:"\u039a\u03b1\u03c6\u03ad",DAA520:"Golden Rod","006400":"\u03a3\u03ba\u03bf\u03cd\u03c1\u03bf \u03a0\u03c1\u03ac\u03c3\u03b9\u03bd\u03bf","40E0D0":"\u03a4\u03c5\u03c1\u03ba\u03bf\u03c5\u03ac\u03b6","0000CD":"Medium Blue",800080:"\u039c\u03bf\u03b2",808080:"\u0393\u03ba\u03c1\u03b9",F00:"\u039a\u03cc\u03ba\u03ba\u03b9\u03bd\u03bf",FF8C00:"\u03a3\u03ba\u03bf\u03cd\u03c1\u03bf \u03a0\u03bf\u03c1\u03c4\u03bf\u03ba\u03b1\u03bb\u03af",FFD700:"\u03a7\u03c1\u03c5\u03c3\u03b1\u03c6\u03af","008000":"\u03a0\u03c1\u03ac\u03c3\u03b9\u03bd\u03bf","0FF":"\u039a\u03c5\u03b1\u03bd\u03cc","00F":"\u039c\u03c0\u03bb\u03b5",EE82EE:"\u039c\u03b5\u03bd\u03b5\u03be\u03b5\u03b4\u03af",A9A9A9:"\u03a0\u03bf\u03bd\u03c4\u03b9\u03ba\u03af",FFA07A:"\u0391\u03bd\u03bf\u03b9\u03ba\u03c4\u03cc \u03a3\u03bf\u03bc\u03cc\u03bd",FFA500:"\u03a0\u03bf\u03c1\u03c4\u03bf\u03ba\u03b1\u03bb\u03af",FFFF00:"\u039a\u03af\u03c4\u03c1\u03b9\u03bd\u03bf","00FF00":"\u039c\u03bf\u03c3\u03c7\u03bf\u03bb\u03ad\u03bc\u03bf\u03bd\u03bf",AFEEEE:"Pale Turquoise",ADD8E6:"\u0393\u03b1\u03bb\u03ac\u03b6\u03b9\u03bf",DDA0DD:"\u0394\u03b1\u03bc\u03b1\u03c3\u03ba\u03b7\u03bd\u03af",D3D3D3:"\u0391\u03bd\u03bf\u03b9\u03ba\u03c4\u03cc \u0393\u03ba\u03c1\u03b9",FFF0F5:"Lavender Blush",FAEBD7:"Antique White",FFFFE0:"\u0391\u03bd\u03bf\u03b9\u03ba\u03c4\u03cc \u039a\u03af\u03c4\u03c1\u03b9\u03bd\u03bf",F0FFF0:"Honeydew",F0FFFF:"\u0393\u03b1\u03bb\u03b1\u03bd\u03cc",F0F8FF:"Alice Blue",E6E6FA:"\u0395\u03bb\u03b1\u03c6\u03c1\u03cc\u03c2 \u0399\u03ce\u03b4\u03b5\u03c2",FFF:"\u039b\u03b5\u03c5\u03ba\u03cc","1ABC9C":"Strong Cyan","2ECC71":"Emerald","3498DB":"Bright Blue","9B59B6":"Amethyst","4E5F70":"Grayish Blue",F1C40F:"Vivid Yellow","16A085":"Dark Cyan","27AE60":"Dark Emerald","2980B9":"Strong Blue","8E44AD":"Dark Violet","2C3E50":"Desaturated Blue",F39C12:"\u03a0\u03bf\u03c1\u03c4\u03bf\u03ba\u03b1\u03bb\u03af",E67E22:"\u039a\u03b1\u03c1\u03bf\u03c4\u03af",E74C3C:"Pale Red",ECF0F1:"Bright Silver","95A5A6":"Light Grayish Cyan",DDD:"Light Gray",D35400:"Pumpkin",C0392B:"Strong Red",BDC3C7:"\u0391\u03c1\u03b3\u03c5\u03c1\u03cc","7F8C8D":"Grayish Cyan",999:"Dark Gray"},more:"\u03a0\u03b5\u03c1\u03b9\u03c3\u03c3\u03cc\u03c4\u03b5\u03c1\u03b1 \u03a7\u03c1\u03ce\u03bc\u03b1\u03c4\u03b1\u2026",panelTitle:"\u03a7\u03c1\u03ce\u03bc\u03b1\u03c4\u03b1",textColorTitle:"\u03a7\u03c1\u03ce\u03bc\u03b1 \u039a\u03b5\u03b9\u03bc\u03ad\u03bd\u03bf\u03c5"});
+/*
+Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+*/
+
+CKEDITOR.plugins.setLang( 'colorbutton', 'el', {
+	auto: 'Αυτόματα',
+	bgColorTitle: 'Χρώμα Φόντου',
+	colors: {
+		'000': 'Μαύρο',
+		'800000': 'Καστανέρυθρο',
+		'8B4513': 'Saddle Brown',
+		'2F4F4F': 'Dark Slate Gray',
+		'008080': 'Βαθυκύανο',
+		'000080': 'Μπλε μαρέν',
+		'4B0082': 'Ινδικό',
+		'696969': 'Σκούρο Γκρι',
+		B22222: 'Ανοικτό Κόκκινο',
+		A52A2A: 'Καφέ',
+		DAA520: 'Golden Rod',
+		'006400': 'Σκούρο Πράσινο',
+		'40E0D0': 'Τυρκουάζ',
+		'0000CD': 'Medium Blue',
+		'800080': 'Μοβ',
+		'808080': 'Γκρι',
+		F00: 'Κόκκινο',
+		FF8C00: 'Σκούρο Πορτοκαλί',
+		FFD700: 'Χρυσαφί',
+		'008000': 'Πράσινο',
+		'0FF': 'Κυανό',
+		'00F': 'Μπλε',
+		EE82EE: 'Μενεξεδί',
+		A9A9A9: 'Ποντικί',
+		FFA07A: 'Ανοικτό Σομόν',
+		FFA500: 'Πορτοκαλί',
+		FFFF00: 'Κίτρινο',
+		'00FF00': 'Μοσχολέμονο',
+		AFEEEE: 'Pale Turquoise',
+		ADD8E6: 'Γαλάζιο',
+		DDA0DD: 'Δαμασκηνί',
+		D3D3D3: 'Ανοικτό Γκρι',
+		FFF0F5: 'Lavender Blush',
+		FAEBD7: 'Antique White',
+		FFFFE0: 'Ανοικτό Κίτρινο',
+		F0FFF0: 'Honeydew',
+		F0FFFF: 'Γαλανό',
+		F0F8FF: 'Alice Blue',
+		E6E6FA: 'Ελαφρός Ιώδες',
+		FFF: 'Λευκό',
+		'1ABC9C': 'Strong Cyan', // MISSING
+		'2ECC71': 'Emerald', // MISSING
+		'3498DB': 'Bright Blue', // MISSING
+		'9B59B6': 'Amethyst', // MISSING
+		'4E5F70': 'Grayish Blue', // MISSING
+		'F1C40F': 'Vivid Yellow', // MISSING
+		'16A085': 'Dark Cyan', // MISSING
+		'27AE60': 'Dark Emerald', // MISSING
+		'2980B9': 'Strong Blue', // MISSING
+		'8E44AD': 'Dark Violet', // MISSING
+		'2C3E50': 'Desaturated Blue', // MISSING
+		'F39C12': 'Πορτοκαλί',
+		'E67E22': 'Καροτί',
+		'E74C3C': 'Pale Red', // MISSING
+		'ECF0F1': 'Bright Silver', // MISSING
+		'95A5A6': 'Light Grayish Cyan', // MISSING
+		'DDD': 'Light Gray', // MISSING
+		'D35400': 'Pumpkin', // MISSING
+		'C0392B': 'Strong Red', // MISSING
+		'BDC3C7': 'Αργυρό',
+		'7F8C8D': 'Grayish Cyan', // MISSING
+		'999': 'Dark Gray' // MISSING
+	},
+	more: 'Περισσότερα Χρώματα…',
+	panelTitle: 'Χρώματα',
+	textColorTitle: 'Χρώμα Κειμένου'
+} );

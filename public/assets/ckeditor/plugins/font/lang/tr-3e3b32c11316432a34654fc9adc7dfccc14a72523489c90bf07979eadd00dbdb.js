@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","tr",{fontSize:{label:"Boyut",voiceLabel:"Font Size",panelTitle:"Boyut"},label:"Yaz\u0131 T\xfcr\xfc",panelTitle:"Yaz\u0131 T\xfcr\xfc",voiceLabel:"Font"});

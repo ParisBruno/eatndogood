@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","cs",{fontSize:{label:"Velikost",voiceLabel:"Velikost p\xedsma",panelTitle:"Velikost"},label:"P\xedsmo",panelTitle:"P\xedsmo",voiceLabel:"P\xedsmo"});

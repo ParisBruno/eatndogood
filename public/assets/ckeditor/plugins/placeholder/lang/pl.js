@@ -1,1 +1,13 @@
-CKEDITOR.plugins.setLang("placeholder","pl",{title:"W\u0142a\u015bciwo\u015bci wype\u0142niacza",toolbar:"Utw\xf3rz wype\u0142niacz",name:"Nazwa wype\u0142niacza",invalidName:"Wype\u0142niacz nie mo\u017ce by\u0107 pusty ani nie mo\u017ce zawiera\u0107 \u017cadnego z nast\u0119puj\u0105cych znak\xf3w: [, ], < oraz >",pathName:"wype\u0142niacz"});
+/**
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+
+CKEDITOR.plugins.setLang( 'placeholder', 'pl', {
+	title: 'Właściwości wypełniacza',
+	toolbar: 'Utwórz wypełniacz',
+	name: 'Nazwa wypełniacza',
+	invalidName: 'Wypełniacz nie może być pusty ani nie może zawierać żadnego z następujących znaków: [, ], < oraz >',
+	pathName: 'wypełniacz'
+} );

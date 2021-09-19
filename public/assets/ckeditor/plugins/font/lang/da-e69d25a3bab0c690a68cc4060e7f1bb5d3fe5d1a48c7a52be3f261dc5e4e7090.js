@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("font","da",{fontSize:{label:"Skriftst\xf8rrelse",voiceLabel:"Skriftst\xf8rrelse",panelTitle:"Skriftst\xf8rrelse"},label:"Skrifttype",panelTitle:"Skrifttype",voiceLabel:"Skrifttype"});

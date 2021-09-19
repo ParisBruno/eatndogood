@@ -1,1 +1,76 @@
-CKEDITOR.plugins.setLang("colorbutton","ka",{auto:"\u10d0\u10d5\u10e2\u10dd\u10db\u10d0\u10e2\u10e3\u10e0\u10d8",bgColorTitle:"\u10e4\u10dd\u10dc\u10d8\u10e1 \u10e4\u10d4\u10e0\u10d8",colors:{"000":"\u10e8\u10d0\u10d5\u10d8",8e5:"\u10db\u10e3\u10e5\u10d8 \u10e8\u10d8\u10dc\u10d3\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8","8B4513":"\u10e7\u10d0\u10d5\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8","2F4F4F":"\u10db\u10dd\u10da\u10e3\u10e0\u10ef\u10dd \u10dc\u10d0\u10ea\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8","008080":"\u10e9\u10d0\u10db\u10e5\u10e0\u10d0\u10da\u10d8 \u10da\u10e3\u10e0\u10ef\u10d8","000080":"\u10db\u10e3\u10e5\u10d8 \u10da\u10e3\u10e0\u10ef\u10d8","4B0082":"\u10d8\u10d0\u10e1\u10d0\u10db\u10dc\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",696969:"\u10db\u10e3\u10e5\u10d8 \u10dc\u10d0\u10ea\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",B22222:"\u10d0\u10d2\u10e3\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",A52A2A:"\u10db\u10e3\u10e5\u10d8 \u10e7\u10d0\u10d5\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",DAA520:"\u10db\u10dd\u10e7\u10d5\u10d8\u10d7\u10d0\u10da\u10dd","006400":"\u10db\u10e3\u10e5\u10d8 \u10db\u10ec\u10d5\u10d0\u10dc\u10d4","40E0D0":"\u10ea\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8","0000CD":"\u10d6\u10dd\u10db\u10d8\u10d4\u10e0\u10d0\u10d3 \u10da\u10e3\u10e0\u10ef\u10d8",800080:"\u10d8\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",808080:"\u10dc\u10d0\u10ea\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",F00:"\u10ec\u10d8\u10d7\u10d4\u10da\u10d8",FF8C00:"\u10db\u10e3\u10e5\u10d8 \u10e1\u10e2\u10d0\u10e4\u10d8\u10da\u10dd\u10e1\u10e4\u10d4\u10e0\u10d8",FFD700:"\u10dd\u10e5\u10e0\u10dd\u10e1\u10e4\u10d4\u10e0\u10d8","008000":"\u10db\u10ec\u10d5\u10d0\u10dc\u10d4","0FF":"\u10e6\u10d8\u10d0 \u10ea\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8","00F":"\u10da\u10e3\u10e0\u10ef\u10d8",EE82EE:"\u10d8\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",A9A9A9:"\u10d1\u10d0\u10ea\u10d8 \u10dc\u10d0\u10ea\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",FFA07A:"\u10e9\u10d0\u10db\u10e5\u10e0\u10d0\u10da\u10d8 \u10d5\u10d0\u10e0\u10d3\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",FFA500:"\u10e1\u10e2\u10d0\u10e4\u10d8\u10da\u10dd\u10e1\u10e4\u10d4\u10e0\u10d8",FFFF00:"\u10e7\u10d5\u10d8\u10d7\u10d4\u10da\u10d8","00FF00":"\u10da\u10e3\u10e0\u10ef\u10d8",AFEEEE:"\u10ea\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",ADD8E6:"\u10e6\u10d8\u10d0 \u10da\u10e3\u10e0\u10ef\u10d8",DDA0DD:"\u10e6\u10d8\u10d0 \u10d8\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",D3D3D3:"\u10e6\u10d8\u10d0 \u10dc\u10d0\u10ea\u10e0\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",FFF0F5:"\u10e6\u10d8\u10d0 \u10d5\u10d0\u10e0\u10d3\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",FAEBD7:"\u10e6\u10d8\u10d0 \u10e7\u10d0\u10d5\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8",FFFFE0:"\u10dc\u10d0\u10d7\u10d4\u10da\u10d8 \u10e7\u10d5\u10d8\u10d7\u10d4\u10da\u10d8",F0FFF0:"\u10e6\u10d8\u10d0 \u10db\u10ec\u10d5\u10d0\u10dc\u10d4",F0FFFF:"\u10e6\u10d8\u10d0 \u10ea\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8 2",F0F8FF:"\u10e6\u10d8\u10d0 \u10ea\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8 3",E6E6FA:"\u10e6\u10d8\u10d0 \u10d8\u10d8\u10e1\u10e4\u10d4\u10e0\u10d8 2",FFF:"\u10d7\u10d4\u10d7\u10e0\u10d8","1ABC9C":"Strong Cyan","2ECC71":"Emerald","3498DB":"Bright Blue","9B59B6":"Amethyst","4E5F70":"Grayish Blue",F1C40F:"Vivid Yellow","16A085":"Dark Cyan","27AE60":"Dark Emerald","2980B9":"Strong Blue","8E44AD":"Dark Violet","2C3E50":"Desaturated Blue",F39C12:"Orange",E67E22:"Carrot",E74C3C:"Pale Red",ECF0F1:"Bright Silver","95A5A6":"Light Grayish Cyan",DDD:"Light Gray",D35400:"Pumpkin",C0392B:"Strong Red",BDC3C7:"Silver","7F8C8D":"Grayish Cyan",999:"Dark Gray"},more:"\u10db\u10d4\u10e2\u10d8 \u10e4\u10d4\u10e0\u10d8...",panelTitle:"\u10e4\u10d4\u10e0\u10d4\u10d1\u10d8",textColorTitle:"\u10e2\u10d4\u10e5\u10e1\u10e2\u10d8\u10e1 \u10e4\u10d4\u10e0\u10d8"});
+/*
+Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+*/
+
+CKEDITOR.plugins.setLang( 'colorbutton', 'ka', {
+	auto: 'ავტომატური',
+	bgColorTitle: 'ფონის ფერი',
+	colors: {
+		'000': 'შავი',
+		'800000': 'მუქი შინდისფერი',
+		'8B4513': 'ყავისფერი',
+		'2F4F4F': 'მოლურჯო ნაცრისფერი',
+		'008080': 'ჩამქრალი ლურჯი',
+		'000080': 'მუქი ლურჯი',
+		'4B0082': 'იასამნისფერი',
+		'696969': 'მუქი ნაცრისფერი',
+		B22222: 'აგურისფერი',
+		A52A2A: 'მუქი ყავისფერი',
+		DAA520: 'მოყვითალო',
+		'006400': 'მუქი მწვანე',
+		'40E0D0': 'ცისფერი',
+		'0000CD': 'ზომიერად ლურჯი',
+		'800080': 'იისფერი',
+		'808080': 'ნაცრისფერი',
+		F00: 'წითელი',
+		FF8C00: 'მუქი სტაფილოსფერი',
+		FFD700: 'ოქროსფერი',
+		'008000': 'მწვანე',
+		'0FF': 'ღია ცისფერი',
+		'00F': 'ლურჯი',
+		EE82EE: 'იისფერი',
+		A9A9A9: 'ბაცი ნაცრისფერი',
+		FFA07A: 'ჩამქრალი ვარდისფერი',
+		FFA500: 'სტაფილოსფერი',
+		FFFF00: 'ყვითელი',
+		'00FF00': 'ლურჯი',
+		AFEEEE: 'ცისფერი',
+		ADD8E6: 'ღია ლურჯი',
+		DDA0DD: 'ღია იისფერი',
+		D3D3D3: 'ღია ნაცრისფერი',
+		FFF0F5: 'ღია ვარდისფერი',
+		FAEBD7: 'ღია ყავისფერი',
+		FFFFE0: 'ნათელი ყვითელი',
+		F0FFF0: 'ღია მწვანე',
+		F0FFFF: 'ღია ცისფერი 2',
+		F0F8FF: 'ღია ცისფერი 3',
+		E6E6FA: 'ღია იისფერი 2',
+		FFF: 'თეთრი',
+		'1ABC9C': 'Strong Cyan', // MISSING
+		'2ECC71': 'Emerald', // MISSING
+		'3498DB': 'Bright Blue', // MISSING
+		'9B59B6': 'Amethyst', // MISSING
+		'4E5F70': 'Grayish Blue', // MISSING
+		'F1C40F': 'Vivid Yellow', // MISSING
+		'16A085': 'Dark Cyan', // MISSING
+		'27AE60': 'Dark Emerald', // MISSING
+		'2980B9': 'Strong Blue', // MISSING
+		'8E44AD': 'Dark Violet', // MISSING
+		'2C3E50': 'Desaturated Blue', // MISSING
+		'F39C12': 'Orange', // MISSING
+		'E67E22': 'Carrot', // MISSING
+		'E74C3C': 'Pale Red', // MISSING
+		'ECF0F1': 'Bright Silver', // MISSING
+		'95A5A6': 'Light Grayish Cyan', // MISSING
+		'DDD': 'Light Gray', // MISSING
+		'D35400': 'Pumpkin', // MISSING
+		'C0392B': 'Strong Red', // MISSING
+		'BDC3C7': 'Silver', // MISSING
+		'7F8C8D': 'Grayish Cyan', // MISSING
+		'999': 'Dark Gray' // MISSING
+	},
+	more: 'მეტი ფერი...',
+	panelTitle: 'ფერები',
+	textColorTitle: 'ტექსტის ფერი'
+} );
