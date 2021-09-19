@@ -35,3 +35,4 @@ dragonfly.log
 /config/database.yml
 /public/system/
 /storage
+.DS_Store
