@@ -4,7 +4,7 @@
     width: 100%;
     float: left;
     background-color: #344a64!important;
-    padding: 12px 0;
+    padding: 10px 0;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -88,13 +88,13 @@
         <% if @page.present? %>
 
             <% upper_page_detail = @page.title || "" %>
-
+            <% font_weight = upper_page_detail.include?('</strong>') ? 700 : 400 %>
             <% if upper_page_detail.size > 280 %>
               <div class="show-read-more read_less">
                 <span class="u-content">
                   <%=  raw enclose_tag(upper_page_detail.slice(0,280)+'...') %>
                 </span>
-                <a href="javascript:void(0)" class="btn_more">(<%= t('common.read_more_1_min') %>)</a>
+                <a href="javascript:void(0)" class="btn_more" style="font-weight: <%= font_weight %>;">(<%= t('common.read_more_1_min') %>)</a>
               </div>
               <div class="show-read-more read_full" style="display:none;">
                 <span class="u-content">
@@ -191,6 +191,6 @@
   </div>
 
 <div class="footer3">
-  <p>Powered by <a href="https://itoprecipes.com/" style="color: #fff;" target="_blank">iTopRecipes.com</a> &copy; 2017 – <%= Time.zone.now.year %></p>
+  <p>Powered by <a href="https://itoprecipes.com/" style="color: #fff;" target="_blank">iTopRecipes.com</a> &copy; 2018 – Onward</p>
 </div>
 </div>
