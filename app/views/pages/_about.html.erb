@@ -91,20 +91,20 @@
             <% font_weight = upper_page_detail.include?('</strong>') ? 700 : 400 %>
             <% if upper_page_detail.size > 280 %>
               <div class="show-read-more read_less">
-                <span class="u-content">
+                <span class="u-content" style="font-weight: <%= font_weight %>;">
                   <%=  raw enclose_tag(upper_page_detail.slice(0,280)+'...') %>
                 </span>
                 <a href="javascript:void(0)" class="btn_more" style="font-weight: <%= font_weight %>;">(<%= t('common.read_more_1_min') %>)</a>
               </div>
-              <div class="show-read-more read_full" style="display:none;">
+              <div class="show-read-more read_full" style="display:none; font-weight: <%= font_weight %>;">
                 <span class="u-content">
                   <%= raw upper_page_detail %>
                 </span>
                 &nbsp;
                 <a class="btn_less" href="javascript:void(0)" >(<%= t('common.read_less') %>)</a>
               </div>
-          <% else %>
-              <p class="show-read-more"><%= upper_page_detail %></p>
+            <% else %>
+              <div class="show-read-more" style="font-weight: <%= font_weight %>;"><%= upper_page_detail.html_safe %></div>
             <% end %>
 
         <% else %>
@@ -166,7 +166,8 @@
         <div class="row page-title">
           <div class="col-md-12 text-center">
             <% if @page.present? %>
-              <%= @page.content.html_safe %>
+              <% font_weight = @page.title.include?('</strong>') ? 700 : 400 %>
+              <span style="font-weight: <%= font_weight %>;"><%= @page.content.html_safe %></span>
             <% else %>
               <p id="lgp">
                 <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
@@ -194,3 +195,4 @@
   <p>Powered by <a href="https://itoprecipes.com/" style="color: #fff;" target="_blank">iTopRecipes.com</a> &copy; 2018 – Onward</p>
 </div>
 </div>
+

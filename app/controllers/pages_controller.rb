@@ -13,6 +13,18 @@ class PagesController < ApplicationController
   #   @admin_name = user.full_name if user
   #   @page = get_page
   # end
+
+  def create
+    @page = Page.new(page_params.merge(app_id: current_app.id, destination: 'about'))
+
+    if @page.save
+      delete_draft(@page)        
+      redirect_to about_app_pages_url(current_app)
+    else
+      render :edit
+    end 
+  end
+
   def welcome
     @page = get_page
   end
@@ -34,6 +46,7 @@ class PagesController < ApplicationController
   end
 
   def update
+    # byebug
     @page = get_update_page
     # raise page_params.inspect
     if preview?
