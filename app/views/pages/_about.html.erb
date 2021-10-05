@@ -43,12 +43,22 @@
     margin-bottom: 10px !important;
   }
 
+  .see-meals {
+    font-size: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .see-meals {
+      font-size: 16px !important;
+    }
+  }
+
   @media (max-width: 480px) {
     .col-md-12 {
         width: 100%;
     }
   }
-  
+
 </style>
 <script>
   function newDoc(a) {
@@ -152,7 +162,12 @@
           <div class="col-md-12 text-center" style="width: 100%;">  
             <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center; margin-bottom: 10px;'}) %>
             <!--/button-->
-            <p style="font-size:20px;"><%= t('common.see_meals').html_safe %></p>
+            <% if @page.present? %>
+              <% font_weight = @page.title.include?('</strong>') ? 700 : 400 %>
+            <% else %>
+              <% font_weight = 400 %>
+            <% end %>
+            <p class="see-meals"> <span style="font-weight: <%= font_weight %>;"><%= t('common.see_meals').html_safe %></span></p>
           </div>
         </div>
         <div class="row">
