@@ -254,11 +254,17 @@ class ApplicationController < ActionController::Base
     @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
   end
 
-  def check_admin
+  def set_team_member
     if (current_app_user.admin? && current_app_user.chef_info) || (current_app_user.manager? && current_app_user.chef_info)
-      return current_app_user&.chef_info&.id 
+      @admin_id = current_app_user&.chef_info&.id
+    elsif current_app_user.chef? && current_app_user.chef_info
+      @staff_id = current_app_user&.chef_info&.id
+    else
+      redirect_to app_recipes_path(current_app)
     end
+  end
 
-    redirect_to app_recipes_path(current_app)
+  def check_admin
+    return redirect_to app_recipes_path(current_app) unless @admin_id
   end
 end

@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
   before_action :set_chef_ids
   before_action :set_paypal_credentials, only: %i[new create new_staff_order show]
-  before_action :check_admin, except: %i[new create paypal_create_payment paypal_execute_payment]
+  before_action :set_team_member, except: %i[new create paypal_create_payment paypal_execute_payment]
   skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
   @@paypal_token ||= nil

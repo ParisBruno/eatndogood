@@ -42,7 +42,7 @@
               <h3>
                 <%= chef.user.full_name %>
                 &nbsp;
-                <%= (chef.admin) ? "(#{t('common.admin')})" : "(#{t('common.chef')})" %>
+
                 <% if (session[:user_role] == 'admin') && (current_member.admin?) %>
                   <% if current_member.id != chef.id %>
                     <%= link_to t('chefs.delete_profile'), chefdestroy_path(chef.id), data: { confirm: t('chefs.confirm_delete_account') } %>

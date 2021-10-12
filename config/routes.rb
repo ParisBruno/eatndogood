@@ -80,7 +80,8 @@ Rails.application.routes.draw do
     get 'recipe_drafts', to: "recipes#drafts", as: "recipe_drafts"
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails]
-    resources :chefs
+    resources :team, controller: 'chefs', as: 'chefs'
+
     resources :questions
     resources :allergens do
       get 'table', on: :collection

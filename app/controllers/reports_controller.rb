@@ -1,8 +1,9 @@
 class ReportsController < ApplicationController
+  before_action :set_team_member
   before_action :check_admin
 
   def index
-    line_items_with_recipe_and_order = LineItem.joins(:recipe).where.not(recipe_id: nil, order_id: nil).where(recipes: { chef_id: check_admin })
+    line_items_with_recipe_and_order = LineItem.joins(:recipe).where.not(recipe_id: nil, order_id: nil).where(recipes: { chef_id: @admin_id })
     set_recipes(line_items_with_recipe_and_order)
     set_categories(line_items_with_recipe_and_order)        # use recipe.styles
   end
@@ -27,11 +28,11 @@ class ReportsController < ApplicationController
       set_date(params[:category_sales][:date_from], params[:category_sales][:date_to])
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                             .where(updated_at: @date_from..@date_to, recipes: { chef_id: @admin_id })
     else
       set_categories LineItem.joins(:recipe)
                              .where.not(recipe_id: nil, order_id: nil)
-                             .where(recipes: { chef_id: check_admin })
+                             .where(recipes: { chef_id: @admin_id })
     end
 
     respond_to do |format|
@@ -61,16 +62,16 @@ class ReportsController < ApplicationController
       set_date(params["date_from"], params["date_to"])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: @admin_id })
     elsif params[:recipe_sales].present?
       set_date(params[:recipe_sales][:date_from], params[:recipe_sales][:date_to])
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: check_admin })
+                          .where(updated_at: @date_from..@date_to, recipes: { chef_id: @admin_id })
     else
       set_recipes LineItem.joins(:recipe)
                           .where.not(recipe_id: nil, order_id: nil)
-                          .where(recipes: { chef_id: check_admin })
+                          .where(recipes: { chef_id: @admin_id })
     end
 
     respond_to do |format|

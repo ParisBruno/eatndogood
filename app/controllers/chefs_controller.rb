@@ -4,7 +4,8 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
-  before_action :check_admin, only: [:managers, :staff]
+  before_action :set_team_member, only: [:managers, :staff]
+  before_action :check_admin, only: [:managers]
   
   before_action :check_limit_chefs, only: [:new, :create]
   
@@ -108,7 +109,9 @@ class ChefsController < ApplicationController
   end
 
   def staff
-    @orders = Order.where(user_id: current_app&.user_ids).order(created_at: :desc)
+    user_ids = current_app_user.chef? ? @chef_id : current_app&.user_ids
+
+    @orders = Order.where(user_id: user_ids).order(created_at: :desc)
     render 'chefs/point_of_sales'
   end
   
@@ -173,5 +176,4 @@ class ChefsController < ApplicationController
       as.destroy
     end
   end
-  
 end
