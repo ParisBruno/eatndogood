@@ -132,14 +132,26 @@
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.choose_password') %>
           </div>
         </div>
-        <div class="form-group">
-          <div class="control-label col-md-2">
-            <%= f.label :manager, 'Manager' %>
+
+        <% if @current_app_user != @user %>
+          <div class="form-group">
+            <div class="control-label col-md-2">
+              <%= f.label :manager_id, t('forms.manager_id') %>
+            </div>
+            <div class="col-md-8">
+              <%= f.select :manager_id, current_app.users.managers.collect  {|p| [p.full_name, p.id] }, { prompt: t('forms.manager_for_staff') }, class: 'form-control form-control-lg' %>
+            </div>
           </div>
-          <div class="col-md-8">
-            <%= f.check_box :manager, class: "manager-check" %>
+
+          <div class="form-group">
+            <div class="control-label col-md-2">
+              <%= f.label :manager, 'Manager' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.check_box :manager, class: "manager-check" %>
+            </div>
           </div>
-        </div>
+        <% end %>
 
       <% if @current_app_user == @user && @current_app_user.admin? && @current_app_user == @current_app.main_admin %>
         

@@ -195,6 +195,8 @@ es:
     new_allergen: Create New Allergen
     new_ingredient: Crea un nuevo ingrediente
     new_style: Create New Catégorie
+    manager_id: Seleccionar gerente
+    manager_for_staff: Seleccionar gerente para miembro del equipo
     password: Contraseña
     password_confirmation: Confirmación de Contraseña
     password_digest: Resumen de contraseña
@@ -267,6 +269,7 @@ es:
     sales_point: Punto de venta
     managers: Gerente
     staff: Personal
+    staff_name: Nombre del personal
     styles: catégories
     sales_reports: Informes de venta
     team: Equipo

@@ -4,8 +4,8 @@
         <tr>
           <td colspan="3" class="header-table">
             <span class="title">Eat`nDoGood</span>
-            <p><%= @admin.store_address %></p>
-            <p><%= @admin.phone %></p>
+            <p><%= @admin&.store_address %></p>
+            <p><%= @admin&.phone %></p>
           </td>
         </tr>
     </thead>
@@ -18,16 +18,16 @@
         <td colspan="3" class="client-data">Date: <%= @order.created_at.strftime("%d-%m-%y") %>  Order Receipt #<%= @order.id %></td>
       </tr>
       <tr>
-        <td colspan="3" class="client-data"><%= @order.name if @order.name.present? %></td>
+        <td colspan="3" class="client-data"><%= @order&.name %></td>
       </tr>
       <tr>
-        <td colspan="3" class="client-data"><%= @order.address if @order.address.present? %></td>
+        <td colspan="3" class="client-data"><%= @order&.address %></td>
       </tr>
       <tr>
-        <td colspan="3" class="client-data"><%= @order.email if @order.email.present? %></td>
+        <td colspan="3" class="client-data"><%= @order&.email %></td>
       </tr>
       <tr>
-        <td colspan="3" class="client-data"><%= @order.phone if @order.phone.present? %></td>
+        <td colspan="3" class="client-data"><%= @order&.phone %></td>
       </tr>
       <tr>
         <td><br></td>
@@ -88,8 +88,8 @@
     <tfoot>
       <tr>
         <td colspan="3" class="footer-table">
-          <p>Weekly delicious special, tips & more visit: Eat`nDoGood.com/<%= @admin.app.slug %></p>
-          <p class="greeting_message"><%= @admin.greeting_message %></p>
+          <p>Weekly delicious special, tips & more visit: Eat`nDoGood.com/<%= @admin&.app&.slug || 'thrive' %></p>
+          <p class="greeting_message"><%= @admin&.greeting_message %></p>
         </td>
       </tr>
     </tfoot>

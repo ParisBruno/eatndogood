@@ -218,6 +218,8 @@ en:
     new_allergen: Create New Allergen
     new_ingredient: Create New Ingredient
     new_style: Create New Category
+    manager_id: Select Manager
+    manager_for_staff: Select Manager for Team Member
     password: Password
     password_confirmation: Password Confirmation
     password_digest: Password digest
@@ -295,6 +297,7 @@ en:
     sales_point: Point of Sale
     managers: Manager
     staff: Staff
+    staff_name: Staff Name
     sign_up: Sign up
     styles: Categories
     team: Team

@@ -198,6 +198,8 @@ de:
     new_allergen: Create New Allergen
     new_ingredient: Erstellen Sie eine neue Zutat
     new_style: Create New Kategorie
+    manager_id: Manager auswählen
+    manager_for_staff: Manager für Teammitglied auswählen
     password: Passwort
     password_confirmation: Passwort Bestätigung
     password_digest: Passwort-Digest
@@ -270,6 +272,7 @@ de:
     sales_point: Kasse
     managers: Manager
     staff: Mitarbeiter
+    staff_name: Personal Name
     styles: der Kategorie
     sales_reports: Verkaufsberichte
     team: Mannschaft

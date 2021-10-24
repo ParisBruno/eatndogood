@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     post 'category-sales', to: 'reports#category_sales', as: "category_sales"
     get 'new-order', to: 'orders#new_staff_order', as: "new_staff_order"
     post 'create-staff-order', to: 'orders#create_staff_order', as: "create_staff_order"
+    get 'admin', to: 'chefs#admin', as: "admin"
     get 'managers', to: 'chefs#managers', as: "managers"
     get 'staff', to: 'chefs#staff', as: "staff"
   end

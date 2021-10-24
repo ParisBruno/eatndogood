@@ -224,6 +224,8 @@ fr:
     new_allergen: Créer un nouvel allergène
     new_ingredient: Créer un nouvel Ingredient
     new_style: Créer un nouveau catégorie
+    manager_id: Sélectionnez le gestionnaire
+    manager_for_staff: Sélectionnez le gestionnaire pour le membre de l'équipe
     password: Mot de passe
     password_confirmation: Confirmation mot de passe
     password_digest: Mot de passe condensé
@@ -304,6 +306,7 @@ fr:
     sales_point: Point de vente
     managers: Directeur
     staff: Personnel
+    staff_name: Nom du personnel
     sign_up: 'Inscrivez-vous '
     styles: La catégorie
     sales_reports: Rapports de vente

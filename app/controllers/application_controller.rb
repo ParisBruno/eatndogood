@@ -255,10 +255,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_team_member
-    if (current_app_user.admin? && current_app_user.chef_info) || (current_app_user.manager? && current_app_user.chef_info)
-      @admin_id = current_app_user&.chef_info&.id
-    elsif current_app_user.chef? && current_app_user.chef_info
-      @staff_id = current_app_user&.chef_info&.id
+    if current_app_user&.chef_info
+      if current_app_user.admin? || current_app_user.manager?
+        @admin_id = current_app_user.chef_info&.id
+      elsif current_app_user.chef?
+        @staff_id = current_app_user.id
+      end
     else
       redirect_to app_recipes_path(current_app)
     end

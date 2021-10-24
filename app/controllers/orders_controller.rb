@@ -11,12 +11,14 @@ class OrdersController < ApplicationController
   @@paypal_status ||= nil
 
   def index
-    if params[:app_id].present?
-      app = App.find_by(id: params[:app_id])
-      @orders = Order.where(user_id: app&.user_ids).order(created_at: :desc)
+    case params[:staff_ids].present?
+    when true
+      user_ids = params[:staff_ids]
     else
-      @orders = Order.where(user_id: current_app.user_ids).order(created_at: :desc)
+      user_ids = current_app.user_ids
     end
+
+    @orders = Order.where(user_id: user_ids).order(created_at: :desc)
   end
 
   def new

@@ -1,0 +1,45 @@
+<div class="card-deck">
+  <% if current_app.admins.present? %>
+
+  <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><%= current_app.admins.first&.full_name %></p>       
+        <%= link_to app_orders_path(current_app), class: 'order-card-link' do %>
+
+          <p class="card-text"><b><%= Order.where(user_id: current_app.user_ids).count %></b> <%= t('orders.all') %></p>
+          <p class="card-text"><%= t('orders.total_sales') %> <b><%= number_to_currency(Order.closed_of_day(current_app.user_ids).sum(:amount)&./100.0) %></b></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="card-deck orders-card">
+    <% current_app.users.where(manager: true).each do |manager| %>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text"><%= manager&.full_name %></p>       
+            <%
+              manager_ids = manager.staff_ids + [manager.id]
+              closed_orders_of_day = Order.closed_of_day(manager_ids)
+            %>
+
+            <%= link_to app_orders_path(current_app, staff_ids: manager_ids), class: 'order-card-link' do %>
+              <p class="card-text"><b><%= Order.where(user_id: manager_ids).count %></b> <%= t('orders.all') %></p>
+              <p class="card-text"><b><%= Order.active_of_day(manager_ids).count %></b> <%= t('orders.active') %></p>
+              <p class="card-text"><b><%= closed_orders_of_day.count %></b> <%= t('orders.closed') %></p>
+              <p class="card-text"><%= t('orders.total_sales') %> <b><%= number_to_currency(closed_orders_of_day.sum(:amount)&./100.0) %></b></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
+
+

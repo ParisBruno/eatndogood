@@ -13,7 +13,10 @@ class User < ApplicationRecord
   belongs_to :app
 
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :orders #, dependent: :destroy
+
+  has_many :staff, class_name: 'User', foreign_key: 'manager_id'
+  belongs_to :team_manager, class_name: 'User', foreign_key: 'manager_id', optional: true
 
   accepts_nested_attributes_for :chef_info, allow_destroy: true
   accepts_nested_attributes_for :app
@@ -34,6 +37,7 @@ class User < ApplicationRecord
   
   scope :inactive_guests, -> { where('guest = true AND last_sign_in_at > ? AND email_sent_counter < 3', Date.today - 60.days) }
   scope :guests, -> { where(guest: true)}
+  scope :managers, -> { where(manager: true) }
 
   # before_create :set_guest_admin
   before_save :downcase_slug
@@ -67,6 +71,10 @@ class User < ApplicationRecord
       UserMailer.guest_create_email_to_admin(@admin.email, self).deliver_later if @admin
       UserMailer.guest_create_email_to_guest(self.email).deliver_later if @admin
     end
+  end
+
+  def team_member?
+    (admin? || manager? || chef?) ? true : false
   end
 
   def self.find_for_authentication(warden_conditions)

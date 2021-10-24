@@ -4,8 +4,9 @@ class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
-  before_action :set_team_member, only: [:managers, :staff]
-  before_action :check_admin, only: [:managers]
+  before_action :set_team_member, only: [:admin, :managers, :staff]
+  before_action :check_admin, only: [:admin]
+  before_action :set_manager, only: [:managers]
   
   before_action :check_limit_chefs, only: [:new, :create]
   
@@ -103,15 +104,21 @@ class ChefsController < ApplicationController
     redirect_to edit_app_chef_path(current_app, current_app_user)
   end
 
+  def admin
+    return redirect_to app_recipes_path(current_app) if @admin_id != current_app.main_admin.chef_info.id
+
+    render 'chefs/point_of_sales'
+  end
+
   def managers
-    @apps = App.all
     render 'chefs/point_of_sales'
   end
 
   def staff
-    user_ids = current_app_user.chef? ? @chef_id : current_app&.user_ids
+    return redirect_to app_recipes_path(current_app) unless @staff_id
 
-    @orders = Order.where(user_id: user_ids).order(created_at: :desc)
+    @orders = Order.where(user_id: @staff_id).order(created_at: :desc)
+    @manager = current_app_user.team_manager
     render 'chefs/point_of_sales'
   end
   
@@ -138,7 +145,7 @@ class ChefsController < ApplicationController
     chef_info_permitted_attributes = Chef.globalize_attribute_names + [:chef_avatar, :admin_id, :id]
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug,
                                  :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, :manager,
-                                 :store_address, :phone, :greeting_message,
+                                 :manager_id, :store_address, :phone, :greeting_message,
                                  chef_info_attributes: chef_info_permitted_attributes, app_attributes: [:slug, :id])
   end
 
@@ -175,5 +182,11 @@ class ChefsController < ApplicationController
     if as
       as.destroy
     end
+  end
+
+  def set_manager
+    @current_manger = current_app.users.managers.find_by(id: params[:manager_id])
+
+    redirect_to app_recipes_path(current_app) if @current_manger != current_app_user
   end
 end

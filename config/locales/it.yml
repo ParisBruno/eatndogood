@@ -203,6 +203,8 @@ it:
     new_allergen: Create New Allergen
     new_ingredient: Crea un nuovo ingrediente
     new_style: Create New Categoria
+    manager_id: Seleziona Amministratore
+    manager_for_staff: Seleziona Amministratore per Membro del Team
     password: Password
     password_confirmation: Conferma Password
     password_digest: Password digest
@@ -280,6 +282,7 @@ it:
     sales_point: Punto vendita
     managers: Manager
     staff: Personale
+    staff_name: Nome del personale
     sales_reports: Rapporti di vendita
     sign_up: inscriviti
     styles: Categoria

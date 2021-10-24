@@ -49,17 +49,24 @@
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
           
-           <% if current_app_user&.admin? || current_app_user&.manager? || current_app_user&.chef? %>
+           <% if current_app_user&.team_member? %>
            <li class="dropdown nav-item">
            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <%= t('navigation.sales_point') %></a>
             <ul class="dropdown-menu">
+            <% if current_app_user.admin? %>
               <li>
-                <%= link_to t('navigation.managers'), app_managers_path(@current_app) %>
+                <%= link_to t('common.admin'), app_admin_path(@current_app) %>
               </li>
+            <% elsif current_app_user.manager? %>
+              <li>
+                <%= link_to t('navigation.managers'), app_managers_path(@current_app, manager_id: current_app_user.id) %>
+              </li>
+            <% elsif current_app_user.chef? %>
               <li>
                 <%= link_to t('navigation.staff'), app_staff_path(@current_app) %>
               </li>
+            <% end %>
               <li>
                 <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
               </li>
