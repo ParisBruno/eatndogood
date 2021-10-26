@@ -121,30 +121,30 @@
     }
 
   }
-  function search() {
-    var style_ids = $("input[class=styles]:checked").map(function () {
-        return $(this).val();
-    }).get();
-    console.log(style_ids);
+  // function search() {
+  //   var style_ids = $("input[class=styles]:checked").map(function () {
+  //       return $(this).val();
+  //   }).get();
+  //   console.log(style_ids);
 
-    var ingredient_ids = $("input[class=ingredients]:checked").map(function () {
-        return $(this).val();
-    }).get();
-    console.log(ingredient_ids);
+  //   var ingredient_ids = $("input[class=ingredients]:checked").map(function () {
+  //       return $(this).val();
+  //   }).get();
+  //   console.log(ingredient_ids);
 
-    var allergens_ids = $("input[class=allergens]:checked").map(function () {
-        return $(this).val();
-    }).get();
-    console.log(allergens_ids);
+  //   var allergens_ids = $("input[class=allergens]:checked").map(function () {
+  //       return $(this).val();
+  //   }).get();
+  //   console.log(allergens_ids);
 
-    $('#filterRecipes').submit();
-  }
+  //   $('#filterRecipes').submit();
+  // }
 
-  $('.checkbox_anchor').on('click', function(e) {
-    e.stopPropagation();
-    var target = e.target
-    var input = $(target).children('input')
-    var checked = $(input).prop( "checked")
-    $(input).trigger("click")
-  })
+  // $('.checkbox_anchor').on('click', function(e) {
+  //   e.stopPropagation();
+  //   var target = e.target
+  //   var input = $(target).children('input')
+  //   var checked = $(input).prop( "checked")
+  //   $(input).trigger("click")
+  // })
 </script>

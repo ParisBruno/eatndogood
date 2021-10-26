@@ -52,7 +52,11 @@
           <!--<a target="_blank" href="<%= welcome_app_pages_path(current_app) %>" style="float: left; color:white; margin-top:20px;" class="btn btn-success btn-lg">
             <%= t('pages.new.save_to_view_changes') %>
           </a> -->
-          <%= f.submit t('pages.new.save_to_view_changes'), class: "btn btn-success btn-lg", name: 'preview', style: "float: left; color:white; margin-top:20px;" %>
+          <%
+=begin%>
+ <%= f.submit t('pages.new.save_to_view_changes'), class: "btn btn-success btn-lg", name: 'preview', style: "float: left; color:white; margin-top:20px;" %> 
+<%
+=end%>
         </center>
       
       </div>
