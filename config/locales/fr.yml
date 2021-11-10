@@ -233,6 +233,7 @@ fr:
     return_to_recipes: Annuler et retourner à la liste des recettes
     send_all_emails: Envoyer un courrier électronique à tous les invités
     send_emails: 'Envoyer e-mails '
+    select_language: Choisir la langue
     subject: Sujet
     submit: Soumettre
     summary: le sommaire

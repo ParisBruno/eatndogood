@@ -2,6 +2,8 @@ class PagesController < ApplicationController
   layout :select_layout_header
   before_action :guest_email, only: ['welcome', 'about']
 
+  before_action :set_locale, only: [:about]
+
   def index
     if params[:set_locale]
       redirect_to about_pages_url(locale: params[:set_locale])

@@ -207,6 +207,7 @@ de:
       bearbeiten oder zu lösche
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: E-Mail an alle Gäste senden
+    select_language: Sprache auswählen
     subject: Gegenstand
     submit: Einreichen
     summary: Zusammenfassung

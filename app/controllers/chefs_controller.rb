@@ -41,6 +41,7 @@ class ChefsController < ApplicationController
   end
   
   def edit
+    @available_locales = set_selected_languages
   end
   
   def update
@@ -146,7 +147,7 @@ class ChefsController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug,
                                  :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, :manager,
                                  :manager_id, :store_address, :phone, :greeting_message,
-                                 chef_info_attributes: chef_info_permitted_attributes, app_attributes: [:slug, :id])
+                                 chef_info_attributes: chef_info_permitted_attributes, app_attributes: [:slug, :id, selected_languages: []])
   end
 
   def set_user

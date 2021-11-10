@@ -203,6 +203,7 @@ es:
     return_to_list: Haga clic aquí para ver la lista completa y editar o eliminar
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: Sendu retpoŝton al ĉiuj gastoj
+    select_language: Seleccione el idioma
     subject: tema
     submit: Enviar
     summary: el resumen

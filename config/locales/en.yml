@@ -227,6 +227,7 @@ en:
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: Send email to all guests
     send_emails: Send emails
+    select_language: Select language
     subject: Subject
     submit: Submit
     summary: Summary

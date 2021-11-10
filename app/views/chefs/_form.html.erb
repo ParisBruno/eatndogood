@@ -61,6 +61,10 @@
  .coupon-code-input {
    text-align: center;
  }
+  .form-horizontal .checkbox-inline {
+    padding-top: 0;
+    padding-right: 10px;
+  }
 </style>
 
 <%= render 'shared/errors', obj: @user %>
@@ -71,6 +75,23 @@
     <%= form_for(@user, url: !@user.id.nil? ? app_chef_path(current_app, @user) : app_chefs_path, :html => {class: "form-horizontal autosave", role: "form",  multipart: true }) do |f| %>
     <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
       <div class="col-md-offset-5">
+
+        <% if @user.admin? %>
+          <%= f.fields_for :app do |ff| %>
+            <div class="form-group">
+              <div class="control-label col-md-2">
+                <%= ff.label :selected_languages, t('forms.select_language') %>
+              </div>
+              <div class="col-md-8">
+
+                <%= ff.collection_check_boxes :selected_languages,  @available_locales, :first, :last, include_hidden: false do |language| %>
+                  <% language.label(class: "checkbox-inline input_checkbox") { language.check_box(class: "checkbox") + language.text.capitalize } %>
+                <% end %> 
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
         <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "chef"} %>
       </div>
       <div class="col-md-5 well box-content">
@@ -218,7 +239,7 @@
 
       <div class="col-md-5 well box-content">
       <%= f.fields_for :chef_info, @user.chef_info do |c| %>
-        <% I18n.available_locales.each do |locale| %>
+        <% [I18n.locale].each do |locale| %>
             <div class="form-group <%= "chef_#{locale}" %>">
               <div class="col-md-12" style="font-weight:bold;">
                 <%= c.label :my_bio, t('chefs.add_summary_bio') + "(#{locale})" %>
@@ -357,6 +378,65 @@
       addFundrasingBtn.disabled = true;
       }
   });
+
+  var checkLanguages = document.querySelectorAll('[id ^= "user_app_attributes_selected_languages_"]')
+
+  checkLanguages.forEach(event => {
+    if (event.checked) {
+      if (event.value.includes('_primary')) {
+        event.style.accentColor = 'lime';
+      } else {
+        event.style.accentColor = 'blue';
+      }
+    }
+  })
+
+  checkLanguages.forEach(event => {
+    event.addEventListener('change', () => {
+      selectedLanguages = checkSelectedLanguage();
+      
+      if (event.checked) {
+        if (selectedLanguages.length < 2) {
+          event.value += "_primary"
+          event.style.accentColor = 'lime';
+        } else {
+          event.value += "_secondary"
+
+          event.style.accentColor = 'blue';
+        }
+      } else {
+        selectedPrimary = checkPrimaryLanguage(selectedLanguages);
+        event.value = event.value.substring(0,2);
+        
+        if(selectedPrimary.length < 1) {
+          if (selectedLanguages.length >= 1) {
+            selectedLanguages[0].style.accentColor = 'lime';
+            selectedLanguages[0].value = selectedLanguages[0].value.substring(0,2);
+            selectedLanguages[0].value += "_primary"
+          }
+        }
+      }
+    })
+  })
+
+  function checkSelectedLanguage() {
+    var values = [];
+    for(var i = 0; i < checkLanguages.length; i++) {
+      if (checkLanguages[i].checked) {
+        values.push(checkLanguages[i]);
+      }
+    }
+    return values
+  }
+
+  function checkPrimaryLanguage(selected) {
+    var values = [];
+    for(var i = 0; i < selected.length; i++) {
+      if (selected[i].value.includes('_primary')) {
+        console.log('GGG', selected[i].value)
+        values.push(selected[i].value);
+      }
+    }
+    return values
+  }
 </script>
-
-

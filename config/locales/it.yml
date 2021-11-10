@@ -213,6 +213,7 @@ it:
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: Invia email a tutti gli ospiti
     send_emails: invia email
+    select_language: Seleziona la lingua
     subject: Soggetto
     submit: Invia
     summary: Sommario
