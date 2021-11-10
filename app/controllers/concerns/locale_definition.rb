@@ -15,8 +15,10 @@ module LocaleDefinition
     private
 
     def set_locale
-      primary = set_primary_language
-      I18n.locale = cookies['locale'] != primary ? cookies['locale'][0..1].to_sym || I18n.default_locale : primary[0..1].to_sym
+      primary_locale = set_primary_language.present? ? set_primary_language[0..1].to_sym : I18n.default_locale
+      cookies_locale = cookies['locale'].present? ? cookies['locale'][0..1].to_sym : I18n.default_locale
+
+      I18n.locale = cookies_locale != primary_locale ? cookies_locale : primary_locale
     end
 
     def set_primary_language
