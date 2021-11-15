@@ -190,6 +190,7 @@ es:
     description: descripcion
     email: Email
     first_name: nombre
+    greeting_message: Mensaje de saludo
     last_name: Apellido
     name: nombre
     new_allergen: Create New Allergen
@@ -200,6 +201,9 @@ es:
     password: Contraseña
     password_confirmation: Confirmación de Contraseña
     password_digest: Resumen de contraseña
+    paypal_client_id: PayPal cliente-id
+    paypal_client_secret: Secreto de cliente de PayPal
+    store_address: Dirección de la tienda
     return_to_list: Haga clic aquí para ver la lista completa y editar o eliminar
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: Sendu retpoŝton al ĉiuj gastoj
@@ -209,6 +213,7 @@ es:
     summary: el resumen
     s_no: S.No
     username: Nombre de usuario
+    url_slug: URL ir
     write_few_words_about_yourself: Escribe algunas palabras sobre ti
   guests:
     are_you_sure_delete_user: "¡Estás seguro! ¿Desea eliminar el usuario invitado?"

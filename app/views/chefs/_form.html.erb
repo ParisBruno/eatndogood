@@ -101,7 +101,7 @@
             <%= f.label :first_name, t('forms.first_name') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :first_name, class: "form-control", placeholder: t('forms.enter_first_name'), autofocus: true %>
+            <%= f.text_field :first_name, class: "form-control", placeholder: t('forms.first_name'), autofocus: true %>
           </div>
         </div>
         <div class="form-group">
@@ -109,17 +109,17 @@
             <%= f.label :last_name, t('forms.last_name') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :last_name, class: "form-control", placeholder:  t('forms.enter_last_name'), autofocus: true %>
+            <%= f.text_field :last_name, class: "form-control", placeholder:  t('forms.last_name'), autofocus: true %>
           </div>
         </div>
         <% if @user.admin? %>
           <%= f.fields_for :app do |ff| %>
             <div class="form-group">
               <div class="control-label col-md-2">
-                <%= f.label :slug, "URL slug" %>
+                <%= f.label :slug, t('forms.url_slug') %>
               </div>
               <div class="col-md-8">
-                <%= ff.text_field :slug, class: "form-control", placeholder: "Enter last your url slug", autofocus: true %>
+                <%= ff.text_field :slug, class: "form-control", placeholder: t('forms.url_slug'), autofocus: true %>
               </div>
             </div>
           <% end %>
@@ -129,7 +129,7 @@
             <%= f.label :email %>
           </div>
           <div class="col-md-8">
-            <%= f.email_field :email, class: "form-control", placeholder:  t('forms.enter_email') %>
+            <%= f.email_field :email, class: "form-control", placeholder:  t('forms.email') %>
           </div>
         </div>
         <div class="form-group input-group show-password" style="width: auto;">
@@ -137,7 +137,7 @@
             <%= f.label :password, t('forms.password') %>
           </div>
           <div class="col-md-8">
-            <%= f.password_field :password, class: "form-control col-md-10", placeholder: t('forms.choose_password') %>
+            <%= f.password_field :password, class: "form-control col-md-10", placeholder: t('forms.password') %>
             <div class='input-group-addon' style="height: 34px;">
               <a href="" class="toggle-password">
                 <%= fa_icon "eye" %>
@@ -150,7 +150,7 @@
             <%= f.label :password_confirmation, t('forms.password_confirmation') %>
           </div>
           <div class="col-md-8">
-            <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.choose_password') %>
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.password_confirmation') %>
           </div>
         </div>
 
@@ -175,7 +175,7 @@
         <% end %>
 
       <% if @current_app_user == @user && @current_app_user.admin? && @current_app_user == @current_app.main_admin %>
-        
+      <div class="cart-functionalities">
         <div class="form-group cart-functional">
         <h3 style="text-align: center; padding-bottom: 10px;"><%= t('chefs.cart_func') %></h3>
           <div class="control-label col-md-2">
@@ -194,46 +194,47 @@
 
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :paypal_client_id, 'PayPal client-id' %>
+            <%= f.label :paypal_client_id, t('forms.paypal_client_id') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :paypal_client_id, value: @current_app_user.paypal_client_id, class: "form-control" %>
+            <%= f.text_field :paypal_client_id, value: @current_app_user.paypal_client_id, class: "form-control", placeholder: t('forms.paypal_client_id') %>
           </div>
         </div>
 
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :paypal_client_secret, 'PayPal client-secret' %>
+            <%= f.label :paypal_client_secret, t('forms.paypal_client_secret') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :paypal_client_secret, class: "form-control" %>
+            <%= f.text_field :paypal_client_secret, class: "form-control", placeholder: t('forms.paypal_client_secret') %>
           </div>
         </div>
 
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :store_address, 'Store address' %>
+            <%= f.label :store_address, t('forms.store_address') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :store_address, class: "form-control" %>
+            <%= f.text_field :store_address, class: "form-control", placeholder: t('forms.store_address') %>
           </div>
         </div>
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :phone, 'Phone' %>
+            <%= f.label :phone, t('orders.phone') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :phone, class: "form-control" %>
+            <%= f.text_field :phone, class: "form-control", placeholder: t('orders.phone') %>
           </div>
         </div>
         <div class="form-group">
           <div class="control-label col-md-2">
-            <%= f.label :greeting_message, 'Greeting message' %>
+            <%= f.label :greeting_message, t('forms.greeting_message') %>
           </div>
           <div class="col-md-8">
-            <%= f.text_field :greeting_message, class: "form-control" %>
+            <%= f.text_field :greeting_message, class: "form-control", placeholder: t('forms.greeting_message') %>
           </div>
         </div>
+      </div>
       <% end %>
       </div>
 

@@ -218,6 +218,7 @@ fr:
     enter_email: Entrez votre email
     enter_first_name: Entrez votre prénom
     enter_last_name: 'Entrez votre nom '
+    greeting_message: Message d'accueil
     first_name: Prénom
     last_name: Nom de famille
     name: le nom
@@ -229,6 +230,9 @@ fr:
     password: Mot de passe
     password_confirmation: Confirmation mot de passe
     password_digest: Mot de passe condensé
+    paypal_client_id: PayPal client-id
+    paypal_client_secret: PayPal client-secret
+    store_address: Adresse du magasin
     return_to_list: Cliquez ici pour voir la list complete, modifier et supprimer
     return_to_recipes: Annuler et retourner à la liste des recettes
     send_all_emails: Envoyer un courrier électronique à tous les invités
@@ -239,6 +243,7 @@ fr:
     summary: le sommaire
     s_no: S.No
     username: Nom d'utilisateur
+    url_slug: URL partie
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
     write_your_introduction: 'Écrivez votre introduction '
   guests:

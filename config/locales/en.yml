@@ -213,6 +213,7 @@ en:
     enter_first_name: Enter first your first name
     enter_last_name: Enter last your name
     first_name: First name
+    greeting_message: Greeting message
     last_name: Last name
     name: Name
     new_allergen: Create New Allergen
@@ -223,6 +224,9 @@ en:
     password: Password
     password_confirmation: Password Confirmation
     password_digest: Password digest
+    paypal_client_id: PayPal client-id
+    paypal_client_secret: PayPal client-secret
+    store_address: Store address
     return_to_list: Click here to see the full list and to edit, or delete
     return_to_recipes: Cancel request and return to recipes listing
     send_all_emails: Send email to all guests
@@ -233,6 +237,7 @@ en:
     summary: Summary
     s_no: S.No
     username: Username
+    url_slug: URL slug
     write_few_words_about_yourself: Write few words about yourself
     write_your_introduction: Write your introduction
   guests:

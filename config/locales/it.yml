@@ -190,7 +190,7 @@ it:
     choose_password: scegli la password
     close: Chiuso
     confirmation: Conferma
-    created: Created
+    created: Creato
     description: Descrizione
     disclaimer: il disconoscimento
     email: Email
@@ -198,6 +198,7 @@ it:
     enter_first_name: scrivi il tuo nome
     enter_last_name: scrivi il tuo cognome
     first_name: Nome
+    greeting_message: Messaggio di saluto
     last_name: Cognome
     name: Nome
     new_allergen: Create New Allergen
@@ -205,12 +206,15 @@ it:
     new_style: Create New Categoria
     manager_id: Seleziona Amministratore
     manager_for_staff: Seleziona Amministratore per Membro del Team
-    password: Password
+    password: Parola d'ordine
     password_confirmation: Conferma Password
-    password_digest: Password digest
+    password_digest: Riassunto password
+    paypal_client_id: PayPal cliente-id
+    paypal_client_secret: Il segreto del cliente PayPal
+    store_address: Indirizzo del negozio
     return_to_list: Fare clic qui per visualizzare l&#39;elenco completo e per modificarlo
       o eliminarlo
-    return_to_recipes: Cancel request and return to recipes listing
+    return_to_recipes: Annulla la richiesta e torna all'elenco delle ricette
     send_all_emails: Invia email a tutti gli ospiti
     send_emails: invia email
     select_language: Seleziona la lingua
@@ -219,6 +223,7 @@ it:
     summary: Sommario
     s_no: S.No
     username: Nome utente
+    url_slug: URL andare
     write_few_words_about_yourself: Per favore scrivi poche parole su di te.
     write_your_introduction: 'scrivi le istruzioni '
   guests:
@@ -241,7 +246,7 @@ it:
     send_invitation: Spedire un’invito
     the_link_to_your_app: '"Il link alla tua app verrà automaticamente incluso alla
       fine del tuo messaggio."'
-    update_profile: Update Profile
+    update_profile: Aggiorna il profilo
     x_guests_remaining_html: "%{guests_left}&nbsp; guests remaining! Please upgrade
       your account by click %{link}"
   ingredients:

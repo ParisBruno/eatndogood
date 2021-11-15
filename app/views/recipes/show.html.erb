@@ -96,9 +96,6 @@
         <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
       </h2>
       <div class="well-sec u-content box-content-font">
-        <p>
-          <strong><%= t 'recipes.tips_ingredients_preparation' %></strong>
-        </p>
         <p style="font-family: Garamond; font-size:18px;">
           <%= simple_format(@recipe.description) %>
         </p>

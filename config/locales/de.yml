@@ -193,6 +193,7 @@ de:
     description: Beschreibung
     email: Email
     first_name: Vorname
+    greeting_message: Grußnachricht
     last_name: Nachname
     name: der Name
     new_allergen: Create New Allergen
@@ -203,6 +204,9 @@ de:
     password: Passwort
     password_confirmation: Passwort Bestätigung
     password_digest: Passwort-Digest
+    paypal_client_id: PayPal Kundennummer
+    paypal_client_secret: PayPal Kundengeheimnis
+    store_address: Adresse speichern
     return_to_list: Klicken Sie hier, um die vollständige Liste anzuzeigen und zu
       bearbeiten oder zu lösche
     return_to_recipes: Cancel request and return to recipes listing
@@ -213,6 +217,7 @@ de:
     summary: Zusammenfassung
     s_no: S.No
     username: Nutzername
+    url_slug: URL teil
     write_few_words_about_yourself: Schreibe ein paar Worte über dich
   guests:
     are_you_sure_delete_user: Bist du sicher! Sie möchten den Gastbenutzer löschen?
