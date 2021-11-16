@@ -8,7 +8,7 @@
   }
 </style>
 <div class="form-group">
-  <div class="col-md-offset-2 col-md-3" style="padding: 15px !important">
+  <div class="col-md-offset-2 col-md-3" style="padding: 15px !important; display: none;">
     <%= select model, "locale", [I18n.locale].collect { |l| [t(:language_name, locale: l), l]}, {selected: I18n.locale}, { class: "form-control ln-select", hidden: true } %>
   </div>
 </div>
