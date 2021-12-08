@@ -173,7 +173,7 @@
             margin-top: 10px;
         }
         .wrap-container {
-            background-image: url(<%= @page.landscape_page_img.attached? ? asset_path('cutting_board_cover') : asset_path('cutting_board_cover') %>);
+            background-image: url(<%= @page.landscape_page_img.attached? ? rails_blob_url(@page.landscape_page_img) : asset_path('cutting_board_cover') %>);
             background-size: cover;
         }
         .inner-content {
