@@ -363,6 +363,8 @@ it:
       save_to_view_changes: Clicca per vedere le tue modifiche
       tap_or_click_to_save: Tocca o fai clic qui per salvare la tua foto della prima
         pagina
+      recommended_pictures_size_portrait: Dimensioni dell'immagine consigliate 1080x1350 px
+      recommended_pictures_size_landscape: Dimensioni dell'immagine consigliate 1080x566 px
       upload_landing_pic_max_size: Carica immagine di destinazione, dimensione massima
         %{max} megabyte
       you_can_not_write_more_chars: Non puoi scrivere più di %{max} caratteri!

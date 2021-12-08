@@ -41,12 +41,22 @@
     </div>
     
     <div class="col-md-5  well box-content">
-      <span class="picture">
-        <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'width: 20% !important') %>
-        <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label>
+      <span class="picture" style="float: left; margin-right: 20px;">
+        <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'max-width: 100px !important; min-height: 180px !important;') %>
+        <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
+        <label><%= t('pages.new.recommended_pictures_size_portrait') %></label>
         <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
+        
       </span>
-      <div class="row" style="margin-top:50px;">
+
+      <span class="picture">
+        <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
+        <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
+        <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
+
+        <%= f.file_field :landscape_page_img, accept: 'image/jpeg,image/gif,image/png' %>
+      </span>
+      <div class="row">
         <center>
           <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn", style:"float:left; margin-right:5px; margin-top: 20px;" %>
           <!--<a target="_blank" href="<%= welcome_app_pages_path(current_app) %>" style="float: left; color:white; margin-top:20px;" class="btn btn-success btn-lg">
@@ -71,7 +81,12 @@
 
 
   <script type="text/javascript">
-    
+    // var submitBtn = document.getElementById("submit_btn");
+    // submitBtn.addEventListener("click", function() {
+    //   if (!(document.documentElement.hasAttribute("data-turbolinks-preview"))) {
+    //     toastr.warning("Invalid image's orientation", 'Warning', { 'closeButton': true });
+    //   }
+    // });
 
     $(document).ready(function() {
          var _URL = window.URL || window.webkitURL;

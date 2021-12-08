@@ -101,7 +101,7 @@
         margin-top: 80px;
     }
     .welcome-locale-selector {
-        padding-top: 10px;
+        padding-top: 1%;
     }
     .welcome-locale-selector .dropdown-menu {
         border-radius: 0px;
@@ -154,7 +154,7 @@
         background-color: #344a64;
     }
     .btn-enter {
-        margin-top: 80px;
+        margin-top: 40px;
     }
     .btn-default:active:hover,
     .btn-default:active:focus,
@@ -167,6 +167,30 @@
     .open>.btn-default.dropdown-toggle:hover {
         color: #333;
     }
+
+    @media (orientation: landscape) {
+        .welcome-locale-selector .text {
+            margin-top: 10px;
+        }
+        .wrap-container {
+            background-image: url(<%= @page.landscape_page_img.attached? ? asset_path('cutting_board_cover') : asset_path('cutting_board_cover') %>);
+            background-size: cover;
+        }
+        .inner-content {
+            padding-top: 2%;
+        }
+        .welcome-page-content {
+            font-size: 45%;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .wrap-container {
+            background-image: url(<%= @page.page_img.attached? ? rails_blob_url(@page.page_img) : asset_path('cutting_board_cover') %>);
+            background-size: cover;
+        }
+    }
+
     @media only screen and (max-width: 1200px) {
         h1, h2, h3, h4, h5 {
             font-size: 64px !important;
@@ -192,7 +216,7 @@
             width: 200px;
             line-height: 50px;
             height: 50px;
-            margin-top: 70px;
+            margin-top: 30px;
         }
     }
     @media only screen and (max-width: 575px) {
@@ -250,16 +274,13 @@
 
 <div class="wrap-container">
     <div class="content">
-        <div class="img">
-            <%=image_tag( (@page.page_img.attached?) ? @page.sized(:large) : asset_path('cutting_board_cover'), class: "img-responsive")  %>
-        </div>
         <div class="inner-content">
            
             <div class="content-se">
                 <div class="content-se-title">
                     <h1>
                         <p>
-                            <h2><span><%= (@page.present? && !@page.content.blank?) ? @page.content.html_safe : "" %></span></h2>
+                            <h2><span class="welcome-page-content"><%= (@page.present? && !@page.content.blank?) ? @page.content.html_safe : "" %></span></h2>
                         </p>
                     </h1>
                 </div>

@@ -331,6 +331,8 @@ de:
       edit_welcome_page: Bearbeiten Sie die Begrüßungsseite
       save_to_view_changes: sehen Sie Ihre Änderungen
       tap_or_click_to_save: Tippen oder klicken Sie hier, um Ihr Landebild zu speichern
+      recommended_pictures_size_portrait: Empfohlene Bildgröße 1080x1350 px
+      recommended_pictures_size_landscape: Empfohlene Bildgröße 1080x566 px
       upload_landing_pic_max_size: Landing-Bild hochladen, maximale Größe %{max} Megabyte
       you_can_not_write_more_chars: Sie können nicht mehr als %{max} Zeichen schreiben!
     updateindex:

@@ -346,6 +346,8 @@ es:
       edit_page_text: Editar texto de página
       edit_welcome_page: Editar página de bienvenida
       save_to_view_changes: ver tus cambios
+      recommended_pictures_size_portrait: Tamaño de imágenes recomendado 1080x1350 px
+      recommended_pictures_size_landscape: Tamaño de imágenes recomendado 1080x566 px
       tap_or_click_to_save: Toca o haz clic aquí para guardar tu foto de aterrizaje
       upload_landing_pic_max_size: Cargar imagen de aterrizaje, tamaño máximo %{max}
         megabytes

@@ -48,7 +48,6 @@ class PagesController < ApplicationController
   end
 
   def update
-    # byebug
     @page = get_update_page
     # raise page_params.inspect
     if preview?
@@ -62,7 +61,7 @@ class PagesController < ApplicationController
       url = preview_app_page_path(current_app, @page)
       render js: "var win = window.open('#{url}', '_blank'); win.focus();"
     else
-      if @page.update!(page_params)
+      if @page.update(page_params)
         # redirect_to "/pages/#{page_params[:destination]}"
         # redirect_to app_page_path(current_app, @page.destination)
         delete_draft(@page)
@@ -106,7 +105,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    permitted = Page.globalize_attribute_names + [:destination, :page_img, :admin_name]
+    permitted = Page.globalize_attribute_names + [:destination, :page_img, :admin_name, :landscape_page_img]
     params.require(:page).permit(*permitted)
   end
 

@@ -374,6 +374,8 @@ fr:
       edit_welcome_page: Modifier la page d'accueil
       save_to_view_changes: Enregistrer pour voir vos modifications
       tap_or_click_to_save: Appuyez ou cliquez pour enregistrer votre photo sur nous
+      recommended_pictures_size_portrait: Taille d'image recommandée 1080x1350 px
+      recommended_pictures_size_landscape: Taille d'image recommandée 1080x566 px
       upload_landing_pic_max_size: Télécharger une image pour la première page, taille
         maximale %{max} mégaoctets
       you_can_not_write_more_chars: Vous ne pouvez pas écrire plus de %{max} caractères!
