@@ -79,71 +79,17 @@
               <%= t('navigation.all_recipes') %><span class="sr-only">(current)</span>
             <% end %>
           </li>
-           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.styles')  %></a>
-            <ul class="dropdown-menu">
-              <% @all_styles.each do |style| %>
-              <li class="nav-item">
-                <a href="#" class='checkbox_anchor'>
-                  <input id="<%= "checkbox_style_#{style.id}"%>" type="checkbox" name="style_ids[]" onclick="search()" class="styles" value="<%= style.id %>" <%= (params[:style_ids] && params[:style_ids].include?(style.id)) ? 'checked = true' : '' %> />
-                  <label for="<%= "checkbox_style_#{style.id}"%>"><%= style.name %></label>
-                </a>
-              </li>
-              
-              <% end %>
-
-              <% if current_app_user&.admin? || current_app_user&.chef? %>
-                <li role="separator" class="divider"></li>
-                <li class="nav-item">
-                  <%= link_to t('navigation.new_style'), new_app_style_path(@current_app) %>
-                </li>
-              <% end %>
-              
-            </ul>
+          
+          <li class="dropdown nav-item">
+            <a href="<%= table_app_styles_path(current_app) %>" class="btn btn-purple"><%= t('navigation.styles') %></a>
           </li>
-           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.ingredients')%></a>
-            <ul class="dropdown-menu">
-              <% @all_ingredients.each do |ingredient| %>
-              <li class="nav-item">
-                <a href="#" class='checkbox_anchor'>
-                  <input id="<%= "checkbox_ingredient_#{ingredient.id}"%>" type="checkbox" name="ingredient_ids[]" onclick="search()" class="ingredients" value="<%= ingredient.id %>" <%= (params[:ingredient_ids] && params[:ingredient_ids].include?(ingredient.id)) ? 'checked = true' : '' %> />
-                  <label for="<%= "checkbox_ingredient_#{ingredient.id}"%>"><%= ingredient.name %></label>
-                </a>
-              </li>
-              
-              <% end %>
-
-              <% if current_app_user&.admin? || current_app_user&.chef? %>
-                <li role="separator" class="divider"></li>
-                <li class="nav-item">
-                  <%= link_to t('navigation.new_ingredient'), new_app_ingredient_path(@current_app) %>
-                </li>
-              <% end %>
-              
-            </ul>
+          <li class="dropdown nav-item">
+            <a href="<%= table_app_ingredients_path(@current_app) %>" class="btn btn-purple"><%= t('navigation.ingredients') %></a>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="<%= table_app_allergens_path(current_app) %>" class="btn btn-purple"><%= t('navigation.allergens')%></a>
           </li>
 
-            <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.allergens')  %></a>
-            <ul class="dropdown-menu">
-              <% @all_allergens.each do |allergen| %>
-              <li class="nav-item">
-                <a href="#" class='checkbox_anchor'>
-                  <input id="<%= "checkbox_allergen_#{allergen.id}"%>" type="checkbox" name="allergen_ids[]" onclick="search()" class="allergens" value="<%= allergen.id %>" <%= (params[:allergen_ids] && params[:allergen_ids].include?(allergen.id)) ? 'checked = true' : '' %> />
-                  <label for="<%= "checkbox_allergen_#{allergen.id}"%>"><%= allergen.name %></label>
-                </a>
-              </li>
-              
-              <% end %>
-
-              <% if current_app_user&.admin? || current_app_user&.chef? %>
-                <li role="separator" class="divider"></li>
-                <li class="nav-item">
-                  <%= link_to t('navigation.new_allergen'), new_app_allergen_path(@current_app) %>
-                </li>
-              <% end %>
-            </ul>
               <% if current_app_user&.admin? || current_app_user&.chef? %>
               <li class="nav-item">
                 <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
