@@ -18,6 +18,13 @@
     width: 100%;
     height: auto;
   }
+  .col-lg-4 {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .col-xs-6 {
+    width: 50%;
+  }
   .category-title {
     font-weight: 400;
     color: #808080;
@@ -57,24 +64,24 @@
 
 <div>
   <% @allergens.each do |allergen| %>
-    <div class="col-xs-6">
+    <div class="col-lg-4 col-md-6 col-xs-6">
       <div class="margin-sec top-recepi top-space">
 
             <div class="box-inner-sec well box-content">
-                <div class="col-md-2 col-xs-2">
+                <div class="col-lg-1 col-md-2 col-xs-2">
                 </div>
               <% if allergen.image.attached? %>
                 <%= link_to app_allergen_path(@current_app, allergen) do %>
-                <div class="col-md-8 col-xs-8">
+                <div class="col-lg-10 col-md-8 col-xs-8">
                     <%=image_tag(allergen.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
                 </div>
                 <% end %>
               <% end %>
 
-                <div class="col-md-2 col-xs-2">
+                <div class="col-lg-1 col-md-2 col-xs-2">
                 </div>
 
-                <div class="col-md-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-xs-12">
                   <h2 style="text-align: center; margin-bottom: 0 !important;"><%= link_to allergen.name.capitalize, app_allergen_path(@current_app, allergen), class: 'category-title' %></h2>
                 </div>
             </div>

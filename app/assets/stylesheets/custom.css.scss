@@ -46,8 +46,8 @@ body {
 }
 
 .content {
-  padding:10px;
-  padding-bottom:60px;
+  // padding:10px;
+  // padding-bottom:60px;
   margin-top: 70px;
 }
 
@@ -1043,5 +1043,17 @@ ul.listing li {
   .content {
     margin-top: 10px;
     padding: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .page-title {
+    margin-top: 6%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .nav .btn {
+    font-size: 12px !important;
   }
 }
