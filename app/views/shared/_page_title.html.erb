@@ -1,4 +1,12 @@
-<h1 align="center"><%= title.titleize %></h1>
+<%
+  categories = link_to t('navigation.styles'), table_app_styles_path(current_app)
+  ingredients = link_to t('navigation.ingredients'), table_app_ingredients_path(@current_app)
+  allergens = link_to t('navigation.allergens'), table_app_allergens_path(current_app)
+%>
+<h1 align="center">
+  <%= title == t('recipes.show_all_recipes') ? title : title.titleize %>
+  <%= categories + ', ' + ingredients + ', or ' + allergens if title == t('recipes.show_all_recipes') %>
+</h1>
 <hr />
 <div class="row">
   <div style="margin: 0 auto; display:none" class='is-draft'><span class="badge badge-warning" style="font-size: 150%">DRAFT</span></div>

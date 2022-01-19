@@ -97,9 +97,6 @@
 
 <div class="col-md-12 margin-sec nav-links-cont">
   <ul class="nav nav-tabs">
-    <li class="<%= "active" unless @recipes.first&.is_draft %>">
-      <%= link_to t('common.all_recipes'), app_recipes_path(app: @current_app), {:style=>'font-size:20px'} %>
-    </li>
     <% if current_app_user %>
     <li style="display: <%= @hide_chef_tab %>">
       <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
