@@ -41,7 +41,7 @@
     </div>
     
     <div class="col-md-5  well box-content">
-      <span class="picture" style="float: left; margin-right: 20px;">
+      <span class="picture" style="<%= params[:id] == "welcome" ? "float: left; margin-right: 20px" : '' %>;">
         <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'max-width: 100px !important; min-height: 180px !important;') %>
         <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
         <label><%= t('pages.new.recommended_pictures_size_portrait') %></label>
@@ -50,11 +50,13 @@
       </span>
 
       <span class="picture">
+      <% if params[:id] == "welcome" %>
         <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
         <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
         <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
 
         <%= f.file_field :landscape_page_img, accept: 'image/jpeg,image/gif,image/png' %>
+      <% end %>
       </span>
       <div class="row">
         <center>

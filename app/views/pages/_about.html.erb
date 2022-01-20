@@ -99,10 +99,10 @@
 
             <% upper_page_detail = @page.title || "" %>
             <% font_weight = 400 #upper_page_detail.include?('</strong>') ? 700 : 400 %>
-            <% if upper_page_detail.size > 280 %>
+            <% if upper_page_detail.size > 250 %>
               <div class="show-read-more read_less">
                 <span class="u-content" style="font-weight: <%= font_weight %>;">
-                  <%=  raw enclose_tag(upper_page_detail.slice(0,280)+'...') %>
+                  <%=  raw enclose_tag(upper_page_detail.slice(0,250)+'...') %>
                 </span>
                 <p style="text-align: center;">
                   <a href="javascript:void(0)" class="btn_more" style="font-size: 18px; font-weight: <%= font_weight %>;">(<%= t('common.read_more_1_min') %>)</a>
