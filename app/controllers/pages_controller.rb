@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   layout :select_layout_header
   before_action :guest_email, only: ['welcome', 'about']
+  before_action :require_logged_in, only: %i[edit update]
 
   before_action :set_locale, only: [:about]
 
