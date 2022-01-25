@@ -9,7 +9,8 @@ class Page < ActiveRecord::Base
   has_one_attached :landscape_page_img
   validates :landscape_page_img, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}, unless: -> { landscape_page_img.blank? }, aspect_ratio: :landscape
 
-  validates :page_img, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}, unless: -> { page_img.blank? }, aspect_ratio: :portrait
+  validates :page_img, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}, unless: -> { page_img.blank? }
+  validates :page_img, aspect_ratio: :portrait, if: -> { destination == 'welcome' }
   # validates_attachment_content_type :page_img, content_type: /\Aimage\/.*\z/
   has_one :page_preview, dependent: :destroy
 
@@ -50,3 +51,16 @@ class Page < ActiveRecord::Base
     
   end
 end
+
+
+# validate :check_landscape
+
+# def check_landscape
+#   if photo.width<photo.height
+#      errors.add :photo, "is not a landscape." 
+#      puts "Error ! not a Landscape Image"
+#   else if photo.width>photo.height
+#      puts " Landscape Image"
+#   end
+#   end
+# end
