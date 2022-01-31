@@ -41,10 +41,23 @@
     </div>
     
     <div class="col-md-5  well box-content">
-      <span class="picture" style="<%= @page&.destination == "welcome" ? "float: left; margin-right: 20px" : '' %>;">
-        <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'max-width: 100px !important; min-height: 180px !important;') %>
+    <%
+     if @page&.destination == "welcome"
+        picture_style = "float: left; margin-right: 20px"
+        picture_style_description = t('pages.new.recommended_pictures_size_portrait')
+        picture_max_width = 100
+        picture_min_height = 180
+     else
+        picture_style = ''
+        picture_style_description = t('pages.new.recommended_pictures_size_landscape')
+        picture_max_width = 220
+        picture_min_height = 150
+     end
+    %>
+      <span class="picture" style="<%= picture_style %>;">
+        <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px !important; min-height: #{picture_min_height}px !important;") %>
         <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
-        <label><%= t('pages.new.recommended_pictures_size_portrait') %></label>
+        <label><%= picture_style_description %></label>
         <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
         
       </span>
