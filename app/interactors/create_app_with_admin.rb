@@ -8,6 +8,11 @@ class CreateAppWithAdmin
       p full_name
       app = App.create!(name: full_name, plan_id: plan.id)
       user = User.find_by(email: context.email)
+      p "==context============#{context}"
+      p "==app============#{app}"
+      p "==user============#{user}"
+      p "==context.password============#{context.password}"
+      p "==context.email============#{context.email}"
       if user.blank? && context.password.present?
         user = User.create!(
           first_name: context.first_name,
@@ -21,6 +26,7 @@ class CreateAppWithAdmin
           app_id: app.id
         )
       end
+      p "==user.errors============#{user.errors.full_messages}"
       create_chef(user.id)
       app.create_pages
     end
