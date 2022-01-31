@@ -95,7 +95,7 @@ class User < ApplicationRecord
   end
 
   def check_managers_count
-    managers = app.users.where(manager: true)
+    managers = app&.users&.where(manager: true)
     if (new_record? && manager?) || (manager? && managers.exclude?(self))
       errors.add(:manager, "- you can't create more than 4 managers") if managers.count >= 4
     end
