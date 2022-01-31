@@ -9,7 +9,7 @@ class CreateAppWithAdmin
       app = App.create!(name: full_name, plan_id: plan.id)
       user = User.find_by(email: context.email)
       p "==context============#{context}"
-      p "==app============#{app}"
+      p "==app============#{app.exists?}"
       p "==user============#{user}"
       p "==context.password============#{context.password}"
       p "==context.email============#{context.email}"
@@ -26,7 +26,7 @@ class CreateAppWithAdmin
           app_id: app.id
         )
       end
-      p "==user.errors============#{user.errors.full_messages}"
+      p "==user.errors============#{user&.errors&.full_messages}"
       create_chef(user.id)
       app.create_pages
     end
