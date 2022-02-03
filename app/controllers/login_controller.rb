@@ -1,5 +1,7 @@
 class LoginController < ApplicationController
 	layout 'withoutlogin'
+
+	before_action :logout_current_user, only: %i[fetchapi]
 	skip_before_action :set_app
 	skip_before_action :configure_permitted_parameters
 	skip_before_action :set_header_data
@@ -470,5 +472,9 @@ class LoginController < ApplicationController
 
 	def admin_params
 	  params.require(:chef).permit(:password_digest)
+	end
+
+	def logout_current_user
+		sign_out(current_app_user) if current_app_user
 	end
 end
