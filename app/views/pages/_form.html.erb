@@ -45,18 +45,21 @@
      if @page&.destination == "welcome"
         picture_style = "float: left; margin-right: 20px"
         picture_style_description = t('pages.new.recommended_pictures_size_portrait')
+        picture_max_size = t('pages.new.upload_landing_pic_max_size', max: 5)
         picture_max_width = 100
         picture_min_height = 180
      else
         picture_style = ''
-        picture_style_description = t('pages.new.recommended_pictures_size_landscape')
+        picture_style_description = ''
+        picture_max_size = t('pages.new.your_about_page_picture')
         picture_max_width = 220
         picture_min_height = 150
      end
     %>
       <span class="picture" style="<%= picture_style %>;">
         <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px !important; min-height: #{picture_min_height}px !important;") %>
-        <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
+        <br>
+        <label><%= picture_max_size %></label><br>
         <label><%= picture_style_description %></label>
         <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
         
@@ -65,6 +68,7 @@
       <span class="picture">
       <% if @page&.destination == "welcome" %>
         <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
+        <br>
         <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
         <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
 

@@ -379,6 +379,7 @@ en:
       recommended_pictures_size_landscape: Recommended pictures size 1080x566 px
       upload_landing_pic_max_size: Upload landing picture, max size %{max} megabytes
       you_can_not_write_more_chars: You can not write more than %{max} characters!
+      your_about_page_picture: Your about page picture here
     updateindex:
       click_on_the_box: Click on the box to edit content
       edit_lower_text: Edit Lower Text

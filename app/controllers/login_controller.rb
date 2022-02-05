@@ -79,8 +79,10 @@ class LoginController < ApplicationController
 	  else
 	    plan_id = ''
 		end
-		
-		if plan_id
+
+		if user = User.find_by(email: email)
+			redirect_to app_path(user.app), notice: "User: #{user.full_name}, #{email} is already registered"
+		elsif plan_id
 			# {email: email, password: pass, first_name: f_name, last_name: l_name, plan_id: plan_id, chef: true, guest: false, admin: true}
 			x = CreateAppWithAdmin.call(
 				first_name: f_name,

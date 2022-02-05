@@ -379,6 +379,7 @@ fr:
       upload_landing_pic_max_size: Télécharger une image pour la première page, taille
         maximale %{max} mégaoctets
       you_can_not_write_more_chars: Vous ne pouvez pas écrire plus de %{max} caractères!
+      your_about_page_picture: L'image de votre page à propos ici
     updateindex:
       click_on_the_box: Cliquez sur le box pour modifier le contenu
       edit_lower_text: Modifier le texte en bas

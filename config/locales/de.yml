@@ -335,6 +335,7 @@ de:
       recommended_pictures_size_landscape: Empfohlene Bildgröße 1080x566 px
       upload_landing_pic_max_size: Landing-Bild hochladen, maximale Größe %{max} Megabyte
       you_can_not_write_more_chars: Sie können nicht mehr als %{max} Zeichen schreiben!
+      your_about_page_picture: Ihr About-Page-Bild hier
     updateindex:
       click_on_the_box: Klicken Sie auf das Feld, um den Inhalt zu bearbeiten
       edit_lower_text: Bearbeite unteren Text

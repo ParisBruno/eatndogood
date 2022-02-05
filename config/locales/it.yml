@@ -368,6 +368,7 @@ it:
       upload_landing_pic_max_size: Carica immagine di destinazione, dimensione massima
         %{max} megabyte
       you_can_not_write_more_chars: Non puoi scrivere più di %{max} caratteri!
+      your_about_page_picture: La tua immagine sulla pagina qui
     updateindex:
       click_on_the_box: Clicca sulla casella per modificare il contenuto
       edit_lower_text: Modifica testo in basso

@@ -352,6 +352,7 @@ es:
       upload_landing_pic_max_size: Cargar imagen de aterrizaje, tamaño máximo %{max}
         megabytes
       you_can_not_write_more_chars: "¡No puedes escribir más de %{max} caracteres!"
+      your_about_page_picture: Su imagen de la página acerca de aquí
     updateindex:
       click_on_the_box: Haga clic en el cuadro para editar el contenido
       edit_lower_text: Editar texto más bajo
