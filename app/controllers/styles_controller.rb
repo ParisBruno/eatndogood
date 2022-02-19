@@ -31,7 +31,7 @@ class StylesController < ApplicationController
     @style.app_id = current_app.id
     respond_to do |format|
       if @style.save
-        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully created.' }
+        format.html { redirect_to table_app_styles_path(current_app), notice: 'Style was successfully created.' }
         format.json { render :show, status: :created, location: @style }
       else
         format.html { render :new }

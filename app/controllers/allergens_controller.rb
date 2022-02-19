@@ -33,7 +33,7 @@ class AllergensController < ApplicationController
     @allergen.app_id = current_app.id
 
     if @allergen.save
-      redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully created.'
+      redirect_to table_app_allergens_path(current_app), notice: 'Allergen was successfully created.'
     else
       render 'new'
     end

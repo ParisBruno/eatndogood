@@ -43,7 +43,7 @@ class IngredientsController < ApplicationController
     unless @ingredient.recipes.count > 0
       @ingredient.destroy
       respond_to do |format|
-        format.html { redirect_to app_ingredients_path(current_app), notice: 'Ingredient was successfully destroyed.' }
+        format.html { redirect_to table_app_ingredients_path(current_app), notice: 'Ingredient was successfully destroyed.' }
         format.json { head :no_content }
       end
     else

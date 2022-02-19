@@ -7,7 +7,7 @@ class ChefsController < ApplicationController
   before_action :set_team_member, only: [:admin, :managers, :staff]
   before_action :check_admin, only: [:admin]
   before_action :set_manager, only: [:managers]
-  
+  before_action :set_selected_languages, only: [:edit, :update]
   before_action :check_limit_chefs, only: [:new, :create]
   
   def index
@@ -41,7 +41,6 @@ class ChefsController < ApplicationController
   end
   
   def edit
-    @available_locales = set_selected_languages
   end
   
   def update

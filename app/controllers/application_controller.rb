@@ -279,7 +279,7 @@ class ApplicationController < ActionController::Base
       hash[:secondary] = secondary << language[0..1] if language.include?('secondary')
     end
 
-    LocaleDefinition::AVAILABLE_LOCALES.to_a.each do |locale|
+    @available_locales = LocaleDefinition::AVAILABLE_LOCALES.to_a.each do |locale|
       locale[0] += '_primary' if locale[0].in?(languages_by_category[:primary] || [])
       locale[0] += '_secondary' if locale[0].in?(languages_by_category[:secondary] || [])
     end
