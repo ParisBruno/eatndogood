@@ -2,6 +2,7 @@
   .browsed-buttons {
     display: none;
     margin-bottom: 10px;
+    padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;
   }
   .browsed-button-cont {
     display: inline-block;
@@ -21,6 +22,7 @@
   @media screen and (max-width: 600px) {
   .browsed-buttons {
     display: block;
+    padding-top: <%= app_user_signed_in? ? '70px' : '0' %>;
   }
   .dropdown .dropdown-menu {
     min-width: 140px;
@@ -28,6 +30,9 @@
   }
   .right-drop-element {
     left: -60px !important;
+  }
+  .page-title {
+    display: none;
   }
 }
 </style>
@@ -92,7 +97,7 @@
 <%
 =end%>
 
-<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
+<div class="browsed-buttons">
   <div class="browsed-button-cont">
     <button class="brow-button dropdown nav-item">
       <a href="<%= table_app_styles_path(current_app) %>" class="brow-button-text btn" role="button"><%= t('navigation.styles') %></a>
