@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class Ingredient < ApplicationRecord
+  include RailsSortable::Model
   include TranslatedUpcaser
   
   # before_destroy :no_referenced_recipes

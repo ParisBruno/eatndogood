@@ -56,6 +56,9 @@
       margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
     }
   }
+  .section-height{
+    height: 320px;
+  }
 </style>
 
 <div class="page-title">
@@ -63,32 +66,48 @@
   <%= render 'shared/page_title', title: "Allergens" %>
 </div>
 
-<div>
-  <% @allergens.each do |allergen| %>
-    <div class="col-lg-4 col-md-6 col-xs-6">
+<div class="allergen-sortable">
+  <% @allergens.each_with_sortable_id do |allergen, sortable_id| %>
+    <div class="col-lg-4 col-md-6 col-xs-6 section-height" id="<%= sortable_id %>" data-allergen-id="<%= allergen.id %>">
       <div class="margin-sec top-recepi top-space">
-
-            <div class="box-inner-sec well box-content">
-                <div class="col-lg-1 col-md-2 col-xs-2">
-                </div>
-              <% if allergen.image.attached? %>
-                <%= link_to app_allergen_path(@current_app, allergen) do %>
-                <div class="col-lg-10 col-md-8 col-xs-8">
-                    <%=image_tag(allergen.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
-                </div>
-                <% end %>
-              <% end %>
-
-                <div class="col-lg-1 col-md-2 col-xs-2">
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-xs-12">
-                  <h2 style="text-align: center; margin-bottom: 0 !important;"><%= link_to allergen.name.capitalize, app_allergen_path(@current_app, allergen), class: 'category-title' %></h2>
-                </div>
-            </div>
-
+        <div class="box-inner-sec well box-content">
+          <div class="col-lg-1 col-md-2 col-xs-2">
+          </div>
+          <% if allergen.image.attached? %>
+            <%= link_to app_allergen_path(@current_app, allergen) do %>
+              <div class="col-lg-10 col-md-8 col-xs-8">
+                <%=image_tag(allergen.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="col-lg-1 col-md-2 col-xs-2">
+          </div>
+          <div class="col-lg-12 col-md-12 col-xs-12">
+            <h2 style="text-align: center; margin-bottom: 0 !important;">
+              <%= link_to allergen.name.capitalize, app_allergen_path(@current_app, allergen), class: 'category-title' %>
+            </h2>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<script>
+  $(".allergen-sortable").on( "sortupdate", function( event, ui ) {
+    var elements = $('.allergen-sortable .ui-sortable-handle');
+    var allergens = [];
+    $.each(elements, function( index, value ) {
+      var allergen_id = $(value).data("allergen-id");
+      var allergen = { id: allergen_id }
+      allergens.push(allergen);
+    });
+    $.ajax({
+      method: "POST",
+      url: "/" + <%= @current_app.id %> + "/allergens/update_positions",
+      data: { elements: allergens },
+      success: function (response) {
+      },
+    })
+  });
+</script>

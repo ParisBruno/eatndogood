@@ -69,13 +69,17 @@ class StylesController < ApplicationController
   end
 
   def table
-    @current_app_id = current_app.id
-    @styles = [ Style.find_by(app_id: @current_app_id, name: 'APPETIZERS'),
-                Style.find_by(app_id: @current_app_id, name: 'DESERT'),
-                Style.find_by(app_id: @current_app_id, name: 'DRINKS')
-              ]
-    Style.where(app_id: @current_app_id).each { |style| @styles.insert(1, style) unless @styles.include?(style) }
-    @styles.compact!
+    @styles = Style.where(app_id: current_app.id).order(:sort)
+  end
+
+  def update_positions
+    params[:elements].each do |ele|
+      style = Style.find(ele[1][:id])
+      style.update(sort: ele[0])
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

@@ -1,4 +1,5 @@
 class Style < ApplicationRecord
+	include RailsSortable::Model
 	include TranslatedUpcaser
 
 	belongs_to :app

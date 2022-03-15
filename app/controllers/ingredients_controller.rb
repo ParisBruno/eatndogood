@@ -52,9 +52,19 @@ class IngredientsController < ApplicationController
   end
 
   def table
-    @ingredients = Ingredient.where(app_id: current_app.id)
+    @ingredients = Ingredient.where(app_id: current_app.id).order(:sort)
   end
-  
+
+  def update_positions
+    params[:elements].each do |ele|
+      ingredient = Ingredient.find(ele[1][:id])
+      ingredient.update(sort: ele[0])
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
   
   def ingredient_params

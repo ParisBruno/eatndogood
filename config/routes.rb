@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     resources :questions
     resources :allergens do
       get 'table', on: :collection
+      post 'update_positions', on: :collection
     end
     resources :recipes do
       resources :comments, only: [:create]
@@ -96,9 +97,11 @@ Rails.application.routes.draw do
     # resources :chefs #, except: [:new]
     resources :ingredients do
       get 'table', on: :collection
+      post 'update_positions', on: :collection
     end
     resources :styles do
       get 'table', on: :collection
+      post 'update_positions', on: :collection
     end
     resources :messages, only: [:create] do
       get 'managers', on: :collection

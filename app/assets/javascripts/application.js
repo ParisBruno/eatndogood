@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/widgets/sortable
+//= require rails_sortable
 //= require select2
 //= require lodash
 //= require toastr.min
@@ -87,4 +89,8 @@ $(function() {
   });
 
   // CKEDITOR.plugins.addExternal( 'abbr', '/assets/placeholder', 'plugin.js' );
+});
+
+$(function() {
+  $('.style-sortable, .ingredient-sortable, .allergen-sortable').railsSortable();
 });

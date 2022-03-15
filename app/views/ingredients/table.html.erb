@@ -56,6 +56,9 @@
       margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
     }
   }
+  .section-height{
+    height: 320px;
+  }
 </style>
 
 <div class="page-title">
@@ -63,32 +66,48 @@
   <%= render 'shared/page_title', title: "Ingredients" %>
 </div>
 
-<div>
-  <% @ingredients.each do |ingredient| %>
-    <div class="col-lg-4 col-md-6 col-xs-6">
+<div class="ingredient-sortable">
+  <% @ingredients.each_with_sortable_id do |ingredient, sortable_id| %>
+    <div class="col-lg-4 col-md-6 col-xs-6 section-height" id="<%= sortable_id %>" data-ingredient-id="<%= ingredient.id %>">
       <div class="margin-sec top-recepi top-space">
-
-            <div class="box-inner-sec well box-content">
-                <div class="col-lg-1 col-md-2 col-xs-2">
-                </div>
-              <% if ingredient.image.attached? %>
-                <%= link_to app_ingredient_path(@current_app, ingredient) do %>
-                <div class="col-lg-10 col-md-8 col-xs-8">
-                    <%=image_tag(ingredient.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
-                </div>
-                <% end %>
-              <% end %>
-
-                <div class="col-lg-1 col-md-2 col-xs-2">
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-xs-12">
-                  <h2 style="text-align: center; margin-bottom: 0 !important;"><%= link_to ingredient.name.capitalize, app_ingredient_path(@current_app, ingredient), class: 'category-title' %></h2>
-                </div>
-            </div>
-
+        <div class="box-inner-sec well box-content">
+          <div class="col-lg-1 col-md-2 col-xs-2">
+          </div>
+          <% if ingredient.image.attached? %>
+            <%= link_to app_ingredient_path(@current_app, ingredient) do %>
+              <div class="col-lg-10 col-md-8 col-xs-8">
+                <%=image_tag(ingredient.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="col-lg-1 col-md-2 col-xs-2">
+          </div>
+          <div class="col-lg-12 col-md-12 col-xs-12">
+            <h2 style="text-align: center; margin-bottom: 0 !important;">
+              <%= link_to ingredient.name.capitalize, app_ingredient_path(@current_app, ingredient), class: 'category-title' %>
+            </h2>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<script>
+  $(".ingredient-sortable").on( "sortupdate", function( event, ui ) {
+    var elements = $('.ingredient-sortable .ui-sortable-handle');
+    var ingredients = [];
+    $.each(elements, function( index, value ) {
+      var ingredient_id = $(value).data("ingredient-id");
+      var ingredient = { id: ingredient_id }
+      ingredients.push(ingredient);
+    });
+    $.ajax({
+      method: "POST",
+      url: "/" + <%= @current_app.id %> + "/ingredients/update_positions",
+      data: { elements: ingredients },
+      success: function (response) {
+      },
+    })
+  });
+</script>
