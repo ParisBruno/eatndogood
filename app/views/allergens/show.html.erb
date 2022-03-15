@@ -10,8 +10,8 @@
   <%= render 'shared/page_title', title: "#{@allergen.name}" %>
 </div>
 
-<% if @allergen.recipes.count != 0 %>  
-  <%= render 'recipes/recipe', obj: @allergen %>
+<% if @recipes.present? %>
+  <%= render 'recipes/recipe' %>
 <% else %>
   <div class="row" style="margin-left: 10px;">
     <h4 align="center">No recipes yet!</h4>

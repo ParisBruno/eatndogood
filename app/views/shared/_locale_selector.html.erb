@@ -1,21 +1,16 @@
-
-
 <div class="text" >
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span id="dropdown-languag-current"><%= t('forms.select_language') %></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="language-dropdown">
-                <% selected_languages = current_app.selected_languages.sort_by { |l| l.include?('_primary') ? 0 : 1 } %>
-
-                <% selected_languages.each do |locale| %>
-                <li>
-                    <a href="#" class="js-language-dropdown" data-target="dropdown-languag-current" data-language="<%= locale.to_sym %>">
-                        <%= t :language_name, locale: locale[0..1].to_sym %>
-                    </a>
-                </li>
-            <% end %>
-                
-        </ul> 
-    </div>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span id="dropdown-languag-current"><%= t('forms.select_language') %></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="language-dropdown">
+      <% selected_languages.each do |locale| %>
+        <li>
+          <a href="#" class="js-language-dropdown" data-target="dropdown-languag-current" data-language="<%= locale.to_sym %>">
+            <%= t :language_name, locale: locale[0..1].to_sym %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

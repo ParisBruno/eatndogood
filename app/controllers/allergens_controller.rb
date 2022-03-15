@@ -13,8 +13,12 @@ class AllergensController < ApplicationController
   # GET /allergens/1
   # GET /allergens/1.json
   def show
-    @recipes = @allergen.recipes.paginate(page: params[:page], per_page: 3)
-    # @recipes = Recipe.where.not(id: @allergen.recipes.pluck(:id)).paginate(page: params[:page], per_page: 3)
+    recipes = if @allergen.recipes.present?
+                Recipe.where.not(id: @allergen.recipes.pluck(:id))
+              else
+                Recipe.all
+              end
+    @recipes = recipes.paginate(page: params[:page], per_page: 3)
   end
 
   # GET /allergens/new

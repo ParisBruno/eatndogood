@@ -311,7 +311,10 @@
                 </div>
                 <div class="welcome-locale-selector">
                     <form>
-                          <%= render partial: 'shared/locale_selector' %>
+                      <% selected_languages = current_app.selected_languages.sort_by { |l| l.include?('_primary') ? 0 : 1 } %>
+                      <% if selected_languages.count > 1 %>
+                        <%= render partial: 'shared/locale_selector', locals: { selected_languages: selected_languages } %>
+                      <% end %>
                       <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
                           <%=link_to 'Enter', about_app_pages_path(current_app), class: "btn-enter" %>
                           <% elsif current_app_user.present? %>

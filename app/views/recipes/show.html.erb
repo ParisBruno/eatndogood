@@ -62,7 +62,7 @@
   <div class="margin-sec top-space">
      <div class="col-md-12 margin-sec top-space recipe-detail">
      <div class="row">
-      <div class="col-md-9 col-sm-12 col-xs-12 detail-sec">
+      <div class="col-md-9 col-sm-12 col-xs-12 detail-sec mb-5">
       <div class="box-inner-sec well box-content">
 
        <div class="col-md-3 col-sm-12 col-xs-12 thumb-sec">
@@ -92,9 +92,11 @@
       <h2 class="recipe-summary box-content-font">
         <%= sanitize(@recipe.summary) %>
       </h2>
-      <h2 class="box-content-font" style="margin-top: 0 !important;">
-        <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
-      </h2>
+      <% unless @recipe.price.zero? %>
+        <h2 class="box-content-font" style="margin-top: 0 !important;">
+          <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
+        </h2>
+      <% end %>
       <div class="well-sec u-content box-content-font">
         <p style="font-family: Garamond; font-size:18px;">
           <%= simple_format(@recipe.description) %>
@@ -105,13 +107,15 @@
       </div>
       </div>
 
-      <% unless @recipe.is_draft %> 
-        <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
-          <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+      <% unless @recipe.price.zero? %>
+        <% unless @recipe.is_draft %>
+          <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
+            <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+          <% end %>
+        <% else %>
+            <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
         <% end %>
-      <% else %>
-          <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
-      <% end %> 
+      <% end %>
       </div>
      
       
@@ -161,7 +165,11 @@
 
           <% end %>
           
-          <h3><%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %></h3>
+          <% unless @recipe.price.zero? %>
+            <h3>
+              <%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %>
+            </h3>
+          <% end %>
           <br>
           <%= render 'shared_links' %>
 
