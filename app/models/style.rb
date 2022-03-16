@@ -18,6 +18,6 @@ class Style < ApplicationRecord
 	end
 	
 	def sized(image_type, size)
-    self.send(image_type).variant(resize: Style.sizes[size]).processed
+    self.send(image_type).variant(resize: Style.sizes[size]).processed rescue nil
   end
 end

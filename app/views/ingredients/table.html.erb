@@ -76,7 +76,8 @@
           <% if ingredient.image.attached? %>
             <%= link_to app_ingredient_path(@current_app, ingredient) do %>
               <div class="col-lg-10 col-md-8 col-xs-8">
-                <%=image_tag(ingredient.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
+                <% image = ingredient.sized(:image, :thumb) %>
+                <%=image_tag(image, class:'category-style', size: "140x100", alt: t('common.no_image')) if image.present? %>
               </div>
             <% end %>
           <% end %>

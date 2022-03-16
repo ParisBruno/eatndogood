@@ -47,7 +47,7 @@ class Recipe < ApplicationRecord
   end
 
   def sized(image_type, size)
-    self.send(image_type).variant(resize: Recipe.sizes[size]).processed
+    self.send(image_type).variant(resize: Recipe.sizes[size]).processed rescue nil
   end
 
   

@@ -76,7 +76,8 @@
           <% if style.image.attached? %>
             <%= link_to app_style_path(@current_app, style) do %>
               <div class="col-lg-10 col-md-8 col-xs-8">
-                <%=image_tag(style.sized(:image, :thumb), class:'category-style', size: "140x100", alt: t('common.no_image')) %>
+                <% image = style.sized(:image, :thumb) %>
+                <%= image_tag(image, class:'category-style', size: "140x100", alt: t('common.no_image')) if image.present? %>
               </div>
             <% end %>
           <% end %>

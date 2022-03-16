@@ -138,7 +138,8 @@
         <%= link_to app_recipe_path(@current_app, recipe), class: 'recipe-title' do %>
         <div class="col-md-4 thumb">
           <div class="img-inner image-box-shadow">
-            <%=image_tag(recipe.sized(:food_image, :medium), class:'img-responsive', alt: t('common.no_image')) %>
+            <% image = recipe.sized(:food_image, :medium) %>
+            <%=image_tag(image, class:'img-responsive', alt: t('common.no_image')) if image.present? %>
           </div>
         </div>
         <% end %>

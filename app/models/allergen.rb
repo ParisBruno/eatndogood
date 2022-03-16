@@ -19,6 +19,6 @@ class Allergen < ApplicationRecord
 	end
 	
 	def sized(image_type, size)
-    self.send(image_type).variant(resize: Allergen.sizes[size]).processed
+    self.send(image_type).variant(resize: Allergen.sizes[size]).processed rescue nil
   end
 end
