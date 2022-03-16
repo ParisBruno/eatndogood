@@ -2,14 +2,4 @@
 Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
-
-CKEDITOR.plugins.setLang( 'font', 'da', {
-	fontSize: {
-		label: 'Skriftstørrelse',
-		voiceLabel: 'Skriftstørrelse',
-		panelTitle: 'Skriftstørrelse'
-	},
-	label: 'Skrifttype',
-	panelTitle: 'Skrifttype',
-	voiceLabel: 'Skrifttype'
-} );
+CKEDITOR.plugins.setLang("font","da",{fontSize:{label:"Skriftst\xf8rrelse",voiceLabel:"Skriftst\xf8rrelse",panelTitle:"Skriftst\xf8rrelse"},label:"Skrifttype",panelTitle:"Skrifttype",voiceLabel:"Skrifttype"});
