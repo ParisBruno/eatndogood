@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rails', '~> 5.2.0'
 gem 'rails-i18n', '~> 5.1'
 gem 'redis', '~> 4.0'
-# gem "paperclip", "~> 6.0.0"
+gem "paperclip", "~> 6.0.0"
 gem 'redis-rails'
 gem 'rufus-scheduler', '~> 3.4.0'
 gem 'sass-rails', '~> 5.0'
