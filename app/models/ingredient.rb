@@ -5,6 +5,7 @@ class Ingredient < ApplicationRecord
   
   # before_destroy :no_referenced_recipes
 
+  set_sortable :sort
   validates :name, presence: true, length: { minimum: 3, maximum: 25 }
   validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
   has_many :recipe_ingredients

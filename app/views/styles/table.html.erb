@@ -56,9 +56,6 @@
       margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
     }
   }
-  .section-height{
-    height: 320px;
-  }
 </style>
 
 <div class="page-title">
@@ -66,11 +63,11 @@
   <%= render 'shared/page_title', title: "Categories" %>
 </div>
 
-<div class="style-sortable">
+<div class="style-sortable row">
   <% @styles.each_with_sortable_id do |style, sortable_id| %>
-    <div class="col-lg-4 col-md-6 col-xs-6 section-height" id="<%= sortable_id %>" data-style-id="<%= style.id %>">
-      <div class="margin-sec top-recepi top-space">
-        <div class="box-inner-sec well box-content">
+    <div class="col-lg-4 col-md-6 col-xs-6 mb-1" id="<%= sortable_id %>" data-style-id="<%= style.id %>">
+      <div class="margin-sec top-recepi top-space h-100">
+        <div class="box-inner-sec well box-content h-100">
           <div class="col-lg-1 col-md-2 col-xs-2">
           </div>
           <% if style.image.attached? %>

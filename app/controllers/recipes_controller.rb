@@ -167,8 +167,7 @@ class RecipesController < ApplicationController
     
     def require_same_user
       if current_app_user != @recipe.chef.user
-        flash[:danger] = "You can only edit or delete your own recipes"
-        redirect_to app_recipes_path(current_app)
+        redirect_to app_recipes_path(current_app), alert: "You can only edit or delete your own recipes"
       end  
     end
     

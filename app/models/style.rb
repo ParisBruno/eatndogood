@@ -2,6 +2,7 @@ class Style < ApplicationRecord
 	include RailsSortable::Model
 	include TranslatedUpcaser
 
+  set_sortable :sort
 	belongs_to :app
 	validates :name, presence: true, length: { minimum: 3, maximum: 25 }
 	validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
