@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
   before_action :require_logged_in, except: [:index, :show, :like]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like]
   before_action :require_user, except: [:index, :show, :like]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  # before_action :require_same_user, only: [:edit, :update, :destroy]
   # before_action :require_user_like, only: [:like]
   before_action :set_chef_ids
   before_action :check_limit_recipes, only: [:new, :create]
