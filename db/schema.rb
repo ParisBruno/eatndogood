@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_15_174607) do
+ActiveRecord::Schema.define(version: 2022_03_24_094243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_174607) do
     t.bigint "chef_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "coupon_amount_off", precision: 5, scale: 2, default: "0.0"
     t.index ["chef_id"], name: "index_coupon_codes_on_chef_id"
   end
 

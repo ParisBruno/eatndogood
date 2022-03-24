@@ -54,6 +54,7 @@ en:
       account by click %{link}"
     coupon_title: Title
     coupon_percent_off: Percent off(%)
+    coupon_amount_off: Amount off
     coupon_active: Is active
     not_defined: Manager is not defined
     success_email: Your email was successfully sent to manager!
