@@ -88,7 +88,7 @@ en:
     styles_colon: 'Categories:'
     take_a_tour_as_guest: Sign Up
     see_meals: See meals by category,<br> ingredients and allergens.
-    menu: Menu
+    menu: Browse as a Guest
     add_to_home_screen: Add App to Home-Screen
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'

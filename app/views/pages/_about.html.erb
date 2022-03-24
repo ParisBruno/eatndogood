@@ -61,8 +61,16 @@
   #login-btn button {
     padding: 10px 25px;
   }
-  #signup-btn button {
+  #signup-btn {
+    margin-left: 50px;
+  }
+  #signup-btn button:nth-child(1) {
     padding: 8px 16px;
+    margin-right: 5px;
+  }
+  #signup-btn #menubtn {
+    padding: 13px 16px;
+    margin-left: 5px;
   }
   .dots{
     display: flex;
@@ -177,29 +185,15 @@
     <div class="col-md-12 text-center custom-second-sec">
     <%# <div id="move-right">
       <div id="btn"> %>
-      <% unless current_app_user %>
-        <div class="row">
-          <div class="col-md-12 text-center" style="width: 100%;">  
-            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center; margin-bottom: 10px;'}) %>
-            <!--/button-->
-            <% if @page.present? %>
-              <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
-            <% else %>
-              <% font_weight = 400 %>
-            <% end %>
-            <p class="see-meals"> <span style="font-weight: <%= font_weight %>;"><%= t('common.see_meals').html_safe %></span></p>
-          </div>
-        </div>
-        <div class="row">
-          <ul class="dots">
-            <li class="text-success"></li>
-            <li class="text-success"></li>
-            <li class="text-success"></li>
-            <li class="text-success"></li>
-            <li class="text-success"></li>
-          </ul>
-        </div>
-      <% end %>
+      <div class="row">
+        <ul class="dots">
+          <li class="text-success"></li>
+          <li class="text-success"></li>
+          <li class="text-success"></li>
+          <li class="text-success"></li>
+          <li class="text-success"></li>
+        </ul>
+      </div>
       <div class="row page-title">
         <div class="col-md-12 text-center">
           <% if @page.present? %>
@@ -226,6 +220,7 @@
             <button class="btn btn-success btn-lg">
               <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app),{ style: 'position:center;'}) %>
             </button>
+            <%= link_to(tl('common.menu', locale), app_recipes_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
           </div>
         </div>
       <% end %>
