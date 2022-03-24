@@ -62,6 +62,7 @@ gem 'cocoon'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'active_storage_validations'
+gem 'cookies_eu'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

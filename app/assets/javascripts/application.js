@@ -19,6 +19,8 @@
 //= require toastr.min
 //= require bootstrap-sprockets
 // require ckeditor/init
+//= require ckeditor/plugins/templates/plugin
+//= require ckeditor/plugins/justify/plugin
 //= require ckeditor/plugins/placeholder/plugin
 //= require ckeditor/plugins/confighelper/plugin
 //= require ckeditor/plugins/font/plugin
@@ -28,6 +30,7 @@
 //= require_tree .
 //= require jquery.remotipart 
 //= require cocoon
+//= require cookies_eu
 
 function scrollToBottom(){
   if($('#messages').length > 0) {

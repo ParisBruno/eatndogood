@@ -16,4 +16,5 @@
  *= require select2-bootstrap
  *= require_tree .
  *= require_self
- */
+ *= require cookies_eu
+*/

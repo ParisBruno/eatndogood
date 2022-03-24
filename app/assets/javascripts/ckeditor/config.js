@@ -39,9 +39,11 @@ CKEDITOR.editorConfig = function (config) {
         ['Bold','Italic','Underline'], 
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
         ['Link','Unlink'],
-        [ 'Image' ]
+        [ 'Image' ],
+        ['NumberedList', 'BulletedList'],
+        ['Templates']
     ];
-    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,';
+    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates';
 
 };
 

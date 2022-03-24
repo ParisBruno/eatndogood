@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   before_action :guest_email, only: ['welcome', 'about']
   before_action :require_logged_in, only: %i[edit update]
 
-  before_action :set_locale, only: [:about]
+  before_action :set_locale, only: [:about, :welcome]
 
   def index
     if params[:set_locale]
@@ -29,6 +29,7 @@ class PagesController < ApplicationController
   end
 
   def welcome
+    @locale = cookies[:locale][0..1].to_sym if cookies[:locale].present?
     @page = get_page
   end
 

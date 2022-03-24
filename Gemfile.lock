@@ -158,6 +158,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
+    cookies_eu (1.7.8)
+      js_cookie_rails (~> 2.2.0)
     countries (3.0.0)
       i18n_data (~> 0.8.0)
       sixarm_ruby_unaccent (~> 1.1)
@@ -283,6 +285,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    js_cookie_rails (2.2.0)
+      railties (>= 3.1)
     kwalify (0.7.2)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -547,6 +551,7 @@ DEPENDENCIES
   ckeditor!
   cocoon
   coffee-rails (~> 4.2, >= 4.2.2)
+  cookies_eu
   country_select (~> 4.0)
   cypress-on-rails (~> 1.0)
   database_cleaner (~> 1.7)

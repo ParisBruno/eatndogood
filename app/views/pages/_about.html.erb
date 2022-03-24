@@ -58,7 +58,23 @@
         width: 100%;
     }
   }
-
+  #login-btn button {
+    padding: 10px 25px;
+  }
+  #signup-btn button {
+    padding: 8px 16px;
+  }
+  .dots{
+    display: flex;
+    justify-content: center;
+    margin-left: 50px;
+  }
+  .dots li{
+    width: 10px;
+    height: 10px;
+    font-size: 20px;
+    padding: 9px;
+  }
 </style>
 <script>
   function newDoc(a) {
@@ -175,42 +191,48 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 text-center" style="width: 100%;">  
-            <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app),{ class: 'btn btn-success btn-lg', style: 'position:center;'}) %>
-            <!--/button-->
-          </div>
-        </div>  
-      <% end %>
-      <%# </div> %>
-        <div class="row page-title">
-          <div class="col-md-12 text-center">
-            <% if @page.present? %>
-              <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
-              <span style="font-weight: <%= font_weight %>;"><%= @page.content.html_safe %></span>
-            <% else %>
-              <p id="lgp">
-                <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
-                <center>*<%= t('pages.index.we_never_share_contact_info') %><br></center>
-                <center>** <%= t('pages.index.we_do_no_place_banners') %></center>
-                <center><%= t('pages.index.or_ads_of_any_kind') %><br></center>
-              </p>
-             <% end %>
-          </div>
+          <ul class="dots">
+            <li class="text-success"></li>
+            <li class="text-success"></li>
+            <li class="text-success"></li>
+            <li class="text-success"></li>
+            <li class="text-success"></li>
+          </ul>
         </div>
-      <%# <div id="btn"> %>
-      <div class="row">
-        <div class="col-md-12 text-center" style="width: 100%;">
+      <% end %>
+      <div class="row page-title">
+        <div class="col-md-12 text-center">
+          <% if @page.present? %>
+            <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
+            <span style="font-weight: <%= font_weight %>;"><%= @page.content.html_safe %></span>
+          <% else %>
+            <p id="lgp">
+              <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
+              <center>*<%= t('pages.index.we_never_share_contact_info') %><br></center>
+              <center>** <%= t('pages.index.we_do_no_place_banners') %></center>
+              <center><%= t('pages.index.or_ads_of_any_kind') %><br></center>
+            </p>
+           <% end %>
+        </div>
+      </div>
+      <div class="row" id="login-btn">
+        <div class="col-md-12 text-center w-100">
           <button class="btn btn-success btn-lg" onclick='newDoc("<%= new_app_user_session_path(current_app)+'?is_guest=yes' %>")'><%= link_to tl('navigation.login', locale), new_app_user_session_path(is_guest: :yes), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
         </div>
       </div>
-      <%# </div> %>
-         <hr>
-
-    <%# </div> %>
+      <% unless current_app_user %>
+        <div class="row" id="signup-btn">
+          <div class="col-md-12 text-center w-100">
+            <button class="btn btn-success btn-lg">
+              <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app),{ style: 'position:center;'}) %>
+            </button>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
 <div class="footer3">
-  <p>Powered by <a href="https://itoprecipes.com/" style="color: #fff;" target="_blank">iTopRecipes.com</a> &copy; 2018 – Onward</p>
+  <p>Powered by Innovative Chefs <%= Time.now.year %> Onward</p>
 </div>
 </div>
