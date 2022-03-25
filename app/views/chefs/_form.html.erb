@@ -377,42 +377,6 @@
 </div>
 
 <script type="text/javascript">
-  var couponTitleValue = document.getElementById("coupon-title");
-  var addCouponBtn = document.getElementById("add-coupon-btn");
-  var fundrasingTitleValue = document.getElementById("fundrasing-title");
-  var addFundrasingBtn = document.getElementById("add-fundrasing-btn");
-
-  couponTitleValue.addEventListener("change", function () {
-    if (couponTitleValue.value.length > 0) {
-      addCouponBtn.disabled = false;
-    } else {
-      addCouponBtn.disabled = true;
-    }
-  });
-
-  addCouponBtn.addEventListener("click", function () {
-    var title = $('#coupon-title').val();
-    var couponPercentOff = $('#coupon-percent-off').val();
-    var couponAmountOff = $('#coupon-amount-off').val();
-    var couponCheckBox = $('#coupon-check-box').prop("checked");
-    $.ajax({
-      method: "POST",
-      url: "/" + <%= @current_app.id %> + "/coupon_codes",
-      data: { coupon_code: {title: title, coupon_percent_off: couponPercentOff, coupon_amount_off: couponAmountOff, is_active: couponCheckBox} },
-      success: function (response) {
-        window.location.reload();
-      },
-    })
-  });
-
-  fundrasingTitleValue.addEventListener("change", function () {
-    if (fundrasingTitleValue.value.length > 0) {
-      addFundrasingBtn.disabled = false;
-    } else {
-      addFundrasingBtn.disabled = true;
-    }
-  });
-
   var checkLanguages = document.querySelectorAll('[id ^= "user_app_attributes_selected_languages_"]')
 
   checkLanguages.forEach(event => {

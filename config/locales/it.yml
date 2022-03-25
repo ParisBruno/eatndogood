@@ -54,6 +54,7 @@ it:
     not_defined: Manager non è definito
     success_email: La tua email è stata inviata con successo al manager!
     content: Soddisfare
+    coupon_amount_off: Importo scontato
   common:
     admin: Admin
     allergens: Allergeni
@@ -81,9 +82,9 @@ it:
     register: Registra
     styles: Categoria
     styles_colon: 'Categoria:'
-    take_a_tour_as_guest: Registrati come ospite
+    take_a_tour_as_guest: Iscrizione
     see_meals: Visualizza i pasti per categoria,<br> ingredienti e allergeni.
-    menu: Menù
+    menu: Naviga come Ospite
     add_to_home_screen: Aggiungi l'app alla schermata principale
     updated_x_hours_ago: 'aggiornato: %{x} fa'
   gift_cards:

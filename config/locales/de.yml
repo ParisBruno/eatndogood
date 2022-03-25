@@ -55,6 +55,7 @@ de:
     not_defined: Manager ist nicht definiert
     success_email: Ihre E-Mail wurde erfolgreich an den Manager gesendet!
     content: Inhalt
+    coupon_amount_off: Betrag ab
   common:
     admin: Administrator
     allergens: Allergene
@@ -81,9 +82,9 @@ de:
     register: Registrieren
     styles: der Kategorie
     styles_colon: 'der Kategorie:'
-    take_a_tour_as_guest: Melden Sie sich als Gast an
+    take_a_tour_as_guest: Anmeldung
     see_meals: Siehe Mahlzeiten nach Kategorie,<br> Zutaten und Allergenen.
-    menu: Speisekarte
+    menu: Als Gast surfen
     add_to_home_screen: App zum Startbildschirm hinzufügen
     updated_x_hours_ago: 'aktualisierte: %{x} vor'
   gift_cards:

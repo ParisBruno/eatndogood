@@ -54,6 +54,7 @@ es:
     not_defined: El administrador no está definido
     success_email: ¡Su correo electrónico se envió correctamente al gerente!
     content: Contenido
+    coupon_amount_off: Cantidad de descuento
   common:
     admin: Administración
     allergens: Alérgenos
@@ -81,9 +82,9 @@ es:
     register: Registro
     styles: el catégorie
     styles_colon: 'el catégorie:'
-    take_a_tour_as_guest: Registrarse como invitado
+    take_a_tour_as_guest: Inscribirse
     see_meals: Consulte las comidas por categoría,<br> ingredientes y alérgenos.
-    menu: Menú
+    menu: Navegar como invitada
     add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
   gift_cards:

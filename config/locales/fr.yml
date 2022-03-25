@@ -58,6 +58,7 @@ fr:
     not_defined: Le gestionnaire n'est pas défini
     success_email: Votre e-mail a bien été envoyé au responsable!
     content: Contenu
+    coupon_amount_off: Montant de réduction
   common:
     admin: Admin
     allergens: allergènes
@@ -86,9 +87,9 @@ fr:
     register: Register
     styles: la catégorie
     styles_colon: 'la catégorie:'
-    take_a_tour_as_guest: Inscrivez-vous en tant qu'invité
+    take_a_tour_as_guest: S'inscrire
     see_meals: Voir les repas par catégorie,<br> ingrédients et allergènes.
-    menu: Menu
+    menu: Naviguer en tant qu'invité
     add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
