@@ -4,6 +4,7 @@ class CartsController < ApplicationController
   
   @@coupon_id ||= []
   @@coupon_percent_off ||= []
+  @@coupon_amount_off ||= []
   @@delivery_price ||= 0
   @@delivery_value ||= false
   @@coupon_value ||= nil
@@ -15,6 +16,7 @@ class CartsController < ApplicationController
     @@delivery_value = false
     @@coupon_id = []
     @@coupon_percent_off = []
+    @@coupon_amount_off = []
     @@delivery_price = 0
     @@tip_value = 0
     @@coupon_value = nil
@@ -31,6 +33,7 @@ class CartsController < ApplicationController
   def add_additional_params
     redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id,
                                                           coupon_percent_off: @@coupon_percent_off,
+                                                          coupon_amount_off: @@coupon_amount_off,
                                                           fundrasing_code: @@fundrasing_value,
                                                           delivery_price: @@delivery_price,
                                                           tip_value: @@tip_value
@@ -121,6 +124,7 @@ class CartsController < ApplicationController
     if coupon
       @@coupon_id = coupon.title
       @@coupon_percent_off = coupon.coupon_percent_off
+      @@coupon_amount_off = coupon.coupon_amount_off
       @@coupon_value = params[:coupon_code]
       @coupon_code_value = params[:coupon_code]
 

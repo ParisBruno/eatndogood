@@ -36,7 +36,7 @@ class LineItem < ApplicationRecord
    
       coupon_discount = if order.coupon_code.present?
                            coupon_code = CouponCode.find_by(title: order.coupon_code)
-                           sub_total * (-1) * (coupon_code.coupon_percent_off.to_f/100)
+                           !coupon_code.coupon_amount_off.zero? ? (coupon_code.coupon_amount_off * (-1)) : (sub_total * (-1) * (coupon_code.coupon_percent_off.to_f/100))
                         else
                            0.0
                         end

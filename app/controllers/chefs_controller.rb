@@ -9,6 +9,8 @@ class ChefsController < ApplicationController
   before_action :set_manager, only: [:managers]
   before_action :set_selected_languages, only: [:edit, :update]
   before_action :check_limit_chefs, only: [:new, :create]
+  protect_from_forgery prepend: true, with: :exception
+  skip_before_action :verify_authenticity_token
   
   def index
     # @chefs = Chef.includes(:user).where(admin_id: @admin_id).order(admin: :desc).order(:created_at).paginate(page: params[:page], per_page: 5)

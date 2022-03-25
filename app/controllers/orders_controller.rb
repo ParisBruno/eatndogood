@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   def new
     @@paypal_token = nil
     @@paypal_status = nil
-    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_percent_off],
+    set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_amount_off].to_f, params[:coupon_percent_off].to_f,
                               params[:tip_value], params[:fundrasing_code])
     @order = Order.new
     @gift_card = GiftCard.where(client_email: current_app_user&.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
@@ -36,8 +36,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    set_delivery_discount_tip(order_params[:delivery_price], order_params[:coupon_code],
-                              order_params[:coupon_percent_off], order_params[:tip_value], order_params[:fundrasing_code])
+    set_delivery_discount_tip(order_params[:delivery_price], order_params[:coupon_code], order_params[:coupon_amount_off].to_f,
+                              order_params[:coupon_percent_off].to_f, order_params[:tip_value], order_params[:fundrasing_code])
     @order = Order.new(order_params)
 
     unless app_user_signed_in?
@@ -88,7 +88,7 @@ class OrdersController < ApplicationController
       @order.fundrasing_code = fundrasing&.title
     end
 
-    set_delivery_discount_tip(delivery_price, coupon&.title, coupon&.coupon_percent_off,
+    set_delivery_discount_tip(delivery_price, coupon&.title, coupon&.coupon_amount_off.to_f, coupon&.coupon_percent_off.to_f,
                               update_order_params[:tip_value], update_order_params[:fundrasing_code], true)      
     set_orders_amounts(@order, current_app_user&.id)
 
@@ -127,7 +127,7 @@ class OrdersController < ApplicationController
         redirect_to app_orders_path(current_app)
       else
         set_order_data(@order)
-        set_delivery_discount_tip(@order.delivery_price, @order.coupon_code, @order.coupon_percent_off,
+        set_delivery_discount_tip(@order.delivery_price, @order.coupon_code, @order.coupon_amount_off.to_f, @order.coupon_percent_off.to_f,
                                   @order.tip_value, update_order_params[:fundrasing_code], true)
         set_orders_amounts(@order, current_app_user&.id)
         @order.sub_total = (@order.sub_total * 100).to_i
@@ -298,7 +298,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :fundrasing_code, :amount, :delivery_price,
-                                  :coupon_percent_off, :tip_value, :gift_card_id, :password, :password_confirmation)
+                                  :coupon_amount_off, :coupon_percent_off, :tip_value, :gift_card_id, :password, :password_confirmation)
   end
 
   def update_order_params
@@ -306,7 +306,7 @@ class OrdersController < ApplicationController
                                   line_items_attributes: [:id, :quantity, :recipe_id, :_destroy, recipe_attributes: [:id, :name]])
   end
 
-  def set_delivery_discount_tip(delivery_price, coupon_code, coupon_percent_off, tip_value, fundrasing_code, update_order = false)
+  def set_delivery_discount_tip(delivery_price, coupon_code, coupon_amount_off, coupon_percent_off, tip_value, fundrasing_code, update_order = false)
     sub_total = if update_order
                    @order.sub_total
                 else
@@ -314,14 +314,24 @@ class OrdersController < ApplicationController
                 end
 
     @delivery_price = delivery_price.to_f
-    coupon_percent_off = CouponCode.find_by(title: coupon_code)&.coupon_percent_off if update_order
+
+    if !coupon_percent_off.zero?
+      amount_coupon = false
+      coupon_percent_off = CouponCode.find_by(title: coupon_code)&.coupon_percent_off if update_order
+      coupon_amount = coupon_percent_off
+    elsif !coupon_amount_off.zero?
+      amount_coupon = true
+      coupon_amount_off = CouponCode.find_by(title: coupon_code)&.coupon_amount_off if update_order
+      coupon_amount = coupon_amount_off.to_f
+    end
+
     @coupon_code = coupon_code
-    @coupon_percent_off = coupon_percent_off
+    @coupon_percent_off = coupon_amount
     @fundrasing_code = fundrasing_code
     @coupon_discount = if coupon_code.present?
-                        sub_total * (-1) * (coupon_percent_off.to_f/100)
+                         amount_coupon ? coupon_amount * (-1) : (sub_total * (-1) * (coupon_amount.to_f/100))
                        else
-                        0.0
+                         0.0
                        end
     @tip_value = tip_value.to_f
     @total_amount = sub_total + @coupon_discount + @total_tax.to_f + @delivery_price
