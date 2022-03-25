@@ -29,6 +29,8 @@ CKEDITOR.editorConfig = function (config) {
   config.allowedContent = true;
   config.filebrowserUploadMethod = 'form';
 
+  config.font_names =  'Merriweather Sans; Sacramento; Montserrat;'+config.font_names;
+
     config.toolbar = 'Easy';
 
     config.toolbar_Easy =

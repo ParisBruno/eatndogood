@@ -225,49 +225,21 @@
 			editor.addCommand( 'justifyblock', justify );
 
 			if ( editor.ui.addButton ) {
-        var leftIcon = '<svg id="editorLeftIcon" class="ck ck-icon ck-button__icon" viewBox="0 0 20 20"><path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path></svg>'
-        if ($('#cke_recipe_description_en #editorLeftIcon').length == 0) {
-          $('#cke_recipe_description_en .cke_button__justifyleft').prepend(leftIcon);
-        }
-        if ($('#cke_recipe_summary_en #editorLeftIcon').length == 0) {
-          $('#cke_recipe_summary_en .cke_button__justifyleft').prepend(leftIcon);
-        }
 				editor.ui.addButton( 'JustifyLeft', {
 					label: editor.lang.common.alignLeft,
 					command: 'justifyleft',
 					toolbar: 'align,10'
 				} );
-        var centerIcon = '<svg id="editorCenterIcon" class="ck ck-icon ck-button__icon" viewBox="0 0 20 20"><path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm2.286 4c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75z"></path></svg>'
-        if ($('#cke_recipe_description_en #editorCenterIcon').length == 0) {
-          $('#cke_recipe_description_en .cke_button__justifycenter').prepend(centerIcon);
-        }
-        if ($('#cke_recipe_summary_en #editorCenterIcon').length == 0) {
-          $('#cke_recipe_summary_en .cke_button__justifycenter').prepend(centerIcon);
-        }
 				editor.ui.addButton( 'JustifyCenter', {
 					label: editor.lang.common.center,
 					command: 'justifycenter',
 					toolbar: 'align,20'
 				} );
-        var rightIcon = "<svg id='editorRightIcon' class='ck ck-icon ck-button__icon' viewBox='0 0 20 20'><path d='M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z'></path></svg>"
-        if ($('#cke_recipe_description_en #editorRightIcon').length == 0) {
-          $('#cke_recipe_description_en .cke_button__justifyright').prepend(rightIcon);
-        }
-        if ($('#cke_recipe_summary_en #editorRightIcon').length == 0) {
-          $('#cke_recipe_summary_en .cke_button__justifyright').prepend(rightIcon);
-        }
 				editor.ui.addButton( 'JustifyRight', {
 					label: editor.lang.common.alignRight,
 					command: 'justifyright',
 					toolbar: 'align,30'
 				} );
-        var blockIcon = '<svg id="editorBlockIcon" class="ck ck-icon ck-button__icon" viewBox="0 0 20 20"><path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path></svg>'
-        if ($('#cke_recipe_description_en #editorBlockIcon').length == 0) {
-          $('#cke_recipe_description_en .cke_button__justifyblock').prepend(blockIcon);
-        }
-        if ($('#cke_recipe_summary_en #editorBlockIcon').length == 0) {
-          $('#cke_recipe_summary_en .cke_button__justifyblock').prepend(blockIcon);
-        }
 				editor.ui.addButton( 'JustifyBlock', {
 					label: editor.lang.common.justify,
 					command: 'justifyblock',
