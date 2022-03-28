@@ -38,6 +38,7 @@
   }
   .page-title {
     font-size: 20px;
+    padding-bottom: 30px;
   }
   .text-center {
     margin-bottom: 10px !important;
@@ -87,15 +88,26 @@
   #login-btn a, #signup-btn button:nth-child(1) a {
     background: none !important;
   }
-  #signup-btn {
-    margin-left: 50px;
+  @media (min-width: 768px) {
+    #signup-btn {
+      margin-left: 50px;
+    }
   }
   #signup-btn button:nth-child(1) {
     padding: 8px 16px;
-    margin-right: 5px;
+  }
+  @media (min-width: 768px) {
+    #signup-btn button:nth-child(1) {
+      margin-right: 5px;
+    }
+  }
+  @media (max-width: 400px) {
+    #signup-btn button:nth-child(1) {
+      margin-bottom: 10px;
+    }
   }
   #signup-btn #menubtn {
-    padding: 13px 16px;
+    padding: 12px 16px;
     margin-left: 5px;
     background: #11cdd4;
     background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
@@ -109,7 +121,6 @@
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
     font-size: 20px;
-    padding: 10px 20px 10px 20px;
     text-decoration: none;
   }
   #signup-btn #menubtn:hover {
@@ -131,6 +142,9 @@
     height: 10px;
     font-size: 20px;
     padding: 9px;
+  }
+  .custom-second-sec, .page-title div:nth-child(1), #login-btn div:nth-child(1), #signup-btn div:nth-child(1){
+    width: 100%;
   }
 </style>
 <script>
@@ -247,7 +261,7 @@
         <div class="col-md-12 text-center">
           <% if @page.present? %>
             <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
-            <span style="font-weight: <%= font_weight %>;"><%= @page.content.html_safe %></span>
+            <span style="font-weight: <%= font_weight %>;"><%= @page.content.gsub(/&nbsp\;/i," ").html_safe %></span>
           <% else %>
             <p id="lgp">
               <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
