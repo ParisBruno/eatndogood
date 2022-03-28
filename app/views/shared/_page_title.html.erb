@@ -3,7 +3,7 @@
   ingredients = link_to t('navigation.ingredients'), table_app_ingredients_path(@current_app)
   allergens = link_to t('navigation.allergens'), table_app_allergens_path(current_app)
 %>
-<h1 align="center">
+<h1 align="center" class="title-heading">
   <%= title == t('recipes.show_all_recipes') ? title : title.titleize %>
   <%= categories + ', ' + ingredients + ', or ' + allergens if title == t('recipes.show_all_recipes') %>
 </h1>
