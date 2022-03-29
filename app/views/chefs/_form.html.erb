@@ -42,12 +42,17 @@
   .coupon-code-input {
     width: 97%;
   }
-  .tax-input {
-   text-align: center;
- }
- .delivery-input {
-   text-align: center;
- }
+  @media screen and (min-width: 1024px) {
+    .tax-input, .delivery-input {
+      width: auto;
+      min-width: 50%;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    .small-label {
+      font-size: 10px !important;
+    }
+  }
  .coupon-active {
     width: 30px;
     height: 30px;
@@ -210,11 +215,13 @@
                 <%= t('chefs.cart_func') %>
               </h3>
               <div class="form-group row col-12">
-                <div class="col-6 pl-0">
-                  <%= f.number_field :product_tax, value: number_to_currency(@current_app_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control", step: 0.01, min: 0, max: 100 %>
+                <div class="col-6 pl-0 d-lg-flex">
+                  <%= f.label :product_tax, t('chefs.product_tax') + ' %', class: "mt-lg-2 small-label" %>
+                  <%= f.number_field :product_tax, value: number_to_currency(@current_app_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control ml-lg-4", step: 0.01, min: 0, max: 100 %>
                 </div>
-                <div class="col-6 pr-0">
-                  <%= f.number_field :delivery_price, value: number_to_currency(@current_app_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control", step: 5, min: 0, max: 10 %>
+                <div class="col-6 pr-0 d-lg-flex">
+                  <%= f.label :delivery_price, t('chefs.delivery_price') + ' $', class: "mt-lg-2 small-label" %>
+                  <%= f.number_field :delivery_price, value: number_to_currency(@current_app_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
                 </div>
               </div>
             </div>
@@ -271,7 +278,7 @@
                     <td class="empty-row"></td>
                   </tr>
                   <tr>
-                    <td colspan="3" class="add-coupon">
+                    <td colspan="2" class="add-coupon">
                       <input type="text" id="coupon-title" class="form-control coupon-code-input" placeholder=<%= t('recipes.coupone_code') %>>
                     </td>
                     <td colspan="2" class="add-coupon">
@@ -280,10 +287,10 @@
                     <td colspan="2" class="add-coupon">
                       <input type="number" id="coupon-amount-off" class="form-control coupon-code-input" step=0.01>
                     </td>
-                    <td colspan="1" class="add-coupon">
+                    <td colspan="2" class="add-coupon">
                       <input type="checkbox" id="coupon-check-box" class="coupon-active">
                     </td>
-                    <td colspan="2" class="add-coupon">
+                    <td class="add-coupon">
                       <input type="button" value="Add" class="btn btn-success btn-lg" id="add-coupon-btn" disabled=true>
                     </td>
                   <tr>
