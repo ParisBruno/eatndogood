@@ -242,21 +242,25 @@
         <% if @current_app_user == @user && @current_app_user&.admin? && @current_app_user == @current_app.main_admin %>
           <div class="cart-functionalities">
             <div class="cart-functional">
-              <h3 style="text-align: center; padding-bottom: 10px;">
+              <h3 style="text-align: center; padding-bottom: 10px;" class="mt-3">
                 <%= t('chefs.cart_func') %>
               </h3>
-              <div class="form-group row col-12">
-                <div class="col-6 pl-0 d-lg-flex">
-                  <%= f.label :product_tax, t('chefs.product_tax'), class: "mt-lg-2 small-label" %>
-                  <%= f.number_field :product_tax, value: number_to_currency(@current_app_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control ml-lg-4", step: 0.01, min: 0, max: 100 %>
-                </div>
-                <div class="col-6 pr-0 d-lg-flex">
-                  <%= f.label :delivery_price, t('chefs.delivery_price') + ' $', class: "mt-lg-2 small-label" %>
-                  <%= f.number_field :delivery_price, value: number_to_currency(@current_app_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
-                </div>
+              <div class="row col-4">
+                <li class="dropdown nav-item list-unstyled mb-3">
+                  <a href="#" class="dropdown-toggle btn languages-btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('forms.select_payment_method') %></a>
+                  <ul class="dropdown-menu w-100">
+                    <% payment_methods.each do |payment_method| %>
+                      <li class="nav-item">
+                        <a href="#" class='checkbox_anchor'>
+                          <input id="<%= "user_selected_payment_methods_#{payment_method}"%>" type="checkbox" name="user[selected_payment_methods][]" class="checkbox-inline input_checkbox" value="<%= payment_method %>" <%= (@user.selected_payment_methods.include?(payment_method)) ? 'checked = true' : '' %> />
+                          <label for="<%= "user_app_attributes_selected_payment_methods_#{payment_method}"%>"><%= payment_method.capitalize %></label>
+                        </a>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
               </div>
             </div>
-
             <!-- Payment Options Start -->
             <div class="form-group payment-btns">
               <button type="button" class="btn btn-success btn-lg w-100 my-2" id="paypal-btn">
@@ -271,14 +275,38 @@
             </div>
             <!-- Payment Options End -->
 
-            <div class="form-group col-12 d-none paypal-client-id">
-              <div class="">
-                <%= f.text_field :paypal_client_id, value: @current_app_user.paypal_client_id, class: "form-control", placeholder: t('forms.paypal_client_id') %>
+            <div class="form-group row col-12">
+              <div class="col-6 pl-0 d-lg-flex">
+                <%= f.label :product_tax, t('chefs.product_tax'), class: "mt-lg-2 small-label" %>
+                <%= f.number_field :product_tax, value: number_to_currency(@current_app_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control ml-lg-4", step: 0.01, min: 0, max: 100 %>
+              </div>
+              <div class="col-6 pr-0 d-lg-flex">
+                <%= f.label :delivery_price, t('chefs.delivery_price') + ' $', class: "mt-lg-2 small-label" %>
+                <%= f.number_field :delivery_price, value: number_to_currency(@current_app_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
               </div>
             </div>
-            <div class="form-group col-12 d-none paypal-client-secret">
-              <div class="">
-                <%= f.text_field :paypal_client_secret, class: "form-control", placeholder: t('forms.paypal_client_secret') %>
+            <div id="paypal-fields" class="d-none">
+              <div class="form-group col-12">
+                <div class="">
+                  <%= f.text_field :paypal_client_id, value: @current_app_user.paypal_client_id, class: "form-control", placeholder: t('forms.paypal_client_id') %>
+                </div>
+              </div>
+              <div class="form-group col-12">
+                <div class="">
+                  <%= f.text_field :paypal_client_secret, class: "form-control", placeholder: t('forms.paypal_client_secret') %>
+                </div>
+              </div>
+            </div>
+            <div id="stripe-fields" class="d-none">
+              <div class="form-group col-12">
+                <div class="">
+                  <%= f.text_field :stripe_publishable_key, class: "form-control", placeholder: t('forms.stripe_publishable_key') %>
+                </div>
+              </div>
+              <div class="form-group col-12">
+                <div class="">
+                  <%= f.text_field :stripe_secret_key, class: "form-control", placeholder: t('forms.stripe_secret_key') %>
+                </div>
               </div>
             </div>
             <div class="form-group col-12">
@@ -525,18 +553,18 @@
     }, 500);
 
     $("#paypal-btn").click(function(){
-      $('.paypal-client-id').removeClass('d-none');
-      $('.paypal-client-secret').removeClass('d-none');
+      $('#paypal-fields').removeClass('d-none');
+      $('#stripe-fields').addClass('d-none');
     });
 
     $("#stripe-btn").click(function(){
-      $('.paypal-client-id').addClass('d-none');
-      $('.paypal-client-secret').addClass('d-none');
+      $('#paypal-fields').addClass('d-none');
+      $('#stripe-fields').removeClass('d-none');
     });
 
     $("#venmo-btn").click(function(){
-      $('.paypal-client-id').addClass('d-none');
-      $('.paypal-client-secret').addClass('d-none');
+      $('#paypal-fields').addClass('d-none');
+      $('#stripe-fields').addClass('d-none');
     });
   });
 </script>

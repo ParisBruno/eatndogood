@@ -14,4 +14,12 @@ module ApplicationHelper
   def enclose_tag(html)
     Nokogiri::HTML::fragment(html).to_html
   end
+
+  def payment_methods
+    ['cash', 'paypal', 'venmo', 'stripe']
+  end
+
+  def is_payment_method?(type)
+    current_app_user.selected_payment_methods.include?(type)
+  end
 end

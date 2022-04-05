@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_delivery_and_tax, only: %i[new create]
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
   before_action :set_chef_ids
-  before_action :set_paypal_credentials, only: %i[new create new_staff_order show]
+  before_action :set_credentials, only: %i[new create new_staff_order show]
   before_action :set_team_member, except: %i[new create paypal_create_payment paypal_execute_payment]
   skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
@@ -143,7 +143,7 @@ class OrdersController < ApplicationController
 
   def return_stripe
     order = Order.last
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_key = @stripe_secret_key
     session = Stripe::Checkout::Session.list({limit: 1})
     payment = session.data.first
 
@@ -265,7 +265,7 @@ class OrdersController < ApplicationController
   end
 
   def create_session(amount, coupon_id, product_name)
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_key = @stripe_secret_key
     @session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       line_items: [{
@@ -395,5 +395,12 @@ class OrdersController < ApplicationController
       end
     end
     @items_with_styles = styles_data.reject { |key, value| value.empty? }
+  end
+
+  def set_credentials
+    set_paypal_credentials
+    main_admin = current_app.main_admin
+    @stripe_publishable_key = main_admin&.stripe_publishable_key
+    @stripe_secret_key = main_admin&.stripe_secret_key
   end
 end

@@ -198,6 +198,9 @@ en:
       email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
+    stripe_secret_key: Stripe secret-key
+    stripe_publishable_key: Stripe publishable-key
+    select_payment_method: Select payment method
     action: Action
     admin: Admin
     bio: Bio
@@ -336,7 +339,7 @@ en:
     client_name: Client name
     date: Created Date
     status: Status
-    add_recipe: Add recipe
+    add_product: Add product
     pay_method: Payment method
     new: New Order
     save: Update order

@@ -246,13 +246,19 @@
         <div class="row mt-5">
           <div class="col-2"></div>
           <div class="col-8 text-center">
-            <%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg w-100 my-2 order-button", disabled: @current_cart.line_items.count == 0 %>
+            <% if is_payment_method?('cash') %>
+              <%= f.submit t('orders.cash'), name: "cash", class: "btn btn-success btn-lg w-100 my-2 order-button", disabled: @current_cart.line_items.count == 0 %>
+            <% end %>
             <% if @gift_card.present? %>
               <%= f.hidden_field :gift_card_id, value: @gift_card.id %>
               <%= f.submit t('orders.gift_card'), name: "gift_card", class: "btn btn-info btn-lg w-100 order-button mt-2", disabled: @current_cart.line_items.count == 0 %>
             <% end %>
-            <div id="paypal-button-container" class="mt-2"></div>
-            <%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg order-button my-2 w-100", disabled: @current_cart.line_items.count == 0 %>
+            <% if is_payment_method?('paypal') && @paypal_client_id.present? && @paypal_client_secret.present? %>
+              <div id="paypal-button-container" class="mt-2"></div>
+            <% end %>
+            <% if is_payment_method?('stripe') && @stripe_publishable_key.present? && @stripe_secret_key.present? %>
+              <%= f.submit t('orders.stripe'), name: "stripe", class: "btn btn-primary btn-lg order-button my-2 w-100", disabled: @current_cart.line_items.count == 0 %>
+            <% end %>
           </div>
           <div class="col-2"></div>
         </div>
@@ -261,7 +267,8 @@
   </div>
 <% end %>
 
-<%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=test&enable-funding=venmo&disable-funding=card,paylater" %>
+<% enable_venmo_btn = "&enable-funding=venmo" if is_payment_method?('venmo') %>
+<%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}#{enable_venmo_btn}&disable-funding=card,paylater" %>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   paypal.Buttons({
@@ -292,5 +299,4 @@
       });
     }
   }).render('#paypal-button-container');
-
 </script>

@@ -148,26 +148,13 @@
             <td colspan="2">
               <div class="row field" id="new-items">
                 <div class="col-1">
-                  <%= link_to_add_association t('orders.add_recipe'), form, :line_items, { "data-association-insertion-node": '#new-items', 
+                  <%= link_to_add_association t('orders.add_product'), form, :line_items, { "data-association-insertion-node": '#new-items',
                               class: 'btn btn-lg btn-outline-primary new-order-item',
                               onmouseover: 'changeNewRecipe();',
                               onmouseout: order.new_record? ? '' : 'addRecipeForm();' } %>
                 </div>
               </div>
             </td>  
-          </tr>
-
-          <tr>
-            <td class="order-item"><%= t('recipes.total') %></td>
-            <td><%= order.new_record? ? '$0.00' : number_to_currency(order.amount&./100.0) %></td>
-          </tr>
-          <tr>
-            <td class="order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
-            <% if order.new_record? %>
-              <td><%= 'Cash'.capitalize %></td>
-            <% else %>
-              <td><%= form.text_field :pay_method, class: 'order-field order-paymethod', id: 'staff-order-paymethod', readonly: true %></td>
-            <% end %>
           </tr>
           <tr>
             <td class="order-item"><%= t('orders.tax') %></td>
@@ -202,17 +189,30 @@
             <% end %>
           </tr>
           <tr>
-            <td class="order-item"><%= t('recipes.fundraising_code') %></td>
             <% if order.new_record? %>
+              <td class="order-item"><%= t('recipes.fundraising_code') %></td>
               <td><%= form.text_field :fundrasing_code, class: 'order-field', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
+            <% elsif order.fundrasing_code.present? %>
+              <td class="order-item"><%= t('recipes.fundraising_code') %></td>
+              <td><%= order.fundrasing_code %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td class="order-item"><%= t('recipes.total') %></td>
+            <td><%= order.new_record? ? '$0.00' : number_to_currency(order.amount&./100.0) %></td>
+          </tr>
+          <tr>
+            <td class="order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
+            <% if order.new_record? %>
+              <td><%= 'Cash'.capitalize %></td>
             <% else %>
-              <td><%= order.fundrasing_code.present? ? order.fundrasing_code : '---' %></td>
+              <td><%= form.text_field :pay_method, class: 'order-field order-paymethod', id: 'staff-order-paymethod', readonly: true %></td>
             <% end %>
           </tr>
           <tr>
             <td class="order-item">
               <%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
-              <p id="paypal-button-container" style="max-width: 200px; margin-bottom: 30px;"></p>
+              <!-- <p id="paypal-button-container" style="max-width: 200px; margin-bottom: 30px;"></p> -->
             </td>
             <% unless order.new_record? %>
             <td class="order-item">

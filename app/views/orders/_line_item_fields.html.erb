@@ -3,9 +3,7 @@
       <% if f.object.recipe || f.object.gift_card %>
         <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
       <% else %>
-        <% recipe_ids = @order.line_items.pluck(:recipe_id) %>
-        <% recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).where.not(id: recipe_ids).order(created_at: :desc) %>
-
+        <% recipes = recipes_for_staff_order(@order) %>
         <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {}, class: 'order-field', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
       <% end %>
   </div>

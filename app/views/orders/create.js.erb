@@ -1,5 +1,5 @@
 <% if params['stripe'].present? %>
-  var stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>");
+  var stripe = Stripe("<%= @stripe_publishable_key %>");
 
   stripe.redirectToCheckout({
     sessionId: '<%= @session.id %>'
