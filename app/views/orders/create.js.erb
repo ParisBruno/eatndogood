@@ -1,0 +1,10 @@
+<% if params['stripe'].present? %>
+  var stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>");
+
+  stripe.redirectToCheckout({
+    sessionId: '<%= @session.id %>'
+    }).then(function (result) {
+    })
+<% else %>
+   $(window.location.replace("/<%= @current_app.id %>/recipes"))
+<% end %>

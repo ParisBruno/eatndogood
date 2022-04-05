@@ -34,7 +34,7 @@ es:
     confirm_delete_account: "¡Estás seguro! ¿Quieres eliminar la cuenta de chef?"
     delete_profile: Borrar perfil
     delivery_price: Precio de entrega
-    product_tax: Impuesto a la receta
+    product_tax: Tasa de impuesto
     edit_profile: Editar perfil
     edit_your_profile: Edite su perfil
     admin_panel: Panel de administrador
@@ -394,8 +394,7 @@ es:
     max_pic_size: Tamaño máximo de la imagen %{mb} megabytes
     rec_pic_size: El tamaño de imagen recomendado es 1366 x 768px
     new_title: Crear una nueva receta de obra maestra
-    question_about_this_recipe: pregunta sobre esta receta? ¡Pregúnteme! haga clic
-      aquí
+    question_about_this_recipe: Pregunta o para solicitar una reserva, haga clic aquí!
     return_to_recipes_listing: Volver a la lista de recetas
     save_submit: Haga clic aquí para guardar su obra maestra
     save_draft: Guardar como borrador

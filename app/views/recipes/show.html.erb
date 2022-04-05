@@ -2,9 +2,8 @@
   .recipe-summary {
     word-wrap: break-word;
   }
-  .buy-button {
-    margin-top: 10px;
-    float: right;
+  .buy-button form{
+    padding: 10px !important;
   }
   .fa-shopping-cart { 
     transform: scale(-1, 1);
@@ -58,6 +57,32 @@
       margin-bottom: 10px;
     }
   }
+  .buy-button button {
+    padding: 10px 25px;
+    background: #6ee06e;
+    background-image: -webkit-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -moz-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -ms-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -o-linear-gradient(top, #6ee06e, #449d44);
+    background-image: linear-gradient(to bottom, #6ee06e, #449d44);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+  .buy-button button:hover {
+    background: #64dc3b;
+    background-image: -webkit-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -moz-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -ms-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -o-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: linear-gradient(to bottom, #64dc3b, #64dc3b);
+    text-decoration: none;
+  }
 </style>
   <div class="margin-sec top-space">
      <div class="col-md-12 margin-sec top-space recipe-detail">
@@ -106,16 +131,6 @@
       </div>
       </div>
       </div>
-
-      <% unless @recipe.price.zero? %>
-        <% unless @recipe.is_draft %>
-          <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "buy-button btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
-            <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
-          <% end %>
-        <% else %>
-            <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'buy-button btn btn-success btn-lg'} %>
-        <% end %>
-      <% end %>
       </div>
      
       
@@ -124,10 +139,20 @@
       </div>
   </div>
 
+<div class="row w-100 text-center buy-button">
+  <% unless @recipe.price.zero? %>
+    <% unless @recipe.is_draft %>
+      <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
+        <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+      <% end %>
+    <% else %>
+        <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'btn btn-success btn-lg'} %>
+    <% end %>
+  <% end %>
+</div>
 
-<br>
-
-<% unless @recipe.is_draft %> 
+<div class="row w-100 justify-content-center">
+  <% unless @recipe.is_draft %>
   <% if session[:user_role] != 'super_admin' %>
   <div class="recipes-q">
  
@@ -193,6 +218,7 @@
   </div>
   <% end %>
 <% end %> 
+</div>
 
 <center>
   <h5>

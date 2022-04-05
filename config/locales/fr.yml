@@ -37,7 +37,7 @@ fr:
     create_account: 'Créer mon compte '
     delete_profile: Supprimer le profil
     delivery_price: Prix de livraison
-    product_tax: Taxe de recette
+    product_tax: Taux d'imposition
     edit_profile: Editer le profil
     edit_your_profile: Modifier votre profil
     admin_panel: Panneau d'administration
@@ -421,7 +421,7 @@ fr:
     max_pic_size: Taille maximale de l'image %{mb} megabytes
     rec_pic_size: La taille d'image recommandée est 1366 x 768px
     new_title: Créer une nouvelle recette
-    question_about_this_recipe: Question sur cette recette? demande moi! cliquez ici
+    question_about_this_recipe: Question ou demande de réservation, cliquez ici !
     return_to_recipes_listing: Retour à la liste des recettes
     save_submit: Cliquez ici pour sauvegarder votre chef-d'œuvre
     save_draft: Enregistrer comme brouillon

@@ -34,7 +34,7 @@ de:
     confirm_delete_account: Bist du sicher! Sie möchten das Kochkonto löschen?
     delete_profile: Profil löschen
     delivery_price: Lieferpreis
-    product_tax: Rezeptsteuer
+    product_tax: Steuersatz
     edit_profile: Profil bearbeiten
     edit_your_profile: Bearbeite dein Profil
     admin_panel: Administrationsmenü
@@ -377,7 +377,7 @@ de:
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: Die empfohlene Bildgröße ist 1366 x 768px
     new_title: Erstelle ein neues Meisterstück-Rezept
-    question_about_this_recipe: Frage zu diesem Rezept? Frag mich! Klick hier
+    question_about_this_recipe: Fragen oder um eine Reservierung anzufordern, klicken Sie hier!
     return_to_recipes_listing: Zurück zur Rezeptliste
     save_submit: Klicken Sie hier, um Ihr Meisterwerk zu speichern
     save_draft: Als Entwurf speichern

@@ -1,7 +1,7 @@
 if Rails.env.development? || Rails.env.staging?
 	Rails.configuration.stripe = {
-		publishable_key: "pk_test_51Hkyh8JhzcOxD4pH4Fb5eqzK9MTDNFq8OUfRGjyOdTDbeYKNI8wcR714tB9bv0MBCQZP3mI1a0a2v1a31lSbVsLH00VXfz5uOg",
-		secret_key: "sk_test_51Hkyh8JhzcOxD4pHctIVpnzk6HI9jwVUpjjNaecTaVyDFk0dXnx56PEKr82T5AxXocLLb1Etd1PuTl2UlfwLd1KZ00tHQmC9IT"
+		publishable_key: "pk_test_51KkQ1gSBroUK4gY7h0SqYuZUILiJ41BSuR1nQhrrxYacvHlm9Ot5xHLyAFlUjs2MzgujI0Ep0al7KrdvctcHbc5o00Z7beUF0Q",
+		secret_key: "sk_test_51KkQ1gSBroUK4gY7QHpunSLV0OA8YzLf8UqFCV4K5UviqnlccSkLFVPeysBIGHBJYInyFPzen530VyqM78Gpk4x000iX7BwgBS"
 	}
 else
 	Rails.configuration.stripe = {
