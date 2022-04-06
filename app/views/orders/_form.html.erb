@@ -216,7 +216,10 @@
             </td>
             <% unless order.new_record? %>
             <td class="order-item">
-              <p><%= link_to 'Print', app_order_path(current_app, order, format: :pdf), class: 'btn btn-lg btn-info', id: 'print-button' %></p>
+              <p>
+                <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
+                <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
+              </p>
             </td>
             <% end %>
           </tr>

@@ -1,0 +1,70 @@
+<table>
+  <thead>
+    <h1 class="title">Line Items</h1>
+    <tr>
+      <th><%= t('recipes.product_name') %></th>
+      <th><%= t('recipes.price') %></th>
+      <th><%= t('recipes.quantity') %></th>
+      <th><%= t('recipes.sub_total') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.line_items.each do |line_item| %>
+      <% if line_item.recipe %>
+        <% unless line_item.recipe.is_draft %>
+          <tr style="text-align: center;">
+            <td>
+              <h4><%= line_item.recipe.name %></h4>
+            </td>
+            <td class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
+            <td class="quantity-item">
+              <div>
+                <span id="quantity"><%= line_item.quantity %></span>
+              </div>
+            </td>
+            <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
+          </tr>
+        <% end %>
+      <% elsif line_item.gift_card %>
+        <tr style="text-align: center;">
+          <td>
+            <h4><%= line_item.gift_card.name %></h4>
+          </td>
+          <td class="price-item"><%= "%0.2f" % (line_item.gift_card.price.to_f) %>$</td>
+          <td class="quantity-item">
+            <div>
+              <span id="quantity"><%= line_item.quantity %></span>
+            </div>
+          </td>
+          <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <tr>
+      <td colspan="3"><%= t('orders.tax') %></td>
+      <td colspan="1"><%= number_to_currency(@order.total_tax) %></td>
+    </tr>
+    <tr>
+      <td colspan="3"><%= t('orders.delivery') %></td>
+      <td colspan="1"><%= number_to_currency(@order.delivery_price) %></td>
+    </tr>
+    <tr>
+      <td colspan="3"><%= t('orders.tip') %></td>
+      <td colspan="1"><%= number_to_currency(@order.tip_value) %></td>
+    </tr>
+    <tr>
+      <td colspan="3"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+      <td colspan="1"><%= @order.coupon_code.present? ? @order.coupon_code + ' / ' + number_to_currency(@order.coupon_discount) : '---' %></td>
+    </tr>
+    <% if @order.fundrasing_code.present? %>
+      <tr>
+        <td colspan="3"><%= t('recipes.fundraising_code') %></td>
+        <td colspan="1"><%= @order.fundrasing_code %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3"><%= t('recipes.total') %></td>
+      <td colspan="1"><%= number_to_currency(@order.amount&./100.0) %></td>
+    </tr>
+  </tbody>
+</table>

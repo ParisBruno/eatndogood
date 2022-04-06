@@ -267,7 +267,7 @@
   </div>
 <% end %>
 
-<% enable_venmo_btn = "&enable-funding=venmo" if is_payment_method?('venmo') %>
+<% enable_venmo_btn = "&enable-funding=venmo" if is_payment_method?('venmo') && @paypal_client_id.present? && @paypal_client_secret.present? %>
 <%= javascript_include_tag "https://www.paypal.com/sdk/js?client-id=#{@paypal_client_id}#{enable_venmo_btn}&disable-funding=card,paylater" %>
 <script src="https://js.stripe.com/v3/"></script>
 <script>

@@ -552,7 +552,7 @@
       }
     }, 500);
 
-    $("#paypal-btn").click(function(){
+    $("#paypal-btn, #venmo-btn").click(function(){
       $('#paypal-fields').removeClass('d-none');
       $('#stripe-fields').addClass('d-none');
     });
@@ -560,11 +560,6 @@
     $("#stripe-btn").click(function(){
       $('#paypal-fields').addClass('d-none');
       $('#stripe-fields').removeClass('d-none');
-    });
-
-    $("#venmo-btn").click(function(){
-      $('#paypal-fields').addClass('d-none');
-      $('#stripe-fields').addClass('d-none');
     });
   });
 </script>
