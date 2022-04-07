@@ -14,7 +14,7 @@ class Recipe < ApplicationRecord
   # has_many :drink_images, -> { where('img_type = ?', 'drink') }
   has_and_belongs_to_many :allergens, dependent: :destroy
   has_and_belongs_to_many :styles, dependent: :destroy
-  has_many :questions
+  has_many :questions, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_one :subcategory
