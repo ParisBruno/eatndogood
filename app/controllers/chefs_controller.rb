@@ -146,7 +146,7 @@ class ChefsController < ApplicationController
     chef_info_permitted_attributes = Chef.globalize_attribute_names + [:chef_avatar, :admin_id, :id]
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :slug,
                                  :delivery_price, :product_tax, :paypal_client_id, :paypal_client_secret, :manager,
-                                 :manager_id, :store_address, :phone, :greeting_message,
+                                 :manager_id, :store_address, :phone, :greeting_message, :business_name,
                                  chef_info_attributes: chef_info_permitted_attributes, app_attributes: [:slug, :id, selected_languages: []])
   end
 

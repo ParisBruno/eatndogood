@@ -104,6 +104,20 @@
       <table>
         <tbody>
           <tr>
+            <td colspan="2">
+              <% user = current_app_user.chef_info.user %>
+              <p class="text-center">
+                <%= user.business_name %>
+              </p>
+              <p class="text-center">
+                <%= "#{user.store_address} - #{user.phone} - #{user.email}" %>
+              </p>
+              <p class="text-center">
+                <%= user.greeting_message %>
+              </p>
+            </td>
+          </tr>
+          <tr>
             <td class="order-item"><%= t('orders.date') %></td>
             <td>
               <%= order.new_record? ? Date.current.strftime("%A %d of %B, %Y") : order.created_at.strftime("%A %d of %B, %Y") %>

@@ -198,6 +198,7 @@ en:
       email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
+    business_name: Business name
     action: Action
     admin: Admin
     bio: Bio
