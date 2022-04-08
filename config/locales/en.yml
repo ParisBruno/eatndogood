@@ -336,7 +336,7 @@ en:
     client_name: Client name
     date: Created Date
     status: Status
-    add_recipe: Add recipe
+    add_product: Add product
     pay_method: Payment method
     new: New Order
     save: Update order

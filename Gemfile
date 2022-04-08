@@ -76,6 +76,8 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.7'
 end
 
+gem "letter_opener", group: :development
+
 group :development do
   gem 'capistrano', '~> 3.11', require: false
   gem 'capistrano-bundler', '~> 1.3'
