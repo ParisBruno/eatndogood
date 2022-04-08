@@ -1,17 +1,35 @@
-<div class="row field mb-2 nested-fields">
-  <div class="col-5 new-order-item">
-      <% if f.object.recipe || f.object.gift_card %>
-        <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
-      <% else %>
-        <% recipes = recipes_for_staff_order(@order) %>
-        <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {}, class: 'order-field', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
+<div class="field my-2 nested-fields">
+  <table class="table table-bordered">
+    <tr>
+      <td colspan="4" class="px-0 pt-2 pb-0">
+        <% if f.object.recipe || f.object.gift_card %>
+          <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
+        <% else %>
+          <% recipes = recipes_for_staff_order(@order) %>
+          <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {}, class: 'order-field border-0', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <% if f.object.recipe.present? %>
+        <td class="p-0 pt-3" width="25%">
+          <%= f.object.recipe.price %>
+        </td>
       <% end %>
-  </div>
-  <div class="col-5"><%= f.number_field :quantity, class: 'order-field', step: 1, min: 1, onchange: 'changeQuantity();',
-                                                   onfocusout: @order.new_record? ? '' : 'changeQuantityRecipeForm();'  %></div>
-  <div class="col-1">
-    <%= link_to_remove_association "X", f, { class: 'remove-new-recipe btn btn-lg btn-outline-danger',
-                                             onmousedown: 'removeNewRecipe();',
-                                             onfocusout: @order.new_record? ? '' : 'changeRecipeForm();' } %>
-  </div>
+      <td class="p-0" width="30%">
+        <%= f.number_field :quantity, class: 'order-field border-0', step: 1, min: 1, onchange: 'changeQuantity();',
+                                                     onfocusout: @order.new_record? ? '' : 'changeQuantityRecipeForm();'  %>
+      </td>
+      <% if f.object.recipe.present? %>
+        <td class="p-0 pt-3" width="25%">
+          <%= f.object.recipe.price * f.object.quantity %>
+        </td>
+      <% end %>
+      <td class="px-0" width="20%">
+        <%= link_to_remove_association "X", f, { class: 'remove-new-recipe btn btn-lg btn-outline-danger',
+                                               onmousedown: 'removeNewRecipe();',
+                                               onfocusout: @order.new_record? ? '' : 'changeRecipeForm();' } %>
+      </td>
+    </tr>
+  </table>
 </div>

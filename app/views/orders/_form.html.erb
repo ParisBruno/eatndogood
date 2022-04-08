@@ -22,7 +22,6 @@
   }
   .order-item {
     text-align: left;
-    padding-left: 20px;
     font-weight: 600;
     font-size: 1.4em;
     max-width: 140px;
@@ -38,7 +37,7 @@
   }
   .order-field {
     text-align: center;
-    width: 80%;
+    width: 100%;
     padding: .375rem .75rem;
     font-size: 1.4rem;
     line-height: 1.5;
@@ -46,15 +45,11 @@
     background-color: #fff;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+    height: 50px !important;
   }
   .new-order-item {
     text-align: left;
     font-size: 1.4rem;
-    margin-left: 5px;
-  }
-  .remove-new-recipe {
-    margin-top: 3px;
-    margin-left: 15px;
   }
   #order-button {
     margin-bottom: 10px;
@@ -73,9 +68,6 @@
   }
 
   @media all and (max-width: 600px) {
-    .remove-new-recipe {
-      margin-left: -15px;
-    }
     .order-item {
       font-size: 1.2em;
     }
@@ -90,6 +82,9 @@
       width: 120px;
       padding: 0 10px 0 25px;
     }
+  }
+  .blue-btns a{
+    padding: 8px 11px;
   }
 </style>
 
@@ -114,29 +109,31 @@
               <%= order.new_record? ? Date.current.strftime("%A %d of %B, %Y") : order.created_at.strftime("%A %d of %B, %Y") %>
             </td>
           </tr>
-          <% unless order.new_record? %>
           <tr>
-            <td class="order-item"><%= form.label :status, t('orders.status') %></td>
-            <td><%= form.select :status, Order.statuses.collect { |key, value| [key.capitalize, key] }, { class: 'order-status' } %></td>
-          </tr>
-          <% end %>
-          <tr>
-            <td class="order-item"><%= form.label :name, t('orders.client_name') %></td>
-            <td><%= form.text_field :name, class: 'order-field', id: 'new_order_name', disabled: order.new_record? ? false : true %></td>
+            <td colspan="2"><%= form.text_field :name, class: 'order-field', id: 'new_order_name', disabled: order.new_record? ? false : true, placeholder: t('orders.client_name') %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= form.label :email, t('orders.email') %></td>
-            <td><%= form.email_field :email, class: 'order-field', id: 'new_order_email', disabled: order.new_record? ? false : true %></td>
+            <td colspan="2"><%= form.email_field :email, class: 'order-field', id: 'new_order_email', disabled: order.new_record? ? false : true, placeholder: t('orders.email') %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= form.label :phone, t('orders.phone') %></td>
-            <td><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone', disabled: order.new_record? ? false : true %></td>
+            <td colspan="2"><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone', disabled: order.new_record? ? false : true, placeholder: t('orders.phone') %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= form.label :address, t('orders.home_address') %></td>
-            <td><%= form.text_area :address, class: 'order-field', id: 'new_order_address', disabled: order.new_record? ? false : true %></td>
+            <td colspan="2"><%= form.text_area :address, class: "order-field #{"d-none" if order.new_record?}", id: 'new_order_address', disabled: order.new_record? ? false : true, placeholder: t('orders.home_address') %></td>
           </tr>
-
+          <tr>
+            <td colspan="2" class="text-center">
+              <div class="row field">
+                <div class="text-center w-100">
+                  <%= link_to_add_association t('orders.add_product'), form, :line_items, { "data-association-insertion-node": '#new-items',
+                              class: 'btn btn-lg btn-outline-primary new-order-item',
+                              onmouseover: 'changeNewRecipe();',
+                              onmouseout: order.new_record? ? '' : 'addRecipeForm();' } %>
+                </div>
+              </div>
+              <div class="row field" id="new-items"></div>
+            </td>  
+          </tr>
           <tr>
             <td colspan="2">
             <%= form.fields_for :line_items, @order.line_items.order(:created_at) do |line_item| %>
@@ -145,31 +142,19 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2">
-              <div class="row field" id="new-items">
-                <div class="col-1">
-                  <%= link_to_add_association t('orders.add_product'), form, :line_items, { "data-association-insertion-node": '#new-items',
-                              class: 'btn btn-lg btn-outline-primary new-order-item',
-                              onmouseover: 'changeNewRecipe();',
-                              onmouseout: order.new_record? ? '' : 'addRecipeForm();' } %>
-                </div>
-              </div>
-            </td>  
-          </tr>
-          <tr>
             <td class="order-item"><%= t('orders.tax') %></td>
             <% if order.new_record? %>
               <td><%= t('orders.tax_desc') %></td>
             <% else %>
-              <td><%= number_to_currency(order.total_tax) %></td>
+              <td class="text-left pl-5"><%= number_to_currency(order.total_tax) %></td>
             <% end %>
           </tr>
           <tr>
             <td class="order-item"><%= t('orders.delivery') %></td>
             <% if order.new_record? %>
-              <td><%= form.check_box :delivery_price, class: 'order-field' %></td>
+              <td><%= form.check_box :delivery_price, class: 'order-field', id: "delivery-checkBox" %></td>
             <% else %>
-              <td><%= number_to_currency(order.delivery_price) %></td>
+              <td class="text-left pl-5"><%= number_to_currency(order.delivery_price) %></td>
             <% end %>
           </tr>
           <tr>
@@ -177,7 +162,7 @@
             <% if order.new_record? %>
               <td><%= form.number_field :tip_value, class: 'order-field', step: 1, min: 0 %></td>
             <% else %>
-              <td><%= number_to_currency(order.tip_value) %></td>
+              <td class="text-left pl-5"><%= number_to_currency(order.tip_value) %></td>
             <% end %>
           </tr>
           <tr>
@@ -185,7 +170,7 @@
             <% if order.new_record? %>
               <td><%= form.text_field :coupon_code, class: 'order-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
             <% else %>
-              <td><%= order.coupon_code.present? ? order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) : '---' %></td>
+              <td class="text-left pl-5"><%= order.coupon_code.present? ? order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) : '---' %></td>
             <% end %>
           </tr>
           <tr>
@@ -194,35 +179,43 @@
               <td><%= form.text_field :fundrasing_code, class: 'order-field', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
             <% elsif order.fundrasing_code.present? %>
               <td class="order-item"><%= t('recipes.fundraising_code') %></td>
-              <td><%= order.fundrasing_code %></td>
+              <td class="text-left pl-5"><%= order.fundrasing_code %></td>
             <% end %>
           </tr>
           <tr>
             <td class="order-item"><%= t('recipes.total') %></td>
-            <td><%= order.new_record? ? '$0.00' : number_to_currency(order.amount&./100.0) %></td>
+            <% if order.new_record? %>
+              <td class="font-weight-bold">$0.00</td>
+            <% else %>
+              <td class="text-left pl-5 font-weight-bold">
+                <%= number_to_currency(order.amount&./100.0) %>  
+              </td>
+            <% end %>
           </tr>
           <tr>
             <td class="order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
             <% if order.new_record? %>
               <td><%= 'Cash'.capitalize %></td>
             <% else %>
-              <td><%= form.text_field :pay_method, class: 'order-field order-paymethod', id: 'staff-order-paymethod', readonly: true %></td>
+              <td class="text-left pl-4"><%= form.text_field :pay_method, class: 'text-left order-field order-paymethod ml-1', id: 'staff-order-paymethod', readonly: true %></td>
             <% end %>
           </tr>
           <tr>
-            <td class="order-item">
-              <%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
-              <!-- <p id="paypal-button-container" style="max-width: 200px; margin-bottom: 30px;"></p> -->
+            <td colspan="2" class="order-item pb-4 text-center">
+              <%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
+              <% unless order.new_record? %>
+                <span class="blue-btns">
+                  <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
+                  <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
+                </span>
+              <% end %>
             </td>
-            <% unless order.new_record? %>
-            <td class="order-item">
-              <p>
-                <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
-                <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
-              </p>
-            </td>
-            <% end %>
           </tr>
+          <% unless order.new_record? %>
+            <tr>
+              <td colspan="2"><%= form.select :status, Order.statuses.collect { |key, value| [key.capitalize, key] }, { class: 'order-status' } %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
@@ -363,6 +356,14 @@
       console.log("Error: ", error);
     })
   }
+
+  $('#delivery-checkBox').on('click', function() {
+    if (this.checked) {
+      $('#new_order_address').removeClass('d-none');
+    } else {
+      $('#new_order_address').addClass('d-none');
+    }
+  });
 
   paypal.Buttons({
     style: {
