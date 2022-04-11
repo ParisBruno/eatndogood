@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[paypal_create_payment paypal_execute_payment]
   before_action :set_delivery_and_tax, only: %i[new create]
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
+  before_action :set_order, only: %i[show update destroy]
   before_action :set_chef_ids
   before_action :set_paypal_credentials, only: %i[new create new_staff_order show]
   before_action :set_team_member, except: %i[new create paypal_create_payment paypal_execute_payment]
@@ -102,7 +103,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(id: params[:id])
     if @order && current_app.users.include?(@order.user)
       file_name = "order_#{@order.id}_#{@order.created_at&.strftime('%Y%m%d')}"
       @admin = current_app.main_admin
@@ -119,7 +119,6 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find_by(id: params[:id])
     if @order.update(update_order_params)
       unless @order.line_items.present?
         @order.destroy
@@ -216,7 +215,17 @@ class OrdersController < ApplicationController
     redirect_to app_order_path(id: params[:order], app: current_app.slug)
   end
 
+  def destroy
+    @order.destroy
+    flash[:success] = I18n.t 'flash.order_removed'
+    redirect_to app_orders_path(current_app)
+  end
+
   private
+
+  def set_order
+    @order = Order.find_by(id: params[:id])
+  end
 
   def create_cash_gift_paypal_order(order, pay_method, gift_card_id = nil, total_amount = nil)
     order.pay_method = pay_method

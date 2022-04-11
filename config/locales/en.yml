@@ -139,6 +139,7 @@ en:
     max_file_size: Maximum file size is %{max}MB. Please choose a smaller file.
     no_selected_guests: Please select at least one guest.
   flash:
+    order_removed: Order removed successfully!
     admin_removed: Admin removed successfully!
     allegren_created: Congratulation you just created a New Allergen.
     allergen_removed: Allergen removed successfully!
@@ -215,7 +216,7 @@ en:
     enter_first_name: Enter first your first name
     enter_last_name: Enter last your name
     first_name: First name
-    greeting_message: Greeting message
+    greeting_message: Thank you, message & new promo
     last_name: Last name
     name: Name
     new_allergen: Create New Allergen
@@ -341,6 +342,8 @@ en:
     pay_method: Payment method
     new: New Order
     save: Update order
+    create: Create order
+    delete: Delete order
     tax_desc: Individual for each recipe
   pages:
     index:

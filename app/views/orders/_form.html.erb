@@ -86,6 +86,11 @@
   .blue-btns a{
     padding: 8px 11px;
   }
+  @media print {
+    .new-order-item, .remove-new-recipe, #order-button, .blue-btns, select {
+      display: none;
+    }
+  }
 </style>
 
 <%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true, html: { id: "staff_order" } ) do |form| %>
@@ -105,15 +110,26 @@
         <tbody>
           <tr>
             <td colspan="2">
-              <% user = current_app_user.chef_info.user %>
+              <h1>
+                <%= current_app_user.business_name %>
+              </h1>
               <p class="text-center">
-                <%= user.business_name %>
+                <%= current_app_user.store_address %>
               </p>
               <p class="text-center">
-                <%= "#{user.store_address} - #{user.phone} - #{user.email}" %>
+                <%= current_app_user.phone %>
               </p>
               <p class="text-center">
-                <%= user.greeting_message %>
+                <%= current_app_user.email %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-left">
+              <p class="mb-0">
+                <span><%= order.new_record? ? "New Order" : "Order ##{order.id}," %></span>
+                <span class="font-weight-bold"><%= "(#{current_app_user.full_name.titleize})" %></span>
+                <span class="ml-3"><%= "#{order.created_at.strftime("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")}" unless order.new_record? %></span>
               </p>
             </td>
           </tr>
@@ -216,9 +232,11 @@
           </tr>
           <tr>
             <td colspan="2" class="order-item pb-4 text-center">
-              <%= form.submit t('orders.save'), class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
+              <% btn_text = order.new_record? ? t('orders.create') : t('orders.save') %>
+              <%= form.submit btn_text, class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
               <% unless order.new_record? %>
                 <span class="blue-btns">
+                  <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger' %>
                   <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
                   <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
                 </span>
@@ -230,6 +248,11 @@
               <td colspan="2"><%= form.select :status, Order.statuses.collect { |key, value| [key.capitalize, key] }, { class: 'order-status' } %></td>
             </tr>
           <% end %>
+          <tr class="pt-3">
+            <td colspan="2">
+              <h3><%= current_app_user.greeting_message %></h3>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
