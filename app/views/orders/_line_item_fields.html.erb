@@ -11,18 +11,23 @@
       </td>
     </tr>
     <tr>
+      <td colspan="4" class="p-0">
+        <%= f.text_field :note, class: 'order-field border-0', placeholder: t('line_items.note') %>
+      </td>
+    </tr>
+    <tr>
       <% if f.object.recipe.present? %>
         <td class="p-0 pt-3" width="25%">
           <%= f.object.recipe.price %>
         </td>
       <% end %>
-      <td class="p-0" width="30%">
-        <%= f.number_field :quantity, class: 'order-field border-0', step: 1, min: 1, onchange: 'changeQuantity();',
+      <td class="p-0 quantity-field" width="30%">
+        <%= f.number_field :quantity, class: 'order-field border-0', step: 1, min: 1, max: 9999, onchange: 'changeQuantity();',
                                                      onfocusout: @order.new_record? ? '' : 'changeQuantityRecipeForm();'  %>
       </td>
       <% if f.object.recipe.present? %>
         <td class="p-0 pt-3" width="25%">
-          <%= f.object.recipe.price * f.object.quantity %>
+          <%= number_with_precision(f.object.recipe.price * f.object.quantity, :precision => 2) %>
         </td>
       <% end %>
       <td class="px-0" width="20%">

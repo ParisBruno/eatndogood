@@ -345,6 +345,9 @@ en:
     create: Create order
     delete: Delete order
     tax_desc: Individual for each recipe
+    subtotal: Sub-Total
+  line_items:
+    note: 'Add a note!'
   pages:
     index:
       be_inspired_to_play: Be inspired to play with your food again! Tell stories

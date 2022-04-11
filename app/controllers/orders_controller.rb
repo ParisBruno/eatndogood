@@ -318,7 +318,7 @@ class OrdersController < ApplicationController
 
   def update_order_params
     params.require(:order).permit(:name, :email, :phone, :address, :pay_method, :status, :coupon_code, :fundrasing_code, :delivery_price, :tip_value,
-                                  line_items_attributes: [:id, :quantity, :recipe_id, :_destroy, recipe_attributes: [:id, :name]])
+                                  line_items_attributes: [:id, :quantity, :recipe_id, :note, :_destroy, recipe_attributes: [:id, :name]])
   end
 
   def set_delivery_discount_tip(delivery_price, coupon_code, coupon_amount_off, coupon_percent_off, tip_value, fundrasing_code, update_order = false)

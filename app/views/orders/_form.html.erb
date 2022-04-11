@@ -172,6 +172,10 @@
             </td>
           </tr>
           <tr>
+            <td class="order-item"><%= t('orders.subtotal') %></td>
+            <td class="text-left pl-5"><%= number_to_currency(order.sub_total) %></td>
+          </tr>
+          <tr>
             <td class="order-item"><%= t('orders.tax') %></td>
             <% if order.new_record? %>
               <td><%= t('orders.tax_desc') %></td>
@@ -180,27 +184,25 @@
             <% end %>
           </tr>
           <tr>
-            <td class="order-item"><%= t('orders.delivery') %></td>
             <% if order.new_record? %>
+              <td class="order-item"><%= t('orders.delivery') %></td>
               <td><%= form.check_box :delivery_price, class: 'order-field', id: "delivery-checkBox" %></td>
-            <% else %>
+            <% elsif !order.delivery_price.zero? %>
+              <td class="order-item"><%= t('orders.delivery') %></td>
               <td class="text-left pl-5"><%= number_to_currency(order.delivery_price) %></td>
             <% end %>
           </tr>
           <tr>
             <td class="order-item"><%= t('orders.tip') %></td>
-            <% if order.new_record? %>
-              <td><%= form.number_field :tip_value, class: 'order-field', step: 1, min: 0 %></td>
-            <% else %>
-              <td class="text-left pl-5"><%= number_to_currency(order.tip_value) %></td>
-            <% end %>
+            <td class="text-left pl-5"><%= form.number_field :tip_value, class: 'order-field w-50', step: 1, min: 0 %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
             <% if order.new_record? %>
+              <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
               <td><%= form.text_field :coupon_code, class: 'order-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
-            <% else %>
-              <td class="text-left pl-5"><%= order.coupon_code.present? ? order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) : '---' %></td>
+            <% elsif order.coupon_code.present? %>
+              <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+              <td class="text-left pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
             <% end %>
           </tr>
           <tr>
@@ -236,9 +238,9 @@
               <%= form.submit btn_text, class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
               <% unless order.new_record? %>
                 <span class="blue-btns">
-                  <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger' %>
                   <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
                   <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
+                  <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger', data: { confirm: 'Are you sure?' } %>
                 </span>
               <% end %>
             </td>
@@ -328,11 +330,11 @@
   function changeQuantityRecipeForm() {
     quantityField = event.currentTarget
     
-    if (parseInt(quantityField.value, 10) >= 1 && parseInt(quantityField.value, 10) !== NaN) {
+    if (parseInt(quantityField.value, 10) >= 1 && parseInt(quantityField.value, 10) < 10000 && parseInt(quantityField.value, 10) !== NaN) {
       orderForm = document.getElementById("staff_order");
       orderForm.submit();
     } else {
-      quantityField.style.border = '1px solid red';
+      quantityField.style.color = 'red';
     }
   }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_08_142027) do
+ActiveRecord::Schema.define(version: 2022_04_11_121138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 2022_04_08_142027) do
     t.integer "sub_total"
     t.decimal "total_tax", precision: 5, scale: 2, default: "0.0"
     t.decimal "coupon_discount", precision: 5, scale: 2, default: "0.0"
+    t.text "note"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["gift_card_id"], name: "index_line_items_on_gift_card_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
