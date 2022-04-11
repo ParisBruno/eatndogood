@@ -1,12 +1,12 @@
 <div class="field my-2 nested-fields">
   <table class="table table-bordered">
     <tr>
-      <td colspan="4" class="px-0 pt-2 pb-0">
+      <td colspan="4" class="p-0">
         <% if f.object.recipe || f.object.gift_card %>
           <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
         <% else %>
           <% recipes = recipes_for_staff_order(@order) %>
-          <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {}, class: 'order-field border-0', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
+          <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {include_blank: 'Select Recipe'}, class: 'order-field border-0', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
         <% end %>
       </td>
     </tr>
