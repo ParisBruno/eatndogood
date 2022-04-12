@@ -204,7 +204,7 @@
           <tr>
             <td class="text-right order-item"><%= t('orders.tax') %></td>
             <% if order.new_record? %>
-              <td><%= t('orders.tax_desc') %></td>
+              <td class="text-right"><%= t('orders.tax_desc') %></td>
             <% else %>
               <td class="text-right text-left pl-5"><%= number_to_currency(order.total_tax) %></td>
             <% end %>
@@ -212,7 +212,7 @@
           <tr>
             <% if order.new_record? %>
               <td class="text-right order-item"><%= t('orders.delivery') %></td>
-              <td><%= form.check_box :delivery_price, class: 'text-right order-field order-field-height', id: "delivery-checkBox" %></td>
+              <td class="text-right"><%= form.check_box :delivery_price, class: 'order-field order-field-height', id: "delivery-checkBox" %></td>
             <% elsif !order.delivery_price.zero? %>
               <td class="text-right order-item"><%= t('orders.delivery') %></td>
               <td class="text-right  pl-5"><%= number_to_currency(order.delivery_price) %></td>
@@ -225,7 +225,7 @@
           <tr>
             <% if order.new_record? %>
               <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
-              <td><%= form.text_field :coupon_code, class: 'text-right order-field order-field-height', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
+              <td class="ml-2"><%= form.text_field :coupon_code, class: 'order-field line-item-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
             <% elsif order.coupon_code.present? %>
               <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
               <td class="text-right pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
@@ -234,7 +234,7 @@
           <tr>
             <% if order.new_record? %>
               <td class="text-right order-item"><%= t('recipes.fundraising_code') %></td>
-              <td><%= form.text_field :fundrasing_code, class: 'text-right order-field order-field-height', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
+              <td><%= form.text_field :fundrasing_code, class: 'order-field line-item-field', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
             <% elsif order.fundrasing_code.present? %>
               <td class="text-right order-item"><%= t('recipes.fundraising_code') %></td>
               <td class="text-right pl-5"><%= order.fundrasing_code %></td>
