@@ -3,28 +3,28 @@
     <tr>
       <td width="70%" class="text-left p-0">
         <% if f.object.recipe || f.object.gift_card %>
-          <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name %>
+          <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name, class: "mb-0" %>
         <% else %>
           <% recipes = recipes_for_staff_order(@order) %>
           <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {include_blank: 'Select Recipe'}, class: 'line-item-field order-field w-75 mb-2', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
         <% end %><br>
+        <%= f.text_field :note, class: 'line-item-field order-field w-75 border-0 text-left pl-0 note-field', placeholder: t('line_items.note') %>
       </td>
       <td width="15%" class="p-0">
-        <%= f.number_field :quantity, class: 'line-item-field order-field', step: 1, min: 1, max: 9999, onchange: 'changeQuantity();',
+        <%= f.number_field :quantity, class: 'line-item-field order-field border-0 font-weight-bold pb-1 quantity-field', step: 1, min: 1, max: 9999, onchange: 'changeQuantity();',
                                                      onfocusout: @order.new_record? ? '' : 'changeQuantityRecipeForm();'  %>
       </td>
-      <td class="p-0 pt-3 text-right" width="15%">
+      <td class="p-0 text-right font-weight-bold" width="15%">
         <% if f.object.recipe.present? %>
           <%= number_with_precision(f.object.recipe.price * f.object.quantity, :precision => 2) %>
         <% end %>
       </td>
     </tr>
-    <tr>
+    <tr class="position-relative">
       <td class="text-left p-0">
-        <%= f.text_field :note, class: 'line-item-field order-field w-75', placeholder: t('line_items.note') %>
       </td>
-      <td colspan="2" class="text-right p-0">
-        <%= link_to_remove_association "Remove Item", f, { class: 'remove-recipe text-danger',
+      <td colspan="2" class="text-right p-0 position-absolute remove-recipe-column">
+        <%= link_to_remove_association "Remove Item", f, { class: 'remove-recipe font-weight-bold text-danger',
                                                onmousedown: 'removeNewRecipe();',
                                                onfocusout: @order.new_record? ? '' : 'changeRecipeForm();' } %>
       </td>

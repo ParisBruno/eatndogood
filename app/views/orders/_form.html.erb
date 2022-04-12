@@ -39,7 +39,6 @@
     text-align: center;
     width: 100%;
     padding: .375rem .75rem;
-    font-size: 1.4rem;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
@@ -101,8 +100,24 @@
     font-size: 15px;
     text-decoration: none !important;
   }
+  .remove-recipe-column{
+    right: 0;
+    bottom: 0;
+  }
   .order-total-row{
     font-size: 15px;
+  }
+  input:focus{
+    outline: none;
+  }
+  .note-field{
+    margin-top: -2px;
+  }
+  .line-item-table td{
+    vertical-align: top;
+  }
+  .quantity-field{
+    font-size: 18px;
   }
 </style>
 
@@ -126,18 +141,18 @@
               <h1>
                 <%= current_app_user.business_name %>
               </h1>
-              <p class="text-center">
+              <p class="text-center mb-0">
                 <%= current_app_user.store_address %>
               </p>
-              <p class="text-center">
+              <p class="text-center mb-0">
                 <span><%= "#{current_app_user.city}," %></span>
                 <span><%= "#{current_app_user.state}," if current_app_user.state.present? %></span>
                 <span><%= "#{current_app_user.postal_code}" if current_app_user.postal_code.present? %></span>
               </p>
-              <p class="text-center">
+              <p class="text-center mb-0">
                 <%= current_app_user.phone %>
               </p>
-              <p class="text-center">
+              <p class="text-center mb-0">
                 <%= current_app_user.email %>
               </p>
             </td>
