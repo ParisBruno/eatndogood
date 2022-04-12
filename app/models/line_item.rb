@@ -9,6 +9,7 @@ class LineItem < ApplicationRecord
   accepts_nested_attributes_for :recipe
 
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
+  validates_length_of :quantity, :maximum => 4
 
   after_save :set_amount_data
 

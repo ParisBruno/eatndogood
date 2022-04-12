@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   scope :active_of_day, ->(user_ids) { where(user_id: user_ids, status: 0).where('orders.created_at >= ?', Date.today.beginning_of_day) }
   scope :closed_of_day, ->(user_ids) { where(user_id: user_ids, status: 1).where('orders.created_at >= ?', Date.today.beginning_of_day) }
 
-  enum status: { active: 0, closed: 1 }
+  enum status: { active: 0, archived: 1 }
 
   accepts_nested_attributes_for :line_items, reject_if: :all_blank, allow_destroy: true
 

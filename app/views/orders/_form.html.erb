@@ -45,7 +45,12 @@
     background-color: #fff;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+  }
+  .order-field-height {
     height: 50px !important;
+  }
+  .line-item-field {
+    height: 30px !important;
   }
   .new-order-item {
     text-align: left;
@@ -87,9 +92,17 @@
     padding: 8px 11px;
   }
   @media print {
-    .new-order-item, .remove-new-recipe, #order-button, .blue-btns, select {
+    .new-order-item, .remove-recipe, #order-button, .blue-btns, select {
       display: none;
     }
+  }
+  .remove-recipe{
+    font-style: italic;
+    font-size: 15px;
+    text-decoration: none !important;
+  }
+  .order-total-row{
+    font-size: 15px;
   }
 </style>
 
@@ -117,6 +130,11 @@
                 <%= current_app_user.store_address %>
               </p>
               <p class="text-center">
+                <span><%= "#{current_app_user.city}," %></span>
+                <span><%= "#{current_app_user.state}," if current_app_user.state.present? %></span>
+                <span><%= "#{current_app_user.postal_code}" if current_app_user.postal_code.present? %></span>
+              </p>
+              <p class="text-center">
                 <%= current_app_user.phone %>
               </p>
               <p class="text-center">
@@ -125,32 +143,40 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-left">
-              <p class="mb-0">
-                <span><%= order.new_record? ? "New Order" : "Order ##{order.id}," %></span>
-                <span class="font-weight-bold"><%= "(#{current_app_user.full_name.titleize})" %></span>
-                <span class="ml-3"><%= "#{order.created_at.strftime("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")}" unless order.new_record? %></span>
+            <td colspan="2">
+              <p class="mb-0 text-center">
+                <span class="font-weight-bold"><%= "#{current_app_user.full_name.titleize} - " "#{order.new_record? ? "New Order" : "Order ##{order.id},"}" %></span>
+                <span><%= "--- #{order.created_at.strftime("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")}" unless order.new_record? %></span>
               </p>
             </td>
           </tr>
-          <tr>
-            <td class="order-item"><%= t('orders.date') %></td>
-            <td>
-              <%= order.new_record? ? Date.current.strftime("%A %d of %B, %Y") : order.created_at.strftime("%A %d of %B, %Y") %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2"><%= form.text_field :name, class: 'order-field', id: 'new_order_name', disabled: order.new_record? ? false : true, placeholder: t('orders.client_name') %></td>
-          </tr>
-          <tr>
-            <td colspan="2"><%= form.email_field :email, class: 'order-field', id: 'new_order_email', disabled: order.new_record? ? false : true, placeholder: t('orders.email') %></td>
-          </tr>
-          <tr>
-            <td colspan="2"><%= form.text_field :phone, class: 'order-field', id: 'new_order_phone', disabled: order.new_record? ? false : true, placeholder: t('orders.phone') %></td>
-          </tr>
-          <tr>
-            <td colspan="2"><%= form.text_area :address, class: "order-field #{"d-none" if order.new_record?}", id: 'new_order_address', disabled: order.new_record? ? false : true, placeholder: t('orders.home_address') %></td>
-          </tr>
+          <% if order.new_record? %>
+            <tr>
+              <td colspan="2"><%= form.text_field :name, class: 'order-field order-field-height', id: 'new_order_name', placeholder: t('orders.client_name') %></td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= form.email_field :email, class: 'order-field order-field-height', id: 'new_order_email', placeholder: t('orders.email') %></td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= form.text_field :phone, class: 'order-field order-field-height', id: 'new_order_phone', placeholder: t('orders.phone') %></td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= form.text_area :address, class: "order-field order-field-height", id: 'new_order_address', placeholder: t('orders.home_address') %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td colspan="2" class="text-left"><%= order.name if order.name.present? %></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-left"><%= order.email if order.email.present? %></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-left"><%= order.phone if order.phone.present? %></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-left"><%= order.address if order.address.present? %></td>
+            </tr>
+          <% end %>
           <tr>
             <td colspan="2" class="text-center">
               <div class="row field">
@@ -172,65 +198,65 @@
             </td>
           </tr>
           <tr>
-            <td class="order-item"><%= t('orders.subtotal') %></td>
-            <td class="text-left pl-5"><%= number_to_currency(order.sub_total) %></td>
+            <td class="text-right order-item" width="50%"><%= t('orders.subtotal') %></td>
+            <td class="text-right pl-5"><%= number_to_currency(order.sub_total) %></td>
           </tr>
           <tr>
-            <td class="order-item"><%= t('orders.tax') %></td>
+            <td class="text-right order-item"><%= t('orders.tax') %></td>
             <% if order.new_record? %>
               <td><%= t('orders.tax_desc') %></td>
             <% else %>
-              <td class="text-left pl-5"><%= number_to_currency(order.total_tax) %></td>
+              <td class="text-right text-left pl-5"><%= number_to_currency(order.total_tax) %></td>
             <% end %>
           </tr>
           <tr>
             <% if order.new_record? %>
-              <td class="order-item"><%= t('orders.delivery') %></td>
-              <td><%= form.check_box :delivery_price, class: 'order-field', id: "delivery-checkBox" %></td>
+              <td class="text-right order-item"><%= t('orders.delivery') %></td>
+              <td><%= form.check_box :delivery_price, class: 'text-right order-field order-field-height', id: "delivery-checkBox" %></td>
             <% elsif !order.delivery_price.zero? %>
-              <td class="order-item"><%= t('orders.delivery') %></td>
-              <td class="text-left pl-5"><%= number_to_currency(order.delivery_price) %></td>
+              <td class="text-right order-item"><%= t('orders.delivery') %></td>
+              <td class="text-right  pl-5"><%= number_to_currency(order.delivery_price) %></td>
             <% end %>
           </tr>
           <tr>
-            <td class="order-item"><%= t('orders.tip') %></td>
-            <td class="text-left pl-5"><%= form.number_field :tip_value, class: 'order-field w-50', step: 1, min: 0 %></td>
+            <td class="text-right order-item"><%= t('orders.tip') %></td>
+            <td class="text-right pl-5"><%= form.number_field :tip_value, class: 'order-field line-item-field w-50', step: 1, min: 0 %></td>
           </tr>
           <tr>
             <% if order.new_record? %>
-              <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
-              <td><%= form.text_field :coupon_code, class: 'order-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
+              <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+              <td><%= form.text_field :coupon_code, class: 'text-right order-field order-field-height', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
             <% elsif order.coupon_code.present? %>
-              <td class="order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
-              <td class="text-left pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
+              <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+              <td class="text-right pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
             <% end %>
           </tr>
           <tr>
             <% if order.new_record? %>
-              <td class="order-item"><%= t('recipes.fundraising_code') %></td>
-              <td><%= form.text_field :fundrasing_code, class: 'order-field', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
+              <td class="text-right order-item"><%= t('recipes.fundraising_code') %></td>
+              <td><%= form.text_field :fundrasing_code, class: 'text-right order-field order-field-height', id: 'fundrasing_code_input', onblur: 'checkFundCoupon();' %></td>
             <% elsif order.fundrasing_code.present? %>
-              <td class="order-item"><%= t('recipes.fundraising_code') %></td>
-              <td class="text-left pl-5"><%= order.fundrasing_code %></td>
+              <td class="text-right order-item"><%= t('recipes.fundraising_code') %></td>
+              <td class="text-right pl-5"><%= order.fundrasing_code %></td>
             <% end %>
           </tr>
-          <tr>
-            <td class="order-item"><%= t('recipes.total') %></td>
+          <tr class="order-total-row">
+            <td class="text-right order-item"><%= t('recipes.total') %></td>
             <% if order.new_record? %>
-              <td class="font-weight-bold">$0.00</td>
+              <td class="text-right font-weight-bold">$0.00</td>
             <% else %>
-              <td class="text-left pl-5 font-weight-bold">
+              <td class="text-right pl-5 font-weight-bold">
                 <%= number_to_currency(order.amount&./100.0) %>  
               </td>
             <% end %>
           </tr>
           <tr>
-            <td class="order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
-            <% if order.new_record? %>
-              <td><%= 'Cash'.capitalize %></td>
-            <% else %>
-              <td class="text-left pl-4"><%= form.text_field :pay_method, class: 'text-left order-field order-paymethod ml-1', id: 'staff-order-paymethod', readonly: true %></td>
-            <% end %>
+            <td class="text-right order-item"><%= form.label :pay_method, t('orders.pay_method') %></td>
+            <td class="text-right"><%= 'Cash'.capitalize %></td>
+            <%# if order.new_record? %>
+            <%# else %>
+              <!-- <td class="text-right pl-4"><%#= form.text_field :pay_method, class: 'text-left order-field order-field-height order-paymethod ml-1', id: 'staff-order-paymethod', readonly: true %></td> -->
+            <%# end %>
           </tr>
           <tr>
             <td colspan="2" class="order-item pb-4 text-center">
@@ -328,14 +354,8 @@
   }
 
   function changeQuantityRecipeForm() {
-    quantityField = event.currentTarget
-    
-    if (parseInt(quantityField.value, 10) >= 1 && parseInt(quantityField.value, 10) < 10000 && parseInt(quantityField.value, 10) !== NaN) {
-      orderForm = document.getElementById("staff_order");
-      orderForm.submit();
-    } else {
-      quantityField.style.color = 'red';
-    }
+    orderForm = document.getElementById("staff_order");
+    orderForm.submit();
   }
 
   function checkCoupon() {
