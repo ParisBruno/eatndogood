@@ -9,7 +9,7 @@
 <script type="text/javascript">
   var couponTitleValue = document.getElementById("coupon-title");
   var addCouponBtn = document.getElementById("add-coupon-btn");
-  var fundrasingTitleValue = document.getElementById("fundrasing-title");
+  var fundrasingTitleValue = document.getElementById("fundraising-title");
   var addFundrasingBtn = document.getElementById("add-fundrasing-btn");
 
   couponTitleValue.addEventListener("change", function () {
@@ -30,7 +30,18 @@
       url: "/" + <%= @current_app.id %> + "/coupon_codes",
       data: { coupon_code: {title: title, coupon_percent_off: couponPercentOff, coupon_amount_off: couponAmountOff, is_active: couponCheckBox} },
       success: function (response) {
-        window.location.reload();
+      },
+    })
+  });
+
+  addFundrasingBtn.addEventListener("click", function () {
+    var title = $('#fundraising-title').val();
+    var couponCheckBox = $('#fundraising-check-box').prop("checked");
+    $.ajax({
+      method: "POST",
+      url: "/" + <%= @current_app.id %> + "/fundrasing_codes",
+      data: { fundrasing_code: {title: title, is_active: couponCheckBox} },
+      success: function (response) {
       },
     })
   });

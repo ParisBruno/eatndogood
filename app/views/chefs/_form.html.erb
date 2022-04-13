@@ -8,7 +8,7 @@
     padding-top: 6px;
     border-top: 4px solid green;
   }
-  .copupon-codes {
+  .coupon-codes, .fundraising-codes {
     margin-left: 7%;
     max-width: 590px;
   }
@@ -257,83 +257,13 @@
             </div>
           </div>
           <div class="cart-functional mb-4">
-            <div class="copupon-codes">
-              <table>
-                <h3 style="text-align: center;"><%= t('recipes.coupone_code') %></h3>
-                <thead>
-                  <tr>
-                    <td colspan="2"><%= t('chefs.coupon_title') %></td>
-                    <td colspan="2"><%= t('chefs.coupon_percent_off') %></td>
-                    <td colspan="2"><%= t('chefs.coupon_amount_off') %></td>
-                    <td colspan="2"><%= t('chefs.coupon_active') %></td>
-                    <td class="empty-header"></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @current_app_user.chef_info.coupon_codes.each do |coupon_code| %>
-                    <tr>
-                      <td colspan="2"><%= coupon_code.title %></td>
-                      <td colspan="2"><%= coupon_code.coupon_percent_off %></td>
-                      <td colspan="2"><%= coupon_code.coupon_amount_off %></td>
-                      <td colspan="2"><%= coupon_code.is_active %></td>
-                      <td class="empty-header"><%= button_to "x", app_coupon_codes_path(@current_app, code_id: coupon_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
-                    </tr>
-                  <% end %>
-                  <tr>
-                    <td class="empty-row"></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" class="add-coupon">
-                      <input type="text" id="coupon-title" class="form-control coupon-code-input" placeholder=<%= t('recipes.coupone_code') %>>
-                    </td>
-                    <td colspan="2" class="add-coupon">
-                      <input type="number" id="coupon-percent-off" class="form-control coupon-code-input" step=0.01 min=0 max=100>
-                    </td>
-                    <td colspan="2" class="add-coupon">
-                      <input type="number" id="coupon-amount-off" class="form-control coupon-code-input" step=0.01>
-                    </td>
-                    <td colspan="2" class="add-coupon">
-                      <input type="checkbox" id="coupon-check-box" class="coupon-active">
-                    </td>
-                    <td class="add-coupon">
-                      <input type="button" value="Add" class="btn btn-success btn-lg" id="add-coupon-btn" disabled=true>
-                    </td>
-                  <tr>
-                </tbody>
-              </table>
+            <div class="coupon-codes">
+              <%= render partial: 'coupon_codes_table' %>
             </div>
           </div>
           <div class="cart-functional mb-4">
-            <div class="copupon-codes">
-              <table>
-                <h3 style="text-align: center;"><%= t('recipes.fundraising_code') %></h3>
-                <thead>
-                  <tr>
-                    <td colspan="3"><%= t('chefs.coupon_title') %></td>
-                    <td colspan="1"><%= t('chefs.coupon_active') %></td>
-                    <td class="empty-header"></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @current_app_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
-                    <tr>
-                      <td colspan="3"><%= fundrasing_code.title %></td>
-                      <td colspan="2"><%= fundrasing_code.is_active %></td>
-                      <td class="empty-header"><%= button_to "x", app_fundrasing_codes_path(@current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
-                    </tr>
-                  <% end %>
-                  <%= form_for :fundrasing_code, url: app_add_fundrasing_codes_path(@current_app), html: { method: :post } do |fundrasing_code| %>
-                    <tr>
-                      <td class="empty-row"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" class="add-coupon"><%= fundrasing_code.text_field :title, class: "form-control coupon-code-input", id: "fundrasing-title", placeholder: t('recipes.fundraising_code') %></td>
-                      <td colspan="1" class="add-coupon"><%= fundrasing_code.check_box :is_active, class: "coupon-active" %></td>
-                      <td colspan="2" class="add-coupon"><%= fundrasing_code.submit "Add", class: "btn btn-success btn-lg", id: "add-fundrasing-btn", disabled: true %></td>
-                    <tr>
-                  <% end %>
-                </tbody>
-              </table>
+            <div class="fundraising-codes">
+              <%= render partial: 'fundraising_codes_table' %>
             </div>
           </div>
         <% end %>

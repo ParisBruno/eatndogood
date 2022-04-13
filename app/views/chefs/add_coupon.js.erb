@@ -1,0 +1,25 @@
+$(".coupon-codes").html("<%= escape_javascript (render partial: 'coupon_codes_table') %>");
+
+var couponTitleValue = document.getElementById("coupon-title");
+var addCouponBtn = document.getElementById("add-coupon-btn");
+couponTitleValue.addEventListener("change", function () {
+  if (couponTitleValue.value.length > 0) {
+    addCouponBtn.disabled = false;
+  } else {
+    addCouponBtn.disabled = true;
+  }
+});
+
+addCouponBtn.addEventListener("click", function () {
+  var title = $('#coupon-title').val();
+  var couponPercentOff = $('#coupon-percent-off').val();
+  var couponAmountOff = $('#coupon-amount-off').val();
+  var couponCheckBox = $('#coupon-check-box').prop("checked");
+  $.ajax({
+    method: "POST",
+    url: "/" + <%= @current_app.id %> + "/coupon_codes",
+    data: { coupon_code: {title: title, coupon_percent_off: couponPercentOff, coupon_amount_off: couponAmountOff, is_active: couponCheckBox} },
+    success: function (response) {
+    },
+  })
+});

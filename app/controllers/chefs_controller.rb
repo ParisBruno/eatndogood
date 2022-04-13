@@ -87,7 +87,9 @@ class ChefsController < ApplicationController
     coupon_code = CouponCode.find(params[:code_id])
     coupon_code.destroy
 
-    redirect_to edit_app_chef_path(current_app, current_app_user)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def add_fundrasing
@@ -95,14 +97,18 @@ class ChefsController < ApplicationController
     fundrasing_code.assign_attributes(is_active: params[:fundrasing_code][:is_active])
     fundrasing_code.save!
 
-    redirect_to edit_app_chef_path(current_app, current_app_user)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy_fundrasing
     fundrasing_code = FundrasingCode.find(params[:code_id])
     fundrasing_code.destroy
 
-    redirect_to edit_app_chef_path(current_app, current_app_user)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def admin
