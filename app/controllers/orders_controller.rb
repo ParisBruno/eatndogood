@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :paypal_init, only: %i[paypal_create_payment paypal_execute_payment]
   before_action :set_order, only: %i[show update destroy]
   before_action :set_chef_ids
-  before_action :set_paypal_credentials, only: %i[new create new_staff_order show]
+  before_action :set_credentials, only: %i[new create new_staff_order show]
   before_action :set_team_member, except: %i[new create paypal_create_payment paypal_execute_payment]
   skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
@@ -142,13 +142,13 @@ class OrdersController < ApplicationController
 
   def return_stripe
     order = Order.last
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_key = @stripe_secret_key
     session = Stripe::Checkout::Session.list({limit: 1})
     payment = session.data.first
 
     order.stripe_session_id = payment.id
     order.stripe_status = payment.payment_status
-    order.stripe_shipping = payment.shipping.to_hash
+    order.stripe_shipping = payment.shipping&.to_hash
     order.save!
 
     flash[:success] = I18n.t 'flash.client_create_order'
@@ -221,8 +221,6 @@ class OrdersController < ApplicationController
     redirect_to app_orders_path(current_app)
   end
 
-  private
-
   def set_order
     @order = Order.find_by(id: params[:id])
   end
@@ -244,7 +242,9 @@ class OrdersController < ApplicationController
     end
 
     flash[:success] = I18n.t 'flash.client_create_order'
-    redirect_to app_recipes_path(current_app)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create_stripe_order(order, current_cart, amount)
@@ -269,22 +269,17 @@ class OrdersController < ApplicationController
       session[:cart_id] = nil
 
       @session_id = stripe_session[:session_id]
-      render 'create_checkout'
-    else
-      flash[:error] = stripe_session[:error]
-      redirect_to new_app_order_path(current_app)
+      flash[:success] = I18n.t 'flash.client_create_order'
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 
   def create_session(amount, coupon_id, product_name)
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-
-    session = Stripe::Checkout::Session.create({
-      customer_email: current_app_user.email,
-      billing_address_collection: 'required',
-      shipping_address_collection: {
-        allowed_countries: ['US'],
-      },
+    Stripe.api_key = @stripe_secret_key
+    @session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
@@ -294,13 +289,12 @@ class OrdersController < ApplicationController
         },
         quantity: 1,
       }],
-      locale: I18n.locale,
       mode: 'payment',
-      success_url: app_return_stripe_url(current_app),
-      cancel_url: app_recipes_url(current_app),
+      success_url: app_return_stripe_url,
+      cancel_url: root_url,
     })
 
-    { session_id: session.id }
+    { session_id: @session.id }
   rescue Stripe::InvalidRequestError => e
     { error: e.message }
   end
@@ -414,5 +408,12 @@ class OrdersController < ApplicationController
       end
     end
     @items_with_styles = styles_data.reject { |key, value| value.empty? }
+  end
+
+  def set_credentials
+    set_paypal_credentials
+    main_admin = current_app.main_admin
+    @stripe_publishable_key = main_admin&.stripe_publishable_key
+    @stripe_secret_key = main_admin&.stripe_secret_key
   end
 end

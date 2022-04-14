@@ -34,7 +34,7 @@ it:
     confirm_delete_account: Sei sicuro! Vuoi cancellare l'account dello chef?
     delete_profile: Elimina profilo
     delivery_price: Prezzo di consegna
-    product_tax: Imposta sulla ricetta
+    product_tax: Aliquota fiscale
     edit_profile: Modifica Profilo
     edit_your_profile: Modifica il tuo profilo
     admin_panel: Pannello di Amministrazione
@@ -410,7 +410,7 @@ it:
     max_pic_size: Immagine dimensione max %{mb} megabyte
     rec_pic_size: La dimensione dell'immagine consigliata è 1366 x 768px
     new_title: Crea una nuovo capolavoro di  ricetta
-    question_about_this_recipe: domanda su questa ricetta? Chiedimi! clicca qui
+    question_about_this_recipe: Domanda o per richiedere una prenotazione, clicca qui!
     return_to_recipes_listing: Torna all'elenco delle ricette
     save_submit: Clicca qui per salvare il tuo capolavoro
     save_draft: Salva come bozza

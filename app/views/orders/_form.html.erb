@@ -145,7 +145,7 @@
                 <%= current_app_user.store_address %>
               </p>
               <p class="text-center mb-0">
-                <span><%= "#{current_app_user.city}," %></span>
+                <span><%= "#{current_app_user.city}," if current_app_user.city.present? %></span>
                 <span><%= "#{current_app_user.state}," if current_app_user.state.present? %></span>
                 <span><%= "#{current_app_user.postal_code}" if current_app_user.postal_code.present? %></span>
               </p>

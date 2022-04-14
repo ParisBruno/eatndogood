@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_11_121138) do
+ActiveRecord::Schema.define(version: 2022_04_05_113824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -517,6 +517,9 @@ ActiveRecord::Schema.define(version: 2022_04_11_121138) do
     t.string "greeting_message", default: ""
     t.integer "manager_id"
     t.string "business_name"
+    t.string "stripe_publishable_key"
+    t.string "stripe_secret_key"
+    t.text "selected_payment_methods", default: ["cash"], array: true
     t.index ["app_id"], name: "index_users_on_app_id"
     t.index ["email", "app_id"], name: "index_users_on_email_and_app_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

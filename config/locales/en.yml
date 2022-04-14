@@ -37,7 +37,7 @@ en:
     create_account: Create my account
     delete_profile: Delete Profile
     delivery_price: Delivery price
-    product_tax: Recipe's tax
+    product_tax: Tax rate
     edit_profile: Edit profile
     edit_your_profile: Edit Your Profile
     admin_panel: Admin panel
@@ -200,6 +200,9 @@ en:
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
     business_name: Business name
+    stripe_secret_key: Stripe secret-key
+    stripe_publishable_key: Stripe publishable-key
+    select_payment_method: Select payment method
     action: Action
     admin: Admin
     bio: Bio
@@ -319,7 +322,7 @@ en:
     send: send
     cash: Pay with Cash
     gift_card: Pay your Gift Card
-    stripe: Pay with Stripe
+    stripe: Stripe
     full_name: Full name
     email: Email
     phone: Phone
@@ -428,7 +431,7 @@ en:
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: The recommended picture size is 1366 x 768px
     new_title: Create A New Masterpiece Recipe
-    question_about_this_recipe: Question about this recipe? ask me! click here
+    question_about_this_recipe: Question or to request a reservation, click here!
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
     save_draft: Save as Draft
