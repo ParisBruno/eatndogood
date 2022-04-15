@@ -98,7 +98,7 @@
             <%= f.label :ingredients, t('forms.ingredients') %> &nbsp; <a href="#"  class='new_elem_recipe' data-toggle="modal" data-target="#new_ingredient_modal">[<%= t('forms.new_ingredient') %>]</a>
           </div>
           <div class="col-md-12">
-            <%= f.collection_check_boxes :ingredient_ids, Ingredient.where(:app_id => current_app.id).all, :id, :name do |cb| %>
+            <%= f.collection_check_boxes :ingredient_ids, current_app.ingredients, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text.capitalize} %>
             <% end %>
           </div>

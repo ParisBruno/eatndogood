@@ -311,7 +311,7 @@
           <% end %>
           <tr class="pt-3">
             <td colspan="2">
-              <h3><%= current_app_user.greeting_message %></h3>
+              <h3><%= current_app_user.greeting_message.html_safe %></h3>
             </td>
           </tr>
         </tbody>
