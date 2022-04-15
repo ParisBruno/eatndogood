@@ -12,14 +12,21 @@ class OrdersController < ApplicationController
   @@paypal_status ||= nil
 
   def index
-    case params[:staff_ids].present?
-    when true
-      user_ids = params[:staff_ids]
+    user_ids = params[:staff_ids].present? ? params[:staff_ids] : current_app.user_ids
+    if params[:search].present?
+      orders = Order.where(user_id: user_ids)
+      search_params = params[:search]
+      orders = orders.where(status: search_params[:status]) if search_params[:status].present?
+      orders = orders.where("Date(created_at) = ?", search_params[:created_at]) if search_params[:created_at].present?
     else
-      user_ids = current_app.user_ids
+      orders = Order.where(user_id: user_ids)
     end
+    @orders = orders.order(created_at: :desc)
 
-    @orders = Order.where(user_id: user_ids).order(created_at: :desc)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new

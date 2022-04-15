@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <td><%= 'Id' %></td>
+      <td><%= t('orders.full_name') %></td>
+      <td><%= t('orders.home_address') %></td>
+      <td class="order-amount"><%= t('orders.total') %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% orders.each do |order| %>
+      <tr data-link="<%= app_order_path(current_app, order) %>" role="button">
+        <td class="order-id"><%= "##{order.id}" %></td>
+        <td class="order-data">
+          <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
+          <p style="margin-bottom: 0;"><%= order.email %></p>
+          <p style="margin-bottom: 0;"><%= order.phone %></p>
+        </td>
+        <td><%= order.address %></td>
+        <td class="order-amount">
+          <%= number_to_currency(order.amount&./100.0) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

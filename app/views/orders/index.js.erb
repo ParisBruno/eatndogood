@@ -1,0 +1,6 @@
+$("#orderTable").html("<%= escape_javascript (render partial: 'table', :locals => { :orders => @orders }) %>");
+$("#searchedOrders").text("Searched Orders")
+
+$("tr[data-link]").click(function() {
+  window.location = $(this).data("link")
+})
