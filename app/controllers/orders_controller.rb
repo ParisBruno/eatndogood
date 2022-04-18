@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
       orders = Order.where(user_id: user_ids)
       search_params = params[:search]
       orders = orders.where(status: search_params[:status]) if search_params[:status].present?
-      orders = orders.where("Date(created_at) = ?", search_params[:created_at]) if search_params[:created_at].present?
+      orders = orders.where('created_at BETWEEN ? AND ?', search_params[:start_date], search_params[:end_date]) if search_params[:start_date].present? && search_params[:end_date].present?
     else
       orders = Order.where(user_id: user_ids)
     end
