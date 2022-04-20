@@ -52,4 +52,52 @@
   $("tr[data-link]").click(function() {
     window.location = $(this).data("link")
   })
+
+  $("#search_start_date").change(function(){
+    var startDate = $('#search_start_date').val();
+    var endDate = $('#search_end_date').val();
+    if (startDate == '' && endDate == '') {
+      $(".searchbutton").removeClass("disabled");
+      $("#startDateError").empty();
+      $("#endDateError").empty();
+    } else if (startDate == '') {
+      $(".searchbutton").addClass("disabled");
+      $("#startDateError").html('<span class="text-warning">Please Fill Created At From Date</span>');
+    } else if (endDate == '') {
+      $(".searchbutton").addClass("disabled");
+      $("#endDateError").html('<span class="text-warning">Please Fill Created At To Date</span>');
+    } else if (endDate != '' && startDate > endDate ) {
+      $("#startDateError").html('<span class="text-danger">Should be less than created at to</span>');
+      $(".searchbutton").addClass("disabled");
+      $("#endDateError").empty();
+    } else {
+      $(".searchbutton").removeClass("disabled");
+      $("#startDateError").empty();
+      $("#endDateError").empty();
+    }
+  });
+
+  $("#search_end_date").change(function(){
+    var startDate = $('#search_start_date').val();
+    var endDate = $('#search_end_date').val();
+    if (startDate == '' && endDate == '') {
+      $(".searchbutton").removeClass("disabled");
+      $("#startDateError").empty();
+      $("#endDateError").empty();
+    } else if (endDate == '') {
+      $(".searchbutton").addClass("disabled");
+      $("#endDateError").html('<span class="text-warning">Please Fill Created At To Date</span>');
+    } else if (startDate == '') {
+      $(".searchbutton").addClass("disabled");
+      $("#startDateError").html('<span class="text-warning">Please Fill Created At From Date</span>');
+    } else if (startDate != '' && startDate > endDate) {
+      $("#endDateError").html('<span class="text-danger">Should be greater than created at from</span>');
+      $(".searchbutton").addClass("disabled")
+      $("#startDateError").empty();
+    } else {
+      $(".searchbutton").removeClass("disabled");
+      $("#endDateError").empty();
+      $("#startDateError").empty();
+    }
+  })
 </script>
