@@ -131,7 +131,7 @@ footer ul li {
   margin-right: 0;
 }
 
-.margin-sec .image-box-shadow {
+.margin-sec .image-box-shadow, .recipe-margin-sec .image-box-shadow {
   height: 220px;
 }
 
@@ -312,11 +312,11 @@ a {
   text-decoration: none;
 }
 
-.margin-sec .box-content .pull-right > a {
+.margin-sec .box-content .pull-right > a, .recipe-margin-sec .box-content .pull-right > a {
   transition: all 0.5s ease 0s;
 }
 
-.margin-sec .box-content .pull-right > a i {
+.margin-sec .box-content .pull-right > a i, .recipe-margin-sec .box-content .pull-right > a i{
   font-size: 20px;
 }
 
@@ -479,7 +479,7 @@ section.chef_info {
   width: 100%;
 }
 
-.margin-sec .box-content {
+.margin-sec .box-content, .recipe-margin-sec .box-content {
   min-height: 310px;
 }
 

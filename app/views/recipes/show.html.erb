@@ -45,7 +45,7 @@
       color: #f04123;
       text-align: center;
     }
-    .margin-sec .top-space {
+    .recipe-margin-sec .top-space {
       margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
       margin-bottom: 10px;
     }
@@ -96,10 +96,17 @@
     font-size: 20px;
     padding: 0 9px;
   }
+  .price-tag{
+    color: black ;
+    background-color: white ;
+    border: 2px outset ;
+    font-family: serif;
+    padding: 5px;
+  }
 </style>
 
-<div class="margin-sec top-space">
-  <div class="col-md-12 margin-sec top-space recipe-detail">
+<div class="recipe-margin-sec top-space">
+  <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
     <div class="row">
       <div class="col-md-9 col-sm-12 col-xs-12 detail-sec">
         <div class="box-inner-sec well box-content">
@@ -126,8 +133,10 @@
               <%= sanitize(@recipe.summary) %>
             </h2>
             <% unless @recipe.price.zero? %>
-              <h2 class="box-content-font" style="margin-top: 0 !important;">
-                <%= t('recipes.price') %>: <span class="badge badge-primary"><%= number_to_currency(@recipe.price) %></span>
+              <h2 class="box-content-font" style="margin-top: 15px; margin-bottom: 15px;">
+                <span class="price-tag">
+                  <%= t('recipes.price') %>: <%= number_to_currency(@recipe.price) %>
+                </span>
               </h2>
             <% end %>
             <div class="well-sec u-content box-content-font">

@@ -45,7 +45,7 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     .update-section .box-content { min-height: inherit!important;}
     .update-section .box-content:last-child {margin-top: 20px;}
 .edit-chef .box-content { min-height: inherit;}
-.margin-sec .box-content {
+.margin-sec .box-content, .recipe-margin-sec .box-content {
     /*min-height: 240px;*/
     margin-top: 0;
     margin-left: 0;
@@ -58,7 +58,7 @@ body {padding-top: 0px;    margin-bottom: 50px;  overflow-x: hidden; }
     margin-right: 0;
     width: 100%;
     float: left;}
-.margin-sec.recipi-main {
+.margin-sec.recipi-main, .recipe-margin-sec.recipi-main {
     margin-top: 80px;
 }
 .chef-full .box-content.box-main {    width: 100%;
@@ -411,7 +411,7 @@ button.btn-bottom:hover {
     background: rgb(83, 166, 83) !important;
     z-index: 99;
 }
-.margin-sec .box-content {    background-color: #fff;
+.margin-sec .box-content, .recipe-margin-sec .box-content {    background-color: #fff;
     padding: 15px;
     border-radius: 0;
     border: 1px solid #9999994f;
@@ -420,7 +420,7 @@ button.btn-bottom:hover {
     -webkit-transition: all 0.5s ease 0s;
     -moz-transition: all 0.5s ease 0s;
     transition: all 0.5s ease 0s;}
-.margin-sec .box-content:hover {-webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.32);
+.margin-sec .box-content:hover, .recipe-margin-sec .box-content:hover {-webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.32);
     -moz-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.32);
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.32);
     -webkit-transition: all 0.5s ease 0s;
@@ -600,8 +600,8 @@ section.chef_info.center h2 a:hover {
         max-width: 100%;
         float: left;
     }
-.margin-sec .top-space .col-img {  width: 100%!important; margin-top: 0!important;  margin-right: 0!important; margin: 0;}
-.margin-sec .top-space .col-img .image-box-shadow { height: auto;  width: 100%; float: left; margin-left: 0; margin-right: 0; margin-top: 10px;}
+.margin-sec .top-space .col-img, .recipe-margin-sec .top-space .col-img {  width: 100%!important; margin-top: 0!important;  margin-right: 0!important; margin: 0;}
+.margin-sec .top-space .col-img .image-box-shadow, .recipe-margin-sec .top-space .col-img .image-box-shadow { height: auto;  width: 100%; float: left; margin-left: 0; margin-right: 0; margin-top: 10px;}
 .recipes-q h3 a { font-size: 17px; padding: 0 20px;}
 
 .custom-alert.alert {font-size: 15px!important; font-weight: 600!important;}
@@ -633,9 +633,9 @@ section.chef_info.center h2 a:hover {
 .top-space .col-img { width: 100%!important; float: left!important; margin: 0 0% 20px 0%!important; overflow: hidden; height: 420px!important;}
 .chef-full.bio-section .col-md-3 {width: 50%; float: left;}
 .chef-full.bio-section .col-md-9 {width: 50%; float: right;}
-.margin-sec.top-recepi .thumb {    width: 50%;
+.margin-sec.top-recepi .thumb, .recipe-margin-sec.top-recepi .thumb {    width: 50%;
     float: left; margin: 0 0% 20px 0%; overflow: hidden; height: 250px!important;}
-.margin-sec.top-recepi .thumb img { min-height: 220px;}
+.margin-sec.top-recepi .thumb img, .recipe-margin-sec.top-recepi .thumb img { min-height: 220px;}
 
 header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .login-sec form input.btn {font-size: 12px!important;}
@@ -682,7 +682,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .style-sec .col-md-9 { width: 100%; float: left; padding: 0;} 
 .style-sec .col-md-3 { width: 100%; float: left; padding: 0!important; margin: 0; } 
 
-.margin-sec .image-box-shadow {
+.margin-sec .image-box-shadow, .recipe-margin-sec .image-box-shadow {
     height: auto; width: 100%; float: left;
     margin-left: 0; margin-right: 0; margin-top: 10px;}
 
@@ -692,7 +692,7 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
 .col-md-9 { width: 100%; float: left; padding: 0;} 
 .col-md-3 { width: 100%; float: left; padding: 0!important; margin: 0; } 
 
-    .margin-sec .box-content {padding: 0px!important;}
+    .margin-sec .box-content, .recipe-margin-sec .box-content {padding: 0px!important;}
 .chef-main h3 {font-size: 18px;}
 .top-space .col-md-8 { padding-left: 0; padding-right: 0;}
 .top-space .col-md-2 { padding-left: 0; padding-right: 0;}
@@ -732,10 +732,10 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     line-height: 36px!important;}
 
     .receipy-top-sec textarea {    height: auto!important; min-height: 80px!important;}
-    .margin-sec.top-recepi.top-space .box-content {margin-top: 0px; margin-right: 0px;}
+    .margin-sec.top-recepi.top-space .box-content, .recipe-margin-sec.top-recepi.top-space .box-content {margin-top: 0px; margin-right: 0px;}
     .margin-sec.receipy-top-sec .rht-box-sec {margin-top: 20px;}
     .top-recepi.top-space .box-content {margin-top: 20px;}
-.margin-sec .box-content { min-height: inherit!important;}
+.margin-sec .box-content, .recipe-margin-sec .box-content { min-height: inherit!important;}
     .full-width-sec .box-content {
     float: left;
     display: block;
@@ -772,17 +772,17 @@ header#main_header #responsive-nav {    max-height: 200px; overflow-y: auto;}
     .login-header + .row { padding: 10px;}
     .pagination-top .btn-success a {margin-bottom: 15px!important;}
     .margin-sec .box-content p {font-size: 15px!important; font-family: WhitneySSm;}
-    .margin-sec .delete-btn-type {padding: 0!important;}
-.margin-sec ul.nav.nav-tabs > li {
+    .margin-sec .delete-btn-type, .recipe-margin-sec .delete-btn-type {padding: 0!important;}
+.margin-sec ul.nav.nav-tabs > li, .recipe-margin-sec ul.nav.nav-tabs > li {
     float: left;  margin-bottom: 0px; width: auto;}
-.margin-sec ul.nav.nav-tabs > li > a {
+.margin-sec ul.nav.nav-tabs > li > a, .recipe-margin-sec ul.nav.nav-tabs > li > a {
     position: relative;
     display: block;
     padding: 8px 10px!important;
     font-size: 16px!important;
 }
 .content-left-sec {    margin-top: 20px; margin-right: 0;}
-.margin-sec .image-box-shadow { 
+.margin-sec .image-box-shadow, .recipe-margin-sec .image-box-shadow { 
     height: auto; width: 100%;  float: left;
     margin-left: 0; margin-right: 0; margin-top: 0px;}
 .login-sec form input.btn {    width: 100%!important;
@@ -922,11 +922,11 @@ header#main_header #responsive-nav {  float: left;
     padding-right: 2%!important;  width: 30%; float: left; margin-left: 0!important; margin-top: 0; box-shadow: none; margin: 0;}
 .chef-bio.bio-section .col-md-9 { padding: 0; width: 70%; float: left; box-shadow: none; margin: 0;}
 .chef-full .custom-profile-detail img {min-height: inherit!important;}
-.margin-sec .detail .box-content {padding-bottom: 10px;} 
-.margin-sec .detail .content-left-sec { padding-bottom: 30px;}
-.margin-sec .detail-sec { width: calc(100% - 300px);}
-.margin-sec .thumb-sec { float: left; width: 300px;}
-.margin-sec .thumb-sec .image-box-shadow {height: 300px;}
+.margin-sec .detail .box-content, .recipe-margin-sec .detail .box-content {padding-bottom: 10px;} 
+.margin-sec .detail .content-left-sec, .recipe-margin-sec .detail .content-left-sec { padding-bottom: 30px;}
+.margin-sec .detail-sec, .recipe-margin-sec .detail-sec { width: calc(100% - 300px);}
+.margin-sec .thumb-sec, .recipe-margin-sec .thumb-sec { float: left; width: 300px;}
+.margin-sec .thumb-sec .image-box-shadow, .recipe-margin-sec .thumb-sec .image-box-shadow {height: 300px;}
 .detail-sec .detail-list {margin-bottom: 0!important;}
 .margin-sec .detail-sec .chef_info h2 a {padding: 0 10px!important;}
 .margin-sec .detail-sec .box-content p {font-size: 17px;}
