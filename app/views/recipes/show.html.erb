@@ -130,7 +130,7 @@
               </h1>
             </center>
             <h2 class="recipe-summary box-content-font">
-              <%= sanitize(@recipe.summary) %>
+              <%= @recipe.summary.html_safe %>
             </h2>
             <% unless @recipe.price.zero? %>
               <h2 class="box-content-font" style="margin-top: 15px; margin-bottom: 15px;">
@@ -141,7 +141,7 @@
             <% end %>
             <div class="well-sec u-content box-content-font">
               <p style="font-family: Garamond; font-size:18px;">
-                <%= simple_format(@recipe.description) %>
+                <%= @recipe.description.html_safe %>
               </p>
               <div class="chef_info center">
               </div>
