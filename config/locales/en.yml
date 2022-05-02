@@ -219,7 +219,10 @@ en:
     enter_first_name: Enter first your first name
     enter_last_name: Enter last your name
     first_name: First name
-    greeting_message: Thank you, message & new promo
+    greeting_message: |-
+      Here you can write a CUSTOM MESSAGE, that will display at the bottom of the receipt<br>
+      can be edited at any time for promotions and events<br>
+      you can add clickable links for people who get the receipt via email.
     last_name: Last name
     name: Name
     new_allergen: Create New Allergen

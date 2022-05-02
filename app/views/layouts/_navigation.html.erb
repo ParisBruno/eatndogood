@@ -1,35 +1,77 @@
 <style>
-.dropdown-menu > li > a {
-  font-size: 12px;
-  font-weight: bold;
-}
-.cart-btn {
-  position: absolute; 
-  right: 10px;
-  top: 70px;
-}
-@media screen and (width: 1024px) {
-  .cart-btn {
-    top: 160px !important;
-    right: 25px;
-  }
-}
-@media screen and (max-width: 1167px) and (min-width: 767px) {
-  .cart-btn {
-    top: 110px;
-  }
-}
-@media screen and (max-width: 600px) {
-  .navbar {
-    display: <%= app_user_signed_in? ? 'block' : 'none' %>;
-  }
-  .header {
-    height: <%= app_user_signed_in? ? '70px' : '0' %>;
+  .dropdown-menu > li > a {
+    font-size: 12px;
+    font-weight: bold;
   }
   .cart-btn {
-    top: 10px;
+    position: absolute; 
+    right: 10px;
+    top: 70px;
   }
-}
+  @media screen and (width: 1024px) {
+    .cart-btn {
+      top: 160px !important;
+      right: 25px;
+    }
+  }
+  @media screen and (max-width: 1167px) and (min-width: 767px) {
+    .cart-btn {
+      top: 110px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .navbar-toggler {
+      display: 'block';
+    }
+    .header {
+      height: <%= app_user_signed_in? ? '70px' : '0' %>;
+    }
+    .cart-btn {
+      top: 10px;
+    }
+  }
+  .login, .registration{
+    background: #6ee06e;
+  }
+  .login , .registration, .subscription{
+    margin-left: 8px;
+    padding: 8px 14px;
+    background-image: -webkit-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -moz-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -ms-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -o-linear-gradient(top, #6ee06e, #449d44);
+    background-image: linear-gradient(to bottom, #6ee06e, #449d44);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  .login:hover, .registration:hover, .subscription:hover{
+    background-image: -webkit-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -moz-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -ms-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: -o-linear-gradient(top, #64dc3b, #64dc3b);
+    background-image: linear-gradient(to bottom, #64dc3b, #64dc3b);
+    text-decoration: none;
+  }
+  .login:hover, .registration:hover{
+    background: #64dc3b;
+  }
+  @media screen and (max-width: 600px){
+    .login, .registration{
+      width: 100%;
+      text-align: center;
+      margin: 0px;
+    }
+  }
+  @media screen and (min-width: 600px){
+    .header-buttons{
+      margin-left: 20px;
+    }
+  }
 </style>
 <!-- <nav class="navbar navbar-default"> -->
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -146,12 +188,12 @@
   <% end %>
 
   <% unless app_user_signed_in? %>
-    <div style="width: 33%;">
+    <div class="header-buttons">
       <div class="login">
-        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn btn-success btn-lg'%>
+        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn text-white btn-lg'%>
       </div>
       <div class="registration">
-        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn btn-success btn-lg'%>
+        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg'%>
       </div>
     </div>
   <% end %>
