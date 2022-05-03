@@ -199,6 +199,7 @@ en:
       email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
+    title: Title
     business_name: Business name
     stripe_secret_key: Stripe secret-key
     stripe_publishable_key: Stripe publishable-key

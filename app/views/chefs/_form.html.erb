@@ -225,6 +225,11 @@
           </div>
         </div>
         <% if @current_app_user != @user %>
+          <div class="form-group col-12">
+            <div class="">
+              <%= f.text_field :title, class: "form-control", placeholder: t('forms.title') %>
+            </div>
+          </div>
           <div class="row">
             <div class="form-group col-1">
               <%= f.check_box :manager, class: "manager-check" %>

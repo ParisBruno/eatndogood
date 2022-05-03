@@ -4,7 +4,12 @@
   allergens = link_to t('navigation.allergens'), table_app_allergens_path(current_app)
 %>
 <h1 align="center" class="title-heading">
-  <%= title == t('recipes.show_all_recipes') ? title : title.titleize %>
+  <% if title != t('recipes.show_all_recipes') %>
+    <% title = title.gsub!("-", ".") if title.include?('-') %>
+    <% title = title.titleize %>
+    <% title = title.gsub!(".", "-") if title.include?('.') %>
+  <% end %>
+  <%= title %>
   <%= categories + ', ' + ingredients + ', or ' + allergens if title == t('recipes.show_all_recipes') %>
 </h1>
 <hr />
