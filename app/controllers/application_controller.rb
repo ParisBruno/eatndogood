@@ -164,7 +164,7 @@ class ApplicationController < ActionController::Base
     #   UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver_later if @admin
     #   UserMailer.guest_create_email_to_guest(resource.email).deliver_later if @admin
     # end
-    app_recipes_path(app: current_app.slug)
+    table_app_styles_path(current_app.slug)
   end
 
   # Overwriting the sign_out redirect path method
