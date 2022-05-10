@@ -173,7 +173,7 @@
   <div class="row">
     <div class="custom-image-one">
         <% if @page.present? %>
-          <%= image_tag( (@page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+          <%= image_tag( (@page.page_img.attached?) ? @page.page_img : 'new-image.jpg', class: 'img-responsive', alt: t('common.no_image')) %>
         <% else %>
           <%= image_tag('cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
          <% end %>

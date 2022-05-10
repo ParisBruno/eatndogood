@@ -4,21 +4,25 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <table cellspacing="0" cellpadding="6" border="1" style="color:#696969;border:1px solid #e5e5e5;vertical-align:middle;width:100%;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-      <tbody>
-        <tr>
-          <th colspan="2" style="color:#696969;border:1px solid #e5e5e5;vertical-align:middle;padding:12px">Your account to login <span><a href="<%= "#{ENV["DEFAULT_HOST"]}#{@user.app.slug}/" %>" target="_blank"><%= "#{ENV["DEFAULT_HOST"]}#{@user.app.slug}/" %></a></span>
-          </th>
-        </tr>
-        <tr>
-          <td style="padding:12px">Email:</td>
-          <td style="padding:12px"><%= @user.email %></td>
-        </tr>
-        <tr>
-          <td style="padding:12px">Password:</td>
-          <td style="padding:12px"><%= @password %></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="new-order" style="border: 1px solid;">
+      <h1 style="background-color:blue; color: white; padding-left:20px; margin:0px; padding:20px">
+      Rockystepsway</h1>
+      <table cellspacing="0" cellpadding="6" border="1" style="color:#696969;border:1px solid #e5e5e5;vertical-align:middle;width:100%;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
+        <tbody>
+          <tr>
+            <th colspan="2" style="color:#696969;border:1px solid #e5e5e5;text-align:left;padding:12px">Your account to login <span><a href="<%= "#{ENV["DEFAULT_HOST"]}#{@user.app.slug}/" %>" target="_blank"><%= "#{ENV["DEFAULT_HOST"]}#{@user.app.slug}/" %></a></span>
+            </th>
+          </tr>
+          <tr>
+            <td style="padding:12px">Email:</td>
+            <td style="padding:12px"><%= @user.email %></td>
+          </tr>
+          <tr>
+            <td style="padding:12px">Password:</td>
+            <td style="padding:12px"><%= @password %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
