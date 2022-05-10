@@ -98,6 +98,9 @@ class ApplicationController < ActionController::Base
       if params[:app].nil? || (current_app.parent_type != "rockystepsway" && params[:app] != "rockystepsway")
         redirect_to '/rockystepswaylive'
       else
+        if params["action"] == "buy" && current_app_user.present?
+          params[:app] = current_app_user.app.name
+        end
         @app = current_app
         # @app.tap do
         #   session[:app_id] = @app.id if session[:app].nil?
