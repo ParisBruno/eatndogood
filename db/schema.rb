@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_113825) do
+ActiveRecord::Schema.define(version: 2022_05_05_075455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_113825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "selected_languages", default: ["en_primary"], array: true
+    t.string "parent_type"
     t.index ["plan_id"], name: "index_apps_on_plan_id"
     t.index ["slug"], name: "index_apps_on_slug", unique: true
   end
@@ -400,6 +401,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_113825) do
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.bigint "subcategory_id"
     t.boolean "is_draft", default: false
+    t.boolean "is_subscription", default: false
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 

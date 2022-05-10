@@ -82,6 +82,9 @@ Rails.application.routes.draw do
     resources :guests, only: %i[index send_emails]
     resources :team, controller: 'chefs', as: 'chefs'
 
+    resources :subscriptions, only: %i[index]
+    get 'buy', to: 'subscriptions#buy'
+    get 'subscribed', to: 'subscriptions#subscribed'
     resources :questions
     resources :allergens do
       get 'table', on: :collection

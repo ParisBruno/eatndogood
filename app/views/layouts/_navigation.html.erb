@@ -31,11 +31,9 @@
     }
   }
   .login, .registration{
-    background: #6ee06e;
-  }
-  .login , .registration, .subscription{
     margin-left: 8px;
-    padding: 8px 14px;
+    padding: 8px 14px !important;
+    background: #6ee06e;
     background-image: -webkit-linear-gradient(top, #6ee06e, #449d44);
     background-image: -moz-linear-gradient(top, #6ee06e, #449d44);
     background-image: -ms-linear-gradient(top, #6ee06e, #449d44);
@@ -49,7 +47,8 @@
     font-size: 20px;
     text-decoration: none;
   }
-  .login:hover, .registration:hover, .subscription:hover{
+  .login:hover, .registration:hover{
+    background: #64dc3b;
     background-image: -webkit-linear-gradient(top, #64dc3b, #64dc3b);
     background-image: -moz-linear-gradient(top, #64dc3b, #64dc3b);
     background-image: -ms-linear-gradient(top, #64dc3b, #64dc3b);
@@ -60,8 +59,41 @@
   .login:hover, .registration:hover{
     background: #64dc3b;
   }
+  .subscription {
+    margin-left: 8px;
+    padding: 8px 14px;
+    margin-left: 5px;
+    background: #11cdd4;
+    font-weight: bold;
+    background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -moz-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -ms-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -o-linear-gradient(top, #11cdd4, #11999e);
+    background-image: linear-gradient(to bottom, #11cdd4, #11999e);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  .subscription:hover {
+    background: #30e3cb;
+    background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -ms-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -o-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: linear-gradient(to bottom, #30e3cb, #2bc4ad);
+    text-decoration: none;
+  }
+  .login a, .registration a, .subscription a{
+    font-weight: 200;
+    outline: none !important;
+    box-shadow: none !important;
+  }
   @media screen and (max-width: 600px){
-    .login, .registration{
+    .login, .registration, .subscription{
       width: 100%;
       text-align: center;
       margin: 0px;
@@ -190,11 +222,17 @@
   <% unless app_user_signed_in? %>
     <div class="header-buttons">
       <div class="login">
-        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn text-white btn-lg'%>
+        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn text-white btn-lg p-0'%>
       </div>
       <div class="registration">
-        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg'%>
+        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg p-0'%>
       </div>
+      <% subscription_recipe = Recipe.subscription_recipe(@current_app.parent_type) %>
+      <% if subscription_recipe.present?  %>
+        <div class="subscription">
+          <%= link_to t('navigation.buy_subscription'), app_recipe_path(@current_app, subscription_recipe), class: 'btn text-white btn-lg p-0'%>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </nav> 

@@ -1,15 +1,15 @@
 class UserMailer < ActionMailer::Base
 	default :from => "bruno@itoprecipes.com"
 
-	def welcome_email(email,url,email_body)
-		@url  = url
-		@email_body = email_body
-		mail(to: email, subject: 'Welcome to itoprecipes.com')
-	end
+  def welcome_email(user, password)
+    @user  = user
+    @password = password
+    mail(to: user.email, subject: 'Your RockeyStepsWay order has been received!')
+  end
 
 	def password_email(email,url)
 		@url  = url
-		mail(to: email, subject: 'ITopRecipes password reset link')
+		mail(to: email, subject: 'RockeyStepsWay password reset link')
 	end
 
 	def reservation_email(from_email, to_email, reservation)

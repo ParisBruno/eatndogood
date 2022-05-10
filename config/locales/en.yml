@@ -287,6 +287,7 @@ en:
     reset_password: Reset password
     update_password: Update password
   navigation:
+    buy_subscription: Buy Subscription
     admin_login: Admin Login
     allergens: Allergens
     all_recipes: All Recipes
@@ -419,6 +420,7 @@ en:
     subject_colon: 'Subject:'
     view_guest_questions: View Guest Questions
   recipes:
+    subscription: Subscription Recipe
     choose_2_photo: Choose 2 images
     crafted_by: 'Crafted by:'
     delete_recipe: Delete Recipe

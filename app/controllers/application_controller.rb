@@ -95,8 +95,8 @@ class ApplicationController < ActionController::Base
   def set_app
     if controller_name != 'pictures'
       # raise current_app_user.inspect
-      unless params[:app]
-        redirect_to '/live'
+      if params[:app].nil? || (current_app.parent_type != "rockystepsway" && params[:app] != "rockystepsway")
+        redirect_to '/rockystepswaylive'
       else
         @app = current_app
         # @app.tap do
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
     # @current_app ||= App.find_by_slug(params[:app]) || current_app_user&.app || App.find(session[:app_id])
     
     # x = Rails.cache.fetch([current_app_user&.app, "current_app"]) do
-      app = App.find_by_slug(params[:app]) || current_app_user&.app || App.find_by(name: "live")
+      app = App.find_by_slug(params[:app]) || current_app_user&.app || App.find_by(name: "rockystepswaylive")
       @old_app =  app unless app.nil?
       gon.current_app = app.slug
       app
@@ -158,6 +158,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    cookies[:remember_rockystepsway_app_user_token] = cookies[:remember_app_user_token]
+    cookies.delete(:remember_app_user_token)
     session[:chef_id] = current_app_user.chef_id
     # if resource.guest
     #   @admin = resource.app.main_admin
@@ -198,7 +200,7 @@ class ApplicationController < ActionController::Base
 
   def check_app_user
     if current_app_user
-      if current_app_user.app != current_app
+      if current_app_user.app.parent_type == current_app.parent_type && current_app_user.app != current_app
         # redirect_to app_path(current_app_user.app), notice: "Please Logout from #{current_app_user.app.slug} before accessing #{current_app.slug}"
         redirect_to( app_path(current_app_user.app), notice: I18n.t('flash.you_must_log_out_from_app', current_app: current_app_user.app.slug, destination_app: current_app.slug))
       end

@@ -153,11 +153,11 @@ class RecipesController < ApplicationController
   
     def set_recipe
       # @recipe = Recipe.includes(:recipe_images).find(params[:id])
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.joins(chef: [user: :app]).where(id: params[:id], apps: { parent_type: current_app.parent_type }).last
     end
   
     def recipe_params
-      permitted = Recipe.globalize_attribute_names + [:food_image, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
+      permitted = Recipe.globalize_attribute_names + [:food_image, :is_subscription, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
       params.require(:recipe).permit(*permitted)
     end
 

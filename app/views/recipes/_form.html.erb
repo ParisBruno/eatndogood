@@ -129,6 +129,13 @@
         </div>
 
         <div class="form-group col-12 recepie-menu">
+          <div class="col-md-12 ml-4">
+            <%= f.check_box :is_subscription, class: 'checkbox-inline input_checkbox' %>
+            <%= f.label :subscription, t('recipes.subscription') %>
+          </div>
+        </div>
+
+        <div class="form-group col-12 recepie-menu">
           <div class="col-md-12">
             <%= f.label :price, t('recipes.price') %>
             <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: 0.01, min: 0 %>
@@ -259,6 +266,7 @@
         var centerIcon = '<svg id="editorCenterIcon" class="ck ck-icon ck-button__icon" viewBox="0 0 20 20"><path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm2.286 4c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.928a.75.75 0 1 0 0-1.5H5.036a.75.75 0 0 0-.75.75z"></path></svg>'
         var rightIcon = "<svg id='editorRightIcon' class='ck ck-icon ck-button__icon' viewBox='0 0 20 20'><path d='M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z'></path></svg>"
         var blockIcon = '<svg id="editorBlockIcon" class="ck ck-icon ck-button__icon" viewBox="0 0 20 20"><path d="M2 3.75c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0 4c0 .414.336.75.75.75h9.929a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75zm0-8c0 .414.336.75.75.75h14.5a.75.75 0 1 0 0-1.5H2.75a.75.75 0 0 0-.75.75z"></path></svg>'
+        var collapseIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"/></svg>'
 
         $('.cke_button__templates_icon').each(function() {
           $( this ).prepend(templateIcon);
@@ -274,6 +282,9 @@
         });
         $('.cke_button__justifyblock').each(function() {
           $( this ).prepend(blockIcon);
+        });
+        $('.cke_button__collapsibleitem').each(function() {
+          $( this ).prepend(collapseIcon);
         });
         clearInterval(timer);
       }
@@ -351,6 +362,3 @@
       }
   });
 </script>
-
-
-

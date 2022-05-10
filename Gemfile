@@ -63,6 +63,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'active_storage_validations'
 gem 'cookies_eu'
+gem 'stripe-rails'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

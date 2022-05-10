@@ -59,6 +59,10 @@ class Recipe < ApplicationRecord
     self.likes.where(like: false).size    
   end
 
+  def self.subscription_recipe(current_app_parent)
+    joins(chef: [user: :app]).where(is_subscription: true, apps: { parent_type: current_app_parent }).last
+  end
+
   def is_reservation_enable
     entrepreneur_plan_ids = PlanCategory.where(name: 'Entrepreneurs').first.plans.pluck(:id)
     # raise entrepreneur_plan_ids.inspect

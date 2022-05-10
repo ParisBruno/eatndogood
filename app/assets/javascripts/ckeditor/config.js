@@ -43,9 +43,9 @@ CKEDITOR.editorConfig = function (config) {
         ['Link','Unlink'],
         [ 'Image' ],
         ['NumberedList', 'BulletedList'],
-        ['Templates']
+        ['Templates', 'CollapsibleItem']
     ];
-    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates';
+    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates,collapsibleItem';
 
 };
 

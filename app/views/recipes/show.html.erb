@@ -23,34 +23,6 @@
     padding-left: 10px;
     padding-right: 10px;
   }
-  @media screen and (min-width: 768px) {
-   .col-md-3.thumb-sec {
-      position: absolute;
-      right: -36%;
-      top: 0;
-    }
-    .col-md-3 {
-      max-width: 35%;
-    }
-    .recipe-detail .image-box-shadow {
-      padding: 5px;
-    }
-  }
-  @media (max-width: 1024px) and (min-width: 768px) {
-    .col-md-3.thumb-sec {
-      right: -50%;
-    }
-  }
-  @media screen and (max-width: 600px) {
-    .recipe-title {
-      color: #f04123;
-      text-align: center;
-    }
-    .recipe-margin-sec .top-space {
-      margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
-      margin-bottom: 10px;
-    }
-  }
   .buy-button button {
     padding: 10px 25px;
     background: #6ee06e;
@@ -104,12 +76,59 @@
     font-family: serif;
     padding: 5px;
   }
+  /* Dropdown CSS Start */
+  .collapsible-item-title-link-icon{
+    display: none;
+  }
+  .panel-default{
+    border: none;
+    box-shadow: none;
+  }
+  .panel-heading{
+    border: none;
+    background: none !important;
+  }
+  .panel-title{
+    text-align: center;
+  }
+  .panel-title a{
+    color: #007bff !important;
+    text-decoration: none;
+  }
+  /* Dropdown CSS End */
+  @media screen and (min-width: 768px) {
+   .col-md-3.thumb-sec {
+      position: absolute;
+      right: -36%;
+      top: 0;
+    }
+    .col-md-3 {
+      max-width: 35%;
+    }
+    .recipe-detail .image-box-shadow {
+      padding: 5px;
+    }
+  }
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .col-md-3.thumb-sec {
+      right: -50%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .recipe-title {
+      color: #f04123;
+      text-align: center;
+    }
+    .recipe-margin-sec .top-space {
+      margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
+      margin-bottom: 10px;
+    }
+  }
 </style>
-
 <div class="recipe-margin-sec top-space">
   <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
     <div class="row">
-      <div class="col-md-9 col-sm-12 col-xs-12 detail-sec">
+      <div class="col-md-9 col-sm-12 col-xs-12">
         <div class="box-inner-sec well box-content">
           <div class="col-md-3 col-sm-12 col-xs-12 thumb-sec">
             <% if @recipe.food_image.attached? %>
