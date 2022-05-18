@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <% app_title = 'Myrecipes' %>
-  <% app_title = 'EatNDoGood' if request.url.include?('eatndogood') %>
-    <title><%= app_title %></title>
+    <title>RockyStepsWay</title>
     <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
@@ -23,19 +21,7 @@
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag "https://js.stripe.com/v3/" %>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <%= favicon_link_tag "apple-touch-icon-57x57.png", sizes: "57x57", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-114x114.png", sizes: "114x114", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-72x72.png", sizes: "72x72", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-144x144.png", sizes: "144x144", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-60x60.png", sizes: "60x60", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-120x120.png", sizes: "120x120", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-76x76.png", sizes: "76x76", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "apple-touch-icon-152x152.png", sizes: "152x152", rel: "apple-touch-icon-precomposed" %>
-    <%= favicon_link_tag "favicon-196x196.png", sizes: "196x196", rel: "icon", type: "image/png" %>
-    <%= favicon_link_tag "favicon-96x96.png", sizes: "96x96", rel: "icon", type: "image/png" %>
-    <%= favicon_link_tag "favicon-32x32.png", sizes: "32x32", rel: "icon", type: "image/png" %>
-    <%= favicon_link_tag "favicon-16x16.png", sizes: "16x16", rel: "icon", type: "image/png" %>
-    <%= favicon_link_tag "favicon-128.png", sizes: "128x128", rel: "icon", type: "image/png" %>
+    <%= favicon_link_tag "rsw-favicon.jpg", rel: "icon", type: "image/png" %>
     <meta name="application-name" content="&nbsp;"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
     <meta name="msapplication-TileImage" content="mstile-144x144.png" />

@@ -1,10 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  <% app_title = 'Myrecipes' %>
-  <% app_title = 'EatNDoGood' if request.url.include?('eatndogood') %>
-    <title><%= app_title %></title>
+    <title>RockyStepsWay</title>
     <%= Gon::Base.render_data %>
+    <%= favicon_link_tag "rsw-favicon.jpg", rel: "icon", type: "image/png" %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
 
