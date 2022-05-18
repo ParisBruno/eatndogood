@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user, password)
     @user  = user
     @password = password
-    mail(to: user.email, subject: 'Your RockeyStepsWay order has been received!')
+    mail(to: user.email, subject: 'Your RockyStepsWay app login credentials!')
   end
 
 	def password_email(email,url)
