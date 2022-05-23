@@ -33,9 +33,6 @@
   .show-read-more {
       font-size: 20px;
   }
-  .show-read-more h1, h2, h3, h4, h5, h6 {
-      font-size: 20px !important;
-  }
   .page-title {
     font-size: 20px;
     padding-bottom: 30px;
@@ -46,6 +43,12 @@
 
   .see-meals {
     font-size: 20px;
+  }
+  .show-read-more h1{
+    font-size: revert;
+  }
+  .text-editor h1{
+   font-size: revert;
   }
 
   @media (max-width: 600px) {
@@ -258,7 +261,7 @@
         </ul>
       </div>
       <div class="row page-title">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center text-editor">
           <% if @page.present? %>
             <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
             <span style="font-weight: <%= font_weight %>;"><%= @page.content.gsub(/&nbsp\;/i," ").html_safe %></span>

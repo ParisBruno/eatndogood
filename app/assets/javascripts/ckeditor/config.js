@@ -28,6 +28,9 @@ CKEDITOR.editorConfig = function (config) {
 
   config.allowedContent = true;
   config.filebrowserUploadMethod = 'form';
+  config.enterMode = CKEDITOR.ENTER_BR; // <p></p> to <br />
+  config.entities = false;
+  config.basicEntities = false;
 
   config.font_names =  'Merriweather Sans; Sacramento; Montserrat;'+config.font_names;
 
@@ -46,7 +49,6 @@ CKEDITOR.editorConfig = function (config) {
         ['Templates', 'CollapsibleItem']
     ];
     config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates,collapsibleItem';
-
 };
 
 
