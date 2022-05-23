@@ -119,6 +119,13 @@
   .quantity-field{
     font-size: 18px;
   }
+  #greetingMessage h2{
+    color: unset;
+    text-align: unset;
+    font-size: unset;
+    font-weight: unset;
+    text-transform: unset;
+  }
 </style>
 
 <%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true, html: { id: "staff_order" } ) do |form| %>
@@ -309,9 +316,9 @@
               <td colspan="2"><%= form.select :status, Order.statuses.collect { |key, value| [key.capitalize, key] }, { class: 'order-status' } %></td>
             </tr>
           <% end %>
-          <tr class="pt-3">
+          <tr class="pt-3" id="greetingMessage">
             <td colspan="2">
-              <h3><%= current_app_user.greeting_message.html_safe %></h3>
+              <%= current_app_user.greeting_message.html_safe %>
             </td>
           </tr>
         </tbody>
