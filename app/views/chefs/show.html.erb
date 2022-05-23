@@ -3,7 +3,7 @@
     padding-left: 17px !important;
   }
 </style>
-<%= render 'shared/page_title', title: "#{@chef.user.full_name}'s - #{@chef.user.title}" %>
+<%= render 'shared/page_title', title: "#{@chef.user.full_name} #{@chef.user.title}" %>
 
 <div class="row">
   <div class="col-lg-12 chef-main chef-full chef-main-detail bio-section chef-bio">
@@ -31,10 +31,8 @@
 </div>
 
 <% if @chef.recipes.count != 0 %>
-  <h1 align="center"><%= @chef.user.full_name %>'s recipes</h1>
+  <h1 align="center"><%= @chef.user.full_name %> recipes</h1>
  
   <%= render 'recipes/recipe', obj: @chef_recipes %>
-  
-<% else %>
-  <h4 align="center">No recipes yet!</h4>
+
 <% end %>
