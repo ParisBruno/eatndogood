@@ -25,19 +25,27 @@ class SubscriptionsController < ApplicationController
     plan = Plan.find_or_create_by(title: title, guests_limit: params[:clients], plan_category_id: plan_category.id, status: 'yes')
 
     stripe_user = Stripe::Customer.list({limit: 1}).data[0]
+    flash[:success] = "Subscribed successfully!, Get your credentials from your email, Thanks!"
     if user = User.find_by(email: stripe_user.email)
-      flash[:success] = "User: #{user.full_name}, #{user.email} is already registered!"
-    else
-      flash[:success] = "Subscribed successfully!, Get your credentials from your email, Thanks!"
-      password = SecureRandom.hex(8)
-      CreateAppWithAdmin.call(
-        name: stripe_user.name,
-        email: stripe_user.email,
-        password: password,
-        plan_id: plan.id
-      )
-      UserMailer.welcome_email(User.last, password).deliver_now
+      email = stripe_user.email
+      x = 0
+      while User.find_by(email: email).present?
+        x = x + 1
+        array = email.split('@')
+        array[0] = array[0].split('+').first if array[0].include?('+')
+        array[1] = "+#{x}@" + array[1]
+        email = array.join()
+      end
     end
+    stripe_user = Stripe::Customer.update( stripe_user.id, {email: email}, ) if email != stripe_user.email
+    password = SecureRandom.hex(8)
+    CreateAppWithAdmin.call(
+      name: stripe_user.name,
+      email: stripe_user.email,
+      password: password,
+      plan_id: plan.id
+    )
+    UserMailer.welcome_email(User.last, password).deliver_now
     redirect_to new_app_user_session_path(current_app)
   end
 
