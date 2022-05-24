@@ -12,7 +12,11 @@ module ApplicationHelper
   end
 
   def enclose_tag(html)
-    Nokogiri::HTML::fragment(html).to_html
+    raw_html = Nokogiri::HTML::fragment(html)
+    raw_html.children.each do |ele|
+      ele.remove if ele.text == ""
+    end
+    raw_html.to_html.slice(0,250)+'...'
   end
 
   def payment_methods
