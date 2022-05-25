@@ -289,6 +289,7 @@ en:
   navigation:
     buy_subscription: Buy Subscription
     admin_login: Admin Login
+    admin_page: Admin Page
     allergens: Allergens
     all_recipes: All Recipes
     chef_list: Chef List
@@ -296,7 +297,7 @@ en:
     create_chef: Create Team Member Account
     edit_profile: Edit Profile
     guest_invitation: Guest Invitation
-    guest_list: Guest List
+    guest_list: Email Database
     guest_login: Guest Login
     guest_notifications: Guest Notifications
     home: Home

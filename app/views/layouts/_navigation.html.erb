@@ -196,7 +196,7 @@
             <ul class="dropdown-menu">
               
               <li>
-                <%= link_to t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
+                <%= link_to current_app_user.admin? ? t('navigation.admin_page') : t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
               </li>
               <% if current_app_user.admin? %>
                 <li>
