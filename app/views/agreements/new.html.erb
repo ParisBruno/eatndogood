@@ -1,0 +1,106 @@
+<style>
+  .bottom-line{
+    background-color: lightgray;
+  }
+  .agreement-btn{
+    font-size: 18px;
+    width: 150px !important;
+  }
+  .agreement-checkBox{
+    height: 40px;
+    width: 40px;
+  }
+  input{
+    font-size: 16px !important;
+  }
+</style>
+
+
+<div class="container mb-5">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <%= render 'summary' %>
+      <div class="mt-5">
+        <%= form_with(model: Agreement.new, url: app_agreements_path(current_app), html: { id: "agreement_form" }) do |f| %>
+          <%= f.hidden_field :style_id, value: Style.agreement_style.id %>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <%= f.text_field :email , placeholder:"E-mail*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <%= f.text_field :first_name , placeholder:"First Name*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+          <div class="row mt-3 pb-4">
+            <div class="col-md-6">
+              <%= f.text_field :last_name , placeholder:"Last Name*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+
+          <h2 class="mt-5">
+            If under 18 years of age, the name of the legal guardian:
+          </h2>
+          <div class="row ">
+            <div class="col-md-6">
+              <%= f.text_field :guardian_email , placeholder:"Guardian Email*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <%= f.text_field :guardian_first_name , placeholder:"Guardian First Name*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+          <div class="row mt-3 pb-5">
+            <div class="col-md-6">
+              <%= f.text_field :guardian_last_name , placeholder:"Guardian Last Name*", class:"ml-3 form-control", required: true %>
+            </div>
+          </div>
+
+          <div  class="row mt-5 text-center pb-5">
+            <div class="col-12">
+              <h1>
+                Click to indicate that you have read and agree to the terms of this agreement: *
+              </h1>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+              <h2 class="mr-3 my-auto">Agree*</h2>
+              <%= check_box_tag 'tos', 'yes', false, class: 'agreement-checkBox' %>
+              <%= f.submit "Submit" , id:"Submit-btn", class:"ml-3 agreement-btn btn btn-success btn-lg p-3 text-white w-100 disabled"%>
+              <a class="border agreement-btn btn btn-secondary btn-lg text-white w-100 ml-3 p-3 clear-btn">
+                Clear Form
+              </a>
+              <a  href="<%= table_app_styles_path(current_app) %>" class="border agreement-btn btn btn-danger btn-lg text-white w-100 ml-3 p-3">
+                Cancel
+              </a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center border bottom-line">
+          <h2>
+            A copy of your responses will be emailed to the address you provided.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $( document ).ready(function() {
+    $('.agreement-checkBox').click(function() {
+      if ($(this).is(':checked')) {
+        $('#Submit-btn').removeClass('disabled');
+      } else {
+        $('#Submit-btn').addClass('disabled');
+      }
+    });
+
+    $('.clear-btn').click(function() {
+      $("#agreement_form").trigger("reset");
+    })
+  });
+</script>

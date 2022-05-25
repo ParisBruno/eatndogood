@@ -11,7 +11,12 @@ class RecipesController < ApplicationController
   def index
     flash.discard
     if params[:filter]
-      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+      recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params)
+      if cookies[:agreement].nil?
+        exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
+        recipes = recipes.where.not(id: exercise_recipes_id)
+      end
+      @recipes = recipes.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
       if params[:allergen_ids]
         selected_allergens = params[:allergen_ids].map(&:to_i)
         allergens = Allergen.where(id: selected_allergens)
@@ -21,12 +26,17 @@ class RecipesController < ApplicationController
         @display_flash = true
       end
     else
-      # @recipes = Recipe.where(chef_id: @chef_ids).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).includes(:recipe_images).paginate(page: params[:page], per_page: 5)
-      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
+      recipes = Recipe.where(chef_id: @chef_ids, is_draft: false)
+      if cookies[:agreement].nil?
+        exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
+        recipes = recipes.where.not(id: exercise_recipes_id)
+      end
+      @recipes = recipes.order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
     end
   end
   
   def show
+    redirect_to new_app_agreement_path(@current_app) if cookies[:agreement].nil? && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
     @comment = Comment.new
     @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
   end

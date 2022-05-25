@@ -11,6 +11,7 @@ class Style < ApplicationRecord
 	translates :name, fallbacks_for_empty_translations: true
   globalize_accessors :locales => I18n.available_locales, :attributes => [:name]
 	before_save :upcase_name
+	has_many :agreements, dependent: :destroy
 
 	def self.sizes
     {
@@ -20,5 +21,9 @@ class Style < ApplicationRecord
 	
 	def sized(image_type, size)
     self.send(image_type).variant(resize: Style.sizes[size]).processed rescue nil
+  end
+
+  def self.agreement_style
+    where(name: "EXERCISES").last
   end
 end

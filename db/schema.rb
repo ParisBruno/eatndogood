@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_075455) do
+ActiveRecord::Schema.define(version: 2022_05_25_063123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 2022_05_05_075455) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "agreements", force: :cascade do |t|
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "guardian_email"
+    t.string "guardian_first_name"
+    t.string "guardian_last_name"
+    t.bigint "style_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["style_id"], name: "index_agreements_on_style_id"
   end
 
   create_table "allergen_translations", force: :cascade do |t|
@@ -529,6 +542,7 @@ ActiveRecord::Schema.define(version: 2022_05_05_075455) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agreements", "styles"
   add_foreign_key "allergens", "apps"
   add_foreign_key "allergens", "apps", name: "allergens_app_id_fk"
   add_foreign_key "allergens_recipes", "allergens", name: "allergens_recipes_allergen_id_fk"
