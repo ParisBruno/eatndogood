@@ -13,8 +13,18 @@
   input{
     font-size: 16px !important;
   }
+  @media screen and (max-width: 600px) {
+    .agreement-checkBox{
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 950px) {
+    .agree-section{
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+  }
 </style>
-
 
 <div class="container mb-5">
   <div class="row mt-5">
@@ -64,10 +74,12 @@
                 Click to indicate that you have read and agree to the terms of this agreement: *
               </h1>
             </div>
-            <div class="col-12 d-flex justify-content-center">
-              <h2 class="mr-3 my-auto">Agree*</h2>
-              <%= check_box_tag 'tos', 'yes', false, class: 'agreement-checkBox' %>
-              <%= f.submit "Submit" , id:"Submit-btn", class:"ml-3 agreement-btn btn btn-success btn-lg p-3 text-white w-100 disabled"%>
+            <div class="col-12 d-lg-flex justify-content-center">
+              <div class="d-sm-flex agree-section">
+                <h2 class="mr-lg-3 my-auto">Agree*</h2>
+                <%= check_box_tag 'agree', 'false', false, class: 'agreement-checkBox' %>
+              </div>
+              <%= f.submit "Submit" , id:"Submit-btn", class:"ml-3 agreement-btn btn btn-success btn-lg p-3 text-white w-100", disabled: true%>
               <a class="border agreement-btn btn btn-secondary btn-lg text-white w-100 ml-3 p-3 clear-btn">
                 Clear Form
               </a>
@@ -88,19 +100,38 @@
     </div>
   </div>
 </div>
+<!-- <div>
+  <div class="captcha_sub_signup mb-5 mt-5" style="text-align: center;">
+    <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6LfrCtgZAAAAAIWXYOJF7OU9b2WLqebhJerFW8NN" data-callback="get_action" ></div>
+    <span id="captcha" style="color:red;" />
+  </div>
+</div> -->
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
   $( document ).ready(function() {
     $('.agreement-checkBox').click(function() {
+      // && ($("#recaptcha-anchor").attributes[2].value == "true")
       if ($(this).is(':checked')) {
-        $('#Submit-btn').removeClass('disabled');
+        $('#Submit-btn').attr("disabled", false);
       } else {
-        $('#Submit-btn').addClass('disabled');
+        $('#Submit-btn').attr("disabled", true);
       }
     });
 
     $('.clear-btn').click(function() {
       $("#agreement_form").trigger("reset");
     })
+
+    // function get_action(form) {
+    //   var v = grecaptcha.getResponse();
+    //   if(v.length == 0) {
+    //     $('#Submit-btn').attr("disabled", true);
+    //     // if ($('.agreement-checkBox').is(':checked'))
+    //   } else {
+    //     console.log("vl", v, "vl.l", v.length);
+    //     $('#Submit-btn').attr("disabled", false);
+    //   }
+    // };
   });
 </script>
