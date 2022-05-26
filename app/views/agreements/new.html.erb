@@ -100,19 +100,18 @@
     </div>
   </div>
 </div>
-<!-- <div>
+<div>
   <div class="captcha_sub_signup mb-5 mt-5" style="text-align: center;">
-    <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6LfrCtgZAAAAAIWXYOJF7OU9b2WLqebhJerFW8NN" data-callback="get_action" ></div>
+    <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6Ld5ph4gAAAAAKy0Q1L07-XmPk2tguqGDRZDmFpg" data-callback="get_action" ></div>
     <span id="captcha" style="color:red;" />
   </div>
-</div> -->
+</div>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
   $( document ).ready(function() {
     $('.agreement-checkBox').click(function() {
-      // && ($("#recaptcha-anchor").attributes[2].value == "true")
-      if ($(this).is(':checked')) {
+      if ($(this).is(':checked') && ($("#recaptcha-anchor").attributes[2].value == "true")) {
         $('#Submit-btn').attr("disabled", false);
       } else {
         $('#Submit-btn').attr("disabled", true);
@@ -124,15 +123,14 @@
       $("#agreement_form").trigger("reset");
     })
 
-    // function get_action(form) {
-    //   var v = grecaptcha.getResponse();
-    //   if(v.length == 0) {
-    //     $('#Submit-btn').attr("disabled", true);
-    //     // if ($('.agreement-checkBox').is(':checked'))
-    //   } else {
-    //     console.log("vl", v, "vl.l", v.length);
-    //     $('#Submit-btn').attr("disabled", false);
-    //   }
-    // };
+    function get_action(form) {
+      var v = grecaptcha.getResponse();
+      if(v.length == 0) {
+        $('#Submit-btn').attr("disabled", true);
+      } else if ($('.agreement-checkBox').is(':checked')) {
+        console.log("vl", v, "vl.l", v.length);
+        $('#Submit-btn').attr("disabled", false);
+      }
+    };
   });
 </script>
