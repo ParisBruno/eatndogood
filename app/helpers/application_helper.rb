@@ -26,4 +26,10 @@ module ApplicationHelper
   def is_payment_method?(type)
     current_app_user.selected_payment_methods.include?(type)
   end
+
+  def show_svg(path)
+    File.open("app/assets/images/#{path}", "rb") do |file|
+      raw file.read
+    end
+  end
 end

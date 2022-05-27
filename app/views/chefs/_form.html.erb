@@ -269,10 +269,10 @@
             <!-- Payment Options Start -->
             <div class="form-group payment-btns">
               <button type="button" class="btn btn-success btn-lg w-100 my-2" id="paypal-btn">
-                <img src="/assets/paypal-logo.svg">
+                <%= show_svg('paypal-logo.svg') %>
               </button>
               <button type="button" class="btn-lg w-100 mb-2" id="venmo-btn">
-                <img src="/assets/venmo-logo.svg">
+                <%= show_svg('venmo-logo.svg') %>
               </button>
               <button type="button" class="btn btn-primary btn-lg mb-2 w-100 payment-option" id="stripe-btn">
                 <div><%= t('orders.stripe') %><div>
