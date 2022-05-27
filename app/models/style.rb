@@ -4,7 +4,6 @@ class Style < ApplicationRecord
 
   set_sortable :sort
 	belongs_to :app
-	validates :agreement_text, presence: true
 	validates :name, presence: true, length: { minimum: 3, maximum: 25 }
 	validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
 	has_and_belongs_to_many :recipes
