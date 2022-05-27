@@ -46,10 +46,22 @@ class StylesController < ApplicationController
   def update
     respond_to do |format|
       if @style.update(style_params)
-        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully updated.' }
+        if !params[:style][:agreement_text_en].nil?
+          path = new_app_agreement_path(@current_app)
+          notice = 'Agreement was successfully updated.'
+        else
+          path = app_styles_path(current_app)
+          notice = 'Style was successfully updated.'
+        end
+        format.html { redirect_to path, notice: notice }
         format.json { render :show, status: :ok, location: @style }
       else
-        format.html { render :edit }
+        if !params[:style][:agreement_text_en].nil?
+          @failed_agreement_text = true
+          format.html { render 'pages/agreement' }
+        else
+          format.html { render :edit }
+        end
         format.json { render json: @style.errors, status: :unprocessable_entity }
       end
     end

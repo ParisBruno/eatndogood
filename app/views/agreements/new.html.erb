@@ -24,12 +24,35 @@
       margin-bottom: 10px;
     }
   }
+  /* Dropdown CSS Start */
+  .collapsible-item-title-link-icon{
+    display: none;
+  }
+  .panel-default{
+    border: none;
+    box-shadow: none;
+  }
+  .panel-heading{
+    border: none;
+    background: none !important;
+  }
+  .panel-title{
+    text-align: center;
+  }
+  .panel-title a{
+    color: #007bff !important;
+    text-decoration: none;
+  }
+  .collapsible-item-title-link svg{
+    margin-left: 5px;
+  }
+  /* Dropdown CSS End */
 </style>
 
 <div class="container mb-5">
   <div class="row mt-5">
     <div class="col-md-12">
-      <%= render 'summary' %>
+      <%= Style.agreement_style.agreement_text.html_safe %>
       <div class="mt-5">
         <%= form_with(model: Agreement.new, url: app_agreements_path(current_app), html: { id: "agreement_form" }) do |f| %>
           <%= f.hidden_field :style_id, value: Style.agreement_style.id %>

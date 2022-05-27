@@ -3,10 +3,12 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-danger">
         <div class="panel-heading">
-          <h2 class="panel-title">
-            <%= pluralize(obj.errors.count, "error") %>
-            prohibited this <%= obj.class %> from being saved:
-          </h2>
+          <% unless @failed_agreement_text  %>
+            <h2 class="panel-title">
+              <%= pluralize(obj.errors.count, "error") %>
+              prohibited this <%= obj.class %> from being saved:
+            </h2>
+          <% end %>
           <div class="panel-body">
             <ul>
               <% obj.errors.full_messages.each do |msg| %>

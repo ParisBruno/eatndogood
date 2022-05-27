@@ -4,12 +4,13 @@ class Style < ApplicationRecord
 
   set_sortable :sort
 	belongs_to :app
+	validates :agreement_text, presence: true
 	validates :name, presence: true, length: { minimum: 3, maximum: 25 }
 	validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
 	has_and_belongs_to_many :recipes
 	has_one_attached :image
-	translates :name, fallbacks_for_empty_translations: true
-  globalize_accessors :locales => I18n.available_locales, :attributes => [:name]
+	translates :name, :agreement_text, fallbacks_for_empty_translations: true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:name, :agreement_text]
 	before_save :upcase_name
 	has_many :agreements, dependent: :destroy
 

@@ -121,6 +121,7 @@ Rails.application.routes.draw do
         post 'about/edit'
         get 'welcome', to: 'welcome'
         get 'about',   to: 'about'
+        get 'agreement',   to: 'agreement'
       end
     end
     resources :carts, only: %i[show destroy]

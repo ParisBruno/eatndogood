@@ -287,6 +287,7 @@ en:
     reset_password: Reset password
     update_password: Update password
   navigation:
+    update_agreement_page: Update Agreement Page
     buy_subscription: Buy Subscription
     admin_login: Admin Login
     admin_page: Admin Page
@@ -504,3 +505,6 @@ en:
   will_paginate:
     next_label: Next &#8594;
     previous_label: "&#8592; Previous"
+  agreement:
+    update_agreement_text: Update Agreement Text
+    update: Update
