@@ -1,192 +1,151 @@
 <%= form_for([current_app,@page], html: { class: "autosave", multipart: true}, remote: @page.new_record? ? false : true)do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "page"} %>
   <%= f.hidden_field :destination %>
-  <div class=" col-md-offset-4 margin-sec full-width-sec edit-chef new-cheif">
-    <div class="col-md-5 well box-content" >
+  <div class="row margin-sec edit-chef new-cheif px-md-5">
+    <div class="col-md-8 well box-content" >
       <% I18n.available_locales.each do |locale| %>
-        <div class="<%= "page_#{locale}" %>">
+        <div class="<%= "page_#{locale}" %> p-3">
           <% if @page.present? && @page.destination == 'welcome' %>
-          <label><%= t('pages.new.edit_page_text') + "(#{locale})" %></label>
+            <label><%= t('pages.new.edit_page_text') + "(#{locale})" %></label>
           <% else %>
-          <label><%= t('forms.write_your_introduction') + "(#{locale})" %></label>
+            <label><%= t('forms.write_your_introduction') + "(#{locale})" %></label>
           <% end %>
 
           <% if @page.destination == 'welcome' %>
             <%= cktext_area :page, "content_#{locale}", value: (@page.present? && !@page.content.nil?) ? @page.send("content_#{locale}") :  ['Welcome', current_app_user.full_name, 'iTopRecipes app'].join('<br/>'),  cols: 100, rows: 20, class: 'form-control', required: true  %>
           <% else %>
-          
-          <%= cktext_area :page, "title_#{locale}", value: (@page.present? && !@page.title.nil?) ? @page.send("title_#{locale}") :  'Welcome',  cols: 100, rows: 20, class: 'form-control', required: true  %>
-          
-          <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
-          <% if @page.present? && @page.destination == 'welcome' %>
-          <label>Edit your name</label>
-          
-          <%= cktext_area :page, :admin_name, value: (@page.present? && !@page.admin_name.nil?) ? @page.admin_name :  current_app_user.full_name,  cols: 100, rows: 20, class: 'form-control', required: true  %>
-          
-          <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
-          <% end %>
-
-          <% if @page.present? && @page.destination == 'welcome' %>
-          <label><%= t('pages.new.edit_app_name') %></label>
-          <% else %>
-          <label><%= t('forms.disclaimer') + "(#{locale})" %></label>
-          <% end %>
-
-          <%= cktext_area(:page, "content_#{locale}", value: (@page.present? && !@page.content.nil?) ? @page.send("content_#{locale}") : 'iTopRecipes!', cols: 100, rows: 20, class: 'form-control', required: true) %>
-        
-          <span style="color:red;display:none;" id="span_err_2"><%= t('pages.new.you_can_not_write_more_chars', max: 30) %></span><br>
+            <%= cktext_area :page, "title_#{locale}", value: (@page.present? && !@page.title.nil?) ? @page.send("title_#{locale}") :  'Welcome',  cols: 100, rows: 20, class: 'form-control', required: true  %>
+            <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
+            <% if @page.present? && @page.destination == 'welcome' %>
+              <label>Edit your name</label>
+              <%= cktext_area :page, :admin_name, value: (@page.present? && !@page.admin_name.nil?) ? @page.admin_name :  current_app_user.full_name,  cols: 100, rows: 20, class: 'form-control', required: true  %>
+              <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
+            <% end %>
+            <% if @page.present? && @page.destination == 'welcome' %>
+              <label><%= t('pages.new.edit_app_name') %></label>
+            <% else %>
+              <label><%= t('forms.disclaimer') + "(#{locale})" %></label>
+            <% end %>
+            <%= cktext_area(:page, "content_#{locale}", value: (@page.present? && !@page.content.nil?) ? @page.send("content_#{locale}") : 'iTopRecipes!', cols: 100, rows: 20, class: 'form-control', required: true) %>
+            <span style="color:red;display:none;" id="span_err_2"><%= t('pages.new.you_can_not_write_more_chars', max: 30) %></span><br>
           <% end %>
         </div>
       <% end %>
     </div>
-    
-    <div class="col-md-5  well box-content">
-    <%
-     if @page&.destination == "welcome"
-        picture_style = "float: left; margin-right: 20px"
-        picture_style_description = t('pages.new.recommended_pictures_size_portrait')
-        picture_max_size = t('pages.new.upload_landing_pic_max_size', max: 5)
-        picture_max_width = 100
-        picture_min_height = 180
-     else
-        picture_style = ''
-        picture_style_description = ''
-        picture_max_size = t('pages.new.your_about_page_picture')
-        picture_max_width = 220
-        picture_min_height = 150
-     end
-    %>
-      <span class="picture" style="<%= picture_style %>;">
-        <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px !important; min-height: #{picture_min_height}px !important;") %>
-        <br>
-        <label><%= picture_max_size %></label><br>
-        <label><%= picture_style_description %></label>
-        <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
-        
-      </span>
 
-      <span class="picture">
-      <% if @page&.destination == "welcome" %>
-        <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
-        <br>
-        <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
-        <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
-
-        <%= f.file_field :landscape_page_img, accept: 'image/jpeg,image/gif,image/png' %>
-      <% end %>
-      </span>
-      <div class="row">
-        <center>
-          <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn", style:"float:left; margin-right:5px; margin-top: 20px;" %>
-          <!--<a target="_blank" href="<%= welcome_app_pages_path(current_app) %>" style="float: left; color:white; margin-top:20px;" class="btn btn-success btn-lg">
-            <%= t('pages.new.save_to_view_changes') %>
-          </a> -->
+    <div class="col-md-4">
+      <div class="well box-content ml-md-3">
+        <div class="p-3">
           <%
-=begin%>
- <%= f.submit t('pages.new.save_to_view_changes'), class: "btn btn-success btn-lg", name: 'preview', style: "float: left; color:white; margin-top:20px;" %> 
-<%
-=end%>
-        </center>
-      
-      </div>
-      
+            if @page&.destination == "welcome"
+              picture_style = "float: left; margin-right: 20px"
+              picture_style_description = t('pages.new.recommended_pictures_size_portrait')
+              picture_max_size = t('pages.new.upload_landing_pic_max_size', max: 5)
+              picture_max_width = 100
+              picture_min_height = 180
+            else
+              picture_style = ''
+              picture_style_description = ''
+              picture_max_size = t('pages.new.your_about_page_picture')
+              picture_max_width = 220
+              picture_min_height = 150
+            end
+          %>
+          <span class="picture" style="<%= picture_style %>;">
+            <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px !important; min-height: #{picture_min_height}px !important;") %>
+            <br>
+            <label><%= picture_max_size %></label><br>
+            <label><%= picture_style_description %></label>
+            <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
+          </span>
+          <span class="picture">
+            <% if @page&.destination == "welcome" %>
+              <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
+              <br>
+              <label><%= t('pages.new.upload_landing_pic_max_size', max: 5) %></label><br>
+              <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
 
-      <div class="">
-        
+              <%= f.file_field :landscape_page_img, accept: 'image/jpeg,image/gif,image/png' %>
+            <% end %>
+          </span>
+          <div class="row">
+            <center>
+              <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn", style:"float:left; margin-right:5px; margin-top: 20px;" %>
+                <%= t('pages.new.save_to_view_changes') %>
+            </center>
+          </div>
+        </div>
       </div>
     </div>
-  </div> 
-  <% end %>
+  </div>
+<% end %>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    var _URL = window.URL || window.webkitURL;
+    $("#page_welcomepic").change(function (e) {
+      //alert('yes');
+      size_in_megabytes = this.files[0].size/2048/2048;
+      //alert(size_in_megabytes);
+      if (size_in_megabytes > 1) {
+        alert('<%= t('errors.max_file_size', max: 5) %>')
+        $("#submit_btn").attr("type", "button");
+        return false;
+      }
 
-  <script type="text/javascript">
-    // var submitBtn = document.getElementById("submit_btn");
-    // submitBtn.addEventListener("click", function() {
-    //   if (!(document.documentElement.hasAttribute("data-turbolinks-preview"))) {
-    //     toastr.warning("Invalid image's orientation", 'Warning', { 'closeButton': true });
-    //   }
-    // });
+      var file, img;
+      if ((file = this.files[0])) {
+          img = new Image();
+          img.onload = function () {
 
-    $(document).ready(function() {
-         var _URL = window.URL || window.webkitURL;
-
-          $("#page_welcomepic").change(function (e) {
-
-             //alert('yes');
-              size_in_megabytes = this.files[0].size/2048/2048;
-              //alert(size_in_megabytes);
-              if (size_in_megabytes > 1) {
-                alert('<%= t('errors.max_file_size', max: 5) %>')
+              if(this.width < 500 && this.height < 600) {
+                //alert(this.width + " " + this.height);
+                alert('<%= t('errors.image_atleas_dimensions', dims: '500*600') %>');
                 $("#submit_btn").attr("type", "button");
                 return false;
               }
-
-              var file, img;
-              if ((file = this.files[0])) {
-                  img = new Image();
-                  img.onload = function () {
-
-                      if(this.width < 500 && this.height < 600) {
-                        //alert(this.width + " " + this.height);
-                        alert('<%= t('errors.image_atleas_dimensions', dims: '500*600') %>');
-                        $("#submit_btn").attr("type", "button");
-                        return false;
-                      }
-                  };
-                  img.src = _URL.createObjectURL(file);
-
-              }
-
-             $("#submit_btn").attr("type", "submit");
-
-          });
-
-          var max = 40;
-          $('#page_pages_text').change(function(e) {
-              //console.log('in');
-              if (e.which < 0x20) {
-                  // e.which < 0x20, then it's not a printable character
-                  // e.which === 0 - Not a character
-                  return;     // Do nothing
-              }
-              if (this.value.length == max) {
-                 $("#span_err_1").show().delay(3000).fadeOut();;
-                  e.preventDefault();
-              } else if (this.value.length > max) {
-                  // Maximum exceeded
-
-                  this.value = this.value.substring(0, max);
-                  $("#span_err_1").show().delay(3000).fadeOut();;
-              }
-          });
-
-          var max_name = 30;
-          $('#page_pages_name').change(function(e) {
-              //console.log('in');
-              if (e.which < 0x20) {
-                  // e.which < 0x20, then it's not a printable character
-                  // e.which === 0 - Not a character
-                  return;     // Do nothing
-              }
-              if (this.value.length == max_name) {
-                 $("#span_err_2").show().delay(3000).fadeOut();;
-                  e.preventDefault();
-              } else if (this.value.length > max_name) {
-                  // Maximum exceeded
-
-                  this.value = this.value.substring(0, max_name);
-                  $("#span_err_2").show().delay(3000).fadeOut();;
-              }
-          });
-
-
-
-
-        //jquery editor setting
-        //$(".classy-editor").ClassyEdit();
-        //$(".classy-editor2").ClassyEdit();
-
+          };
+          img.src = _URL.createObjectURL(file);
+      }
+     $("#submit_btn").attr("type", "submit");
     });
 
+    var max = 40;
+    $('#page_pages_text').change(function(e) {
+      //console.log('in');
+      if (e.which < 0x20) {
+          // e.which < 0x20, then it's not a printable character
+          // e.which === 0 - Not a character
+          return;     // Do nothing
+      }
+      if (this.value.length == max) {
+         $("#span_err_1").show().delay(3000).fadeOut();;
+          e.preventDefault();
+      } else if (this.value.length > max) {
+          // Maximum exceeded
 
-    </script>
+          this.value = this.value.substring(0, max);
+          $("#span_err_1").show().delay(3000).fadeOut();;
+      }
+    });
+
+    var max_name = 30;
+    $('#page_pages_name').change(function(e) {
+      //console.log('in');
+      if (e.which < 0x20) {
+          // e.which < 0x20, then it's not a printable character
+          // e.which === 0 - Not a character
+          return;     // Do nothing
+      }
+      if (this.value.length == max_name) {
+         $("#span_err_2").show().delay(3000).fadeOut();;
+          e.preventDefault();
+      } else if (this.value.length > max_name) {
+          // Maximum exceeded
+
+          this.value = this.value.substring(0, max_name);
+          $("#span_err_2").show().delay(3000).fadeOut();;
+      }
+    });
+  });
+</script>

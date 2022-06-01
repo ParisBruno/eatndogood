@@ -5,3 +5,6 @@
 .title-heading{
   margin-top: 80px;
 }
+.collapsible-item-body img, .cke_editable img{
+  width: 100% !important;
+}

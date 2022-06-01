@@ -27,6 +27,7 @@
 //= require ckeditor/plugins/panelbutton/plugin
 //= require ckeditor/plugins/colorbutton/plugin
 //= require ckeditor/plugins/ckeditor-bootstrap-collapsibleItem/plugin
+//= require ckeditor/plugins/colordialog/plugin
 //= require ckeditor/config
 //= require_tree .
 //= require jquery.remotipart 
