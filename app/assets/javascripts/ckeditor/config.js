@@ -48,7 +48,7 @@ CKEDITOR.editorConfig = function (config) {
         ['NumberedList', 'BulletedList'],
         ['Templates', 'CollapsibleItem']
     ];
-    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates,collapsibleItem';
+    config.extraPlugins = 'panelbutton,colorbutton,confighelper,font,placeholder,justify,templates,collapsibleItem,colordialog';
 };
 
 
