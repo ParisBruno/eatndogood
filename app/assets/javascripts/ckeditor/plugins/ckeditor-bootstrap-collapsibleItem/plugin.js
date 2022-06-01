@@ -104,6 +104,7 @@ CKEDITOR.plugins.add('collapsibleItem', {
             '.collapsible-item-title, .collapsible-item-body {box-shadow: 0 1px 1px #ddd inset;border: 1px solid #cccccc;border-radius: 5px;background: #fff;}' +
             '.collapsible-item-title {margin: 0 0 8px;padding: 5px 8px;}' +
             '.collapsible-item-body {padding: 0 8px;}' +
+            '.collapsible-item-body img {width: 100%;}' +
             '.collapsible-item-title-link-text {min-width:50px;display:inline-block;min-height:20px;height:100%;}' +
             '.collapsible-item-title-link-icon {display:inline-block;float:right;}'
         );
