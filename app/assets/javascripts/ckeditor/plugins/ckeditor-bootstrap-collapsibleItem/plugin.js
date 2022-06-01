@@ -27,11 +27,11 @@ CKEDITOR.plugins.add('collapsibleItem', {
             editables: {
                 title: {
                     selector: '.collapsible-item-title-link',
-                    allowedContent: 'span strong em u;*{color}'
+                    allowedContent: 'span strong em u;*{color};*{background-color};*{font-size};*{font-family};span(*)[*];'
                 },
                 content: {
                     selector: '.collapsible-item-body',
-                    allowedContent: 'p;br;span(*)[*];ul;ol;li;strong;em;u;table(*)[*];tbody;thead;tr;td;th;hr;a;a[*];a(*)[*];img(*)[*];'
+                    allowedContent: 'p;br;span(*)[*];ul;ol;li;strong;em;u;table(*)[*];tbody;thead;tr;td;th;hr;a;a[*];a(*)[*];img(*)[*];*{font-size};*{font-family};'
                 }
             },
             allowedContent: 'div(!collapsible-item*,panel*,collapse)[*];h4(!collapsible-item*,panel*)[*];a(!collapsible-item*,collapsed,panel*)[*];span(!glyphicon*)[*];',
@@ -104,6 +104,7 @@ CKEDITOR.plugins.add('collapsibleItem', {
             '.collapsible-item-title, .collapsible-item-body {box-shadow: 0 1px 1px #ddd inset;border: 1px solid #cccccc;border-radius: 5px;background: #fff;}' +
             '.collapsible-item-title {margin: 0 0 8px;padding: 5px 8px;}' +
             '.collapsible-item-body {padding: 0 8px;}' +
+            '.collapsible-item-body img {width: 100%;}' +
             '.collapsible-item-title-link-text {min-width:50px;display:inline-block;min-height:20px;height:100%;}' +
             '.collapsible-item-title-link-icon {display:inline-block;float:right;}'
         );

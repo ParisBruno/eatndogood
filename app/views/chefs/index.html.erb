@@ -22,6 +22,9 @@
     margin-left: 5px;
   }
   /* Dropdown CSS End */
+  .image-box-shadow img{
+    height: 310px;
+  }
 </style>
 
 <%= render 'shared/page_title', title: t('navigation.the_team') %>
@@ -35,7 +38,7 @@
 </div>
 
 
-<div class="col-md-12 margin-sec pagination-top page-sec">
+<div class="col-md-12 margin-sec pagination-top page-sec mb-4">
   <% if @chef_plan.present? %>
     <% unless @chef_plan.downcase.include?("Professionals".downcase) || @chef_plan.downcase.include?("Amateur".downcase) %>
       <div class="btn-success"><%= link_to t('chefs.add_chef_contributor'), addchef_path %></div>
@@ -54,8 +57,8 @@
 
 <% @chefs.each do |chef| %>
   <div class="col-lg-12 chef-main chef-full bio-section chef-bio">
-    <div class="col-md-3">
-      <div class="image-box-shadow">
+    <div class="col-md-3 mb-5">
+      <div class="image-box-shadow pt-3">
         <div class="custom-profile-detail">
           <% unless chef.chef_avatar.attached? %>
           <%= link_to image_tag('no_avatar.png'), app_chef_path(current_app, chef) %>
@@ -81,7 +84,7 @@
       </div>
    </div>
 
-  <div class="col-md-9">
+  <div class="col-md-9 mb-5">
     <div class="well box-content box-main">
       <div class="bios u-content">
         <p><%= !chef.my_bio.nil? ? chef.my_bio.html_safe : "" %> </p>

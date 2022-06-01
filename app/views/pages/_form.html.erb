@@ -51,7 +51,7 @@
               picture_min_height = 150
             end
           %>
-          <span class="picture" style="<%= picture_style %>;">
+          <span class="picture mb-4" style="<%= picture_style %>;">
             <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px !important; min-height: #{picture_min_height}px !important;") %>
             <br>
             <label><%= picture_max_size %></label><br>
@@ -71,7 +71,14 @@
           <div class="row">
             <center>
               <%= f.submit t('pages.new.tap_or_click_to_save'), class: "btn btn-success btn-lg", id: "submit_btn", style:"float:left; margin-right:5px; margin-top: 20px;" %>
-                <%= t('pages.new.save_to_view_changes') %>
+              <!--<a target="_blank" href="<%= welcome_app_pages_path(current_app) %>" style="float: left; color:white; margin-top:20px;" class="btn btn-success btn-lg">
+            <%= t('pages.new.save_to_view_changes') %>
+          </a> -->
+          <%
+=begin%>
+ <%= f.submit t('pages.new.save_to_view_changes'), class: "btn btn-success btn-lg", name: 'preview', style: "float: left; color:white; margin-top:20px;" %> 
+<%
+=end%>
             </center>
           </div>
         </div>
