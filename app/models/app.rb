@@ -66,7 +66,9 @@ class App < ApplicationRecord
     users.where(guest: true)
   end
 
-  
+  def admin_user
+    self.users.find_by_admin(true).email
+  end
 
   def create_pages
     # if self.main_admin

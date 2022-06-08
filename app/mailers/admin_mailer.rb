@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class AdminMailer < ApplicationMailer
-  default from: 'bruno@itoprecipes.com'
 
-  def notification_email(chef_name, receiver, from, subject, content, email_content_id)
+  def notification_email(chef_name, receiver, from, subject, content, email_content_id,current_app)
     current_user = User.find_by(email: from)
     from = default_params[:from] unless check_sendgrid_senders(current_user)
 
@@ -18,11 +17,13 @@ class AdminMailer < ApplicationMailer
     end
     
     mail(to: receiver, from: from, subject: subject)
+    mail(from: current_app.admin_user)
   end
 
-  def inactive_guests_email(receiver, guests)
+  def inactive_guests_email(receiver, guests,current_app)
     @guests  = guests
     mail(to: receiver.email, subject: 'List of inactive guests')
+    mail(from: current_app.admin_user)
   end
 
   def check_sendgrid_senders(current_user)

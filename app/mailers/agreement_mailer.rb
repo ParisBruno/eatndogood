@@ -1,8 +1,8 @@
 class AgreementMailer < ActionMailer::Base
-  default :from => "bruno@itoprecipes.com"
 
-  def copy_email(agreement)
+  def copy_email(agreement,current_app)
     @agreement = agreement
     mail(to: agreement.email, subject: 'RockyStepsWay agreement copy!')
+    mail(from: current_app.admin_user)
   end
 end

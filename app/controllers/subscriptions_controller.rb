@@ -45,7 +45,7 @@ class SubscriptionsController < ApplicationController
       password: password,
       plan_id: plan.id
     )
-    UserMailer.welcome_email(User.last, password).deliver_now
+    UserMailer.welcome_email(User.last, password,current_app).deliver_now
     redirect_to new_app_user_session_path(current_app)
   end
 
