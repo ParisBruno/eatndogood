@@ -68,8 +68,8 @@ class User < ApplicationRecord
   def send_guest_email_to_admin
     if self.guest?
       @admin = self.app.main_admin
-      UserMailer.guest_create_email_to_admin(@admin.email, self).deliver_later if @admin
-      UserMailer.guest_create_email_to_guest(self.email).deliver_later if @admin
+      UserMailer.guest_create_email_to_admin(@admin.email, self, current_app).deliver_later if @admin
+      UserMailer.guest_create_email_to_guest(self.email, current_app).deliver_later if @admin
     end
   end
 

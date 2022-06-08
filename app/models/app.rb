@@ -66,10 +66,6 @@ class App < ApplicationRecord
     users.where(guest: true)
   end
 
-  def admin_user
-    self.users.find_by_admin(true).email
-  end
-
   def create_pages
     # if self.main_admin
       # Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: ["Welcome To", app_name, "iTopRecipes App"].join("<br/>"), destination: "welcome", app_id: self.id, admin_name: main_admin.full_name)

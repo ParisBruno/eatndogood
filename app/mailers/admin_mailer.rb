@@ -2,7 +2,7 @@
 
 class AdminMailer < ApplicationMailer
 
-  def notification_email(chef_name, receiver, from, subject, content, email_content_id,current_app)
+  def notification_email(chef_name, receiver, from, subject, content, email_content_id)
     current_user = User.find_by(email: from)
     from = default_params[:from] unless check_sendgrid_senders(current_user)
 
@@ -17,13 +17,11 @@ class AdminMailer < ApplicationMailer
     end
     
     mail(to: receiver, from: from, subject: subject)
-    mail(from: current_app.admin_user)
   end
 
-  def inactive_guests_email(receiver, guests,current_app)
+  def inactive_guests_email(receiver, guests, current_app)
     @guests  = guests
-    mail(to: receiver.email, subject: 'List of inactive guests')
-    mail(from: current_app.admin_user)
+    mail(from: current_app.main_admin&.email, to: receiver.email, subject: 'List of inactive guests')
   end
 
   def check_sendgrid_senders(current_user)

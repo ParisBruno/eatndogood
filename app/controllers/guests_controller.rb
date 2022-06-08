@@ -45,7 +45,7 @@ class GuestsController < ApplicationController
         #@guest.user_id is admin id
         @chef = User.where(id: @guest.user_id).first
         raise @chef.inspect
-        UserMailer.guest_create_email_to_admin(@chef.email, @guest).deliver_later if @chef
+        UserMailer.guest_create_email_to_admin(@chef.email, @guest, current_app).deliver_later if @chef
       end
 
       #add to mailchimp

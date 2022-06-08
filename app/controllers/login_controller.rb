@@ -248,7 +248,7 @@ class LoginController < ApplicationController
 
 	    url = root_url+'changepassword/'+@is_guest+'/'+email_encode
 	    # Tell the UserMailer to send a welcome email
-	    UserMailer.password_email(email,url).deliver_later
+	    UserMailer.password_email(email,url, current_app).deliver_later
 
 	    #@user.send_password_reset_email
 	    flash[:success] = I18n.t 'flash.email_sent_password_reset_instr'
@@ -341,7 +341,7 @@ class LoginController < ApplicationController
 
 	      #send email if inactive from 60 days
 	      if diff >= 60
-	        UserMailer.inactive_notification_email(chef).deliver_later
+	        UserMailer.inactive_notification_email(chef, current_app).deliver_later
 	      end
 	    end
 	  end
