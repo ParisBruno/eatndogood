@@ -3,7 +3,7 @@ class AgreementsController < ApplicationController
     agreement = Agreement.new(agreement_params)
     if agreement.save
       cookies[:agreement] = true
-      AgreementMailer.copy_email(agreement).deliver_now
+      AgreementMailer.copy_email(agreement, @current_app).deliver_now
       flash[:success] = "Agreement Successfully Submited and send copy of agreement to your email!"
       redirect_to app_style_path(@current_app, Style.agreement_style)
     end

@@ -49,12 +49,12 @@
   /* Dropdown CSS End */
 </style>
 
-<div class="container mb-5">
-  <div class="row mt-5">
-    <div class="col-md-12">
-      <%= Style.agreement_style.agreement_text&.html_safe %>
-      <div class="mt-5">
-        <%= form_with(model: Agreement.new, url: app_agreements_path(current_app), html: { id: "agreement_form" }) do |f| %>
+<%= form_with(model: Agreement.new, url: app_agreements_path(current_app), html: { id: "agreement_form" }) do |f| %>
+  <div class="container mb-5">
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <%= Style.agreement_style.agreement_text&.html_safe %>
+        <div class="mt-5">
           <%= f.hidden_field :style_id, value: Style.agreement_style.id %>
           <div class="row mt-3">
             <div class="col-md-6">
@@ -111,24 +111,24 @@
               </a>
             </div>
           </div>
-        <% end %>
-      </div>
-      <div class="row mt-5">
-        <div class="col-12 text-center border bottom-line">
-          <h2>
-            A copy of your responses will be emailed to the address you provided.
-          </h2>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12 text-center border bottom-line">
+            <h2>
+              A copy of your responses will be emailed to the address you provided.
+            </h2>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div>
-  <div class="captcha_sub_signup mb-5 mt-5" style="text-align: center;">
-    <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6LddIlEgAAAAALvk31bD1M0FZ2bMDqcm6U2Qbk2M" data-callback="get_action" ></div>
-    <span id="captcha" style="color:red;" />
+  <div>
+    <div class="captcha_sub_signup mb-5 mt-5" style="text-align: center;">
+      <div class="g-recaptcha g-recaptcha--left" style="display: inline-block;" data-sitekey="6LddIlEgAAAAALvk31bD1M0FZ2bMDqcm6U2Qbk2M" data-callback="get_action" ></div>
+      <span id="captcha" style="color:red;" />
+    </div>
   </div>
-</div>
+<% end %>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>

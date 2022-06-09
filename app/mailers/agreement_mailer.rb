@@ -1,8 +1,7 @@
 class AgreementMailer < ActionMailer::Base
 
-  def copy_email(agreement,current_app)
+  def copy_email(agreement, current_app)
     @agreement = agreement
-    mail(to: agreement.email, subject: 'RockyStepsWay agreement copy!')
-    mail(from: current_app.admin_user)
+    mail(from: current_app.main_admin&.email, to: agreement.email, subject: 'RockyStepsWay agreement copy!')
   end
 end
