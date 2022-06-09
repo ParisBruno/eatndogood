@@ -132,28 +132,29 @@
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
-  $( document ).ready(function() {
-    $('.agreement-checkBox').click(function() {
-      if ($(this).is(':checked') && ($("#recaptcha-anchor").attributes[2].value == "true")) {
-        $('#Submit-btn').attr("disabled", false);
-      } else {
-        $('#Submit-btn').attr("disabled", true);
-      }
-    });
-
-    $('.clear-btn').click(function() {
+  $('.agreement-checkBox').click(function() {
+    if ($(this).is(':checked') && ($('#Submit-btn').attr("recaptcha") == 'true')) {
+      $('#Submit-btn').attr("disabled", false);
+    } else {
       $('#Submit-btn').attr("disabled", true);
-      $("#agreement_form").trigger("reset");
-    })
-
-    function get_action(form) {
-      var v = grecaptcha.getResponse();
-      if(v.length == 0) {
-        $('#Submit-btn').attr("disabled", true);
-      } else if ($('.agreement-checkBox').is(':checked')) {
-        console.log("vl", v, "vl.l", v.length);
-        $('#Submit-btn').attr("disabled", false);
-      }
-    };
+    }
   });
+
+  $('.clear-btn').click(function() {
+    $('#Submit-btn').attr("disabled", true);
+    $("#agreement_form").trigger("reset");
+  })
+
+  function get_action(form) {
+    var v = grecaptcha.getResponse();
+    if(v.length == 0) {
+      $('#Submit-btn').attr("recaptcha", false);
+      $('#Submit-btn').attr("disabled", true);
+    } else if ($('.agreement-checkBox').is(':checked')) {
+      console.log("vl", v, "vl.l", v.length);
+      $('#Submit-btn').attr("disabled", false);
+    } else {
+      $('#Submit-btn').attr("recaptcha", true);
+    }
+  };
 </script>
