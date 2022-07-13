@@ -6,6 +6,12 @@ class UserMailer < ActionMailer::Base
     mail(from: current_app.main_admin&.email, to: user.email, subject: 'Your RockyStepsWay app login credentials!')
   end
 
+  def guest_welcome_email(user, password, current_app)
+    @user  = user
+    @password = password
+    mail(from: current_app.main_admin&.email, to: user.email, subject: 'Your RockyStepsWay app login credentials!')
+  end
+
 	def password_email(email,url, current_app)
 		@url  = url
 		mail(from: current_app.main_admin&.email, to: email, subject: 'ITopRecipes password reset link')

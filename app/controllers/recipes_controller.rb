@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
     flash.discard
     if params[:filter]
       recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params)
-      if cookies[:agreement].nil?
+      if (current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)
         exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
         recipes = recipes.where.not(id: exercise_recipes_id)
       end
@@ -27,7 +27,7 @@ class RecipesController < ApplicationController
       end
     else
       recipes = Recipe.where(chef_id: @chef_ids, is_draft: false)
-      if cookies[:agreement].nil?
+      if (current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)
         exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
         recipes = recipes.where.not(id: exercise_recipes_id)
       end
@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
   end
   
   def show
-    redirect_to new_app_agreement_path(@current_app) if cookies[:agreement].nil? && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
+    redirect_to new_app_agreement_path(@current_app) if (current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?) && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
     @comment = Comment.new
     @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
   end

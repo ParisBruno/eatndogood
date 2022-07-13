@@ -98,6 +98,7 @@
           <button type="button" class="btn btn-primary sendEmails" id="export"><%= t 'forms.export' %></button>
         </th>
         <th><%= t 'forms.s_no' %></th>
+        <th><%= t 'forms.agreement' %></th>
         <th><%= t 'forms.first_name' %></th>
         <th><%= t 'forms.last_name' %></th>
         <th><%= t 'forms.email' %></th>
@@ -113,6 +114,7 @@
       <tr>
         <td><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
         <td> <a href="<%= guests_path(keyword: guest.email) %>"><%= i %></a></td>
+        <td><input type="checkbox" <%= 'checked' if guest.agreement.present? %> onclick="return false;"></td>
         <td> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
         <td> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
