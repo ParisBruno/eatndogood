@@ -32,9 +32,11 @@ class IngredientsController < ApplicationController
   end
   
   def show
-    @ingredient_recipes = @ingredient.recipes.paginate(page: params[:page], per_page: 5)
+    recipes = @ingredient.recipes
+    recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
+    @ingredient_recipes = recipes.paginate(page: params[:page], per_page: 5)
   end
-  
+
   def index
     @ingredients = current_app.ingredients.paginate(page: params[:page], per_page: 5)
   end

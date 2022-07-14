@@ -17,6 +17,7 @@ class AllergensController < ApplicationController
     if @allergen.recipes.present?
       recipes = recipes.where.not(id: @allergen.recipes.pluck(:id))
     end
+    recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
     @recipes = recipes.paginate(page: params[:page], per_page: 3)
   end
 

@@ -13,7 +13,9 @@ class StylesController < ApplicationController
   # GET /styles/1.json
   def show
     redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
-    @recipes = @style.recipes.paginate(page: params[:page], per_page: 5)
+    recipes = @style.recipes
+    recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
+    @recipes = recipes.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /styles/new

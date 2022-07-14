@@ -143,8 +143,8 @@
         </div>
         <div class="recepie-menu btn form-group">
           <div class="row">
-            <%= f.submit t('recipes.save_submit'), class: "btn btn-success btn-lg col-lg-8 col-sm-12", id: "save-button" %>
-            <%= f.submit t('recipes.save_draft'), class: "btn btn-outline-success btn-lg col-lg-3 col-sm-12", id: "draft-button" %>
+            <%= f.submit t('recipes.save_submit'), class: "btn btn-success btn-lg col-lg-8 col-sm-12", id: "save-button", :formtarget => "_blank" %>
+            <%= f.submit t('recipes.save_draft'), class: "btn btn-outline-success btn-lg col-lg-3 col-sm-12", id: "draft-button", :formtarget => "_blank" %>
           </div>
         </div>
       </div>

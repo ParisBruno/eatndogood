@@ -95,18 +95,20 @@
   </div>
 </div>
 
-<div class="col-md-12 margin-sec nav-links-cont">
-  <ul class="nav nav-tabs">
-    <% if current_app_user %>
-    <li style="display: <%= @hide_chef_tab %>">
-      <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
-    </li>
-    <li class="<%= "active" if @recipes.first&.is_draft %>">
-      <%= link_to t('common.drafts'), app_recipe_drafts_path(app: @current_app), {:style=>'font-size:20px'} %>
-    </li>
-    <% end %>
-  </ul>
-</div>
+<% if current_app_user&.admin? %>
+  <div class="col-md-12 margin-sec nav-links-cont">
+    <ul class="nav nav-tabs">
+      <% if current_app_user %>
+      <li style="display: <%= @hide_chef_tab %>">
+        <%= link_to t('navigation.team'), app_chefs_path(app: @current_app), {:style=>'font-size:20px'} %>
+      </li>
+      <li class="<%= "active" if @recipes.first&.is_draft %>">
+        <%= link_to t('common.drafts'), app_recipe_drafts_path(app: @current_app), {:style=>'font-size:20px'} %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <div class="list-recipes">
   <% if @recipes.blank? %>
