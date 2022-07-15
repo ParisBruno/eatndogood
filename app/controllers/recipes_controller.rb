@@ -58,7 +58,11 @@ class RecipesController < ApplicationController
     @recipe.name = name
     @recipe.summary = recipe_params["summary_#{selected_locale}"]
     @recipe.description = recipe_params["description_#{selected_locale}"]
-    @recipe.is_draft = true if params['commit'] == t('recipes.save_draft')
+    if params['commit'] == t('recipes.save_submit')
+      @recipe.is_draft = false
+    elsif params['commit'] == t('recipes.save_draft')
+      @recipe.is_draft = true
+    end
     if @recipe.save && @recipe.styles.present?
       # upload_images
       delete_draft
