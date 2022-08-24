@@ -56,7 +56,6 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_or_initialize_by(name: name, chef_id: current_app_user.chef_info.id)
     @recipe.assign_attributes(recipe_params)
     @recipe.name = name
-    @recipe.summary = recipe_params["summary_#{selected_locale}"]
     @recipe.description = recipe_params["description_#{selected_locale}"]
     if params['commit'] == t('recipes.save_submit')
       @recipe.is_draft = false

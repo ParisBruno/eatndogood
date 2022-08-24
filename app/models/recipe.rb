@@ -35,8 +35,8 @@ class Recipe < ApplicationRecord
   #after_create :make_tags
   after_create :make_tags
 
-  translates :name, :description, :summary, fallbacks_for_empty_translations: true
-  globalize_accessors locales: I18n.available_locales, attributes: [:name, :description, :summary]
+  translates :name, :description, fallbacks_for_empty_translations: true
+  globalize_accessors locales: I18n.available_locales, attributes: [:name, :description]
 
 
   def self.sizes

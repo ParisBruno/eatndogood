@@ -1,7 +1,4 @@
 <style>
-  .recipe-summary {
-    word-wrap: break-word;
-  }
   .buy-button form{
     padding: 10px !important;
   }
@@ -152,9 +149,6 @@
                 <%= @recipe.name %>
               </h1>
             </center>
-           
-              <%= @recipe.summary.html_safe %>
-            
             <% unless @recipe.price.zero? %>
               <h2 class="box-content-font" style="margin-top: 15px; margin-bottom: 15px;">
                 <span class="price-tag">
@@ -179,11 +173,6 @@
       <div class="recipes-q margin-top-30">
         <center>
           <% if current_app_user && current_app_user.id != @recipe.chef.id %>
-            <h3>
-              <a href="<%= new_app_question_path(@recipe, user_id: current_app_user.id, email: @recipe.chef.user.email, recipe_id: @recipe.id) %>">
-                <%= t('recipes.question_about_this_recipe') %>
-              </a>
-            </h3>
             <% if @recipe.is_reservation_enable %>
               <h3>
                 <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">

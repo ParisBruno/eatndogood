@@ -60,15 +60,6 @@
             </div>
             <div class="form-group col-12">
               <div class=" col-md-12">
-                <%= f.label :summary, t('forms.summary') + "(#{locale})" %>
-              </div>
-              <div class="col-md-12">
-                <%= f.cktext_area "summary_#{locale}", rows: '2', cols: 50, class: "form-control", placeholder: t('recipes.summary_placeholder'), autofocus: true %>
-                <p style="color:red;"><%= t('common.note_allow_chars', from: 10, to: 500) %></p>
-              </div>
-            </div>
-            <div class="form-group col-12">
-              <div class=" col-md-12">
                 <%= f.label :description, t('forms.description') + "(#{locale})" %>
               </div>
               <div class="col-md-12">
