@@ -46,11 +46,14 @@
     background-image: linear-gradient(to bottom, #64dc3b, #64dc3b);
     text-decoration: none;
   }
-  .margin-top-30{
-    margin-top: 30px !important;
+  .margin-top-18{
+   margin-top: 18px !important;
   }
   .margin-bottom-30{
     margin-bottom: 30px !important;
+  }
+  .margin-bottom-21{
+    margin-bottom: 21px !important;
   }
   .recipes-q h3:nth-child(1) {
     margin-bottom: 40px;
@@ -123,6 +126,9 @@
       margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
       margin-bottom: 10px;
     }
+    .margin-top-18{
+      margin-top: 0px !important;
+    }
   }
 </style>
 <div class="recipe-margin-sec top-space">
@@ -170,7 +176,7 @@
 <div class="row w-100 justify-content-center">
   <% unless @recipe.is_draft %>
     <% if session[:user_role] != 'super_admin' %>
-      <div class="recipes-q margin-top-30">
+      <div class="recipes-q margin-top-18">
         <center>
           <% if current_app_user && current_app_user.id != @recipe.chef.id %>
             <% if @recipe.is_reservation_enable %>
@@ -193,7 +199,7 @@
               <%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %>
             </h3>
           <% end %>
-          <div class="row justify-content-center margin-top-30 margin-bottom-30">
+          <div class="row justify-content-center mt-2 margin-bottom-21">
             <ul class="dots">
               <li class="text-success"></li>
               <li class="text-success"></li>
