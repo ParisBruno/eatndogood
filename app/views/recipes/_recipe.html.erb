@@ -21,9 +21,6 @@
   .index-title {
     padding-left: 10px !important;
   }
-  .recipe-summary-index {
-    word-wrap: break-word;
-  }
   .recipe-title {
     font-family: MillerDisplay-Roman;
     color: #808080;
@@ -149,22 +146,6 @@
       <div class="col-md-6 index-title">
         <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
       </div>
-      <%
-=begin%>
- <div class='recipe-summary-index'>
-      <% if current_app_user %>
-        <% if !recipe.summary.nil? && recipe.summary.size > 125 %>
-          <%= truncate(recipe.summary, length: 125, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
-        <% else %>
-          <% length = recipe.summary&.size || 3 %>
-          <%= truncate(recipe.summary, length: length - 3, escape: false) { link_to 'read more', app_recipe_path(@current_app, recipe) } %>
-        <% end %>
-      <% else %>
-        <%= sanitize recipe.summary %>
-      <% end %>
-      </div> 
-<%
-=end%>
       <%
 =begin%>
  <% if recipe.styles.any? %>
