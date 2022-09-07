@@ -45,7 +45,7 @@ class GuestsController < ApplicationController
         #@guest.user_id is admin id
         @chef = User.where(id: @guest.user_id).first
         raise @chef.inspect
-        UserMailer.guest_create_email_to_admin(@chef.email, @guest, current_app).deliver_later if @chef
+        UserMailer.guest_create_email_to_admin(@chef.email, @guest, current_app).deliver_now if @chef
       end
 
       #add to mailchimp
@@ -81,7 +81,7 @@ class GuestsController < ApplicationController
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_later
+      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_now
     end
 
     respond_to do |format|
