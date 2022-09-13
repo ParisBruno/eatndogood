@@ -117,7 +117,7 @@
       padding: 4px;
     }
   }
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 912px) {
     .form-group .control-label{
       margin-left: 25px;
     }
@@ -137,9 +137,9 @@
   }
 
   #paypal-btn{
-    background: #ffc439;
-    border: #ffc439;
-    height: 47px;
+    background: #ffc439 !important;
+    border: #ffc439 !important;
+    height: 47px !important;
   }
   .payment-option{
     height: 47px;
@@ -370,10 +370,8 @@
           <div class="form-group col-12">
             <p style="text-align: center; font-size: 10px;"><%= t('recipes.max_pic_size', mb: 5) %><br><%= t('recipes.rec_pic_size') %></p>
             <div class='row'>
-              <div class="control-label col-md-2"></div>
-              <div class="control-label col-md-2"></div>
-              <div class="control-label col-md-8 mb-4">
-                <%= c.file_field :chef_avatar, accept: 'image/jpeg,image/gif,image/png' %>
+              <div class="control-label ml-3">
+                <%= c.file_field :chef_avatar, accept: 'image/jpeg,image/gif,image/png', class:'mb-3' %>
               </div>
             </div>
             <div class='row'>
@@ -386,11 +384,11 @@
         <div class="form-group">
           <div class="col-md-12">
             <div class="row">
-              <div class="col-md-offset-2 col-lg-4 col-md-7 left-btn col-sm-12">
+               <div class="col-md-offset-1 col-lg-4 col-md-12 left-btn col-sm-12">
                 <%= f.submit(@user.new_record? ? t('chefs.create_account') : t('chefs.update_account'), 
                                                           class: "btn btn-primary btn-lg btn-xlarge") %>
               </div>
-              <div class="col-lg-2 col-md-4 col-md-offset-2 right-btn col-sm-12">
+               <div class="col-lg-2 col-md-12 col-md-offset-2 right-btn col-sm-12">
                 <% if @current_app_user.admin? %>
                   <%= link_to t('chefs.delete_profile'), [current_app, @user.chef_info], class: "btn btn-danger delete-btn btn-lg",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
                 <% end %>
