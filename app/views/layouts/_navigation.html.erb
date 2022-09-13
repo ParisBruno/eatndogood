@@ -92,7 +92,7 @@
     outline: none !important;
     box-shadow: none !important;
   }
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 912px){
     .login, .registration, .subscription{
       width: 100%;
       text-align: center;
@@ -112,7 +112,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
-    <div class="container-fluid collapse navbar-collapse" id="responsive-nav">
+    <div class="container-fluid" id="responsive-nav">
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
         <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "frmRecipes") do |f| %> 

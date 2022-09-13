@@ -39,6 +39,11 @@
       margin-top: 0px !important;
     } 
   }
+  @media screen and (min-width: 540px) and (max-width: 1024px) {
+    .margin {
+      margin-top: 10px !important;
+    }
+  }
 </style>
 
 <%= render 'shared/page_title', title: t('navigation.the_team') %>
@@ -71,7 +76,7 @@
 
 <% @chefs.each do |chef| %>
   <div class="col-lg-12 chef-main chef-full bio-section chef-bio">
-    <div class="col-md-3 mb-5">
+    <div class="col-md-3 mb-5 margin">
       <div class="image-box-shadow pt-3">
         <div class="custom-profile-detail">
           <% unless chef.chef_avatar.attached? %>

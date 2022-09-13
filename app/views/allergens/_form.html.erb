@@ -1,3 +1,14 @@
+<style>
+  .form-horizontal .form-group {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  @media screen and (min-width: 768px) and (max-width: 912px) {
+    .control-label {
+      text-align: left !important;
+    }
+  }
+</style>
 <%= form_for([current_app,@allergen], :html => {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "allergen", elem: "nameal"} %>
   <% I18n.available_locales.each do |locale| %>
@@ -16,7 +27,7 @@
     </div>
     <div class="col-md-offset-2 col-md-10">
       <% if @allergen.image.attached? %>
-        <%=image_tag(@allergen.sized(:image, :thumb), class:'img', alt: t('common.no_image')) %>
+        <%=image_tag(@allergen.sized(:image, :thumb), class:'img mb-4 img-fluid', alt: t('common.no_image')) %>
       <% end %>
       <%= f.file_field "image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
     </div>

@@ -25,12 +25,17 @@
     margin-left: 5px;
   }
   /* Dropdown CSS End */
+   @media screen and (min-width: 540px) and (max-width: 1024px) {
+    .margin {
+      margin-top: 10px !important;
+    }
+  }
 </style>
 <%= render 'shared/page_title', title: "#{@chef.user.full_name} #{@chef.user.title}" %>
 
 <div class="row">
   <div class="col-lg-12 chef-main chef-full chef-main-detail bio-section chef-bio">
-    <div class="col-md-3">
+    <div class="col-md-3 margin">
       <div class="image-box-shadow chef-left pt-3">
         <center><%= image_tag(@chef.chef_avatar.attached? ? @chef.chef_avatar : 'no_avatar.png', size: '300x300', alt: 'No image') %></center>
       </div>

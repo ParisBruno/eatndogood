@@ -9,15 +9,20 @@
     border-top: 4px solid green;
   }
   .coupon-codes, .fundraising-codes {
-    margin-left: 7%;
+    margin: 0 1%;
     max-width: 590px;
+  }
+  .table-responsive{
+    border: none;
   }
   table {
     font-family: Helvetica, sans-serif;
     width: 100%;
     margin: 0;
     padding: 0;
-    table-layout: fixed;
+  }
+  .no-border td {
+    border-top: 0 !important;
   }
   td, th {
     text-align: center;
@@ -25,8 +30,7 @@
     border: 1px solid #dadada;
     font-size: 1.2em;
   }
-  thead {
-    font-weight: bold;
+  .heading-styling {
     font-size: 1.2em;
   }
   .empty-row {
@@ -94,6 +98,9 @@
   @media screen and (min-width: 768px) {
     .left-btn {
       padding-left: 8px;
+    }
+    .large-screen-padding td{
+      padding: 0 !important;
     }
   }
   @media screen and (max-width: 768px) {

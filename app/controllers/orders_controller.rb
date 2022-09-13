@@ -228,6 +228,8 @@ class OrdersController < ApplicationController
     redirect_to app_orders_path(current_app)
   end
 
+  private
+  
   def set_order
     @order = Order.find_by(id: params[:id])
   end

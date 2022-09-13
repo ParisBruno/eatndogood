@@ -1,33 +1,33 @@
-<table>
-  <h3 style="text-align: center;"><%= t('recipes.fundraising_code') %></h3>
-  <thead>
-    <tr>
-      <td colspan="3"><%= t('chefs.coupon_title') %></td>
-      <td colspan="1"><%= t('chefs.coupon_active') %></td>
-      <td class="empty-header"></td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @current_app_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
-      <tr>
-        <td colspan="3"><%= fundrasing_code.title %></td>
-        <td colspan="1"><%= fundrasing_code.is_active %></td>
-        <td class="empty-header"><%= link_to "x", app_fundrasing_codes_path(@current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+<div class="table-responsive">
+  <table class="table">
+    <h3 style="text-align: center;"><%= t('recipes.fundraising_code') %></h3>
+    <tbody>
+      <tr class="font-weight-bold heading-styling large-screen-padding">
+        <td style='width: 30%'><%= t('chefs.coupon_title') %></td>
+        <td style='width: 30%'><%= t('chefs.coupon_active') %></td>
+        <td style='width: 10%; border-top: 0 !important;' class="empty-header" ></td>
       </tr>
-    <% end %>
-    <tr>
-      <td class="empty-row"></td>
-    </tr>
-    <tr>
-      <td colspan="3" class="add-coupon">
-        <input type="text" id="fundraising-title" class="form-control coupon-code-input" placeholder=<%= t('recipes.fundraising_code') %>>
-      </td>
-      <td colspan="1" class="add-coupon">
-        <input type="checkbox" id="fundraising-check-box" class="coupon-active">
-      </td>
-      <td colspan="2" class="add-coupon">
-        <input type="button" value="Add" class="btn btn-success btn-lg" id="add-fundrasing-btn" disabled=true>
-      </td>
-    <tr>
-  </tbody>
-</table>
+      <% @current_app_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
+        <tr class="large-screen-padding">
+          <td><%= fundrasing_code.title %></td>
+          <td><%= fundrasing_code.is_active %></td>
+          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_fundrasing_codes_path(@current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td class="empty-row"></td>
+      </tr>
+      <tr class="no-border">
+        <td class="add-coupon p-0">
+          <input type="text" id="fundraising-title" class="form-control coupon-code-input" placeholder=<%= t('recipes.fundraising_code') %>>
+        </td>
+        <td class="add-coupon p-0">
+          <input type="checkbox" id="fundraising-check-box" class="coupon-active">
+        </td>
+        <td class="add-coupon p-0">
+          <input type="button" value="Add" class="btn btn-success btn-lg" id="add-fundrasing-btn" disabled=true>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
