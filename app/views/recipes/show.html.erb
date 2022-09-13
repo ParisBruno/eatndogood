@@ -15,11 +15,20 @@
   .recipe-title {
     font-family: MillerDisplay-Roman;
     margin-bottom: 40px;
+    display: inline-grid;
   }
   .box-content-font {
     padding-left: 10px;
     padding-right: 10px;
   }
+  img{
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 10px;
+  }
+  .recipe-detail .image-box-shadow {
+    height: 310px !important;
+   }  
   .buy-button button {
     padding: 10px 25px;
     background: #6ee06e;
@@ -102,8 +111,11 @@
   @media screen and (min-width: 768px) {
    .col-md-3.thumb-sec {
       position: absolute;
-      right: -36%;
+      right: -36% !important;
       top: 0;
+    }
+    .thumb-sec{
+      max-width: 33.33% !important;
     }
     .col-md-3 {
       max-width: 35%;
@@ -112,9 +124,23 @@
       padding: 5px;
     }
   }
-  @media (max-width: 1024px) and (min-width: 768px) {
-    .col-md-3.thumb-sec {
-      right: -50%;
+   @media (max-width: 767px){
+    .top-space .box-inner-sec.box-content {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+  }
+   @media (max-width: 768px) and (min-width: 280px) {
+    .recipe-name {
+      margin-top: 65px;
+    }
+  }
+  @media screen and (width: 540px) {
+    .recipe-detail .thumb-sec .image-box-shadow {
+      margin-top: 15px !important;
+    }
+    .recipe-detail .thumb-sec .image-box-shadow img{
+      max-height: initial; !important;
     }
   }
   @media screen and (max-width: 600px) {
@@ -130,15 +156,23 @@
       margin-top: 0px !important;
     }
   }
+   @media screen and (width: 540px) {
+    .recipe-detail .thumb-sec .image-box-shadow {
+      margin-top: 15px !important;
+    }
+    .recipe-detail .thumb-sec .image-box-shadow img{
+      max-height: initial; !important;
+    }
+  }
 </style>
 <div class="recipe-margin-sec top-space">
   <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-9 col-sm-12 col-xs-12">
         <div class="box-inner-sec well box-content">
           <div class="col-md-3 col-sm-12 col-xs-12 thumb-sec">
             <% if @recipe.food_image.attached? %>
-              <div class="image-box-shadow">
+              <div class="image-box-shadow mt-0">
                 <%=image_tag(@recipe.food_image, class:'img', alt: t('common.no_image')) %>
               </div>
             <% end %>
@@ -151,7 +185,7 @@
               <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg", style: 'font-family: WhitneySSm;' %>
             <% end %>
             <center class="box-content-font" style="margin-bottom:0;">
-              <h1 class='recipe-title'>
+              <h1 class='recipe-title text-dark'>
                 <%= @recipe.name %>
               </h1>
             </center>

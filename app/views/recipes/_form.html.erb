@@ -39,6 +39,11 @@
       margin-bottom: 5px;
     }
   }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .margin {
+      margin-top: 20px !important;
+    }
+  }
 </style>
 <%= render 'shared/errors', obj: @recipe %>
 
@@ -47,7 +52,7 @@
     <div class=" col-md-offset-4 login-sec margin-sec full-width-sec">
     <%= form_for([current_app, @recipe], html: { multipart: true, class: "form-horizontal autosave" }) do |f| %>
       <%= render partial: 'shared/form_locale_selector', locals: {model: "recipe", elem: "group"} %>
-      <div class="col-lg-6  col-md-5 col-ms-12 col-xs-12  well box-content">
+      <div class="col-lg-6  col-md-5 col-ms-12 col-xs-12  well box-content margin">
         <% I18n.available_locales.each do |locale| %>
           <div class="<%= "group_#{locale}" %>">
             <div class="form-group col-12">
@@ -112,7 +117,7 @@
           <div class="col-md-12">
             <% if @recipe.food_image.attached? %>
               <% image = @recipe.sized(:food_image, :thumb) %>
-              <%=image_tag(image, class:'img', alt: t('common.no_image')) if image.present? %>
+              <%=image_tag(image, class:'img mb-3 h-100 w-100', alt: t('common.no_image')) if image.present? %>
             <% end %>
             <%= f.file_field "food_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
             <bold style="margin-left: 5%;"><%= t('recipes.max_pic_size', mb: 5) %></bold>

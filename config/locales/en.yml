@@ -204,6 +204,7 @@ en:
     stripe_secret_key: Stripe secret-key
     stripe_publishable_key: Stripe publishable-key
     select_payment_method: Select payment method
+    business_name: Business name
     action: Action
     admin: Admin
     bio: Bio
