@@ -15,7 +15,7 @@ class ReservationsController < ApplicationController
   	  if @reservation.save
   	    to_email = @reservation.recipe.chef.admin_user.present? ? @reservation.recipe.chef.admin_user.email : "brunofiuggi@gmail.com"
 				# raise @reservation.inspect
-				UserMailer.reservation_email(@reservation.email, to_email, @reservation).deliver_later
+				UserMailer.reservation_email(@reservation.email, to_email, @reservation).deliver_now
   	    message = 'Make Reservation successfully.'
         message = 'Sent catering question to chef' if @reservation != "reservation"
   	    format.html { redirect_to app_recipe_path(current_app, @reservation.recipe_id), notice: 'Make Reservation successfully.' }

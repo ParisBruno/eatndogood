@@ -66,7 +66,7 @@ class OrdersController < ApplicationController
         
     set_items_by_style(@order)
     email = @guest&.valid? ? @guest.email : current_app_user.email
-    UserMailer.send_receipt_to_client(email, @order.id, @items_with_styles, current_app.main_admin&.email).deliver_later
+    UserMailer.send_receipt_to_client(email, @order.id, @items_with_styles, current_app.main_admin&.email).deliver_now
 
     if params['cash'].present?
       create_cash_gift_paypal_order(@order, 'cash')
@@ -105,7 +105,7 @@ class OrdersController < ApplicationController
     @order.save!
 
     set_items_by_style(@order)
-    UserMailer.send_receipt_to_client(@order.email, @order.id, @items_with_styles).deliver_later if @order.email.present?
+    UserMailer.send_receipt_to_client(@order.email, @order.id, @items_with_styles).deliver_now if @order.email.present?
     redirect_to app_order_path(id: @order, app: current_app.slug)
   end
 
@@ -246,7 +246,7 @@ class OrdersController < ApplicationController
 
     if order.line_items.where.not(gift_card_id: nil).present?
       order.line_items.pluck(:gift_card_id).compact.each do |gift_card_id|
-        UserMailer.buy_gift_card_email(gift_card_id, current_app.id).deliver_later
+        UserMailer.buy_gift_card_email(gift_card_id, current_app.id).deliver_now
       end
     end
 

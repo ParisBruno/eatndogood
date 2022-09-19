@@ -25,12 +25,12 @@ class MessagesController < ApplicationController
       file_content = File.read(params[:message][:attachment][0].tempfile.to_path.to_s)
       @blob = Base64.encode64(file_content)
     end
-    UserMailer.message_to_manager_email(email_message_params, @filename, @content_type, @blob, current_app).deliver_later
+    UserMailer.message_to_manager_email(email_message_params, @filename, @content_type, @blob, current_app).deliver_now
     redirect_to app_managers_path(current_app), notice: t('chefs.success_email')
   end
   
   def error_message
-    UserMailer.error_message_from_user(params[:message], current_app).deliver_later
+    UserMailer.error_message_from_user(params[:message], current_app).deliver_now
     redirect_to app_recipes_path(current_app)
   end
 

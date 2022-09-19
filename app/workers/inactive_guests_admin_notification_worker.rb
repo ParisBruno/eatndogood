@@ -7,6 +7,6 @@ class InactiveGuestsAdminNotificationWorker
     return unless guests.any?
 
     # TODO: Who should receive this email?
-    AdminMailer.inactive_guests_email(User.where(admin: true).first, guests).deliver_later
+    AdminMailer.inactive_guests_email(User.where(admin: true).first, guests).deliver_now
   end
 end

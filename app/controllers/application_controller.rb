@@ -166,8 +166,8 @@ class ApplicationController < ActionController::Base
     session[:chef_id] = current_app_user.chef_id
     # if resource.guest
     #   @admin = resource.app.main_admin
-    #   UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver_later if @admin
-    #   UserMailer.guest_create_email_to_guest(resource.email).deliver_later if @admin
+    #   UserMailer.guest_create_email_to_admin(@admin.email, resource).deliver_now if @admin
+    #   UserMailer.guest_create_email_to_guest(resource.email).deliver_now if @admin
     # end
     table_app_styles_path(current_app.slug)
   end
