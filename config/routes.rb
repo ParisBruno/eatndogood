@@ -69,7 +69,7 @@ Rails.application.routes.draw do
     authenticate :app_user do
       mount Sidekiq::Web => '/sidekiq'
     end
-    devise_for :users
+    devise_for :users, :controllers => { :passwords => "passwords" }
     get '/', to: 'pages#welcome'
     get 'add_additional_params', to: 'carts#add_additional_params'
     get 'return_stripe', to: 'orders#return_stripe'
