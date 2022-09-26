@@ -70,7 +70,7 @@ class User < ApplicationRecord
     if self.guest?
       @admin = self.app.main_admin
       UserMailer.guest_create_email_to_admin(@admin.email, self, self.app).deliver_now if @admin
-      UserMailer.guest_create_email_to_guest(self.email, self.app).deliver_now if @admin
+      # UserMailer.guest_create_email_to_guest(self.email, self.app).deliver_now if @admin
     end
   end
 

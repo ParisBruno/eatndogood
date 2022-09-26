@@ -25,7 +25,7 @@ class UserMailer < ActionMailer::Base
 
 	def guest_create_email_to_admin(email,guest_info, current_app)
 		@guest  = guest_info
-		mail(from: current_app.main_admin&.email, to: email, subject: 'Guest registered notification')
+		mail(from: current_app.main_admin&.email, to: email, subject: 'New guest sign up')
 	end
 
 	def guest_create_email_to_guest(email, current_app)
