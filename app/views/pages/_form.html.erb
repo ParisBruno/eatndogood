@@ -1,3 +1,29 @@
+<style>
+  @media only screen and (width: 820px) {
+   .about-page img{
+      max-width: 190px !important;
+    }
+    .landscape img{
+      min-width: 190px !important;
+    }
+  }
+  @media only screen and (width: 768px){
+    .about-page img{
+      max-width: 170px !important;
+    }
+    .landscape img{
+      min-width: 177px !important;
+    }
+  }
+  @media only screen and (width: 280px){
+    .about-page img{
+      max-width: 196px !important;
+    }
+    .landscape img{
+      min-width: 200px !important;
+    }
+  }
+</style>
 <%= form_for([current_app,@page], html: { class: "autosave", multipart: true}, remote: @page.new_record? ? false : true)do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "page"} %>
   <%= f.hidden_field :destination %>
@@ -40,20 +66,24 @@
             if @page&.destination == "welcome"
               picture_style = "float: left; margin-right: 20px"
               picture_style_description = t('pages.new.recommended_pictures_size_portrait')
+              picture_max_width = 100
+              picture_min_height = 180
             else
               picture_style = ''
               picture_style_description = ''
+              picture_max_width = 220
+              picture_min_height = 150
             end
           %>
-          <span class="picture mb-4" style="<%= picture_style %>;">
-            <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+          <span class="<%= 'about-page' if @page.destination == 'about' %>  picture mb-4" style="<%= picture_style %>;">
+            <%= image_tag( (!@page.nil? && @page.page_img.attached?) ? @page.page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: "max-width: #{picture_max_width}px; min-height: #{picture_min_height}px") %>
             <br>
             <label><%= picture_style_description %></label>
             <%= f.file_field :page_img, accept: 'image/jpeg,image/gif,image/png' %>
           </span>
-          <span class="picture">
+          <span class="picture landscape">
             <% if @page&.destination == "welcome" %>
-              <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'margin-top: 70px;') %>
+              <%= image_tag( (!@page.nil? && @page.landscape_page_img.attached?) ? @page.landscape_page_img : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image'), style: 'min-width: 220px; max-height: 110px; margin-top: 70px;') %>
               <br>
               <label><%= t('pages.new.recommended_pictures_size_landscape') %></label>
 
