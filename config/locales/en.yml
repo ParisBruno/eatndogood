@@ -395,8 +395,8 @@ en:
       edit_welcome_page: Edit Welcome Page
       save_to_view_changes: view your changes
       tap_or_click_to_save: Click here to save
-      recommended_pictures_size_portrait: Recommended pictures size 1080x1350 px
-      recommended_pictures_size_landscape: Recommended pictures size 1080x566 px
+      recommended_pictures_size_portrait: Portrait picture recommended size 1080x1350 px. 5 MG
+      recommended_pictures_size_landscape: Landscape picture recommended size 1080x566 px. 5 MG
       upload_landing_pic_max_size: Upload landing picture, max size %{max} megabytes
       you_can_not_write_more_chars: You can not write more than %{max} characters!
       your_about_page_picture: Your about page picture here
