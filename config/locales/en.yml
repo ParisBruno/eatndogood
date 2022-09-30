@@ -74,6 +74,7 @@ en:
     ingredients: Ingredients
     ingredients_colon: 'Ingredients:'
     note_allow_chars: 'Note: Allow only %{from} to %{to} characters'
+    recipe_note_allow_chars: 'Note: Allow only 50 characters'
     no_image: No image'
     no_recipes_found: No Recipies found!
     no_recipes_found_admin_html: No Recipe Found! Please add recipe by click %{link}
