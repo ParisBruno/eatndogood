@@ -183,6 +183,10 @@
     $(".btn_more").click(function(){
       $('.read_less').hide();
       $('.read_full').show();
+      if ($('.read_less').find('.read_full').length == 1) {
+        html = $('.read_full')[0];
+        $('#message').append(html);
+      }
     });
 
     $(".btn_less").click(function(){
@@ -226,7 +230,7 @@
                 </span>
                 &nbsp;
                 <p style="text-align: center;">
-                  <a class="btn_less" href="javascript:void(0)" style="font-size: 18px;">(<%= t('common.read_less') %>)</a>
+                  <a class="btn_less" style="font-size: 18px; cursor: pointer;">(<%= t('common.read_less') %>)</a>
                 </p>
               </div>
             <% else %>
@@ -290,7 +294,7 @@
           <% else %>
             <p id="lgp">
               <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
-              <center>*<%= t('pages.index.we_never_share_contact_info') %><br></center>
+              <span style="font-weight: <%= font_weight %>;"><%= @page.content&.gsub(/&nbsp\;/i," ")&.html_safe %></span>
               <center>** <%= t('pages.index.we_do_no_place_banners') %></center>
               <center><%= t('pages.index.or_ads_of_any_kind') %><br></center>
             </p>
