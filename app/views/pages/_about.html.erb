@@ -51,6 +51,9 @@
   .show-read-more h6{
     font-size: 1rem !important;
   }
+  .show-read-more p{
+    font-size: 12px !important;
+  }
   .page-title {
     font-size: 20px;
     padding-bottom: 30px;
@@ -304,7 +307,7 @@
           <li class="text-success"></li>
         </ul>
       </div>
-      <div class="row page-title">
+      <div class="row page-title show-read-more">
         <div class="col-md-12 text-center text-editor">
           <% if @page.present? %>
             <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
