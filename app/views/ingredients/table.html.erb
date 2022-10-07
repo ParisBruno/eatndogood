@@ -18,13 +18,6 @@
     width: 100%;
     height: auto;
   }
-  .col-lg-4 {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-  .col-xs-6 {
-    width: 50%;
-  }
   .category-title {
     font-weight: 400;
     color: #808080;
@@ -63,9 +56,9 @@
   <%= render 'shared/page_title', title: "Ingredients" %>
 </div>
 
-<div class="ingredient-sortable row">
+<div class="ingredient-sortable row mx-3">
   <% @ingredients.each_with_sortable_id do |ingredient, sortable_id| %>
-    <div class="col-lg-4 col-md-6 col-xs-6 mb-1" id="<%= sortable_id %>" data-ingredient-id="<%= ingredient.id %>">
+    <div class="col-lg-4 col-md-6 col-xs-6 mb-1 p-2" id="<%= sortable_id %>" data-ingredient-id="<%= ingredient.id %>">
       <div class="margin-sec top-recepi top-space h-100">
         <div class="box-inner-sec well box-content h-100">
           <div class="col-lg-1 col-md-2 col-xs-2">
