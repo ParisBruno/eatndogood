@@ -7,8 +7,14 @@
   }
   .recipe-title {
     font-family: MillerDisplay-Roman;
-    margin-bottom: 40px;
     display: inline-grid;
+  }
+  .buy-button{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index:100;
   }
   .box-content-font {
     padding-left: 10px;
@@ -103,6 +109,7 @@
     border: 2px outset ;
     font-family: serif;
     padding: 5px;
+    border-radius: 8px;
   }
   .btn-success{
     border-radius: 8px;
@@ -293,8 +300,8 @@
   <br><br><br><br><br>
 </center>
 
-<div class="row justify-content-center">
-  <div class="m-2 buy-button">
+<div class="row justify-content-center buy-button">
+  <div class="m-2">
     <% unless @recipe.price.zero? %>
       <% unless @recipe.is_draft %>
         <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
@@ -305,7 +312,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="mt-4 buy-button">
+  <div class="mt-4">
     <% unless @current_cart.line_items.count == 0 %>
       <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-lg btn-success my-cart" %>
     <% end %>
