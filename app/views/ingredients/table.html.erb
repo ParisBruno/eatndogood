@@ -7,8 +7,16 @@
     padding-left: 5px;
     padding-right: 5px;
   }
+  .col-xs-6 {
+    width: 50%;
+  }
   img {
     width: 100%;
+  }
+  .text-wrap{
+    word-wrap: break-word;
+    text-align: center!important;
+    margin-bottom: 0px !important;
   }
   .col-xs-8 {
     width: 100%;
@@ -29,6 +37,9 @@
     border-radius: 10px;
     max-width: 90%;
   }
+  .page-title .btn{
+    border-radius: 8px;
+  }
   @media screen and (max-width: 1024px) and (min-width: 768px) {
     .category-style {
       width: 100% !important;
@@ -47,6 +58,11 @@
   @media screen and (max-width: 600px) {
     .page-title {
       margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+    }
+  }
+  @media screen and (min-width: 280px) and (max-width: 912px) {
+    .text-wrap {
+      font-size: 19px !important;
     }
   }
 </style>
@@ -74,7 +90,7 @@
           <div class="col-lg-1 col-md-2 col-xs-2">
           </div>
           <div class="col-lg-12 col-md-12 col-xs-12">
-            <h2 style="text-align: center; margin-bottom: 0 !important;">
+            <h2 class="text-wrap">
               <%= link_to ingredient.name.capitalize, app_ingredient_path(@current_app, ingredient), class: 'category-title' %>
             </h2>
           </div>

@@ -4,7 +4,6 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    table-layout: fixed;
   }
   td, th {
     text-align: center;
@@ -45,6 +44,7 @@
   .remove-item-btn {
     font-size: 1.4em;
     float: right;
+    border-radius: 8px;
   }
   .change-item-up {
     height: 17px;
@@ -172,73 +172,75 @@
 
 <div>
   <h1 class="title"><%= t('recipes.my_cart') %></h1>
-  <table>
-    <thead>
-      <tr>
-        <td colspan="5"><%= t('recipes.product_name') %></td>
-        <td colspan="3"><%= t('recipes.price') %></td>
-        <td colspan="3"><%= t('recipes.quantity') %></td>
-        <td colspan="3"><%= t('recipes.sub_total') %></td>
-        <td class="null-header"></td>
-      </tr>
-    </thead>
-    <tbody>
-  <% @current_app_slug = current_app.slug %>
-  <% @current_cart.line_items.order(:created_at).each do |line_item| %>
-    <% if line_item.recipe %>
-      <% unless line_item.recipe.is_draft %>
-      <tr>
-        <td colspan="5">
-          <h4><%= line_item.recipe.name %></h4>
-        </td>
-        <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
-        <td colspan="2" class="quantity-item">
-          <div>
-            <span id="quantity"><%= line_item.quantity %></span>
-          </div>
-        </td>
-        <td colspan="1" class="quantity-arrow-td">
-          <div class="quantity-arrow">
-            <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
-              <span class="fa fa-sort-up"></span>
-            <% end %>
-            <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
-              <span class="fa fa-sort-down"></span>
-            <% end %>
-          </div>
-        </td>
-        <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
-        <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
-      </tr>
+   <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <td colspan="5"><%= t('recipes.product_name') %></td>
+          <td colspan="3"><%= t('recipes.price') %></td>
+          <td colspan="3"><%= t('recipes.quantity') %></td>
+          <td colspan="3"><%= t('recipes.sub_total') %></td>
+          <td class="null-header"></td>
+        </tr>
+      </thead>
+      <tbody>
+    <% @current_app_slug = current_app.slug %>
+    <% @current_cart.line_items.order(:created_at).each do |line_item| %>
+      <% if line_item.recipe %>
+        <% unless line_item.recipe.is_draft %>
+        <tr>
+          <td colspan="5">
+            <h4><%= line_item.recipe.name %></h4>
+          </td>
+          <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
+          <td colspan="2" class="quantity-item">
+            <div>
+              <span id="quantity"><%= line_item.quantity %></span>
+            </div>
+          </td>
+          <td colspan="1" class="quantity-arrow-td">
+            <div class="quantity-arrow">
+              <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
+                <span class="fa fa-sort-up"></span>
+              <% end %>
+              <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
+                <span class="fa fa-sort-down"></span>
+              <% end %>
+            </div>
+          </td>
+          <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
+          <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+        </tr>
+        <% end %>
+      <% elsif line_item.gift_card %>
+        <tr>
+          <td colspan="5">
+            <h4><%= line_item.gift_card.name %></h4>
+          </td>
+          <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.gift_card.price.to_f) %>$</td>
+          <td colspan="2" class="quantity-item">
+            <div>
+              <span id="quantity"><%= line_item.quantity %></span>
+            </div>
+          </td>
+          <td colspan="1" class="quantity-arrow-td">
+            <div class="quantity-arrow">
+              <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
+                <span class="fa fa-sort-up"></span>
+              <% end %>
+              <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
+                <span class="fa fa-sort-down"></span>
+              <% end %>
+            </div>
+          </td>
+          <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
+          <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+        </tr>
       <% end %>
-    <% elsif line_item.gift_card %>
-      <tr>
-        <td colspan="5">
-          <h4><%= line_item.gift_card.name %></h4>
-        </td>
-        <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.gift_card.price.to_f) %>$</td>
-        <td colspan="2" class="quantity-item">
-          <div>
-            <span id="quantity"><%= line_item.quantity %></span>
-          </div>
-        </td>
-        <td colspan="1" class="quantity-arrow-td">
-          <div class="quantity-arrow">
-            <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
-              <span class="fa fa-sort-up"></span>
-            <% end %>
-            <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
-              <span class="fa fa-sort-down"></span>
-            <% end %>
-          </div>
-        </td>
-        <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
-        <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
-      </tr>
     <% end %>
-  <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
   <div>
     <p class="coupon-code"><%= text_field_tag :coupon_input, @coupon_code_value, placeholder: t('recipes.coupone_code') %></p>
     <p class="fundrasing-code"><%= text_field_tag :fundrasing_input, @fundrasing_code_value, placeholder: t('recipes.fundraising_code') %></p>

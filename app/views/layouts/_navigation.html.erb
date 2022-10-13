@@ -3,31 +3,12 @@
     font-size: 12px;
     font-weight: bold;
   }
-  .cart-btn {
-    position: absolute; 
-    right: 10px;
-    top: 70px;
-  }
-  @media screen and (width: 1024px) {
-    .cart-btn {
-      top: 160px !important;
-      right: 25px;
-    }
-  }
-  @media screen and (max-width: 1167px) and (min-width: 767px) {
-    .cart-btn {
-      top: 110px;
-    }
-  }
   @media screen and (max-width: 600px) {
     .navbar-toggler {
       display: 'block';
     }
     .header {
       height:70px;
-    }
-    .cart-btn {
-      top: 10px;
     }
   }
   .login, .registration{
@@ -104,56 +85,60 @@
       margin-left: 20px;
     }
   }
+  @media screen and (min-width: 989px) and (max-width: 1247px) {
+    #frmRecipes .btn{
+      padding: 15px 10px !important;
+    }
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1172px) {
+    #frmRecipes .btn{
+      font-size: 12px !important;
+    }
+  }
 </style>
 <!-- <nav class="navbar navbar-default"> -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-  
-
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-   </button>
-    <div class="container-fluid" id="responsive-nav">
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-        <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "frmRecipes") do |f| %> 
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container-fluid" id="responsive-nav">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+      <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "frmRecipes") do |f| %> 
         <%= hidden_field_tag :filter, 1 %>
         <div class="navbar-header">
-          
           <%= link_to t('navigation.home'), app_path(@current_app), class: "navbar-brand", id: "logo", style: "display: flex; justify-content: center; align-items: center;" %>
         </div>
         <ul class="nav navbar-nav flex-row mr-auto mt-2 mt-lg-0">
-          
-           <% if current_app_user&.team_member? %>
-           <li class="dropdown nav-item">
-           <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <%= t('navigation.sales_point') %></a>
-            <ul class="dropdown-menu">
-            <% if current_app_user.admin? %>
-              <li>
-                <%= link_to t('common.admin'), app_admin_path(@current_app) %>
-              </li>
-            <% elsif current_app_user.manager? %>
-              <li>
-                <%= link_to t('navigation.managers'), app_managers_path(@current_app, manager_id: current_app_user.id) %>
-              </li>
-            <% elsif current_app_user.chef? %>
-              <li>
-                <%= link_to t('navigation.staff'), app_staff_path(@current_app) %>
-              </li>
-            <% end %>
-              <li>
-                <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
-              </li>
-            </ul>
-          </li>
+          <% if current_app_user&.team_member? %>
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <%= t('navigation.sales_point') %>
+              </a>
+              <ul class="dropdown-menu">
+                <% if current_app_user.admin? %>
+                  <li>
+                    <%= link_to t('common.admin'), app_admin_path(@current_app) %>
+                  </li>
+                <% elsif current_app_user.manager? %>
+                  <li>
+                    <%= link_to t('navigation.managers'), app_managers_path(@current_app, manager_id: current_app_user.id) %>
+                  </li>
+                <% elsif current_app_user.chef? %>
+                  <li>
+                    <%= link_to t('navigation.staff'), app_staff_path(@current_app) %>
+                  </li>
+                <% end %>
+                <li>
+                  <%= link_to t('navigation.sales_reports'), app_reports_path(@current_app) %>
+                </li>
+              </ul>
+            </li>
           <% end %>
-
           <li class="active nav-item">
             <%= link_to app_recipes_path(@current_app), class: "btn btn-success" do %>
               <%= t('navigation.all_recipes') %><span class="sr-only">(current)</span>
             <% end %>
           </li>
-          
           <li class="dropdown nav-item">
             <a href="<%= table_app_styles_path(current_app) %>" class="btn btn-purple"><%= t('navigation.styles') %></a>
           </li>
@@ -163,90 +148,87 @@
           <li class="dropdown nav-item">
             <a href="<%= table_app_allergens_path(current_app) %>" class="btn btn-purple"><%= t('navigation.allergens')%></a>
           </li>
-
-              <% if current_app_user&.admin? || current_app_user&.chef? %>
-              <li class="nav-item">
-                <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
-              </li>
-              <% end %>
-
-              <% if current_app_user %>
-              <li class="dropdown nav-item">
-                <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.team') %></a>
-                <ul class="dropdown-menu">
-                  <% if current_app_user.admin?  %>
+          <% if current_app_user&.admin? || current_app_user&.chef? %>
+            <li class="nav-item">
+              <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
+            </li>
+          <% end %>
+          <% if current_app_user %>
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.team') %></a>
+              <ul class="dropdown-menu">
+                <% if current_app_user.admin?  %>
                   <li>
                     <%= link_to t('navigation.create_chef'), new_app_chef_path(@current_app) %>
                   </li>
-                  <% end %>
-                  <li>
-                    <%= link_to t('navigation.the_team'), app_chefs_path(@current_app) %>
-                  </li>
-                </ul>
-              </li>
-              <% end %>
-          </li>
-       </ul>
-        
-      <% if current_app_user %>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <%= current_app_user.first_name %></a>
-            <ul class="dropdown-menu">
-              
-              <li>
-                <%= link_to current_app_user.admin? ? t('navigation.admin_page') : t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
-              </li>
-              <% if current_app_user.admin? %>
+                <% end %>
                 <li>
-                  <%= link_to t('navigation.guest_list'), app_guests_path(@current_app) %>
+                  <%= link_to t('navigation.the_team'), app_chefs_path(@current_app) %>
                 </li>
-                <li>
-                  <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(@current_app) %>
-                </li>
-                <li>
-                  <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
-                </li>
-                <li>
-                  <%= link_to t('navigation.update_agreement_page'), agreement_app_pages_path(@current_app) %>
-                </li>
-              <% end %>
-              <li role="separator" class="divider"></li>
-              <li><%= link_to t('navigation.logout'), destroy_app_user_session_path, method: :delete %></li>
-            </ul>
-          </li>
+              </ul>
+            </li>
+          <% end %>
         </ul>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
+        
+        <% if current_app_user %>
+          <ul class="nav navbar-nav">
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <%= current_app_user.first_name %>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to current_app_user.admin? ? t('navigation.admin_page') : t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
+                </li>
+                <% if current_app_user.admin? %>
+                  <li>
+                    <%= link_to t('navigation.guest_list'), app_guests_path(@current_app) %>
+                  </li>
+                  <li>
+                    <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(@current_app) %>
+                  </li>
+                  <li>
+                    <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
+                  </li>
+                  <li>
+                    <%= link_to t('navigation.update_agreement_page'), agreement_app_pages_path(@current_app) %>
+                  </li>
+                <% end %>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to t('navigation.logout'), destroy_app_user_session_path, method: :delete %></li>
+              </ul>
+            </li>
+          </ul>
+        <% end %>
 
-  <% unless app_user_signed_in? %>
-    <div class="header-buttons">
-      <div class="login">
-        <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn text-white btn-lg p-0'%>
-      </div>
-      <div class="registration">
-        <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg p-0'%>
-      </div>
-      <% subscription_recipe = Recipe.subscription_recipe(@current_app.parent_type) %>
-      <% if subscription_recipe.present?  %>
-        <div class="subscription">
-          <%= link_to t('navigation.buy_subscription'), app_recipe_path(@current_app, subscription_recipe), class: 'btn text-white btn-lg p-0'%>
+        <% unless @current_cart.line_items.count == 0 %>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple" %>
+            </li>
+          </ul>
+        <% end %>
+      <% end %>
+
+      <% unless app_user_signed_in? %>
+        <div class="header-buttons">
+          <div class="login">
+            <%= link_to t('navigation.login'), new_app_user_session_path(@current_app), class: 'btn text-white btn-lg p-0'%>
+          </div>
+          <div class="registration">
+            <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg p-0'%>
+          </div>
+          <% subscription_recipe = Recipe.subscription_recipe(@current_app.parent_type) %>
+          <% if subscription_recipe.present?  %>
+            <div class="subscription">
+              <%= link_to t('navigation.buy_subscription'), app_recipe_path(@current_app, subscription_recipe), class: 'btn text-white btn-lg p-0'%>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
 </nav> 
-
-<ul class="cart-btn nav navbar-nav">
-  <li class="dropdown nav-item">
-  <% unless @current_cart.line_items.count == 0 %>
-    <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-purple" %>
-  <% end %>
-  </li>
-</ul>
 
 <script type="text/javascript">
   $.fn.toggleCheck  =function() {

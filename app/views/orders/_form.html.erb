@@ -149,6 +149,11 @@
     margin-left: 5px;
   }
   /* Dropdown CSS End */
+  @media (min-width: 280px) and (max-width: 912px) {
+    .order-buttons {
+      padding: 0px !important;
+    }
+  }
 </style>
 
 <%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true, html: { id: "staff_order" } ) do |form| %>
@@ -322,16 +327,33 @@
             <%# end %>
           </tr>
           <tr>
-            <td colspan="2" class="order-item pb-4 text-center">
-              <% btn_text = order.new_record? ? t('orders.create') : t('orders.save') %>
-              <%= form.submit btn_text, class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
-              <% unless order.new_record? %>
-                <span class="blue-btns">
-                  <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info'>Print</a>
-                  <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info' %>
-                  <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger', data: { confirm: 'Are you sure?' } %>
-                </span>
-              <% end %>
+            <td colspan="6" class="order-item pb-4 text-center">
+              <div class="row justify-content-center">
+                <% if order.new_record? %>
+                  <% btn_text = t('orders.create') %>
+                   <%= form.submit btn_text, class: 'btn btn-lg btn-primary mb-0', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
+                <% else %>
+                  <div class="col-lg-3 col-sm-12 mb-3 order-buttons">
+                    <%  t('orders.save') %>
+                    <%= form.submit btn_text, class: 'btn btn-lg btn-primary mb-0 w-100', id: 'order-button', onmouseover: 'changeNewRecipe(); changeQuantity();' %>
+                  </div>
+                <% end %>
+                <% unless order.new_record? %>
+                  <div class="col-lg-9 col-sm-12 blue-btns mb-3 order-buttons">
+                    <div class="row">
+                      <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
+                        <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info w-100'>Print</a>
+                      </div>
+                      <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
+                        <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info w-100' %>
+                      </div>
+                      <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
+                        <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger w-100', data: { confirm: 'Are you sure?' } %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </td>
           </tr>
           <% unless order.new_record? %>

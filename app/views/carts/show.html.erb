@@ -1,7 +1,30 @@
-<div class="margin-sec top-space" style="margin-top: 50px;">
-    <div class="col-md-12 margin-sec top-space recipe-detail">
+<style>
+  @media screen and (max-width: 912px) {
+    .cart-sec.detail-sec {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    .cart-sec .box-content{
+      padding: 15px !important;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .coupon-code input, .fundrasing-code input{
+      width: 100%;
+    }
+    .fundrasing-code{
+      margin-bottom: 10px !important;
+    }
+    .margin-sec.top-space.recipe-detail {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+  }
+</style>
+<div class="top-space" style="margin-top: 50px;">
+  <div class="col-md-12 margin-sec top-space recipe-detail">
     <div class="row">
-      <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 detail-sec">
+       <div class="col-md-offset-2 col-lg-8 detail-sec mt-5 cart-sec">
         <div class="box-inner-sec well box-content">
           <div id="cart">
             <%= render @current_cart %>

@@ -1,3 +1,18 @@
+<style type="text/css">
+  @media (min-width: 768px) and (max-width: 912px) {
+    .control-label{
+      text-align: justify !important;
+    }
+    .col-md-12{
+      margin-left: 10px;
+    }
+  }
+  @media (min-width: 280px) and (max-width: 912px){
+    .col-md-2{
+      margin-left: 17px;
+    }
+  }
+</style>
 <div class="col-md-12">
 
     <%= form_for [current_app, @reservation], :html => {class: "form-horizontal", multipart: true, role: "form"} do |f| %>

@@ -46,6 +46,11 @@
   .coupon-code-input {
     width: 97%;
   }
+  .update-account:hover{
+    color: #fff !important;
+    background-color: #0069d9 !important;
+    border-color: #0062cc !important;
+  }
   @media screen and (min-width: 1024px) {
     .tax-input, .delivery-input {
       width: auto;
@@ -143,6 +148,9 @@
   }
   .payment-option{
     height: 47px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
   }
   #venmo-btn{
     height: 47px;
@@ -281,7 +289,7 @@
               <button type="button" class="btn-lg w-100 mb-2" id="venmo-btn">
                 <%= show_svg('venmo-logo.svg') %>
               </button>
-              <button type="button" class="btn btn-primary btn-lg mb-2 w-100 payment-option" id="stripe-btn">
+              <button type="button" class="btn-lg mb-2 w-100 payment-option" id="stripe-btn">
                 <div><%= t('orders.stripe') %><div>
               </button>
             </div>
@@ -386,7 +394,7 @@
             <div class="row">
                <div class="col-md-offset-1 col-lg-4 col-md-12 left-btn col-sm-12">
                 <%= f.submit(@user.new_record? ? t('chefs.create_account') : t('chefs.update_account'), 
-                                                          class: "btn btn-primary btn-lg btn-xlarge") %>
+                                                          class: "update-account btn btn-primary btn-lg btn-xlarge") %>
               </div>
                <div class="col-lg-2 col-md-12 col-md-offset-2 right-btn col-sm-12">
                 <% if @current_app_user.admin? %>

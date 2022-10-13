@@ -1,3 +1,15 @@
+<style type="text/css">
+  .fa-eye{
+    padding-top: 7px !important;
+  }
+  .btn-success{
+    border-radius: 8px;
+  }
+  .fa-eye-slash{
+    padding-top: 7px !important;
+  }
+</style>
+
 <div class="login-header">
   <p>
     <h1>Sign up</h1>
@@ -43,8 +55,10 @@
             <% end %><br />
           </div>
           <div class="row" style="padding-right: 13px">
-            <%= f.password_field :password, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password').capitalize %>
-            <div class='input-group-addon col-md-1' style="height:36px;">
+            <div class="col-11 p-0">
+              <%= f.password_field :password, autocomplete: 'new-password',  placeholder: t('activerecord.attributes.user.password').capitalize %>
+            </div>
+            <div class='input-group-addon col-1 p-0' style="height:36px;">
               <a href="" class="toggle-password">
                 <i class="fa fa-eye"></i>
               </a>
@@ -56,8 +70,10 @@
             <%#= f.label :password_confirmation %>
           </div>
           <div class="row" style="padding-right: 13px">
-            <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "col-md-11 ",  placeholder: t('activerecord.attributes.user.password_confirmation').capitalize %>
-            <div class='input-group-addon col-md-1' style="height:36px;">
+            <div class="col-11 p-0">
+              <%= f.password_field :password_confirmation, autocomplete: 'new-password',  placeholder: t('activerecord.attributes.user.password_confirmation').capitalize %>
+            </div>
+            <div class='input-group-addon col-1 p-0' style="height:36px;">
               <a href="" class="toggle-password">
                 <i class="fa fa-eye"></i>
               </a>

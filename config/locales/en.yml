@@ -108,6 +108,8 @@ en:
       country: 'Country (optional)'
       password: 'Password'
       password_confirmation: 'Password Confirmation'
+  cookies_eu:
+    cookies_text: "Cookies help us deliver our services. By using our services, you agree to our use of cookies. We do not share or sell contact information."
   gift_cards:
     create_card_number: We will create a card ID number, email an elegant e-card to the recipient and copy you.
     gift_from: From

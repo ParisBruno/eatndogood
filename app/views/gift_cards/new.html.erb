@@ -89,11 +89,35 @@
     width: 75%; 
     height: auto;
   }
+  .shop-button:hover{
+    color: #fff !important;
+    background-color: #0069d9 !important;
+    border-color: #0062cc !important;
+  }
+  @media screen and (max-width: 767px) {
+    .card-sec .box-content{
+      padding: 10px !important;
+    }
+    select, .btns-row .btn {
+      width: 100%;
+    }
+    .btns-row .btn {
+      margin-bottom: 5px;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .card-sec .box-content{
+      float: none !important;
+    }
+    .btns-row .btn {
+      font-size: 15px;
+    }
+  }
 </style>
   <div class="row">
     <%= form_for(@gift_card, url: app_gift_cards_path(current_app), html: { method: :post }) do |f| %>
-      <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
-        <div class="col-md-8 well box-content">
+      <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef card-sec">
+        <div class="col-lg-8 well box-content">
 
         <table>
           <tr>
@@ -132,9 +156,19 @@
           </tr>
 
           <tr>
-            <td colspan="2"><%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg', id: 'cart-button' %></td>
-            <td colspan="2"><%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %></td>
-            <td colspan="2"><%= link_to t('gift_cards.shopping'), app_recipes_path(current_app), class: 'shop-button btn btn-primary btn-lg' %></td>
+            <td colspan="6">
+              <div class="row btns-row">
+                <div class="col-md-4">
+                  <%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg', id: 'cart-button' %>
+                </div>
+                <div class="col-md-4">
+                  <%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %>
+                </div>
+                <div class="col-md-4">
+                  <%= link_to t('gift_cards.shopping'), app_recipes_path(current_app), class: 'shop-button btn btn-primary btn-lg' %>
+                </div>
+              </div>
+            </td>
           </tr>
 
           <tr>

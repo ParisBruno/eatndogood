@@ -89,7 +89,7 @@
       <tr>
         <td colspan="3" class="footer-table">
           <p>Weekly delicious special, tips & more visit: Eat`nDoGood.com/<%= @admin&.app&.slug || 'thrive' %></p>
-          <p class="greeting_message"><%= @admin&.greeting_message.html_safe %></p>
+          <p class="greeting_message"><%= @admin&.greeting_message.html_safe? %></p>
         </td>
       </tr>
     </tfoot>

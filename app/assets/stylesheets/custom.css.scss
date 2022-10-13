@@ -13,6 +13,9 @@ html {
 .center {
   text-align: center;
 }
+.nav-item{
+  border-radius: 8px !important;
+}
 
 #logo {
   float: left;
@@ -740,6 +743,9 @@ img {
   color: #fff;
   font-family: 'Merriweather', serif;
 }
+.btn-lg {
+  border-radius: 8px !important;
+}
 
 .about-tour {
   position: absolute;
@@ -1003,7 +1009,17 @@ ul.listing li {
 .new_elem_recipe {
   font-size: 14px;
 }
-
+.cookies-eu {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+}
+.cookies-eu-ok {
+  font-size:14px !important;
+  border-radius: 8px;
+}
+.cookies-eu .cookies-eu-content-holder {
+  font-size: 14px !important;
+  padding: 0 5px !important;
+}
 @media screen and (max-width: 600px) {
   h2 p img {
     max-width: 100%;
@@ -1072,6 +1088,5 @@ ul.listing li {
   .login, .registration, .subscription {
     border: 1px solid #fff;
     margin-bottom: 4px !important;
-    border-radius: 0px !important;
   }
 }
