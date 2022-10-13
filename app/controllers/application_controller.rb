@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   # before_action :set_admin_id
   before_action :set_header_data
   before_action :current_cart
+  before_action :set_devise_sender
 
   def current_chef
     @current_chef ||= Chef.find(current_app_user.chef_info.id) if current_app_user && !current_app_user.chef_info.nil?
@@ -287,6 +288,12 @@ class ApplicationController < ActionController::Base
     @available_locales = LocaleDefinition::AVAILABLE_LOCALES.to_a.each do |locale|
       locale[0] += '_primary' if locale[0].in?(languages_by_category[:primary] || [])
       locale[0] += '_secondary' if locale[0].in?(languages_by_category[:secondary] || [])
+    end
+  end
+
+  def set_devise_sender
+    Devise.setup do |config|
+      config.mailer_sender = current_app.main_admin.email
     end
   end
 end
