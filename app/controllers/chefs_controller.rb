@@ -54,11 +54,12 @@ class ChefsController < ApplicationController
       delete_draft(@user)
       bypass_sign_in @user if user.id == @user.id
       flash[:success] = "Your account was updated successfully"
+      current_app.reload
       redirect_to [current_app,@user.chef_info]
     else
       render 'edit'
-    end  
-  end
+    end
+    end
   
   def destroy
     if !@chef.admin?

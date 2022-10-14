@@ -225,9 +225,11 @@
           </div>
         </div>
         <div class="form-group input-group mb-3 show-password">
+          <div class="col-11 p-0 w-100">
            <%= f.password_field :password, class: "form-control", placeholder: t('forms.password'), autocomplete: "new-password" %>
-          <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2">
+          </div>
+          <div class="input-group-append col-1 p-0 w-100">
+            <span class="input-group-text w-100 justify-content-center" id="basic-addon2">
               <a href="" class="toggle-password">
                 <%= fa_icon "eye" %>
               </a>

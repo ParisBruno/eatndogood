@@ -171,6 +171,9 @@
     .recipe-detail .thumb-sec .image-box-shadow img{
       max-height: initial; !important;
     }
+    .recipe-margin-sec .top-space {
+      margin-top: 80px !important;
+    }
   }
   @media screen and (max-width: 600px) {
     .recipe-title {
@@ -178,7 +181,7 @@
       text-align: center;
     }
     .recipe-margin-sec .top-space {
-      margin-top: <%= app_user_signed_in? ? '60px' : '0' %>;
+      margin-top: 60px;
       margin-bottom: 10px;
     }
     .margin-top-18{
@@ -218,15 +221,16 @@
                 <%= @recipe.name %>
               </h1>
             </center>
-            <% unless @recipe.price.zero? %>
+            <% if !@recipe.price&.zero? && @recipe.price.present? %>
               <h2 class="box-content-font" style="margin-top: 15px; margin-bottom: 15px;">
                 <span class="price-tag">
                   <%= t('recipes.price') %>: <%= number_to_currency(@recipe.price) %>
                 </span>
               </h2>
             <% end %>
-           
-            <%= @recipe.description.html_safe %>
+            <div style="margin-top: 15px; margin-bottom: 15px;">
+              <%= @recipe.description.html_safe %>
+            </div>
             <div class="chef_info center">
             </div>
           </div>
@@ -257,7 +261,7 @@
               </h3>
             <% end %>
           <% end %>
-          <% unless @recipe.price.zero? %>
+           <% if !@recipe.price&.zero? && @recipe.price.present? %>
             <h3>
               <%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %>
             </h3>
@@ -302,7 +306,7 @@
 
 <div class="row justify-content-center buy-button">
   <div class="m-2">
-    <% unless @recipe.price.zero? %>
+    <% if !@recipe.price&.zero? && @recipe.price.present? %>
       <% unless @recipe.is_draft %>
         <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
           <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
