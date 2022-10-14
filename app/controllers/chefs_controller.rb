@@ -59,7 +59,7 @@ class ChefsController < ApplicationController
     else
       render 'edit'
     end
-    end
+  end
   
   def destroy
     if !@chef.admin?

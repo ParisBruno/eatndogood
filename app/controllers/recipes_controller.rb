@@ -36,9 +36,14 @@ class RecipesController < ApplicationController
   end
   
   def show
-    redirect_to new_app_agreement_path(@current_app) if ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
-    @comment = Comment.new
-    @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
+    if @recipe.nil?
+      flash[:success] = "Recipe not found!"
+      redirect_to app_recipes_path(current_app)
+    else
+      redirect_to new_app_agreement_path(@current_app) if ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
+      @comment = Comment.new
+      @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
+    end
   end
   
   def new
@@ -166,7 +171,8 @@ class RecipesController < ApplicationController
   
     def set_recipe
       # @recipe = Recipe.includes(:recipe_images).find(params[:id])
-      @recipe = Recipe.joins(chef: [user: :app]).where(id: params[:id], apps: { parent_type: current_app.parent_type }).last
+      chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
+      @recipe = Recipe.joins(chef: [user: :app]).where(id: params[:id], apps: { parent_type: current_app.parent_type }, chefs: { id: chef_ids }).last
     end
   
     def recipe_params

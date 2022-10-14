@@ -12,10 +12,15 @@ class StylesController < ApplicationController
   # GET /styles/1
   # GET /styles/1.json
   def show
-    redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
-    recipes = @style.recipes
-    recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
-    @recipes = recipes.paginate(page: params[:page], per_page: 5)
+    if @style.nil?
+      flash[:success] = "Category not found!"
+      redirect_to table_app_styles_path(current_app)
+    else
+      redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
+      recipes = @style.recipes
+      recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
+      @recipes = recipes.paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /styles/new
@@ -100,7 +105,7 @@ class StylesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_style
-      @style = Style.find(params[:id])
+      @style = Style.where(id: params[:id], app_id: current_app.id).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
