@@ -59,8 +59,8 @@ class Recipe < ApplicationRecord
     self.likes.where(like: false).size    
   end
 
-  def self.subscription_recipe(current_app_parent)
-    joins(chef: [user: :app]).where(is_subscription: true, apps: { parent_type: current_app_parent }).last
+  def self.subscription_recipe(current_app)
+    joins(chef: [user: :app]).where(is_subscription: true, apps: { id: current_app.id }).last
   end
 
   def is_reservation_enable

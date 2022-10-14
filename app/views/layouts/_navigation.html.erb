@@ -218,7 +218,7 @@
           <div class="registration">
             <%= link_to t('navigation.sign_up'), new_app_user_registration_path(@current_app), class: 'btn text-white btn-lg p-0'%>
           </div>
-          <% subscription_recipe = Recipe.subscription_recipe(@current_app.parent_type) %>
+          <% subscription_recipe = Recipe.subscription_recipe(@current_app) %>
           <% if subscription_recipe.present?  %>
             <div class="subscription">
               <%= link_to t('navigation.buy_subscription'), app_recipe_path(@current_app, subscription_recipe), class: 'btn text-white btn-lg p-0'%>
