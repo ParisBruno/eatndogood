@@ -73,6 +73,32 @@
       font-size: 19px;
     }
   }
+  .recipe-listing .box-content{
+    min-height: 252px !important;
+  }
+  @media (max-width: 1024px) {
+    .recipe-listing .box-content {
+      min-height: 234px !important;
+    }
+  }
+  @media screen and (min-width: 280px) and (max-width: 767px){
+    .recipe-listing .box-content {
+      min-height: 105px !important;
+    }
+  }
+  @media screen and (min-width: 767px) and (max-width: 912px){
+    .index-title {
+      max-width: 100% !important;
+    }
+  }
+  @media screen and (min-width: 530px) and (max-width: 571px){
+    .recipe-listing .recipe-title{
+      margin-left: 15px;
+    }
+    .recipe-listing .img-inner{
+      width: 100%;
+    }
+  }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--div class="login-header">< render 'shared/page_title', title: "All Recipes" ></div-->
@@ -130,7 +156,7 @@
   <% end %>
 
   <% @recipes.each do |recipe| %>
-    <div class="col-sm-6 margin-sec p-2">
+    <div class="col-sm-6 recipe-listing margin-sec p-2">
       <div class="margin-sec top-recepi top-space">
         <div class="row" style="margin-top: 10px;">
           <div class="col-md-12 detail p-0">
