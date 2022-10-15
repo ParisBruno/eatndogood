@@ -109,7 +109,7 @@
   </div>
 <% end %>
 
-<div class="list-recipes">
+<div class="list-recipes px-3">
   <% if @recipes.blank? %>
     <div class="row">
       <div class="col-sm-12" style="text-align:center;">
@@ -127,27 +127,27 @@
         <% end %>
       </div>
     </div>
-<% end %>
+  <% end %>
 
-<% @recipes.each do |recipe| %>
-  <div class="col-md-6 margin-sec">
-  <div class="margin-sec top-recepi top-space">
-  <div class="row" style="margin-top: 10px;">
-    <div class="col-md-12 detail">
-    <div class="box-inner-sec well box-content">
-      <% if recipe.food_image.attached? %>
-        <%= link_to app_recipe_path(@current_app, recipe), class: 'recipe-title' do %>
-        <div class="col-md-4 thumb">
-          <div class="img-inner image-box-shadow">
-            <% image = recipe.sized(:food_image, :medium) %>
-            <%=image_tag(image, class:'img-responsive', alt: t('common.no_image')) if image.present? %>
-          </div>
-        </div>
-        <% end %>
-      <% end %>
-      <div class="col-md-6 index-title">
-        <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
-      </div>
+  <% @recipes.each do |recipe| %>
+    <div class="col-sm-6 margin-sec p-2">
+      <div class="margin-sec top-recepi top-space">
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-12 detail p-0">
+            <div class="box-inner-sec well box-content">
+              <% if recipe.food_image.attached? %>
+                <%= link_to app_recipe_path(@current_app, recipe), class: 'recipe-title' do %>
+                  <div class="col-md-4 thumb">
+                    <div class="img-inner image-box-shadow">
+                      <% image = recipe.sized(:food_image, :medium) %>
+                      <%=image_tag(image, class:'img-responsive', alt: t('common.no_image')) if image.present? %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+              <div class="col-md-6 index-title">
+                <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
+              </div>
       <%
 =begin%>
  <% if recipe.styles.any? %>
@@ -182,7 +182,7 @@
       </section> 
 <%
 =end%>
-        <div class="index-buttons">
+        <!-- <div class="index-buttons"> -->
           <%
 =begin%>
  <table>
@@ -217,15 +217,13 @@
           </table> 
 <%
 =end%>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- '250x150'-->
     </div>
-
-  </div>
-    <!-- '250x150'-->
-  </div>
-  </div>
-<% end %>
+  <% end %>
 </div>
 
 <div class="col-md-12 margin-sec bottom-pagination">
