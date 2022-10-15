@@ -17,7 +17,7 @@ class StylesController < ApplicationController
       redirect_to table_app_styles_path(current_app)
     else
       redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
-      recipes = @style.recipes
+      recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: current_app.users.includes(:chef_info).pluck("chefs.id")})
       recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
       @recipes = recipes.paginate(page: params[:page], per_page: 5)
     end
