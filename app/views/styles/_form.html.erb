@@ -14,16 +14,16 @@
   <% I18n.available_locales.each do |locale| %>
     <div class="form-group <%= "namest_#{locale}" %>">
       <div class="control-label col-md-2" style="padding-left: 15px !important">
-        <%= f.label :name %>
+        <%= f.label :name , t('common.name') %>
       </div>
       <div class="col-md-8">
-        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: "Enter style (#{locale})", autofocus: true %>
+        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: t('styles.name_text', lang: "#{locale}"), autofocus: true %>
       </div>
     </div>
   <% end %>
   <div class="form-group">
     <div class="control-label col-md-2" style="padding-left: 15px !important">
-      <%= f.label :image %>
+      <%= f.label :image, t('styles.image') %>
     </div>
     <div class="col-md-offset-2 col-md-10">
       <% if @style.image.attached? %>

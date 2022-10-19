@@ -342,13 +342,13 @@
                   <div class="col-lg-9 col-sm-12 blue-btns mb-3 order-buttons">
                     <div class="row">
                       <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
-                        <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info w-100'>Print</a>
+                        <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info w-100'><%= t('forms.print') %></a>
                       </div>
                       <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
-                        <%= link_to 'Email', app_send_order_email_path(order: order), class: 'btn btn-lg btn-info w-100' %>
+                        <%= link_to t('forms.email'), app_send_order_email_path(order: order), class: 'btn btn-lg btn-info w-100' %>
                       </div>
                       <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
-                        <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger w-100', data: { confirm: 'Are you sure?' } %>
+                        <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger w-100', data: { confirm: t('common.confirm') } %>
                       </div>
                     </div>
                   </div>

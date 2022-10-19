@@ -53,7 +53,7 @@ class ChefsController < ApplicationController
     if @user.update(chef_params)
       delete_draft(@user)
       bypass_sign_in @user if user.id == @user.id
-      flash[:success] = "Your account was updated successfully"
+      flash[:success] = t('chefs.account_updated_successfully')
       current_app.reload
       redirect_to [current_app,@user.chef_info]
     else
@@ -64,10 +64,10 @@ class ChefsController < ApplicationController
   def destroy
     if !@chef.admin?
       @chef.destroy
-      flash[:danger] = "Chef and all associated recipes have been deleted!"
+      flash[:danger] = t('chefs.chef_and_all_associated_services_deleted')
       redirect_to app_chefs_path(current_app)
     else
-       flash[:danger] = "Cannot delete chef admin account"
+       flash[:danger] = t('chefs.cannot_delete_chef_admin_account')
        redirect_to app_chef_path(current_app, @chef)
     end
   end
@@ -136,7 +136,7 @@ class ChefsController < ApplicationController
     plan = current_app.plan
     current_chefs_count = current_app.chefs.count
     if !plan.chefs_limit.nil? && (current_chefs_count >= plan.chefs_limit)
-      flash[:danger] = "Your account has already reached limit the number of chefs. To add more chef, please upgrade your plan."
+      flash[:danger] = t('chefs.chef_upgrade_plan')
       redirect_to app_chefs_path(current_app)
     end
   end
@@ -168,14 +168,14 @@ class ChefsController < ApplicationController
   
   def require_same_user
     if current_app_user.id != @user.id && !current_app_user.admin?
-      flash[:danger] = "You can only edit or delete your own account"
+      flash[:danger] = t('chefs.only_edit_or_delete_own_account')
       redirect_to app_chefs_path(current_app)
     end
   end
   
   def require_admin
     if logged_in? && !current_app_user.admin?
-      flash[:danger] = "Only admin users can perform that action"
+      flash[:danger] = t('flash.only_admin_users_action')
       redirect_to app_path(current_app)
     end
   end

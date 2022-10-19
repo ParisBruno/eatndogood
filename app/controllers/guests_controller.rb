@@ -65,7 +65,7 @@ class GuestsController < ApplicationController
 
   def destroy
     user = User.find_by(id: params[:id])&.destroy
-    flash[:success] = "Recipe deleted successfully" if user
+    flash[:success] = t('flash.guest_deleted_successfully') if user
     redirect_to app_guests_path(app: current_app.slug)
   end
 

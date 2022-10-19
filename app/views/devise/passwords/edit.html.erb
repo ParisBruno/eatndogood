@@ -45,7 +45,11 @@
   }
 </style>
 <div class="heading">
-  <center><h2>Change your password</h2></center>
+  <center>
+    <h2>
+      <%= t('password.change_password') %>
+    </h2>
+  </center>
 </div>
 <div class="row">
   <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
@@ -54,7 +58,7 @@
         <%= f.hidden_field :reset_password_token %>
         <%= devise_error_messages! %>
         <div class="field show-password">
-          <%= f.label :password, "New password" %><br />
+          <%= f.label :password, t('password.new_password') %><br />
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em><br />
           <% end %>
@@ -71,7 +75,7 @@
         </div>
         
         <div class="field show-password mb-3">
-          <%= f.label :password_confirmation, "Confirm new password" %><br />
+          <%= f.label :password_confirmation, t('password.confirm_password') %><br />
           <div class="row" style="padding-right: 13px">
             <div class="col-11 p-0">
               <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
@@ -85,7 +89,7 @@
         </div>
       
         <div class="actions"> 
-          <%= f.submit "Change my password", class: "btn btn-success btn-lg" %>
+          <%= f.submit t('password.change_password'), class: "btn btn-success btn-lg" %>
         </div>
       <% end %>
     </div>

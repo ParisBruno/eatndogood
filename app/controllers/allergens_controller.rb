@@ -15,7 +15,7 @@ class AllergensController < ApplicationController
   # GET /allergens/1.json
   def show
     if @allergen.nil?
-      flash[:success] = "Allergen not found!"
+      flash[:success] = t('common.not_found', name: 'Allergen')
       redirect_to table_app_allergens_path(current_app)
     else
       recipes = Recipe.joins(:recipe_ingredients).where(chef_id: @chef_ids)
@@ -43,7 +43,7 @@ class AllergensController < ApplicationController
     @allergen.app_id = current_app.id
 
     if @allergen.save
-      redirect_to table_app_allergens_path(current_app), notice: 'Allergen was successfully created.'
+      redirect_to table_app_allergens_path(current_app), notice: t('common.successfully_created', name: 'Allergen')
     else
       render 'new'
     end
@@ -53,7 +53,7 @@ class AllergensController < ApplicationController
   # PATCH/PUT /allergens/1.json
   def update
     if @allergen.update(allergen_params)
-      redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully updated.'
+      redirect_to app_allergens_path(current_app), notice: t('common.successfully_updated', name: 'Allergen')
     else
       render 'edit'
     end
@@ -65,11 +65,11 @@ class AllergensController < ApplicationController
     unless @allergen.recipes.count > 0
       @allergen.destroy
       respond_to do |format|
-        format.html { redirect_to app_allergens_path(current_app), notice: 'Allergen was successfully destroyed.' }
+        format.html { redirect_to app_allergens_path(current_app), notice: t('common.successfully_destroyed', name: 'Allergen')}
         format.json { head :no_content }
       end
     else
-      redirect_to app_allergens_path(current_app), notice: 'Allergen has recipes and cannot be destroyed'
+      redirect_to app_allergens_path(current_app), notice: t('common.has_recipe_not_destroyed', name: 'Allergen')
     end
   end
 

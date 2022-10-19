@@ -6,7 +6,7 @@
           <% unless @failed_agreement_text  %>
             <h2 class="panel-title">
               <%= pluralize(obj.errors.count, "error") %>
-              prohibited this <%= obj.class %> from being saved:
+              <%= t('errors.error_text', name: obj.class) %>
             </h2>
           <% end %>
           <div class="panel-body">

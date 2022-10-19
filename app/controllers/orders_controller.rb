@@ -218,7 +218,7 @@ class OrdersController < ApplicationController
 
   def send_order_email
     OrderMailer.receipt_email(params[:order], current_app).deliver_now
-    flash[:success] = 'Receipt Email send to client successfully!'
+    flash[:success] = t('orders.email_send_to_client')
     redirect_to app_order_path(id: params[:order], app: current_app.slug)
   end
 

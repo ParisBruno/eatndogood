@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   def require_user
     if !logged_in?
-      flash[:danger] = "You must be logged in to perform that action"
+      flash[:danger] = t('flash.you_must_be_logged_in')
       redirect_to app_path(current_app)
     end
   end
@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
 
   def require_logged_in
     if current_app_user.nil?
-      flash[:danger] = "You must be logged in to perform that action"
+      flash[:danger] = t('flash.you_must_be_logged_in')
       redirect_to app_path(current_app)
     end
   end
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     if !logged_in? || (logged_in? and !current_app_user.admin?)
-      flash[:danger] = "Only admin users can perform that action"
+      flash[:danger] = t('flash.only_admin_users_action')
       redirect_to ingredients_path
     end
   end
@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
   def require_admin_or_chef
     unless current_app_user.nil?
       unless (current_app_user.admin? || current_app_user.chef?)
-        flash[:danger] = "Only admin or chef users can perform that action"
+        flash[:danger] = t('flash.only_admin_chef_action')
         redirect_to app_ingredients_path(current_app)
       end
     end

@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
     plan = Plan.find_or_create_by(title: title, guests_limit: params[:clients], plan_category_id: plan_category.id, status: 'yes')
 
     stripe_user = Stripe::Customer.list({limit: 1}).data[0]
-    flash[:success] = "Subscribed successfully!, Get your credentials from your email, Thanks!"
+    flash[:success] = t('subscription.subscribed_successfully')
     if user = User.find_by(email: stripe_user.email)
       email = stripe_user.email
       x = 0

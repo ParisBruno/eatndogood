@@ -10,7 +10,7 @@
 </style>
 
 <div class="category-page-title">
-  <%= render 'shared/page_title', title: "Styles" %>
+  <%= render 'shared/page_title', title: t('common.styles') %>
 </div>
 
 <div align="center">
@@ -22,8 +22,8 @@
           <li class="chef-title"><%= link_to style.name, app_style_path(current_app, style) %></li>
           <% recipes_count = current_app_user&.admin? ? style.recipes.count : style.recipes.where(is_draft: false).count %>
           <li><%= pluralize(recipes_count, "recipe") if style.recipes %></li>
-          <li><%= link_to "Edit", edit_app_style_path(current_app, style) %></li>
-          <li><%= link_to "Delete", [current_app, style], method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <li><%= link_to t('common.edit'), edit_app_style_path(current_app, style) %></li>
+          <li><%= link_to t('common.delete'), [current_app, style], method: :delete, data: { confirm: t('common.confirm') } %></li>
         </div>
       </div>
     </ul>

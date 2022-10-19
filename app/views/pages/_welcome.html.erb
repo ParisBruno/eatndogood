@@ -327,11 +327,11 @@
             <% end %>
             <div>
                 <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
-                    <%=link_to 'Enter', about_app_pages_path(current_app), class: "btn-enter" %>
+                    <%=link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
                 <% elsif current_app_user.present? %>
-                    <%= link_to "Enter", about_app_pages_path(current_app), class: "btn-enter" %>
+                    <%= link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
                 <% else %>
-                    <%= link_to "Enter", about_app_pages_path(current_app), class: "btn-enter" %>
+                    <%= link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
                 <% end %>
             </div>
           </form>

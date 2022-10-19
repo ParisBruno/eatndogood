@@ -9,17 +9,17 @@ class SessionsController < ApplicationController
     if chef && chef.authenticate(params[:session][:password])
       session[:chef_id] = chef.id
       cookies.signed[:chef_id] = chef.id
-      flash[:success] = "You have successfully logged in"
+      flash[:success] = t('flash.successfully_logged_in')
       redirect_to chef
     else
-      flash.now[:danger] = "There was something wrong with your login information"
+      flash.now[:danger] = t('flash.something_wrong')
       render 'new'
     end
   end
   
   def destroy
     session[:chef_id] = nil
-    flash[:success] = "You have logged out"
+    flash[:success] = t('flash.you_have_logged_out')
     redirect_to app_path(current_app)
   end
   

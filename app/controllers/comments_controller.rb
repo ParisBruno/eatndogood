@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
       # flash[:success] = "Comment was created successfully"
       # redirect_to recipe_path(@recipe)
     else
-      flash[:danger] = "Comment was not created"
+      flash[:danger] = t('flash.comment_not_created')
       redirect_to :back
     end
   end

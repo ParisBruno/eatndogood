@@ -10,7 +10,7 @@
 </style>
 
 <div class="category-page-title">
-  <%= render 'shared/page_title', title: "Ingredients" %>
+  <%= render 'shared/page_title', title: t('common.ingredients') %>
 </div>
 
 <div align="center">
@@ -24,8 +24,8 @@
           <li class="chef-title"><%= link_to ing.name.capitalize, app_ingredient_path(current_app, ing) %>, </li>
           <% recipes_count = current_app_user&.admin? ? ing.recipes.count : ing.recipes.where(is_draft: false).count %>
           <li><%= pluralize(recipes_count, "service") if ing.recipes %></li>
-          <li><%= link_to "Edit", edit_app_ingredient_path(current_app, ing) %></li>
-          <li><%= link_to "Delete", [current_app, ing], method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <li><%= link_to t('common.edit'), edit_app_ingredient_path(current_app, ing) %></li>
+          <li><%= link_to t('common.delete'), [current_app, ing], method: :delete, data: { confirm: t('common.confirm') } %></li>
         </div>
       </div>
     </ul>

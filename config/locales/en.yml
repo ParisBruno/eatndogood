@@ -18,6 +18,8 @@ en:
     models:
       question: Question
   allergens:
+    name_text: Enter Allergen (%{lang})
+    image: Image
     add: Add Allergen
     delete: Delete Allergen
     submit: Write the name of the allergen that will "NOT BE in The RECIPE" then click
@@ -25,6 +27,11 @@ en:
     title: Create a new Allergen
     update: Update Allergen
   chefs:
+    account_updated_successfully: Your account was updated successfully
+    chef_and_all_associated_services_deleted: Chef and all associated recipes have been deleted!
+    cannot_delete_chef_admin_account: Cannot delete chef admin account
+    chef_upgrade_plan: Your account has already reached limit the number of chefs. To add more chef, please upgrade your plan.
+    only_edit_or_delete_own_account: You can only edit or delete your own account
     add_chef: Add Chef
     add_chef_account: Create team member account
     add_chef_contributor: Add Chef/Contributor
@@ -60,6 +67,21 @@ en:
     success_email: Your email was successfully sent to manager!
     content: Content
   common:
+    image: Image
+    add: Add
+    modal_title: Modal Title
+    modal_close: Close
+    edit_name: 'Edit %{name}'
+    footer_text: 'Powered by Innovative Chefs %{time} Onward'
+    edit: Edit
+    delete: Delete
+    name: Name
+    no_recipe: No recipes yet!
+    successfully_created: '%{name} was successfully created.'
+    successfully_updated: '%{name} was successfully updated.'
+    not_found: '%{name} not found!'
+    successfully_destroyed: '%{name} was successfully destroyed.'
+    has_recipe_not_destroyed: '%{name} has recipes and cannot be destroyed.'
     admin: Admin
     allergens: Allergens
     allergens_colon: 'Allergens:'
@@ -68,6 +90,7 @@ en:
     chef: Chef
     chefs: Chefs
     drafts: Drafts
+    draft: DRAFT
     confirm: Are you sure?
     created_x_hours_ago: 'created: %{x} ago'
     here: here
@@ -141,7 +164,15 @@ en:
     image_atleas_dimensions: Please provide image atleast %{dims} dimensions!
     max_file_size: Maximum file size is %{max}MB. Please choose a smaller file.
     no_selected_guests: Please select at least one guest.
+    error_text: 'prohibited this %{name} from being saved:'
   flash:
+    guest_deleted_successfully: Guest deleted successfully
+    comment_not_created: Comment was not created
+    no_such_coupan: No such coupon
+    something_wrong: There was something wrong with your login information
+    successfully_logged_in: You have successfully logged in
+    only_admin_users_action: Only admin users can perform that action
+    only_admin_chef_action: Only admin or chef users can perform that action
     order_removed: Order removed successfully!
     admin_removed: Admin removed successfully!
     allegren_created: Congratulation you just created a New Allergen.
@@ -202,7 +233,15 @@ en:
       email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
+    date: Date
+    time: Time
+    notes: Notes
     title: Title
+    print: Print
+    full_name: Full Name
+    phone_number: Phone Number
+    number_people: Number of people
+    people_in_party: Number of people in party
     business_name: Business name
     stripe_secret_key: Stripe secret-key
     stripe_publishable_key: Stripe publishable-key
@@ -220,6 +259,7 @@ en:
     description: Description
     disclaimer: Disclaimer
     email: Email
+    remember_text: Remember me
     enter_email: Enter last your name
     enter_first_name: Enter first your first name
     enter_last_name: Enter last your name
@@ -255,7 +295,9 @@ en:
     url_slug: URL slug
     write_few_words_about_yourself: Write few words about yourself
     write_your_introduction: Write your introduction
+    minimum_password_length: (%{password_length} characters minimum)
   guests:
+    submit: GO
     are_you_sure_delete_user: Are you sure! You want  to delete guest user?
     clear_search: Clear Search
     content_email: Content of email
@@ -283,6 +325,7 @@ en:
     submit: Write the name of your new ingredient then click or tap to save
     title: Create a new Ingredient
     update: Update Ingredient
+    name_text: Enter ingredient (%{lang})
   language_name: English
   logins:
     back_to_login: Back to Login
@@ -329,7 +372,13 @@ en:
     update_about_us_page: Update About Us Page
     update_welcome_page: Update Welcome Page
     view_profile: View Profile
-  orders: 
+  orders:
+    search_order: Search Orders
+    search: Search
+    created_at_from: 'Created At from:'
+    email_send_to_client: Receipt Email send to client successfully!
+    created_at_to:  'Created At to:'
+    archived: Archived Orders
     list_products: List of products
     send: send
     cash: Pay with Cash
@@ -429,8 +478,12 @@ en:
   recipes:
     subscription: Subscription Recipe
     choose_2_photo: Choose 2 images
+    recipes: recipes
     crafted_by: 'Crafted by:'
     delete_recipe: Delete Recipe
+    suuccessfully_selected: Your selection was succesful
+    edit_delete_own_recipe: You can only edit or delete your own recipes
+    reach_limit: Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan.
     description_placeholder: |2-
        For better recipe layout follow those guidelines, READ the tips then start typing your recipe.<br>
        1) Write some tips to make this one a top of the line recipe<br>
@@ -444,6 +497,7 @@ en:
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: The recommended picture size is 1366 x 768px
     new_title: Create A New Masterpiece Recipe
+    edit_title: Edit An Existing Recipe
     question_about_this_recipe: Question or to request a reservation, click here!
     return_to_recipes_listing: Return to Recipes Listing
     save_submit: Click Here to Save Your Masterpiece
@@ -471,9 +525,15 @@ en:
     fundraising_code: Fundraising Code
     write_name: Write Recipe name
     choose_style: Choose style, please
+    choose_category: Choose category, please
   reservations:
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
+    make_reservation_successfully: Make Reservation successfully
+    sent_catering_question_to_chef: Sent catering question to chef
+    make_question_successfully: Question was successfully created
+    update_question_successfully: Question was successfully updated
+    destroy_question_successfully: Question was successfully destroyed.
   reports:
     category_title: Category Reports
     recipe_title: Recipe Reports
@@ -500,6 +560,8 @@ en:
     submit: Write the name of your new category then click or tap to Save
     title: Create a new Category
     update: Update Category
+    name_text: Enter category (%{lang})
+    image: Image
   users:
     edit_user: Edit user
     leave_blank: leave blank if you don't want to change it
@@ -508,5 +570,31 @@ en:
     next_label: Next &#8594;
     previous_label: "&#8592; Previous"
   agreement:
+    email: E-mail*
+    first_name: First Name*
+    last_name: Last Name*
+    guardian_email: Guardian Email*
+    guardian_first_name: Guardian First Name*
+    guardian_last_name: Guardian Last Name*
+    terms_agreement: 'Click to indicate that you have read and agree to the terms of this agreement: *'
+    under_18_age: 'If under 18 years of age, the name of the legal guardian:'
+    agree: Agree*
+    submit: Submit
+    clear_form: Clear Form
+    cancel: Cancel
+    agreement_copy: A copy of your responses will be emailed to the address you provided.
+    agreement_submit_email_send: Agreement Successfully Submited and send copy of agreement to your email!
     update_agreement_text: Update Agreement Text
     update: Update
+  welcome:
+    enter: Enter
+    heading_text: Welcome!
+  password:
+    forgot_password: Forgot password
+    back_to_login: Back to login
+    change_password: Change your password
+    new_password: New password
+    confirm_password: Confirm new password
+    change_password: Change my password
+  subscription:
+    subscribed_successfully: Subscribed successfully!, Get your credentials from your email, Thanks!

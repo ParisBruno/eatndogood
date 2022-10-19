@@ -10,7 +10,7 @@
 </style>
 
 <div class="category-page-title">
-  <%= render 'shared/page_title', title: "Allergens" %>
+  <%= render 'shared/page_title', title: t('common.allergens') %>
 </div>
 
 <div align="center">
@@ -22,8 +22,8 @@
           <li class="chef-title"><%= link_to allergen.name, app_allergen_path(current_app, allergen) %></li>
           <li><%= pluralize(allergen.recipes.count, "recipe") if allergen.recipes %></li>
           <% if app_user_signed_in? && current_app_user.admin? %>
-            <li><%= link_to "Edit", edit_app_allergen_path(current_app, allergen) %></li>
-            <li><%= link_to "Delete", [current_app, allergen], method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            <li><%= link_to t('common.edit'), edit_app_allergen_path(current_app, allergen) %></li>
+            <li><%= link_to t('common.delete'), [current_app, allergen], method: :delete, data:  { confirm: t('common.confirm') } %></li>
           <% end %>
         </div>
       </div>

@@ -9,7 +9,7 @@ class AgreementsController < ApplicationController
         agreement.update(user_id: current_app_user.id)
       end
       AgreementMailer.copy_email(agreement, @current_app).deliver_now
-      flash[:success] = "Agreement Successfully Submited and send copy of agreement to your email!"
+      flash[:success] = t('agreement.agreement_submit_email_send')
       redirect_to app_style_path(@current_app, Style.agreement_style)
     end
   end

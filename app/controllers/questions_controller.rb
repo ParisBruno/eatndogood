@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
     @recipe_id = params[:recipe_id]
     @make_reservation = params[:make_reservation]
     @question = Question.new
-    @question.subject = "Make Reservation" if @make_reservation
+    @question.subject = t('reservations.make_reservation') if @make_reservation
   end
 
   # GET /questions/1/edit
@@ -37,9 +37,9 @@ class QuestionsController < ApplicationController
         ActionMailer::Base.mail(from: "bruno@itoprecipes.com", to: @question.email, subject: @question.subject, body: @question.body).deliver_now
         
         if params[:question][:question_type] == 'reservation'
-          format.html { redirect_to app_recipe_path(current_app, @question.recipe_id), notice: 'Make Reservation successfully.' }
+          format.html { redirect_to app_recipe_path(current_app, @question.recipe_id), notice: t('reservations.make_reservation_successfully') }
         else
-          format.html { redirect_to app_recipe_path(current_app, @question.recipe_id), notice: 'Question was successfully created.' }
+          format.html { redirect_to app_recipe_path(current_app, @question.recipe_id), notice: t('reservations.make_question_successfully')}
           format.json { render :show, status: :created, location: @question }
         end
         
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to [current_app, @question], notice: 'Question was successfully updated.' }
+        format.html { redirect_to [current_app, @question], notice: t('reservtions.update_question_successfully') }
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
@@ -69,7 +69,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to app_questions_path(current_app), notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to app_questions_path(current_app), notice: t('reservtions.destroy_question_successfully') }
       format.json { head :no_content }
     end
   end

@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
   
   def show
     if @recipe.nil?
-      flash[:success] = "Recipe not found!"
+      flash[:success] = t('common.not_found', name: 'Recipe')
       redirect_to app_recipes_path(current_app)
     else
       redirect_to new_app_agreement_path(@current_app) if ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
@@ -70,10 +70,10 @@ class RecipesController < ApplicationController
     if @recipe.save && @recipe.styles.present?
       # upload_images
       delete_draft
-      flash[:success] = "Recipe was created successfully!"
+      flash[:success] = t('common.successfully_created', name: 'Recipe')
       redirect_to app_recipe_path(current_app, @recipe)
     else
-      redirect_to new_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
+      redirect_to new_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_category')
     end
   end
   
@@ -102,7 +102,7 @@ class RecipesController < ApplicationController
       # upload_images
       make_tags
       delete_draft
-      flash[:success] = "Recipe was updated successfully!"
+      flash[:success] =  t('common.successfully_updated', name: 'Recipe')
       redirect_to app_recipe_path(current_app, @recipe)
     else
       redirect_to edit_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
@@ -111,17 +111,17 @@ class RecipesController < ApplicationController
   
   def destroy
     Recipe.find(params[:id]).destroy
-    flash[:success] = "Recipe deleted successfully"
+    flash[:success] = t('common.successfully_destroyed', name: 'Recipe')
     redirect_to app_recipes_path(current_app)
   end
   
   def like
     like = Like.create(like: params[:like], app: current_app, recipe: @recipe)
     if like.valid?
-      flash[:success] = "Your selection was succesful"
+      flash[:success] = t('recipes.suuccessfully_selected')
       redirect_back fallback_location: app_path(current_app)
     else
-      flash[:danger] = "You can only like/dislike a recipe once"
+      flash[:danger] = t('flash.you_can_like_dislike_once')
       redirect_back fallback_location: app_path(current_app)
     end
   end
@@ -138,7 +138,7 @@ class RecipesController < ApplicationController
       recipes_limit = current_app.plan.recipes_limit
 
       if !recipes_limit.nil? && recipes_count >= recipes_limit
-        flash[:danger] = "Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan."
+        flash[:danger] = t('recipes.reach_limit')
         redirect_to recipes_path
       end
     end
@@ -186,13 +186,13 @@ class RecipesController < ApplicationController
     
     def require_same_user
       if current_app_user != @recipe.chef.user
-        redirect_to app_recipes_path(current_app), alert: "You can only edit or delete your own recipes"
+        redirect_to app_recipes_path(current_app), alert: t('recipes.edit_delete_own_recipe')
       end  
     end
     
     def require_user_like
       if !app_user_signed_in?
-        flash[:danger] = "You must be logged in to perform that action"
+        flash[:danger] = t('flash.you_must_be_logged_in')
         redirect_to :back
       end
     end

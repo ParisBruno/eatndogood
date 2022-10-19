@@ -12,7 +12,9 @@
 
 <div class="login-header">
   <p>
-    <h1>Sign up</h1>
+    <h1>
+      <%= t('navigation.sign_up') %>
+    </h1>
     <hr>
   </p>
 </div>
@@ -51,7 +53,7 @@
           <div class="row">
             <%#= f.label :password, 'Password' %>
             <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <em><%= t('forms.minimum_password_length', password_length: @minimum_password_length) %></em>
             <% end %><br />
           </div>
           <div class="row" style="padding-right: 13px">
@@ -115,7 +117,7 @@
       <span id="captcha" style="color:red" />
     </div>
     <div class="text-center">
-      <%= f.submit "Submit", id: 'submit', class: 'btn btn-success'%>
+      <%= f.submit t('forms.submit'), id: 'submit', class: 'btn btn-success'%>
     </div>
     <% end %>
   </div>

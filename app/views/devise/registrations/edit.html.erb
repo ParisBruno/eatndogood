@@ -18,7 +18,7 @@
   <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
     <div class="col-md-6  well box-content">
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :email, t('forms.email') %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
       </div>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -33,7 +33,7 @@
         <% end %>
       </div>
       <div class="field">
-        <%= f.label :password_confirmation %><br />
+        <%= f.label :password_confirmation, t('forms.password_confirmation') %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
       </div>
       <div class="field">

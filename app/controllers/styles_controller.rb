@@ -13,7 +13,7 @@ class StylesController < ApplicationController
   # GET /styles/1.json
   def show
     if @style.nil?
-      flash[:success] = "Category not found!"
+      flash[:success] = t('common.not_found', name: 'Category')
       redirect_to table_app_styles_path(current_app)
     else
       redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
@@ -39,7 +39,7 @@ class StylesController < ApplicationController
     @style.app_id = current_app.id
     respond_to do |format|
       if @style.save
-        format.html { redirect_to table_app_styles_path(current_app), notice: 'Style was successfully created.' }
+        format.html { redirect_to table_app_styles_path(current_app), notice: t('common.successfully_created', name: 'Category')}
         format.json { render :show, status: :created, location: @style }
       else
         format.html { render :new }
@@ -55,10 +55,10 @@ class StylesController < ApplicationController
       if @style.update(style_params)
         if !params[:style][:agreement_text_en].nil?
           path = new_app_agreement_path(@current_app)
-          notice = 'Agreement was successfully updated.'
+          notice = t('common.successfully_updated', name: 'Agreement')
         else
           path = app_styles_path(current_app)
-          notice = 'Style was successfully updated.'
+          notice = t('common.successfully_updated', name: 'Category')
         end
         format.html { redirect_to path, notice: notice }
         format.json { render :show, status: :ok, location: @style }
@@ -80,11 +80,11 @@ class StylesController < ApplicationController
     unless @style.recipes.count > 0
       @style.destroy
       respond_to do |format|
-        format.html { redirect_to app_styles_path(current_app), notice: 'Style was successfully destroyed.' }
+        format.html { redirect_to app_styles_path(current_app), notice: t('common.successfully_destroyed', name: 'Category')}
         format.json { head :no_content }
       end
     else
-      redirect_to app_styles_path(current_app), notice: 'Style has recipes and cannot be destroyed'
+      redirect_to app_styles_path(current_app), notice: t('common.has_recipe_not_destroyed', name: 'Category')
     end
   end
 

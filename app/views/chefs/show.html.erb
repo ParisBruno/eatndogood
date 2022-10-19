@@ -59,7 +59,7 @@
 </div>
 
 <% if @chef.recipes.count != 0 %>
-  <h1 align="center"><%= @chef.user.full_name %> recipes</h1>
+  <h1 align="center"><%= @chef.user.full_name %> <%= t('recipes.recipes') %></h1>
  
   <%= render 'recipes/recipe', obj: @chef_recipes %>
 
