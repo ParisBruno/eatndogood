@@ -27,6 +27,7 @@ en:
     title: Create a new Allergen
     update: Update Allergen
   chefs:
+    account_created_successfully: Welcome %{full_name} to RockyStepsWay App!
     account_updated_successfully: Your account was updated successfully
     chef_and_all_associated_services_deleted: Chef and all associated recipes have been deleted!
     cannot_delete_chef_admin_account: Cannot delete chef admin account
@@ -67,6 +68,11 @@ en:
     success_email: Your email was successfully sent to manager!
     content: Content
   common:
+    select_recipe: Select Recipe
+    remove_item: Remove Item
+    excel_download: EXCEL download
+    create_report: Create Report
+    no_such_coupan: No such coupan '%{coupan_code}'
     image: Image
     add: Add
     modal_title: Modal Title
@@ -373,6 +379,7 @@ en:
     update_welcome_page: Update Welcome Page
     view_profile: View Profile
   orders:
+    email_has_already_taken: email has already been taken
     search_order: Search Orders
     search: Search
     created_at_from: 'Created At from:'
@@ -476,6 +483,7 @@ en:
     subject_colon: 'Subject:'
     view_guest_questions: View Guest Questions
   recipes:
+    all_displayed_recipe_not_contain_allergen: All displayed recipes do not contain %{allergens}
     subscription: Subscription Recipe
     choose_2_photo: Choose 2 images
     recipes: recipes

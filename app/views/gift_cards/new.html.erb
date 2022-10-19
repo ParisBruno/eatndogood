@@ -159,7 +159,7 @@
             <td colspan="6">
               <div class="row btns-row">
                 <div class="col-md-4">
-                  <%= f.button '<span class="fa fa-shopping-cart"></span> Add to Cart'.html_safe, class: 'buy-button btn btn-success btn-lg', id: 'cart-button' %>
+                  <%= f.button "<span class='fa fa-shopping-cart'></span> #{t('recipes.add_to_cart')}".html_safe, class: 'buy-button btn btn-success btn-lg', id: 'cart-button' %>
                 </div>
                 <div class="col-md-4">
                   <%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %>

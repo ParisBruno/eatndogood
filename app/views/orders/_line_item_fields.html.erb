@@ -6,7 +6,7 @@
           <%= f.label :name, f.object.gift_card ? f.object&.gift_card&.name : f.object&.recipe&.name, class: "mb-0" %>
         <% else %>
           <% recipes = recipes_for_staff_order(@order) %>
-          <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {include_blank: 'Select Recipe'}, class: 'quantity-field order-field w-75 mb-2', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
+          <%= f.select :recipe_id, recipes.collect  {|p| [ p.name.truncate_words(3), p.id ] }, {include_blank: t('common.select_recipe')}, class: 'quantity-field order-field w-75 mb-2', onblur: @order.new_record? ? '' : 'changeRecipeForm();', onfocusout: 'changeNewRecipe();' %>
         <% end %><br>
         <%= f.text_field :note, class: 'line-item-field order-field w-75 border-0 text-left pl-0 note-field', placeholder: t('line_items.note') %>
       </td>
@@ -24,7 +24,7 @@
       <td class="text-left p-0">
       </td>
       <td colspan="2" class="text-right p-0 position-absolute remove-recipe-column">
-        <%= link_to_remove_association "Remove Item", f, { class: 'remove-recipe font-weight-bold text-danger',
+        <%= link_to_remove_association t('common.remove_item'), f, { class: 'remove-recipe font-weight-bold text-danger',
                                                onmousedown: 'removeNewRecipe();',
                                                onfocusout: @order.new_record? ? '' : 'changeRecipeForm();' } %>
       </td>

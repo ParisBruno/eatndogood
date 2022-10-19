@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
         allergens = Allergen.where(id: selected_allergens)
                       .map(&:name)
                       .map(&:capitalize).join(",")
-        flash[:warning] = "All displayed recipes do not contain #{allergens}"
+        flash[:warning] = t('recipes.all_displayed_recipe_not_contain_allergen', allergens: allergens)
         @display_flash = true
       end
     else

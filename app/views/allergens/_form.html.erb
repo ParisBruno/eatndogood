@@ -17,7 +17,7 @@
         <%= f.label :name %>
       </div>
       <div class="col-md-8">
-        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: "Enter Allergen (#{locale})", autofocus: true %>
+        <%= f.text_field "name_#{locale}", class: "form-control", placeholder: t('allergens.name_text', lang: "#{locale}"), autofocus: true %>
       </div>
     </div>
   <% end %>

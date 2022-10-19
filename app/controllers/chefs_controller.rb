@@ -30,7 +30,7 @@ class ChefsController < ApplicationController
     @user.app = current_app
     if @user.save
       delete_draft
-      flash[:success] = "Welcome #{@user.full_name} to MyRecipes App!"
+      flash[:success] = t('chefs.account_created_successfully', full_name: @user.full_name)
       redirect_to app_chef_path(current_app, @user.chef_info)
     else
         render 'new'

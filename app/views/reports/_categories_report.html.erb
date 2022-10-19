@@ -65,7 +65,7 @@
     <%= form_for('category_sales', url: app_category_sales_path(@current_app), remote: true) do |f| %>
       <%= f.date_field :date_from, value: category_date_from, class: 'date-field-report form-control col-md-4' %>
       <%= f.date_field :date_to, value: category_date_to, class: 'date-field-report form-control col-md-4' %>
-      <%= f.submit "Create Report", class: 'button-field-report btn btn-primary btn-lg' %>
+      <%= f.submit t('common.create_report'), class: 'button-field-report btn btn-primary btn-lg' %>
     <% end %> 
   </div>
 
@@ -139,7 +139,7 @@
   </table>
 
   <div>
-    <%= button_to 'EXCEL download', app_category_sales_path(@current_app, format: :xlsx),
+    <%= button_to t('common.excel_download'), app_category_sales_path(@current_app, format: :xlsx),
                   class: 'excel-download btn btn-outline-success', disabled: categories.keys.empty? ? true : false,
                   params: { categories: categories, date_from: category_date_from, date_to: category_date_to,
                             gross_sales: @category_gross_sales, coupon_discount: @category_coupon_discount, 

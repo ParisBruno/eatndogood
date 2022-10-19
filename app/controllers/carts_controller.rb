@@ -135,7 +135,7 @@ class CartsController < ApplicationController
       respond_to do |format|
         @@coupon_value = nil
         @coupon_code_value = nil
-        format.json { render json: { error: "No such coupon '#{params[:coupon_code]}'" }, status: :unprocessable_entity }
+        format.json { render json: { error: t('common.no_such_coupan', coupan_code: params[:coupon_code]) }, status: :unprocessable_entity }
       end
     end
   end
@@ -156,7 +156,7 @@ class CartsController < ApplicationController
       respond_to do |format|
         @@fundrasing_value = nil
         @fundrasing_code_value = nil
-        format.json { render json: { error: "No such coupon '#{params[:coupon_code]}'" }, status: :unprocessable_entity }
+        format.json { render json: { error: t('common.no_such_coupan', coupan_code: params[:coupon_code]) }, status: :unprocessable_entity }
       end
     end
   end
