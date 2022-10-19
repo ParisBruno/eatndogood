@@ -196,6 +196,9 @@
       max-height: initial; !important;
     }
   }
+  .recipe-detail .edit-btn{
+    z-index: 10000000000 !important;
+  }
 </style>
 <div class="recipe-margin-sec top-space">
   <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
@@ -214,7 +217,7 @@
               <%= link_to t('recipes.delete_recipe'), [current_app, @recipe], class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px; font-family: WhitneySSm;",  method: :delete, data: { confirm: t('common.confirm') } %>
             <% end %>
             <% if (current_app_user and (@recipe.chef.id == current_app_user.id)|| current_app_user.admin? ) %>
-              <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg", style: 'font-family: WhitneySSm;' %>
+              <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg edit-btn", style: 'font-family: WhitneySSm;' %>
             <% end %>
             <center class="box-content-font" style="margin-bottom:0;">
               <h1 class='recipe-title text-dark'>
