@@ -257,7 +257,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_chef_ids
-    @chef_ids = current_app.users.includes(:chef_info).pluck("chefs.id")
+    users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
+    @chef_ids = users.includes(:chef_info).pluck("chefs.id")
   end
 
   def set_team_member
@@ -295,5 +296,9 @@ class ApplicationController < ActionController::Base
     Devise.setup do |config|
       config.mailer_sender = current_app.main_admin.email
     end
+  end
+
+  def set_apps
+    @app_ids = current_app.created_from == "fundraise" ? [current_app.id, App.fundraise.id] : current_app.id
   end
 end

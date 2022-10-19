@@ -78,6 +78,10 @@ class App < ApplicationRecord
     end
   end
 
+  def self.fundraise
+    App.where(slug: "fundraise").last
+  end
+
   private
   def page_creation(name:,title:,content:, destination:)
     Page.create!(name: name, title: title, content: content, destination: destination, app_id: self.id)

@@ -2,9 +2,8 @@ class CreateAppWithAdmin
   include Interactor
 
   def call
-    plan = Plan.find context.plan_id
     ActiveRecord::Base.transaction do
-      app = App.create!(name: context.name, plan_id: plan.id, parent_type: "rockystepsway")
+      app = App.create!(name: context.name, plan_id: context.plan_id, parent_type: "rockystepsway", created_from: context.created_from)
       user = User.find_by(email: context.email)
       if user.blank?
         password = context.password

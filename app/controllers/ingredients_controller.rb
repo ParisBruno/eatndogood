@@ -1,4 +1,5 @@
 class IngredientsController < ApplicationController
+  before_action :set_apps
   before_action :set_ingredient, only: [:edit, :update, :show, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
@@ -43,7 +44,7 @@ class IngredientsController < ApplicationController
   end
 
   def index
-    @ingredients = current_app.ingredients.paginate(page: params[:page], per_page: 5)
+    @ingredients = Ingredient.where(app_id: @app_ids).paginate(page: params[:page], per_page: 5)
   end
 
   def destroy
@@ -59,7 +60,7 @@ class IngredientsController < ApplicationController
   end
 
   def table
-    @ingredients = Ingredient.where(app_id: current_app.id).order(:sort)
+    @ingredients = Ingredient.where(app_id: @app_ids).order(:sort)
   end
 
   def update_positions
@@ -80,9 +81,6 @@ class IngredientsController < ApplicationController
   end
   
   def set_ingredient
-    @ingredient = current_app.ingredients.where(id: params[:id]).last
+    @ingredient = Ingredient.where(id: params[:id], app_id: @app_ids).last
   end
-  
-  
-  
 end

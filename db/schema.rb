@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_24_085701) do
+ActiveRecord::Schema.define(version: 2022_10_19_052500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2022_08_24_085701) do
     t.datetime "updated_at", null: false
     t.text "selected_languages", default: ["en_primary"], array: true
     t.string "parent_type"
+    t.string "created_from"
     t.index ["plan_id"], name: "index_apps_on_plan_id"
     t.index ["slug"], name: "index_apps_on_slug", unique: true
   end

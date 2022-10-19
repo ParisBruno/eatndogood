@@ -1,4 +1,5 @@
 class AllergensController < ApplicationController
+  before_action :set_apps
   before_action :set_allergen, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
@@ -7,8 +8,7 @@ class AllergensController < ApplicationController
   # GET /allergens
   # GET /allergens.json
   def index
-    @allergens = Allergen.where(app_id: current_app.id).all
-    # @recipes_count = current_app.recipes.count
+    @allergens = Allergen.where(app_id: @app_ids).all
   end
 
   # GET /allergens/1
@@ -74,7 +74,7 @@ class AllergensController < ApplicationController
   end
 
   def table
-    @allergens = Allergen.where(app_id: current_app.id).order(:sort)
+    @allergens = Allergen.where(app_id: @app_ids).order(:sort)
   end
 
   def update_positions
@@ -90,7 +90,7 @@ class AllergensController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_allergen
-      @allergen = current_app.allergens.where(id: params[:id]).last
+      @allergen = Allergen.where(id: params[:id], app_id: @app_ids).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

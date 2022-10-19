@@ -1,4 +1,5 @@
 class StylesController < ApplicationController
+  before_action :set_apps
   before_action :set_style, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
@@ -6,7 +7,7 @@ class StylesController < ApplicationController
   # GET /styles
   # GET /styles.json
   def index
-    @styles = Style.where(app_id: current_app.id)
+    @styles = Style.where(app_id: @app_ids)
   end
 
   # GET /styles/1
@@ -89,7 +90,7 @@ class StylesController < ApplicationController
   end
 
   def table
-    @styles = Style.where(app_id: current_app.id).order(:sort)
+    @styles = Style.where(app_id: @app_ids).order(:sort)
   end
 
   def update_positions
@@ -105,7 +106,7 @@ class StylesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_style
-      @style = Style.where(id: params[:id], app_id: current_app.id).last
+      @style = Style.where(id: params[:id], app_id: @app_ids).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
