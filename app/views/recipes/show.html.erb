@@ -196,9 +196,6 @@
       max-height: initial; !important;
     }
   }
-  .recipe-detail .edit-btn{
-    z-index: 10000000000 !important;
-  }
 </style>
 <div class="recipe-margin-sec top-space">
   <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
@@ -332,3 +329,9 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('[type="#_x0000_t202"]').each(function() {
+    $( this ).addClass( "d-none" );
+  });
+</script>
