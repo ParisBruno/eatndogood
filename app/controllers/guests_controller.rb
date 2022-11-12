@@ -81,7 +81,7 @@ class GuestsController < ApplicationController
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_now
+      AdminMailer.notification_email(current_app, current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_now
     end
 
     respond_to do |format|
