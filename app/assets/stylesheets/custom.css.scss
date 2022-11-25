@@ -1010,14 +1010,16 @@ ul.listing li {
   font-size: 14px;
 }
 .cookies-eu {
+  background: #2BD944 !important;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
 }
 .cookies-eu-ok {
-  font-size:14px !important;
+  font-size:28px !important;
   border-radius: 8px;
+  padding: 9px !important;
 }
 .cookies-eu .cookies-eu-content-holder {
-  font-size: 14px !important;
+  font-size: 28px !important;
   padding: 0 5px !important;
 }
 @media screen and (max-width: 600px) {
