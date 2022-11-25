@@ -1023,6 +1023,11 @@ ul.listing li {
   font-size: 28px !important;
   padding: 0 5px !important;
 }
+@media screen and (min-width: 1809px) {
+  .cookies-eu {
+    line-height: 80px !important;
+  }
+}
 @media screen and (max-width: 600px) {
   h2 p img {
     max-width: 100%;
