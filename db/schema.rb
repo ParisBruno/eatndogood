@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_19_052500) do
+ActiveRecord::Schema.define(version: 2022_11_22_072555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,10 @@ ActiveRecord::Schema.define(version: 2022_10_19_052500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.datetime "available_on"
+    t.datetime "discontinue_on"
+    t.index ["available_on"], name: "index_ingredient_translations_on_available_on"
+    t.index ["discontinue_on"], name: "index_ingredient_translations_on_discontinue_on"
     t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
     t.index ["locale"], name: "index_ingredient_translations_on_locale"
   end
@@ -222,6 +226,8 @@ ActiveRecord::Schema.define(version: 2022_10_19_052500) do
     t.string "name"
     t.bigint "app_id"
     t.integer "sort"
+    t.datetime "available_on"
+    t.datetime "discontinue_on"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
   end
 
@@ -444,6 +450,46 @@ ActiveRecord::Schema.define(version: 2022_10_19_052500) do
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
+  create_table "service_slots", force: :cascade do |t|
+    t.bigint "service_id"
+    t.boolean "booked", default: false
+    t.integer "day"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "email"
+    t.string "phone_number"
+    t.text "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_service_slots_on_service_id"
+  end
+
+  create_table "service_types", force: :cascade do |t|
+    t.string "name"
+    t.bigint "app_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_service_types_on_app_id"
+    t.index ["user_id"], name: "index_service_types_on_user_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.integer "start_day"
+    t.integer "end_day"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "customers"
+    t.bigint "user_id"
+    t.bigint "app_id"
+    t.bigint "service_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_services_on_app_id"
+    t.index ["service_type_id"], name: "index_services_on_service_type_id"
+    t.index ["user_id"], name: "index_services_on_user_id"
+  end
+
   create_table "style_translations", force: :cascade do |t|
     t.integer "style_id", null: false
     t.string "locale", null: false
@@ -585,6 +631,12 @@ ActiveRecord::Schema.define(version: 2022_10_19_052500) do
   add_foreign_key "reservations", "apps", name: "reservations_app_id_fk"
   add_foreign_key "reservations", "recipes", name: "reservations_recipe_id_fk"
   add_foreign_key "reservations", "users"
+  add_foreign_key "service_slots", "services"
+  add_foreign_key "service_types", "apps"
+  add_foreign_key "service_types", "users"
+  add_foreign_key "services", "apps"
+  add_foreign_key "services", "service_types"
+  add_foreign_key "services", "users"
   add_foreign_key "styles", "apps"
   add_foreign_key "styles", "apps", name: "styles_app_id_fk"
   add_foreign_key "subcategories", "categories"
