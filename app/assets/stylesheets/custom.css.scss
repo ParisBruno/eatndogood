@@ -1023,9 +1023,25 @@ ul.listing li {
   font-size: 28px !important;
   padding: 0 5px !important;
 }
-@media screen and (min-width: 1809px) {
+@media screen and (min-width: 1281px) {
   .cookies-eu {
-    line-height: 80px !important;
+    width: 564px;
+    height: 262px;
+    border-radius: 11px;
+    margin-left: 14px;
+    margin-bottom: 100px;
+  }
+  .cookies-eu .cookies-eu-content-holder {
+    font-size: 20px !important;
+  }
+  .cookies-eu{
+    white-space: pre;
+  }
+  .cookies-eu-ok {
+    font-size: 20px !important;
+  }
+  .cookies-eu-button-holder {
+    line-height: 8px;
   }
 }
 @media screen and (max-width: 600px) {

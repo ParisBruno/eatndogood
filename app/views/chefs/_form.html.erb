@@ -5,12 +5,10 @@
     color: black;
   }
   .cart-functional {
-    padding-top: 6px;
     border-top: 4px solid green;
   }
   .coupon-codes, .fundraising-codes {
     margin: 0 1%;
-    max-width: 590px;
   }
   .table-responsive{
     border: none;
@@ -171,6 +169,21 @@
     font-weight: 800;
     line-height: 3px;
   }
+  .padding-bottom-10{
+    padding-bottom: 10px !important;
+  }
+  .padding-bottom-50{
+    padding-bottom: 50px !important;
+  }
+  .padding-top-10{
+    padding-top: 10px !important;
+  }
+  .padding-top-50{
+    padding-top: 50px !important;
+  }
+  .padding-15{
+    padding: 15px !important;
+  }
 </style>
 
 <%= render 'shared/errors', obj: @user %>
@@ -180,9 +193,12 @@
 <div class="row">
   <%= form_for(@user, url: !@user.id.nil? ? app_chef_path(current_app, @user) : app_chefs_path, :html => {class: "form-horizontal autosave p-0", role: "form",  multipart: true }) do |f| %>
     <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
-      <div class="col-md-6 well box-content">
-        <div class="mt-3">
+      <div class="col-md-8 well box-content">
+        <div class="padding-top-10 padding-bottom-50">
           <% if @user.admin? %>
+            <h3 class="padding-bottom-10 text-center">
+              <%= t('chefs.available_languages') %>
+            </h3>
             <li class="dropdown nav-item list-unstyled">
               <a href="#" class="dropdown-toggle btn languages-btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('forms.select_language') %></a>
               <ul class="dropdown-menu languages-dropdown">
@@ -199,7 +215,11 @@
           <% end %>
           <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "chef"} %>
         </div>
-        <div class="cart-functional"></div>
+        <div class="cart-functional">
+          <h3 class="padding-bottom-10 padding-top-50 text-center">
+            <%= t('chefs.account_credentials') %>
+          </h3>
+        </div>
         <div class="mt-3 form-group col-12">
           <div class="">
             <%= f.text_field :first_name, class: "form-control", placeholder: t('forms.first_name'), autofocus: true %>
@@ -236,7 +256,7 @@
             </span>
           </div>
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-12 padding-bottom-50">
           <div class="">
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.password_confirmation') %>
           </div>
@@ -262,9 +282,9 @@
           </div>
         <% end %>
         <% if @current_app_user == @user && @current_app_user&.admin? && @current_app_user == @current_app.main_admin %>
-          <div class="cart-functionalities">
+          <div class="cart-functionalities padding-bottom-50">
             <div class="cart-functional">
-              <h3 style="text-align: center; padding-bottom: 10px;" class="mt-3">
+              <h3 class="text-center padding-bottom-10 padding-top-50">
                 <%= t('chefs.cart_func') %>
               </h3>
               <div class="row col-4">
@@ -352,23 +372,23 @@
               </div>
             </div>
           </div>
-          <div class="cart-functional mb-4">
+          <div class="cart-functional padding-bottom-50 padding-top-50">
             <div class="coupon-codes">
               <%= render partial: 'coupon_codes_table' %>
             </div>
           </div>
-          <div class="cart-functional mb-4">
+          <div class="cart-functional padding-bottom-50 padding-top-50">
             <div class="fundraising-codes">
               <%= render partial: 'fundraising_codes_table' %>
             </div>
           </div>
         <% end %>
       </div>
-      <div class="col-md-4 well box-content p-3">
+      <div class="col-md-3 well box-content padding-15">
         <%= f.fields_for :chef_info, @user.chef_info do |c| %>
           <% [I18n.locale].each do |locale| %>
-            <div class="form-group <%= "chef_#{locale}" %>">
-              <div class="col-md-12" style="font-weight:bold;">
+            <div class="form-group padding-top-10 <%= "chef_#{locale}" %>">
+              <div class="col-md-12 text-center" style="font-weight:bold;">
                 <%= c.label :my_bio, t('chefs.add_summary_bio') + "(#{locale})" %>
               </div>
               <div class="col-md-12">
@@ -392,15 +412,15 @@
           </div>
         <% end %>
         <div class="form-group">
-          <div class="col-md-12">
+          <div class="col-md-12 text-center px-0">
             <div class="row">
-               <div class="col-md-offset-1 col-lg-4 col-md-12 left-btn col-sm-12">
+              <div class="col-12 col-xl-6 px-4 pb-2 pl-xl-0">
                 <%= f.submit(@user.new_record? ? t('chefs.create_account') : t('chefs.update_account'), 
-                                                          class: "update-account btn btn-primary btn-lg btn-xlarge") %>
+                                                          class: "update-account btn btn-primary btn-lg btn-xlarge w-100") %>
               </div>
-               <div class="col-lg-2 col-md-12 col-md-offset-2 right-btn col-sm-12">
+               <div class="col-12 col-xl-6 px-4 pr-xl-0">
                 <% if @current_app_user.admin? %>
-                  <%= link_to t('chefs.delete_profile'), [current_app, @user.chef_info], class: "btn btn-danger delete-btn btn-lg",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
+                  <%= link_to t('chefs.delete_profile'), [current_app, @user.chef_info], class: "btn btn-danger delete-btn btn-lg w-100",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
                 <% end %>
               </div>
             </div>
