@@ -1014,19 +1014,28 @@ ul.listing li {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
 }
 .cookies-eu-ok {
-  font-size:28px !important;
+  font-size: 28px !important;
   border-radius: 8px;
   padding: 9px !important;
 }
+.cookies-eu .cookies-eu-button-holder {
+  display: block !important;
+}
 .cookies-eu .cookies-eu-content-holder {
   margin-top: 10px !important;
-  font-size: 28px !important;
   padding: 0 5px !important;
+}
+.cookies-eu-content-holder h1{
+  font-size: 31px !important;
+}
+.cookies-eu-content-holder p{
+  margin-bottom: 0px !important;
+  font-size: 20px !important;
 }
 @media screen and (min-width: 1281px) {
   .cookies-eu {
     width: 564px;
-    height: 262px;
+    height: 253px;
     border-radius: 11px;
     margin-left: 14px;
     margin-bottom: 100px;
@@ -1034,14 +1043,14 @@ ul.listing li {
   .cookies-eu .cookies-eu-content-holder {
     font-size: 20px !important;
   }
-  .cookies-eu{
-    white-space: pre;
-  }
   .cookies-eu-ok {
     font-size: 20px !important;
   }
   .cookies-eu-button-holder {
     line-height: 8px;
+  }
+  .cookies-eu .cookies-eu-content-holder {
+    padding-top: 31px !important;
   }
 }
 @media screen and (max-width: 600px) {
