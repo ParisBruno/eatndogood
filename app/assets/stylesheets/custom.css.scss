@@ -1009,50 +1009,7 @@ ul.listing li {
 .new_elem_recipe {
   font-size: 14px;
 }
-.cookies-eu {
-  background: #2BD944 !important;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-}
-.cookies-eu-ok {
-  font-size: 28px !important;
-  border-radius: 8px;
-  padding: 9px !important;
-}
-.cookies-eu .cookies-eu-button-holder {
-  display: block !important;
-}
-.cookies-eu .cookies-eu-content-holder {
-  margin-top: 10px !important;
-  padding: 0 5px !important;
-}
-.cookies-eu-content-holder h1{
-  font-size: 31px !important;
-}
-.cookies-eu-content-holder p{
-  margin-bottom: 0px !important;
-  font-size: 20px !important;
-}
-@media screen and (min-width: 1281px) {
-  .cookies-eu {
-    width: 564px;
-    height: 253px;
-    border-radius: 11px;
-    margin-left: 14px;
-    margin-bottom: 100px;
-  }
-  .cookies-eu .cookies-eu-content-holder {
-    font-size: 20px !important;
-  }
-  .cookies-eu-ok {
-    font-size: 20px !important;
-  }
-  .cookies-eu-button-holder {
-    line-height: 8px;
-  }
-  .cookies-eu .cookies-eu-content-holder {
-    padding-top: 31px !important;
-  }
-}
+
 @media screen and (max-width: 600px) {
   h2 p img {
     max-width: 100%;
@@ -1123,3 +1080,60 @@ ul.listing li {
     margin-bottom: 4px !important;
   }
 }
+
+/*==================Cookies Banner Styling Start===================*/
+
+.cookies-eu {
+  width: 425px;
+  height: 167px;
+  margin-left: 14px;
+  border-radius: 11px;
+  padding: 0 !important;
+  position: fixed !important;
+  line-height: 20px !important;
+  margin-bottom: 20px !important;
+  background: #2BD944 !important;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+}
+.cookies-eu-ok {
+  border-radius: 8px;
+  font-size: 22px !important;
+  padding: 6px 9px !important;
+}
+.cookies-eu .cookies-eu-button-holder {
+  padding-top: 5px !important;
+  font-size: 20px !important;
+  display: block !important;
+}
+.cookies-eu-content-holder {
+  padding: 25px 0 0 0 !important;
+}
+.cookies-eu-content-holder h1 {
+  font-size: 24px !important;
+}
+.cookies-eu-content-holder p {
+  font-size: 15px !important;
+  margin-bottom: 0px !important;
+}
+
+@media screen and (max-width: 767px) {
+  .cookies-eu {
+    width: 245px !important;
+    height: 135px !important;
+  }
+  .cookies-eu-ok {
+    font-size: 15px !important;
+    padding: 4px 7px !important;
+  }
+  .cookies-eu-content-holder {
+    padding: 20px 0 0 0 !important;
+  }
+  .cookies-eu-content-holder h1 {
+    font-size: 14px !important;
+  }
+  .cookies-eu-content-holder p {
+    font-size: 9px !important;
+  }
+}
+
+/*==================Cookies Banner Styling End===================*/
