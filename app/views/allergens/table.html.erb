@@ -94,7 +94,7 @@
           </div>
           <div class="col-lg-12 col-md-12 col-xs-12">
             <h2 class="text-wrap">
-              <%= link_to allergen.name.capitalize, app_allergen_path(@current_app, allergen), class: 'category-title' %>
+              <%= link_to t('allergens.name', name: allergen.name.capitalize), app_allergen_path(@current_app, allergen), class: 'category-title' %>
             </h2>
           </div>
         </div>

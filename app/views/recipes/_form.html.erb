@@ -55,10 +55,10 @@
     <div class=" col-md-offset-4 login-sec margin-sec full-width-sec">
     <%= form_for([current_app, @recipe], html: { multipart: true, class: "form-horizontal autosave" }) do |f| %>
       <%= render partial: 'shared/form_locale_selector', locals: {model: "recipe", elem: "group"} %>
-      <div class="col-lg-6  col-md-5 col-ms-12 col-xs-12  well box-content margin">
+      <div class="col-md-8 well box-content margin">
         <% I18n.available_locales.each do |locale| %>
           <div class="<%= "group_#{locale}" %>">
-            <div class="form-group col-12">
+            <div class="form-group col-12 mt-4 mt-md-0">
               <div class=" col-md-12">
                 <%= f.label :name, t('forms.name') + "(#{locale})" %>
               </div>
@@ -79,9 +79,9 @@
           </div>
         <% end %>
       </div>
-      <div class="col-lg-5  col-md-5 col-ms-12 col-xs-12 well box-content rht-box-sec">
+      <div class="col-md-3 well box-content rht-box-sec py-4">
 
-        <div class="form-group col-12 recepie-menu" id='recipe_all_styles'>
+        <div class="form-group col-12 recepie-menu mt-4 mt-md-0" id='recipe_all_styles'>
           <div class="col-md-12">
             <%= f.label :styles, t('forms.styles') %> &nbsp; <a href="#" class='new_elem_recipe' data-toggle="modal" data-target="#new_style_modal">[<%= t('forms.new_style') %>]</a>
           </div>

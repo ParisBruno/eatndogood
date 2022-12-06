@@ -18,6 +18,7 @@ en:
     models:
       question: Question
   allergens:
+    name: 'See Recipes Without %{name}'
     name_text: Enter Allergen (%{lang})
     image: Image
     add: Add Allergen
