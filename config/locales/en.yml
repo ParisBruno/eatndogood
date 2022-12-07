@@ -19,6 +19,7 @@ en:
       question: Question
   allergens:
     name: 'See Recipes Without %{name}'
+    recipe_without_allergen: 'Recipes Without %{name}'
     name_text: Enter Allergen (%{lang})
     image: Image
     add: Add Allergen
@@ -71,6 +72,9 @@ en:
     success_email: Your email was successfully sent to manager!
     content: Content
   common:
+    create: Create
+    cancel: Cancel
+    save: Save
     select_recipe: Select Recipe
     remove_item: Remove Item
     excel_download: EXCEL download
@@ -347,6 +351,8 @@ en:
     reset_password: Reset password
     update_password: Update password
   navigation:
+    reservation_page: Create Reservation
+    scheduling_page: Scheduling Services
     update_agreement_page: Update Agreement Page
     buy_subscription: Buy Subscription
     admin_login: Admin Login
@@ -489,6 +495,7 @@ en:
     subject_colon: 'Subject:'
     view_guest_questions: View Guest Questions
   recipes:
+    enable_reservation: Enable reservation
     all_displayed_recipe_not_contain_allergen: All displayed recipes do not contain %{allergens}
     subscription: Subscription Recipe
     choose_2_photo: Choose 2 images
@@ -541,6 +548,7 @@ en:
     choose_style: Choose style, please
     choose_category: Choose category, please
   reservations:
+    scheduling_reservation: Schedule a reservation
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
     make_reservation_successfully: Make Reservation successfully
@@ -576,6 +584,66 @@ en:
     update: Update Category
     name_text: Enter category (%{lang})
     image: Image
+  schedule:
+    thanks: "Thank You!"
+    service_type: "Service Type:"
+    service_day: "Service Day:"
+    service_timing: "Service Timing:"
+    number_of_people: "Number of people:"
+    email: "Email:"
+    first_name: "First Name:"
+    last_name: "Last Name:"
+    phone: "Phone Number:"
+    address: "Address:"
+    reservation_completd: Reservation completed successfully!
+    title: Scheduling
+    services: Services
+    no_service_types: No Service Types Present!
+    service_listing: Services Listing
+  services:
+    pls_fill_start_date: Please Fill Start Date
+    pls_fill_end_date: Please Fill End Date
+    less_than_end_date: Should be less than End Date
+    greater_than_start_date: Should be greater than Start Date
+    search: Search
+    service_reserved_successfully: Service Reserved Successfully
+    select_day_to_view_timing: Select day to view timings.
+    select_number_of_people_to_view_timing: Select number of people to view timings.
+    available_days: Available Days
+    available_timings: Available Timings
+    search_reservation: Search Reservation
+    name: Name
+    client_name: Client Name
+    scheduled_at: "Scehduled At:"
+    no_slot_booked: No Reservation Present.
+    icon: Upload Icon
+    number_of_people: Number of people
+    create: Create
+    view_services: View Services
+    for_service_customer: "For %{customers} customers"
+    for_one_customer: "For 1 Customer"
+    first_name: First Name
+    last_name: Last Name
+    customers: Customers
+    available: Available
+    bookings: Bookings
+    types: "Service Types"
+    service_type: "Service Type"
+    service_day: "Service Day"
+    service_timing: "Service Timing"
+    email: Email
+    phone: Phone Number
+    reserve: Reserve
+    booked_successfully: Reserved successfully!
+    start_date: Start Date
+    end_date: End Date
+    start_at: "Start At"
+    end_at: "End At"
+    start_day: "Start Day"
+    end_day: "End Day"
+    start_time: "Start Time"
+    end_time: "End Time"
+    address: "Address"
   users:
     edit_user: Edit user
     leave_blank: leave blank if you don't want to change it

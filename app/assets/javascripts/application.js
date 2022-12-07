@@ -97,7 +97,7 @@ $(function() {
 });
 
 $(function() {
-  $('.style-sortable, .ingredient-sortable, .allergen-sortable').railsSortable();
+  $('.style-sortable, .ingredient-sortable, .allergen-sortable, .service-sortable').railsSortable();
 });
 
 $(document).ready(function(){

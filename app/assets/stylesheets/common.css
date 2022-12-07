@@ -21,3 +21,10 @@
 .cke_colordialog_colorcell.cke_colordialog_focused_dark {
   border-color: #FFF !important;
 }
+/*========== Border Styling Start ==========*/
+
+.border-bottom-secondary-1{
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+/*========== Border Styling End ==========*/

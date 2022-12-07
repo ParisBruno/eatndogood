@@ -1,0 +1,9 @@
+<% service_id = params[:id] %>
+<% if @service.errors.present? %>
+  $('.service-'+<%= service_id %>+'-error').html("<%= escape_javascript (render partial: 'service_errors', locals: {obj: @service}) %>");
+<% else %>
+  $('.service-'+<%= service_id %>+'-error').html("");
+  $('.service-'+<%= service_id %>+'-detail-row').toggleClass('d-none');
+  $('.service-'+<%= service_id %>+'-edit-row').toggleClass('d-none');
+  $(".service-"+<%= service_id %>+"-detail-row").html("<%= escape_javascript (render partial: 'service_detail_data', locals: {service: @service}) %>");
+<% end %>

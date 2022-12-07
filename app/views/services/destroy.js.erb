@@ -1,0 +1,6 @@
+var service = $("#service_"+<%= params[:id] %>);
+if (service.siblings('tr.service-tr').length == 1) {
+  service.closest('table').remove();
+} else {
+  service.remove();
+}

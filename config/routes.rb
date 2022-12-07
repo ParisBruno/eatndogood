@@ -128,6 +128,12 @@ Rails.application.routes.draw do
     resources :orders
     resources :gift_cards, only: %i[new create]
     resources :reports, only: %i[index]
+    resources :services
+    resources :service_types
+    resources :service_slots
+    get 'slots', to: 'services#slots'
+    get 'schedule-services', to: 'services#schedule_services'
+    get 'services_listing' , to: 'services#services_listing'
     post 'recipe-sales', to: 'reports#recipe_sales', as: "recipe_sales"
     post 'category-sales', to: 'reports#category_sales', as: "category_sales"
     get 'new-order', to: 'orders#new_staff_order', as: "new_staff_order"

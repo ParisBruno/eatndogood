@@ -1,0 +1,26 @@
+<% if current_app.services.present? %>
+  <div class="border-bottom-secondary-1">
+    <h3 class="text-center"><%= t('services.available') %></h3>
+  </div>
+  <% current_app.service_types.each do |type| %>
+    <% if type.services.present? %>
+      <div class="table-responsive p-4">
+        <table class="table mt-3">
+          <tbody>
+            <tr class="font-weight-bold service-tr">
+              <td style='width: 5%'><%= type.name %></td>
+              <td style='width: 10%'><%= t('services.customers') %></td>
+              <td style='width: 30%'><%= t('services.available_days') %></td>
+              <td style='width: 30%'><%= t('services.available_timings') %></td>
+              <td style='width: 26%; border: 0 !important;' class="empty-header" ></td>
+            </tr>
+            <% type.services.each do |service| %>
+              <%= render 'service', service: service %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+

@@ -5,6 +5,8 @@ class App < ApplicationRecord
 
   belongs_to :plan
   has_many :users, dependent: :destroy
+  has_many :services, dependent: :destroy
+  has_many :service_types, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :ingredients, dependent: :destroy

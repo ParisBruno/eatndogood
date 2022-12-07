@@ -1,0 +1,66 @@
+<style>
+  .green-border{
+    border: 5px solid green;
+    padding: 10px;
+  }
+  .schedule .margin-sec .box-content{
+    margin-top: 1px!important;
+    float: none;
+    min-height: 310px !important;
+  }
+  .schedule .margin-sec {
+    margin-top: 1px!important;
+    float: none;
+  }
+  @media screen and (width: 280px) {
+    .green-border{
+      padding: 0px;
+    }
+  }
+</style>
+<%= render 'shared/page_title', title: t('schedule.service_listing')%>
+
+<div class="row border schedule mx-0 p-2">
+  <div class="col-12 margin-sec full-width-sec text-center">
+    <div class="col-md-9 well box-content px-0">
+      <% if @services.present? %>
+        <div class="service-sortable row">
+          <% @services.each_with_sortable_id do |service, sortable_id| %>
+            <div class="col-6 col-sm-4 col-lg-3 col-xl-2 text-center p-2 service-listing" id="<%= sortable_id %>" data-service-id="<%= service.id %>">
+              <div class="icon <%= service.border_class %> ">
+                <%= link_to app_service_path(current_app, service.id) do %>
+                  <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe  if service.icon.present? %>
+                <% end %>
+              </div>
+              <p class="text-center mt-2"><%= service.customers == 1 ? "#{t('services.for_one_customer')}" : "#{t('services.for_service_customer', customers: service.customers)}" %></p>
+              <p class="text-center"><%= "#{week_days[service.start_day][0]} - #{week_days[service.end_day][0]}" %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="border-bottom-secondary-1 col-12">
+          <h3 class="text-center"><%= t('services.no_slot_booked') %></h3>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".service-sortable").on( "sortupdate", function( event, ui ) {
+    var elements = $('.service-sortable .ui-sortable-handle');
+    var services = [];
+    $.each(elements, function( service_listing, value ) {
+      var service_id = $(value).data("service-id");
+      var service = { id: service_id }
+      services.push(service);
+    });
+    $.ajax({
+      method: "POST",
+      url: "/" + <%= @current_app.id %> + "/services/update_positions",
+      data: { elements: service },
+      success: function (response) {
+      },
+    })
+  });
+</script>

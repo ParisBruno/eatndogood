@@ -7,7 +7,7 @@
   .cart-functional {
     border-top: 4px solid green;
   }
-  .coupon-codes, .fundraising-codes {
+  .coupon-codes, .fundraising-codes, .service-types {
     margin: 0 1%;
   }
   .table-responsive{
@@ -35,7 +35,7 @@
     height: 20px;
     border: none;
   }
-  .add-coupon {
+  .add-coupon, .add-service-type {
     border: none;
   }
   .empty-header {
@@ -380,6 +380,11 @@
           <div class="cart-functional padding-bottom-50 padding-top-50">
             <div class="fundraising-codes">
               <%= render partial: 'fundraising_codes_table' %>
+            </div>
+          </div>
+          <div class="cart-functional padding-bottom-50 padding-top-50">
+            <div class="service-types">
+              <%= render partial: 'service_types_table' %>
             </div>
           </div>
         <% end %>

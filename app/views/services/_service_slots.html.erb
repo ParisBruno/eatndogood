@@ -1,0 +1,111 @@
+<div class="container">
+  <% if !@service_slots.present? %>
+    <div class="row schedule">
+      <div class="col-12 margin-sec full-width-sec text-center">
+        <div class="col-md-8 well box-content px-0 min-vh-100">
+          <div class="row mb-3">
+            <div class="col-12">
+              <h3 class="text-center"><%= t('services.no_slot_booked') %></h3>
+            </div>
+            <div class="col-12 text-center">
+              <%= link_to t('common.create'), app_services_path(current_app, service_types: @service.service_type_id), target: '_blank', class: "px-5 btn btn-success btn-lg", style:"font-family: WhitneySSm;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <% @service_slots.each_with_index do |slot, index| %>
+      <div class="row schedule">
+        <div class="col-12 margin-sec full-width-sec text-center px-0">
+          <div class="col-md-12 col-lg-8 well box-content p-0 collapse-title card mb-3 mt-0">
+            <div class="card-header p-0">
+              <button class="btn btn-lg collapsed w-100 text-left" type="button"  data-toggle="collapse" data-target="#serviceCollapse<%= slot.id %>"  aria-expanded="true" aria-controls="serviceCollapse">
+                <h3 class="text-dark mb-0"><%= slot.first_name %></h3>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="collapse <%= "in" if index.zero? %>" id="serviceCollapse<%= slot.id %>">
+        <%= form_for(slot, url: app_service_slot_path(current_app, slot), method: :put, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+          <div class="row schedule">
+            <div class="col-12 margin-sec full-width-sec text-center">
+              <div class="col-lg-8 well box-content mb-3">
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3 mt-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.first_name') %></h2>
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-9">
+                    <%= f.text_field :first_name, class: "form-control", placeholder: t('services.first_name'), autofocus: true, required: true %>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3 mt-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.last_name') %></h2>
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-9">
+                    <%= f.text_field :last_name, class: "form-control", placeholder: t('services.last_name'), autofocus: true %>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.phone') %></h2>
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-9">
+                    <%= f.number_field :phone_number, class: "form-control", placeholder: t('services.phone'), autofocus: true, required: true %>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.email') %></h2>
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-9">
+                    <%= f.text_field :email, class: "form-control", placeholder: t('services.email'), autofocus: true %>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.address') %></h2>
+                  </div>
+                  <div class="col-12 col-md-8 col-lg-9">
+                    <%= f.text_field :address, class: "form-control", placeholder: t('services.address'), autofocus: true, required: true %>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-md-4 col-lg-3" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.number_of_people') %></h2>
+                  </div>
+                  <div class="col-12 col-md-2 col-lg-3 px-4">
+                    <%= f.number_field :number_of_people, class: "form-control", placeholder: t('services.number_of_people'), autofocus: true, required: true %>
+                  </div>
+                  <div class="col-12 mt-4 px-4 col-md-6 mt-md-0 col-lg-6">
+                    <div class="row bg-warning">
+                      <div class="col-7 col-md-6 my-auto pl-2">
+                        <h2 class="text-dark"><%= t('services.scheduled_at') %></h2>
+                      </div>
+                      <div class="col-5 col-sm-4 col-md-6 pt-2 my-auto">
+                        <h3><%= slot.day.strftime("%D %H:%M %p") %></h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-sm-4 mt-1">
+                    <%= link_to t('common.create'), app_services_path(current_app, service_types: slot.service.service_type_id), target: '_blank', class: "btn btn-success btn-lg w-100", style:"font-family: WhitneySSm;" %>
+                  </div>
+                  <div class="col-12 mt-1 col-sm-4">
+                    <%= f.submit t('common.update'), class: "px-5 btn btn-primary btn-lg w-100" %>
+                  </div>
+                  <div class="col-12 mt-1 col-sm-4">
+                    <%= link_to t('common.delete'), [current_app, slot], method: :delete, class: "px-5 btn btn-danger btn-lg w-100", style:"font-family: WhitneySSm;" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

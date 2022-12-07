@@ -9,6 +9,11 @@
     font-family: MillerDisplay-Roman;
     display: inline-grid;
   }
+   .pull-center{
+    bottom: 40px;
+    position: absolute;
+  }
+
   .buy-button{
     position: fixed;
     bottom: 20px;
@@ -136,6 +141,11 @@
   .collapsible-item-title-link svg{
     margin-left: 5px;
   }
+  .reservation-btn{
+    bottom: 0 !important;
+    left: 0;
+    right: 119px;
+  }
   /* Dropdown CSS End */
   @media screen and (min-width: 768px) {
    .col-md-3.thumb-sec {
@@ -173,6 +183,11 @@
     }
     .recipe-margin-sec .top-space {
       margin-top: 80px !important;
+    }
+  }
+  @media (min-width: 913px) and (max-width: 1010px) {
+    .reservation-btn-media {
+      right: 214px;
     }
   }
   @media screen and (max-width: 600px) {
@@ -216,11 +231,21 @@
             <% if (current_app_user and (@recipe.chef.id == current_app_user.id)|| current_app_user.admin? ) %>
               <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg edit-btn", style: 'font-family: WhitneySSm;' %>
             <% end %>
+          </div>
+          <div class="text-center position-absolute reservation-btn reservation-btn-media">
+            <% if @recipe.enable_reservation? %>
+              <%= link_to t('reservations.scheduling_reservation'), app_services_path(current_app), class: "btn btn-lg btn-primary pull-center text-white", style: 'font-family: WhitneySSm;' %>
+            <% end %>
+          </div>
+          <div class="recipe-name">
             <center class="box-content-font" style="margin-bottom:0;">
               <h1 class='recipe-title text-dark'>
                 <%= @recipe.name %>
               </h1>
             </center>
+          </div>
+
+          <div>
             <% if !@recipe.price&.zero? && @recipe.price.present? %>
               <h2 class="box-content-font" style="margin-top: 15px; margin-bottom: 15px;">
                 <span class="price-tag">

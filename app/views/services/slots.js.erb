@@ -1,0 +1,2 @@
+$('#timeSlots').html("<%= escape_javascript (render partial: 'time_slots', locals: {slots: @avail_slots}) %>");
+$('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: @avail_slots.map{|x| x[1]}}) %>");

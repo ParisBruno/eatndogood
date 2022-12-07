@@ -1,0 +1,43 @@
+<h1><%= t('services.service_reserved_successfully') %></h1>
+<table>
+  <tbody>
+    <tr>
+      <td><%= t('schedule.service_type') %></td>
+      <td><%= @slot.service.service_type.name %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.service_day') %></td>
+      <td><%= @slot.start_time.strftime("%d/%m/%y") %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.service_timing') %></td>
+      <td><%= "#{@slot.start_time.strftime("%H:%M %p")} - #{@slot.end_time.strftime("%H:%M %p")}" %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.number_of_people') %></td>
+      <td><%= @slot.number_of_people %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.email') %></td>
+      <td><%= @slot.email %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.first_name') %></td>
+      <td><%= @slot.first_name %></td>
+    </tr>
+    <tr>
+      <% if @slot.last_name.present? %>
+        <td><%= t('schedule.last_name') %></td>
+        <td><%= @slot.last_name %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= t('schedule.phone') %></td>
+      <td><%= @slot.phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= t('schedule.address') %></td>
+      <td><%= @slot.address %></td>
+    </tr>
+  </tbody>
+</table>

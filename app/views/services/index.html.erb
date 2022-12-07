@@ -1,0 +1,251 @@
+<style>
+  .blue-border {
+    border-bottom: 2px solid blue;
+    border-right: 2px solid blue;
+  }
+  .green-border {
+    border-bottom: 2px solid green;
+    border-right: 2px solid green;
+  }
+  .select-height {
+    height: 34px !important;
+  }
+  .reserve-button {
+    font-size: 15px;
+  }
+  .text-small {
+    font-size: 10px !important;
+  }
+  .schedule .margin-sec .box-content{
+    margin-top: 1px!important;
+    float: none;
+  }
+  .schedule .margin-sec {
+    margin-top: 1px!important;
+    float: none;
+  }
+  .margin-sec .box-content h2{
+    margin-bottom: 0px !important;
+  }
+  #service_slot_phone_number::-webkit-outer-spin-button,
+  #service_slot_phone_number::-webkit-inner-spin-button {
+    display: none;
+  }
+  #new_service_slot input {
+    font-size: 15px !important;
+  }
+</style>
+
+<%= render 'shared/page_title', title: t('schedule.services')%>
+<div class="row schedule mx-0">
+  <div class="col-12 margin-sec full-width-sec text-center">
+    <div class="col-md-8 well box-content px-0">
+      <div class="row border-bottom">
+        <div class="col-md-12 mb-5">
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="form-group mt-3 mb-0">
+                <div class="control-label"style="padding-left: 15px !important">
+                  <h2 class="text-dark"><%= t('services.service_type') %></h2>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-5">
+              <div class="form-group mt-sm-3">
+                <div class="ml-0">
+                  <%= form_tag(app_services_path(current_app), method: :get, id: "service-type-form", class: "h-100") do %>
+                    <%= select_tag "service_types", options_for_select(@service_types.map{|x| [x.name, x.id]}, params[:service_types]), class: "form-control select-height", required: true %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= form_for(ServiceSlot.new, url: app_service_slots_path(current_app)) do |f| %>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark" ><%= t('services.service_day') %></h2>
+                    <p class="mb-0 text-small"><%= t('services.select_day_to_view_timing') %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0 booking-timings">
+                    <%= f.date_field :day, min: Date.today, class: "form-control select-height", required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark" style="margin-bottom: 0px !important"><%= t('services.number_of_people') %></h2>
+                    <p class="mb-0 text-small"><%= t('services.select_number_of_people_to_view_timing') %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.number_field "number_of_people", value: 1, class: "form-control", placeholder: t('services.number_of_people'), min: 1, required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.service_timing') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0 booking-timings">
+                    <%= f.hidden_field :booked, value: true %>
+                    <%= f.hidden_field :start_time %>
+                    <%= f.hidden_field :end_time %>
+                    <%= f.hidden_field :service_id %>
+                    <div id="timeSlots">
+                      <%= render 'time_slots', slots: [] %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.first_name') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.text_field "first_name", class: "form-control", placeholder: t('services.first_name'), required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.last_name') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.text_field "last_name", class: "form-control", placeholder: t('services.last_name')%>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.email') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.email_field "email", class: "form-control", placeholder: t('services.email') %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.phone') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.number_field "phone_number", class: "form-control", placeholder: t('services.phone'), required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group mt-1 mt-sm-3 mb-0">
+                  <div class="control-label" style="padding-left: 15px !important">
+                    <h2 class="text-dark"><%= t('services.address') %></h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-sm-3">
+                  <div class="ml-0">
+                    <%= f.text_field "address", class: "form-control", placeholder: t('services.address') %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3"></div>
+              <div class="col-12 col-sm-6 col-xl-5">
+                <div class="form-group mt-1 mt-sm-3">
+                  <div class="ml-0">
+                    <button type="submit"  class="btn btn-primary w-100 text-white reserve-button" ><%= t 'services.reserve' %></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="row border-bottom">
+        <div class="col-12 text-center my-3">
+          <h1><%= @service_type.name %></h1>
+        </div>
+      </div>
+      <div id="services">
+        <% available_services = @service_type.available_services %>
+        <%= render 'services', service_ids: available_services %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('change', '#service_slot_day, #service_slot_number_of_people', function(e) {
+    var service_type = $('#service_types').val();
+    var people = $('#service_slot_number_of_people').val();
+    var service_day = $('#service_slot_day').val();
+    $.ajax({
+      method: "GET",
+      url: "/" + <%= current_app.id %> + "/slots",
+      data: { service_day: service_day, service_type: service_type, people: people },
+      success: function (response) {
+      },
+    })
+  });
+
+  $(document).on('change', '#time_slots', function(e) {
+    var service_id = this.value;
+    $('#service_slot_service_id').val(service_id);
+    var slot = $("#time_slots option[value="+service_id+"]").text().split(' - ');
+    $('#service_slot_start_time').val(slot[0]);
+    $('#service_slot_end_time').val(slot[1]);
+  });
+
+  $(document).on('change', '#service_types', function(e) {
+    $('#service-type-form').submit();
+  });
+</script>

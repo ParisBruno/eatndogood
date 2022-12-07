@@ -1,0 +1,8 @@
+<% if @service.errors.present? %>
+  $('#error-row').html("<%= escape_javascript (render partial: 'service_errors', locals: {obj: @service}) %>");
+<% else %>
+  $('.selected-icon').html("");
+  $('#error-row').html("");
+  $('#new_service')[0].reset();
+  $("#avail_services").html("<%= escape_javascript (render partial: 'avail_services') %>");
+<% end %>

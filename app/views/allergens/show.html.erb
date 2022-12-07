@@ -7,7 +7,7 @@
 </style>
 
 <div class="category-page-title" style="color: #F04123;">
-  <%= render 'shared/page_title', title: "#{@allergen.name}" %>
+  <%= render 'shared/page_title', title: t('allergens.recipe_without_allergen', name: @allergen.name.capitalize) %>
 </div>
 
 <% if @recipes.present? %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_22_072555) do
+ActiveRecord::Schema.define(version: 2022_11_28_053701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,10 +214,6 @@ ActiveRecord::Schema.define(version: 2022_11_22_072555) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.datetime "available_on"
-    t.datetime "discontinue_on"
-    t.index ["available_on"], name: "index_ingredient_translations_on_available_on"
-    t.index ["discontinue_on"], name: "index_ingredient_translations_on_discontinue_on"
     t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
     t.index ["locale"], name: "index_ingredient_translations_on_locale"
   end
@@ -226,8 +222,6 @@ ActiveRecord::Schema.define(version: 2022_11_22_072555) do
     t.string "name"
     t.bigint "app_id"
     t.integer "sort"
-    t.datetime "available_on"
-    t.datetime "discontinue_on"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
   end
 
@@ -423,6 +417,7 @@ ActiveRecord::Schema.define(version: 2022_11_22_072555) do
     t.bigint "subcategory_id"
     t.boolean "is_draft", default: false
     t.boolean "is_subscription", default: false
+    t.boolean "enable_reservation", default: false
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 
@@ -453,10 +448,13 @@ ActiveRecord::Schema.define(version: 2022_11_22_072555) do
   create_table "service_slots", force: :cascade do |t|
     t.bigint "service_id"
     t.boolean "booked", default: false
-    t.integer "day"
+    t.datetime "day"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "number_of_people"
     t.string "phone_number"
     t.text "address"
     t.datetime "created_at", null: false
@@ -480,6 +478,8 @@ ActiveRecord::Schema.define(version: 2022_11_22_072555) do
     t.time "start_time"
     t.time "end_time"
     t.integer "customers"
+    t.text "icon"
+    t.integer "sort"
     t.bigint "user_id"
     t.bigint "app_id"
     t.bigint "service_type_id"

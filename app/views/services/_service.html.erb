@@ -1,0 +1,41 @@
+<tr id=<%= "service_#{service.id}" %> class="service-tr service-<%= service.id %>-detail-row" data-id=<%= service.id %>>
+  <%= render 'service_detail_data', service: service %>
+<tr>
+<tr class="d-none service-<%= service.id %>-edit-row" data-id=<%= service.id %>>
+  <%= form_for(service, url: app_service_path(current_app, service), remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+    <td class="border-0 icon-field">
+      <div>
+        <%= f.cktext_area :icon, value: nil, cols: 50, class: "form-control", placeholder: t('services.icon'), autofocus: true, id: "service_icon_#{f.object.id}"  %>
+      </div>
+      <span class="selected-icon text-success"></span>
+    </td>
+    <td class="border-0">
+      <%= f.number_field :customers, min: 1, class: "form-control", placeholder: t('services.customers'), autofocus: true, required: true %>
+    </td>
+    <td class="border-0">
+      <div class="d-flex">
+        <div class="px-1 edit-service">
+          <%= f.select :start_day, week_days, {include_blank: "Select"}, class: "form-control service-select", placeholder: t('services.start_day'), autofocus: true %>
+        </div>
+        <div class="px-1 edit-service">
+          <%= f.select :end_day, week_days, {include_blank: "Select"}, class: "form-control service-select", placeholder: t('services.end_day'), autofocus: true %>
+        </div>
+      </div>
+    </td>
+    <td class="border-0">
+      <div class="d-flex">
+        <div class="px-1 edit-service">
+          <%= f.time_field :start_time, class: "form-control", placeholder: t('services.start_time'), autofocus: true %>
+        </div>
+        <div class="px-1 edit-service">
+          <%= f.time_field :end_time, class: "form-control", placeholder: t('services.end_time'), autofocus: true %>
+        </div>
+      </div>
+    </td>
+    <td class="border-0 d-flex">
+      <input type="button" value= "<%= t('common.save') %>" class="btn btn-success btn-lg save-service-btn">
+      <input type="button" value= "<%= t('common.cancel') %>" class="ml-2 btn btn-danger btn-lg cancel-service-btn">
+    </td>
+  <% end %>
+</tr>
+<tr class="service-<%= service.id %>-error"></tr>

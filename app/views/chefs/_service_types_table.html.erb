@@ -1,0 +1,55 @@
+<div class="table-responsive">
+  <table class="table">
+    <h3 style="text-align: center;"><%= t('services.types') %></h3>
+    <tbody>
+      <tr class="font-weight-bold heading-styling large-screen-padding">
+        <td colspan=2 style='width: 80%'><%= t('services.name') %></td>
+        <td style='width: 20%; border-top: 0 !important;' class="empty-header" ></td>
+      </tr>
+      <% @current_app_user.service_types.each do |service_type| %>
+        <tr class="large-screen-padding" id=<%= "service_type_#{service_type.id}" %>>
+          <td><%= service_type.name %></td>
+          <td>
+            <%= link_to "Schedule", app_schedule_services_path(@current_app), target: '_blank' %>
+          </td>
+          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_service_type_path(@current_app, id: service_type.id), class: "btn btn-outline-danger", remote: true, method: :delete, data:  { confirm: t('common.confirm') } %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td class="empty-row"></td>
+      </tr>
+      <tr class="no-border">
+        <td colspan=2 style='width: 80%'class="add-service-type p-0">
+          <input type="text" id="service-type-name" class="form-control service-type-name-input text-center" placeholder=<%= t('services.name') %>>
+        </td>
+        <td class="add-service-type pt-0">
+          <input type="button" value= "<%= t('services.create') %>" class="btn btn-success btn-lg" id="add-service-type-btn" disabled=true>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  var serviceTypeName = document.getElementById("service-type-name");
+  var addServiceTypeBtn = document.getElementById("add-service-type-btn");
+
+  serviceTypeName.addEventListener("change", function () {
+    if (serviceTypeName.value.length > 0) {
+      addServiceTypeBtn.disabled = false;
+    } else {
+      addServiceTypeBtn.disabled = true;
+    }
+  });
+
+  addServiceTypeBtn.addEventListener("click", function () {
+    var name = $('#service-type-name').val();
+    $.ajax({
+      method: "POST",
+      url: "/" + <%= current_app.id %> + "/service_types",
+      data: { service_type: {name: name, app_id: <%= current_app.id %>, user_id: <%= current_app_user.id %>} },
+      success: function (response) {
+      },
+    })
+  });
+</script>

@@ -9,6 +9,13 @@ class ApplicationController < ActionController::Base
   before_action :set_header_data
   before_action :current_cart
   before_action :set_devise_sender
+  before_action :expire_service_slots
+
+  def expire_service_slots
+    service_slots = ServiceSlot.joins(:service).where(services: {app_id: current_app.id}, booked: true)
+    expire_slots = service_slots.where('service_Slots.end_time < ?', Time.now)
+    expire_slots.update(booked: false)
+  end
 
   def current_chef
     @current_chef ||= Chef.find(current_app_user.chef_info.id) if current_app_user && !current_app_user.chef_info.nil?

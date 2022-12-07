@@ -1,0 +1,9 @@
+<div class="row ml-3 mt-4">
+  <% avail_services(service_ids).each do |service| %>
+    <div class="col-6 col-sm-4 col-lg-3 col-xl-2 px-0">
+      <div class="p-2">
+        <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe if service.icon.present? %>
+      </div>
+    </div>
+  <% end %>
+</div>

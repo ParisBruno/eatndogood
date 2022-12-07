@@ -1,0 +1,22 @@
+<style>
+  .green-border{
+    border: 5px solid green;
+    padding: 10px;
+  }
+</style>
+
+<%= render 'shared/page_title', title: t('schedule.title')%>
+
+<div class="container mt-5">
+  <div class="row border p-2">
+    <% @services.each do |service| %>
+      <div class="col-2 text-center p-2">
+        <div class="icon <%= service.border_class %>">
+          <%= link_to app_service_path(current_app, service.id) do %>
+            <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe  if service.icon.present? %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
