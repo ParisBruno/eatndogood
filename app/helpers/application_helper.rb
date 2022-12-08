@@ -16,7 +16,16 @@ module ApplicationHelper
     raw_html.children.each do |ele|
       ele.remove if ele.text == ""
     end
-    raw_html.to_html.slice(0,250)+'...'
+    max_slice_number = 250
+    display_html = raw_html.to_html.slice(0, max_slice_number)
+    sliced_words = Nokogiri::HTML::fragment(display_html).text.split(" ")
+    while sliced_words.count < 6 do
+      max_slice_number = max_slice_number + 250
+      display_html = raw_html.to_html.slice(0, max_slice_number)
+      sliced_words = Nokogiri::HTML::fragment(display_html).text.split(" ")
+    end
+
+    display_html+'...'
   end
 
   def payment_methods
