@@ -85,7 +85,7 @@
                         <h2 class="text-dark"><%= t('services.scheduled_at') %></h2>
                       </div>
                       <div class="col-5 col-sm-4 col-md-6 pt-2 my-auto">
-                        <h3><%= slot.day.strftime("%D %H:%M %p") %></h3>
+                        <h3><%= slot.start_time.strftime("%D %H:%M %p") %></h3>
                       </div>
                     </div>
                   </div>
@@ -98,7 +98,7 @@
                     <%= f.submit t('common.update'), class: "px-5 btn btn-primary btn-lg w-100" %>
                   </div>
                   <div class="col-12 mt-1 col-sm-4">
-                    <%= link_to t('common.delete'), [current_app, slot], method: :delete, class: "px-5 btn btn-danger btn-lg w-100", style:"font-family: WhitneySSm;" %>
+                     <%= link_to t('common.delete'), [current_app, slot], method: :delete, data:  { confirm: t('common.confirm') }, class: "px-5 btn btn-danger btn-lg w-100", style:"font-family: WhitneySSm;" %>
                   </div>
                 </div>
               </div>

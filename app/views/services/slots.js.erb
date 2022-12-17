@@ -1,2 +1,15 @@
-$('#timeSlots').html("<%= escape_javascript (render partial: 'time_slots', locals: {slots: @avail_slots}) %>");
-$('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: @avail_slots.map{|x| x[1]}}) %>");
+<% if @avail_slots.present? %>
+  <% text = "Available timings are from " %>
+  <% @avail_slots.each_with_index do |slot, index| %>
+    <% @timings = index.zero? ? "#{slot[0]} to #{slot[1]}" : @timings + "#{slot[0]} to #{slot[1]}" %>
+    <% @timings = @timings + " and " unless index == @avail_slots.count-1 %>
+  <% end %>
+  $('#timing-note').text("<%= text+@timings %>");
+  $('#service_slot_start_time').attr('disabled', false);
+  $('#service_slot_start_time').attr('data-slots', "<%= @avail_slots.map{|x| "#{x[0]} - #{x[1]} - #{x[2]}"} %>");
+  $('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: @avail_slots.map{|x| x[2]}}) %>");
+<% else %>
+  $('#service_slot_start_time').attr('disabled', true);
+  $('#timing-note').text("No timings available!");
+  $('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: nil}) %>");
+<% end %>

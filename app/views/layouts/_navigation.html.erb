@@ -185,17 +185,17 @@
                 <li>
                   <%= link_to current_app_user.admin? ? t('navigation.admin_page') : t('navigation.edit_profile'), current_app_user.chef? ? edit_app_chef_path(@current_app, current_app_user) : edit_app_user_registration_path(current_app_user) %>
                 </li>
-                <% if current_app.services.present? %>
+                <% if current_app_user.admin? %>
                   <li>
-                    <%= link_to t('navigation.reservation_page'), app_services_path(@current_app) %>
+                    <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(@current_app), target: '_blank' %>
                   </li>
                 <% end %>
                 <% if current_app_user.admin? || current_app_user.manager? || current_app_user.chef? %>
                   <li>
-                    <%= link_to t('services.view_services'), app_services_listing_path(@current_app) %>
+                    <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app), target: '_blank' %>
                   </li>
                   <li>
-                    <%= link_to t('navigation.scheduling_page'), app_schedule_services_path(@current_app) %>
+                    <%= link_to t('navigation.guest_list'), app_guests_path(@current_app), target: '_blank' %>
                   </li>
                 <% end %>
                 <% if current_app_user.admin? %>
@@ -203,10 +203,10 @@
                     <%= link_to t('navigation.guest_list'), app_guests_path(@current_app) %>
                   </li>
                   <li>
-                    <%= link_to t('navigation.update_welcome_page'), welcome_edit_app_pages_path(@current_app) %>
+                    <%= link_to t('navigation.scheduling_page'), app_schedule_services_path(@current_app), target: '_blank' %>
                   </li>
                   <li>
-                    <%= link_to t('navigation.update_about_us_page'), about_edit_app_pages_path(@current_app) %>
+                    <%= link_to t('navigation.reservation_page'), app_services_path(@current_app), target: '_blank' %>
                   </li>
                   <li>
                     <%= link_to t('navigation.update_agreement_page'), agreement_app_pages_path(@current_app) %>

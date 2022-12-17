@@ -5,5 +5,5 @@
   $('.service-'+<%= service_id %>+'-error').html("");
   $('.service-'+<%= service_id %>+'-detail-row').toggleClass('d-none');
   $('.service-'+<%= service_id %>+'-edit-row').toggleClass('d-none');
-  $(".service-"+<%= service_id %>+"-detail-row").html("<%= escape_javascript (render partial: 'service_detail_data', locals: {service: @service}) %>");
+  $(".service-"+<%= service_id %>+"-detail-row").html("<%= escape_javascript (render partial: 'service_detail_data', locals: {service: @service, index: params[:service][:index].to_i, type_index: params[:service][:type_index].to_i}) %>");
 <% end %>

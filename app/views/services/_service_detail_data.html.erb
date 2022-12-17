@@ -1,18 +1,19 @@
-<td class="border-0">
-  <div class="icon <%= service.border_class %>">
+<td class="border <%= "font-weight-bold" if index.zero? && type_index.zero? %>">
+  <div class="icon <%= service.border_class %>" id="serviceIcon">
     <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe if service.icon.present? %>
+    <span class="pl-2"><%= service.service_type.name %></span>
   </div>
 </td>
-<td class="border-0 customer-number" data-customers=<%= service.customers %>>
+<td class="border customer-number <%= "font-weight-bold" if index.zero? && type_index.zero? %>" data-customers=<%= service.customers %>>
   <%= service.customers %>
 </td>
-<td class="border-0 booking-day" data-start-day="<%= service.start_day %>" data-end-day="<%= service.end_day %>">
+<td class="border booking-day <%= "font-weight-bold" if index.zero? && type_index.zero? %>" data-start-day="<%= service.start_day %>" data-end-day="<%= service.end_day %>">
   <%= service.start_day.present? ? "#{week_days[service.start_day].first} - #{week_days[service.end_day].first}" : "-" %>
 </td>
-<td class="border-0 booking-time" data-start-time="<%= service.start_time&.strftime("%H:%M:%S") %>" data-end-time="<%= service.end_time&.strftime("%H:%M:%S") %>">
+<td class="border booking-time <%= "font-weight-bold" if index.zero? && type_index.zero? %>" data-start-time="<%= service.start_time&.strftime("%H:%M:%S") %>" data-end-time="<%= service.end_time&.strftime("%H:%M:%S") %>">
   <%= service.start_time.present? ? "#{service.start_time.strftime("%H:%M %p")} - #{service.end_time.strftime("%H:%M %p")}" : "-" %>
 </td>
-<td class="border-0 d-flex">
+<td class="border-0 buttons <%= "font-weight-bold" if index.zero? && type_index.zero? %>">
   <% if service.border_class != "green-border" %>
     <input type="button" value= "<%= t('common.edit') %>" class="btn btn-primary btn-lg edit-service-btn">
     <%= link_to t('common.delete'), [current_app, service], method: :delete, data:  { confirm: t('common.confirm') }, class: "ml-2 btn btn-danger btn-lg", remote: true %>

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def expire_service_slots
     service_slots = ServiceSlot.joins(:service).where(services: {app_id: current_app.id}, booked: true)
-    expire_slots = service_slots.where('service_Slots.end_time < ?', Time.now)
+    expire_slots = service_slots.where('service_slots.end_time < ?', Time.now)
     expire_slots.update(booked: false)
   end
 

@@ -18,7 +18,51 @@
     }
   }
 </style>
-<%= render 'shared/page_title', title: t('schedule.service_listing')%>
+<% date = params[:date].present? ? params[:date].to_date : Date.today %>
+<%= render 'shared/page_title', title: t('schedule.service_listing', day: week_days[date.wday-1][0], date: date.strftime("%d-%m-%y")) %>
+<div id="searchServices" class="mb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-1">
+      </div>
+      <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+          <div class="card-header p-0" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-lg collapsed w-100 text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <%= t('services.search_services') %>
+              </button>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchServices">
+    <%= form_tag(app_services_listing_path, method: :get) do |f| %>
+      <div class="form-group mb-4 mx-3 row">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-10 col-md-12">
+          <div class="row mb-4">
+            <div class="col-md-2 col-sm-4 mt-4 px-2">
+              <h3 class="mt-2">
+                <%= t('services.date') %>
+              </h3>
+            </div>
+            <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
+              <%= date_field_tag :date, params[:date], class: "form-control w-100" %>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-2 col-sm-4 col-12">
+              <%= submit_tag t('services.search'), class: "btn btn-lg btn-primary w-100" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <div class="row border schedule mx-0 p-2">
   <div class="col-12 margin-sec full-width-sec text-center">
@@ -27,13 +71,16 @@
         <div class="service-sortable row">
           <% @services.each_with_sortable_id do |service, sortable_id| %>
             <div class="col-6 col-sm-4 col-lg-3 col-xl-2 text-center p-2 service-listing" id="<%= sortable_id %>" data-service-id="<%= service.id %>">
-              <div class="icon <%= service.border_class %> ">
-                <%= link_to app_service_path(current_app, service.id) do %>
+              <% booked_slots = service.today_booked_slots(params[:date]) %>
+              <div class="icon <%= service.border_class if booked_slots.present? %> ">
+                <%= link_to app_service_path(current_app, service.id, start_time: date), target: '_blank' do %>
                   <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe  if service.icon.present? %>
                 <% end %>
               </div>
               <p class="text-center mt-2"><%= service.customers == 1 ? "#{t('services.for_one_customer')}" : "#{t('services.for_service_customer', customers: service.customers)}" %></p>
-              <p class="text-center"><%= "#{week_days[service.start_day][0]} - #{week_days[service.end_day][0]}" %></p>
+              <p class="text-center font-weight-bold">
+                <%= booked_slots.first.start_time.strftime("%H:%M %p") if booked_slots.present? %>
+              </p>
             </div>
           <% end %>
         </div>

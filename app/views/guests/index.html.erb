@@ -53,6 +53,14 @@
   .btn-default:hover{
     border-radius: 8px;
   }
+  .font-size-15{
+    font-size: 15px !important;
+    font-weight: bold;
+  }
+  .font-size-12{
+    font-weight: bold;
+    font-size: 12px !important;
+  }
   </style>
   <div class="content-header">
     <div class="login-header">
@@ -95,18 +103,18 @@
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>
-          <button type="button" class="mr-3 btn btn-primary sendEmails"><%= t 'forms.send_emails' %></button>
-          <button type="button" class="mr-3 btn btn-primary" id="sendAll"><%= t 'forms.send_all_emails' %></button>
-          <button type="button" class="btn btn-primary sendEmails" id="export"><%= t 'forms.export' %></button>
+        <th width="25%" class="text-nowrap font-size-12">
+          <button type="button" class="mr-3 btn btn-primary sendEmails font-size-12"><%= t 'forms.send_emails' %></button>
+          <button type="button" class="mr-3 btn btn-primary font-size-12" id="sendAll"><%= t 'forms.send_all_emails' %></button>
+          <button type="button" class="btn btn-primary sendEmails font-size-12" id="export"><%= t 'forms.export' %></button>
         </th>
-        <th><%= t 'forms.s_no' %></th>
-        <th><%= t 'forms.first_name' %></th>
-        <th><%= t 'forms.last_name' %></th>
-        <th><%= t 'forms.email' %></th>
-        <th><%= t 'forms.admin' %></th>
-        <th><%= t 'forms.created' %></th>
-        <th><%= t 'forms.action' %></th>
+        <th width="5%" class="font-size-12 text-nowrap"><%= t 'forms.s_no' %></th>
+        <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.first_name' %></th>
+        <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.last_name' %></th>
+        <th class="font-size-15 text-nowrap" width="17%"><%= t 'forms.email' %></th>
+        <th width="7%" class="font-size-12 text-nowrap"><%= t 'forms.admin' %></th>
+        <th width="7%" class="font-size-12 text-nowrap"><%= t 'forms.created' %></th>
+        <th width="15%" class="font-size-12 text-nowrap"><%= t 'forms.action' %></th>
       </tr>
     </thead>
     <tbody>
@@ -114,19 +122,19 @@
     <% @guests.each do |guest| %>
 
       <tr>
-        <td><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
-        <td> <a href="<%= guests_path(keyword: guest.email) %>"><%= i %></a></td>
-        <td><input type="checkbox" <%= 'checked' if guest.agreement.present? %> onclick="return false;"></td>
-        <td> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
-        <td> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
-        <td> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
-        <td>
+        <td class="font-size-12 text-nowrap"><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
+        <td class="font-size-12 text-nowrap"> <a href="<%= guests_path(keyword: guest.email) %>"><%= i %></a></td>
+        <td class="font-size-12 text-nowrap"><input type="checkbox" <%= 'checked' if guest.agreement.present? %> onclick="return false;"></td>
+        <td class="font-size-12 text-nowrap"> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
+        <td class="font-size-12 text-nowrap"> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
+        <td class="font-size-12 text-nowrap"> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
+        <td class="font-size-12 text-nowrap">
           <a href="<%= (guest.chef_info.present?) ? chef_path(guest.chef_info): '#' %>">
             <%= (guest.chef_info.present?) ? guest.chef_info.user.full_name.capitalize : '-' %>
           </a>
         </td>
-        <td> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
-        <td>
+        <td class="font-size-12 text-nowrap"> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
+        <td class="font-size-12 text-nowrap">
           <%= link_to t('guests.delete_guest'), destroy_guest_path(guest), method: :delete, data: { confirm: t('guests.are_you_sure_delete_user') } %>
         </td>
       </tr>

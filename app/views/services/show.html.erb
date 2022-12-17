@@ -25,7 +25,8 @@
   }
 </style>
 
-<%= render 'shared/page_title', title: t('schedule.service_listing')%>
+<% date = params[:start_time].present? ? params[:start_time].to_date : Date.today %>
+<%= render 'shared/page_title', title: t('schedule.all_reservations', day: week_days[date.wday-1][0], date: date.strftime("%d-%m-%y")) %>
 <div id="searchOrdersSection" class="mb-3">
   <div class="container">
     <div class="row">
@@ -45,31 +46,11 @@
     </div>
   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchOrdersSection">
     <div class="card-body container pt-0">
-      <%= form_tag(app_service_path, method: :get, remote: true) do |f| %>
+      <%= form_tag(app_service_path, method: :get) do |f| %>
         <div class="form-group mb-4 mx-3 row">
           <div class="col-lg-2">
           </div>
           <div class="col-lg-8 col-md-12 px-0">
-            <div class="row mb-4">
-              <div class="col-md-2 col-sm-4 mt-4 px-2">
-                <h3 class="mt-2">
-                  <%= t('services.start_date') %>
-                </h3>
-              </div>
-              <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
-                <%= date_field_tag :start_time, '', class: "form-control w-100" %>
-                <span id="startDateError" ></span>
-              </div>
-              <div class="col-md-2 col-sm-4 mt-4 px-2">
-                <h3 class="mt-2">
-                  <%= t('services.end_date') %>
-                </h3>
-              </div>
-              <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
-                <%= date_field_tag :'end_time', '', class: "form-control w-100" %>
-                 <span id="endDateError"></span>
-              </div>
-            </div>
             <div class="row">
               <div class="col-md-2 col-sm-4 mt-4 px-2">
                 <h3 class="mt-2">
@@ -78,7 +59,6 @@
               </div>
               <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
                 <%= text_field_tag :'first_name', '', class: "form-control w-100" %>
-                 <span id="endDateError"></span>
               </div>
               <div class="col-md-2 col-sm-4 mt-4 px-2">
                 <h3 class="mt-2">
@@ -87,7 +67,16 @@
               </div>
               <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
                 <%= text_field_tag :'last_name', '', class: "form-control w-100" %>
-                 <span id="endDateError"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-sm-4 mt-4 px-2">
+                <h3 class="mt-2">
+                  <%= t('services.start_date') %>
+                </h3>
+              </div>
+              <div class="col-md-4 col-sm-6 mt-0 mt-sm-4 px-2">
+                <%= date_field_tag :start_time, '', class: "form-control w-100" %>
               </div>
             </div>
             <div class="row mt-4">
@@ -106,53 +95,3 @@
   <%= render 'service_slots', service_slots: @service_slots %>
 </div>
 
-
-<script type="text/javascript">
-  $("#start_time").change(function(){
-    var startDate = $('#start_time').val();
-    var endDate = $('#end_time').val();
-    if (startDate == '' && endDate == '') {
-      $(".searchbutton").removeClass("disabled");
-      $("#startDateError").empty();
-      $("#endDateError").empty();
-    } else if (startDate == '') {
-      $(".searchbutton").addClass("disabled");
-      $("#startDateError").html('<span class="text-warning"><%= t('services.pls_fill_start_date') %></span>');
-    } else if (endDate == '') {
-      $(".searchbutton").addClass("disabled");
-      $("#endDateError").html('<span class="text-warning"><%= t('services.pls_fill_end_date') %></span>');
-    } else if (endDate != '' && startDate > endDate ) {
-      $("#startDateError").html('<span class="text-danger"><%= t('services.less_than_end_date') %></span>');
-      $(".searchbutton").addClass("disabled");
-      $("#endDateError").empty();
-    } else {
-      $(".searchbutton").removeClass("disabled");
-      $("#startDateError").empty();
-      $("#endDateError").empty();
-    }
-  });
-
-  $("#end_time").change(function(){
-    var startDate = $('#start_time').val();
-    var endDate = $('#end_time').val();
-    if (startDate == '' && endDate == '') {
-      $(".searchbutton").removeClass("disabled");
-      $("#startDateError").empty();
-      $("#endDateError").empty();
-    } else if (endDate == '') {
-      $(".searchbutton").addClass("disabled");
-      $("#endDateError").html('<span class="text-warning"><%= t('services.pls_fill_end_date') %></span>');
-    } else if (startDate == '') {
-      $(".searchbutton").addClass("disabled");
-      $("#startDateError").html('<span class="text-warning"><%= t('services.pls_fill_start_date') %></span>');
-    } else if (startDate != '' && startDate > endDate) {
-      $("#endDateError").html('<span class="text-danger"><%= t('services.greater_than_start_date') %><</span>');
-      $(".searchbutton").addClass("disabled")
-      $("#startDateError").empty();
-    } else {
-      $(".searchbutton").removeClass("disabled");
-      $("#endDateError").empty();
-      $("#startDateError").empty();
-    }
-  })
-</script>

@@ -48,6 +48,11 @@ class Service < ApplicationRecord
     end
   end
 
+  def today_booked_slots(date)
+    date = date.present? ? date : Date.today
+    self.service_slots.where('DATE(day) = ? AND booked = ?', date, true)
+  end
+
   private
   def end_date_after_start_date
     if self.start_day.present? && self.end_day.present? && self.start_day > self.end_day

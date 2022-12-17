@@ -107,11 +107,11 @@
                 <div class="form-group mt-sm-3">
                   <div class="ml-0 booking-timings">
                     <%= f.hidden_field :booked, value: true %>
-                    <%= f.hidden_field :start_time %>
-                    <%= f.hidden_field :end_time %>
                     <%= f.hidden_field :service_id %>
                     <div id="timeSlots">
-                      <%= render 'time_slots', slots: [] %>
+                      <span class='text-danger' id="time-error"></span>
+                      <%= f.time_field("start_time", class: "form-control select-height", required: true, disabled: true) %>
+                      <span id='timing-note'></span>
                     </div>
                   </div>
                 </div>
@@ -197,17 +197,18 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-3"></div>
-              <div class="col-12 col-sm-6 col-xl-5">
-                <div class="form-group mt-1 mt-sm-3">
-                  <div class="ml-0">
-                    <button type="submit"  class="btn btn-primary w-100 text-white reserve-button" ><%= t 'services.reserve' %></button>
-                  </div>
+            <%= f.submit '' , class: 'd-none service-slot-btn' %>
+          <% end %>
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3"></div>
+            <div class="col-12 col-sm-6 col-xl-5">
+              <div class="form-group mt-1 mt-sm-3">
+                <div class="ml-0">
+                  <button type="submit"  class="btn btn-primary w-100 text-white reserve-button" ><%= t 'services.reserve' %></button>
                 </div>
               </div>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
       <div class="row border-bottom">
@@ -237,15 +238,46 @@
     })
   });
 
-  $(document).on('change', '#time_slots', function(e) {
-    var service_id = this.value;
-    $('#service_slot_service_id').val(service_id);
-    var slot = $("#time_slots option[value="+service_id+"]").text().split(' - ');
-    $('#service_slot_start_time').val(slot[0]);
-    $('#service_slot_end_time').val(slot[1]);
-  });
-
   $(document).on('change', '#service_types', function(e) {
     $('#service-type-form').submit();
+  });
+
+  $(document).on('click', '.reserve-button', function(e) {
+    var slotVal = $('#service_slot_start_time').val();
+    var time = slotVal.match(/^(\d+)[ :,](\d+)$/);
+    hour = time[1];
+    min = time[2];
+
+    if (slotVal != '') {
+      var slots =  $('#service_slot_start_time').data('slots').replaceAll("&quot;", "").replace("[", "").replace(']', "").split(',');
+      var submit = false;
+      var service_id = '';
+      $(slots).each(function() {
+        var range = this.split(' - ');
+        var start_time = range[0].trim().split(" ")[0];
+        var time = start_time.match(/^(\d+)[ :,](\d+)$/);
+        var start_time_hour = time[1];
+        var start_time_min = time[2];
+        var end_time = range[1].trim().split(" ")[0];
+        var time = end_time.match(/^(\d+)[ :,](\d+)$/);
+        var end_time_hour = time[1];
+        var end_time_min = time[2];
+        if (end_time_min == 0) { end_time_min = 60 }
+        if ((hour > start_time_hour || (hour == start_time_hour && min >= start_time_min)) && (hour < end_time_hour || (hour ==end_time_hour && min < end_time_min))) {
+          service_id = parseInt(range[2]);
+          submit = true;
+          return false;
+        }
+      });
+      if (submit == true) {
+        $('#time-error').text("");
+        $('#service_slot_service_id').val(service_id);
+        $('.service-slot-btn').click();
+      } else {
+        $('#time-error').text("Selected time is not available!");
+      }
+    } else {
+      $('#time-error').text("Without time reservation not scheduled!");
+    }
   });
 </script>

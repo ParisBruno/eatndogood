@@ -29,6 +29,7 @@ en:
     title: Create a new Allergen
     update: Update Allergen
   chefs:
+    additional_languages: additional languages available upon request
     available_languages: Available Languages
     account_credentials: Account Credentials
     account_created_successfully: Welcome %{full_name} to RockyStepsWay App!
@@ -351,8 +352,8 @@ en:
     reset_password: Reset password
     update_password: Update password
   navigation:
-    reservation_page: Create Reservation
-    scheduling_page: Scheduling Services
+    reservation_page: Create A Reservation
+    scheduling_page: Service Scheduler
     update_agreement_page: Update Agreement Page
     buy_subscription: Buy Subscription
     admin_login: Admin Login
@@ -542,7 +543,7 @@ en:
     total: Total
     proceed_checkout: Proceed to checkout
     empty_cart: Empty cart
-    coupone_code: Coupon code
+    coupone_code: Create activate or deactivate coupon codes
     fundraising_code: Fundraising Code
     write_name: Write Recipe name
     choose_style: Choose style, please
@@ -597,10 +598,14 @@ en:
     address: "Address:"
     reservation_completd: Reservation completed successfully!
     title: Scheduling
-    services: Services
+    services: Create your reservation
     no_service_types: No Service Types Present!
-    service_listing: Services Listing
+    service_listing:  "Reservations view - %{day} %{date}"
+    all_reservations: "All Reservations - %{day} %{date}"
   services:
+    date: Date
+    icon: icon
+    search_services: Search Services
     pls_fill_start_date: Please Fill Start Date
     pls_fill_end_date: Please Fill End Date
     less_than_end_date: Should be less than End Date
@@ -627,7 +632,7 @@ en:
     customers: Customers
     available: Available
     bookings: Bookings
-    types: "Service Types"
+    types: "Create service types"
     service_type: "Service Type"
     service_day: "Service Day"
     service_timing: "Service Timing"

@@ -13,6 +13,9 @@
   .badge {
     font-size: 20px;
   }
+  .recipe-listing .image-box-shadow img {
+    object-fit: fill !important;
+  }
   .index-buttons {
     position: absolute;
     right: 3%;
@@ -168,7 +171,7 @@
             <div class="box-inner-sec well box-content">
               <% if recipe.food_image.attached? %>
                 <%= link_to app_recipe_path(@current_app, recipe), class: 'recipe-title' do %>
-                  <div class="col-md-4 thumb">
+                  <div class="col-md-4 col-lg-6 thumb">
                     <div class="img-inner image-box-shadow">
                       <% image = recipe.sized(:food_image, :medium) %>
                       <%=image_tag(image, class:'img-responsive', alt: t('common.no_image')) if image.present? %>
@@ -176,7 +179,7 @@
                   </div>
                 <% end %>
               <% end %>
-              <div class="col-md-6 index-title">
+              <div class="col-md-6 col-lg-5 index-title">
                 <h2><%= link_to recipe.name, app_recipe_path(@current_app, recipe), class: 'recipe-title' %></h2>
               </div>
       <%

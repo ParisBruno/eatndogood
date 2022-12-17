@@ -1,26 +1,43 @@
+<style>
+  #servicesTable table{
+    width: max-content !important;
+    max-width: max-content !important;
+  }
+  #servicesTable table #serviceIcon{
+    width: max-content !important;
+  }
+  #servicesTable table td {
+    vertical-align: middle !important;
+  }
+</style>
 <% if current_app.services.present? %>
   <div class="border-bottom-secondary-1">
     <h3 class="text-center"><%= t('services.available') %></h3>
   </div>
-  <% current_app.service_types.each do |type| %>
-    <% if type.services.present? %>
-      <div class="table-responsive p-4">
-        <table class="table mt-3">
-          <tbody>
-            <tr class="font-weight-bold service-tr">
-              <td style='width: 5%'><%= type.name %></td>
-              <td style='width: 10%'><%= t('services.customers') %></td>
-              <td style='width: 30%'><%= t('services.available_days') %></td>
-              <td style='width: 30%'><%= t('services.available_timings') %></td>
-              <td style='width: 26%; border: 0 !important;' class="empty-header" ></td>
-            </tr>
-            <% type.services.each do |service| %>
-              <%= render 'service', service: service %>
+  <div class="row my-2 mt-md-5">
+    <div class="col-12 col-sm-6 col-lg-2 px-4">
+      <%= link_to t('services.view_services'), app_services_listing_path(@current_app), class: "btn btn-success btn-lg w-100", target: '_blank' %>
+    </div>
+  </div>
+  <div class="table-responsive p-4" id="servicesTable">
+    <table class="table mt-3">
+      <tbody>
+        <tr class="font-weight-bold service-tr">
+          <td class="p-1"><%= t('services.icon') %></td>
+          <td class="p-1"><%= t('services.customers') %></td>
+          <td class="p-1"><%= t('services.available_days') %></td>
+          <td class="p-1"><%= t('services.available_timings') %></td>
+          <td style=' border: 0 !important;' class="empty-header p-0" ></td>
+        </tr>
+        <% current_app.service_types.each_with_index do |type, type_index| %>
+          <% if type.services.present? %>
+            <% type.services.each_with_index do |service, index| %>
+              <%= render 'service', service: service, index: index, type_index: type_index %>
             <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-  <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
 

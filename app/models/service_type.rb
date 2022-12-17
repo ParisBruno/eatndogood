@@ -14,10 +14,11 @@ class ServiceType < ApplicationRecord
 
   def available_time_slots(day, people)
     # Get all services according to customers count
-    filtered_services = self.services.where.not(start_day: nil).where('customers >= ? ', people)
+    filtered_services = self.services.where.not(start_day: nil).where("customers Is NULL OR customers >= ?", people)
 
     # Get services according to booking day
-    services = filtered_services.select{|x| day.to_date.wday.between?(x.start_day, x.end_day)}
+    week_day = day.to_date.wday.zero? ? 6 : day.to_date.wday-1
+    services = filtered_services.select{|x| week_day.between?(x.start_day, x.end_day)}
 
     # Get booked slots
     booked_timings = ServiceSlot.where(service_id: services.pluck(:id), booked: true).map{|x| [x.start_time, x.end_time, x.day.to_date, x.service_id.to_s, x.service.customers]}
@@ -31,9 +32,13 @@ class ServiceType < ApplicationRecord
     avail_slots = get_slots(avail_timings, day.to_date)
 
     # Get available slots
-    slots = avail_slots - booked_slots
-    slots.map{|x| x.pop}
-    slots
+    booked_data = booked_slots.map{|x| [x[5], x[4]]}
+    booked_data.each do |data|
+      avail_slots.each do |slot|
+        avail_slots.delete(slot) if data[0] == slot[5] && data[1] == slot[4]
+      end
+    end
+    avail_slots.present? ? avail_slots.map{|slot| [slot[0], slot[1], slot[4]]} : []
   end
 
   private
@@ -67,9 +72,13 @@ class ServiceType < ApplicationRecord
       week_day = date.wday
       while day.wday != week_day do
         date = date.next_day()
-        week_day = date.wday.zero? ? 6 : date.wday
+        week_day = if date.wday.zero?
+                     day.wday.zero? ? 0 : 6
+                   else
+                     date.wday
+                   end
       end
-      slots << ["#{slot[0].strftime("%H:%M %p")} - #{slot[1].strftime("%H:%M %p")} On #{date.strftime("%d/%m/%y")} For #{slot.last} People", slot[3], slot[2]]
+      slots << [slot[0].strftime("%H:%M %p"), slot[1]&.strftime("%H:%M %p"), date.strftime("%d/%m/%y"), slot.last, slot[3], slot[2]]
     end
     slots
   end
