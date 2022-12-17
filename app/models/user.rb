@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
   has_many :orders #, dependent: :destroy
 
+  has_many :service_types, dependent: :destroy
   has_many :staff, class_name: 'User', foreign_key: 'manager_id'
   belongs_to :team_manager, class_name: 'User', foreign_key: 'manager_id', optional: true
 
