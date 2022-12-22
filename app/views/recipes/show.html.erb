@@ -290,7 +290,9 @@
             <% end %>
           <% end %>
           <% if @recipe.enable_gift_card.present? && @recipe.gift_card_image.present? %>
-            <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
+            <%= link_to current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) do %>
+              <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
+            <% end %>
           <% end %>
           <div class="row justify-content-center mt-2 margin-bottom-21">
             <ul class="dots">
