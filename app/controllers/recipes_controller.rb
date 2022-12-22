@@ -176,7 +176,7 @@ class RecipesController < ApplicationController
     end
   
     def recipe_params
-      permitted = Recipe.globalize_attribute_names + [:food_image, :is_subscription, :enable_reservation, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
+      permitted = Recipe.globalize_attribute_names + [:food_image, :is_subscription, :enable_reservation,:enable_gift_card, :gift_card_image, :drink_image, :price, :subcategory_id, ingredient_ids: [], allergen_ids: [], style_ids: []]
       params.require(:recipe).permit(*permitted)
     end
 

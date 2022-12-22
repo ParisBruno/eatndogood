@@ -119,6 +119,9 @@
   .btn-success{
     border-radius: 8px;
   }
+  .collapsible-item-title, .collapsible-item-body {
+    text-align: center !important;
+  }
   /* Dropdown CSS Start */
   .collapsible-item-title-link-icon{
     display: none;
@@ -286,10 +289,8 @@
               </h3>
             <% end %>
           <% end %>
-           <% if !@recipe.price&.zero? && @recipe.price.present? %>
-            <h3>
-              <%= link_to image_tag('buy_gift_card.jpg', size: "240x130"), current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) %>
-            </h3>
+          <% if @recipe.enable_gift_card.present? && @recipe.gift_card_image.present? %>
+            <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
           <% end %>
           <div class="row justify-content-center mt-2 margin-bottom-21">
             <ul class="dots">

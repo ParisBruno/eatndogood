@@ -47,6 +47,11 @@
       margin-top: 20px !important;
     }
   }
+  @media screen and (width: 768px) {
+    .checkbox-text label{
+      font-size: 12px !important;
+    }
+  }
 </style>
 <%= render 'shared/errors', obj: @recipe %>
 
@@ -82,10 +87,10 @@
       <div class="col-md-3 well box-content rht-box-sec py-4">
 
         <div class="form-group col-12 recepie-menu mt-4 mt-md-0" id='recipe_all_styles'>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.label :styles, t('forms.styles') %> &nbsp; <a href="#" class='new_elem_recipe' data-toggle="modal" data-target="#new_style_modal">[<%= t('forms.new_style') %>]</a>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.collection_check_boxes :style_ids, Style.where(:app_id => current_app.id).all, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text.capitalize} %>
             <% end %>
@@ -94,20 +99,20 @@
         </div>
 
         <div class="form-group col-12 recepie-menu"  id='recipe_all_ingredients'>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.label :ingredients, t('forms.ingredients') %> &nbsp; <a href="#"  class='new_elem_recipe' data-toggle="modal" data-target="#new_ingredient_modal">[<%= t('forms.new_ingredient') %>]</a>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.collection_check_boxes :ingredient_ids, current_app.ingredients, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text.capitalize} %>
             <% end %>
           </div>
         </div>
         <div class="form-group col-12 recepie-menu" id='recipe_all_allergens'>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.label :allergens, t('forms.allergens') %> &nbsp; <a href="#" class='new_elem_recipe' data-toggle="modal" data-target="#new_allergen_modal">[<%= t('forms.new_allergen') %>]</a>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.collection_check_boxes :allergen_ids, Allergen.where(:app_id => current_app.id).all, :id, :name do |cb| %>
               <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text.capitalize} %>
             <% end %>
@@ -115,10 +120,10 @@
         </div>
 
         <div class="form-group col-12 recepie-menu">
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.label :images, t('recipes.upload_food_pic') %>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <% if @recipe.food_image.attached? %>
               <% image = @recipe.sized(:food_image, :thumb) %>
               <%=image_tag(image, class:'img mb-3 h-100 w-100', alt: t('common.no_image')) if image.present? %>
@@ -129,21 +134,42 @@
         </div>
 
         <div class="form-group col-12 recepie-menu">
-          <div class="col-md-12 ml-4">
+          <div class="col-md-12 px-0">
+            <%= f.label :gift_card_image, t('recipes.upload_gift_card_pic') %>
+          </div>
+          <div class="col-md-12 px-0">
+            <% if @recipe.gift_card_image.attached? %>
+              <% image = @recipe.sized(:gift_card_image, :thumb) %>
+              <%=image_tag(image, class:'img mb-3 h-100 w-100', alt: t('common.no_image')) if image.present? %>
+            <% end %>
+            <%= f.file_field "gift_card_image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+            <bold style="margin-left: 5%;"><%= t('recipes.max_pic_size', mb: 5) %></bold>
+          </div>
+        </div>
+
+        <div class="form-group col-12 recepie-menu checkbox-text">
+          <div class="col-md-12 ml-4 px-0">
+            <%= f.check_box :enable_gift_card, class: 'checkbox-inline input_checkbox' %>
+            <%= f.label :enable_gift_card_sales, t('recipes.enable_gift_card_sales') %>
+          </div>
+        </div>
+
+        <div class="form-group col-12 recepie-menu checkbox-text">
+          <div class="col-md-12 ml-4 px-0">
             <%= f.check_box :enable_reservation, class: 'checkbox-inline input_checkbox' %>
             <%= f.label :reservation, t('recipe.enable_reservation') %>
           </div>
         </div>
 
-        <div class="form-group col-12 recepie-menu">
-          <div class="col-md-12 ml-4">
+        <div class="form-group col-12 recepie-menu checkbox-text">
+          <div class="col-md-12 ml-4 px-0">
             <%= f.check_box :is_subscription, class: 'checkbox-inline input_checkbox' %>
             <%= f.label :subscription, t('recipes.subscription') %>
           </div>
         </div>
 
         <div class="form-group col-12 recepie-menu">
-          <div class="col-md-12">
+          <div class="col-md-12 px-0">
             <%= f.label :price, t('recipes.price') %>
             <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: 0.01, min: 0 %>
           </div>

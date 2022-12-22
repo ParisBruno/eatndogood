@@ -24,9 +24,11 @@ class Recipe < ApplicationRecord
 
   has_one_attached :food_image
   has_one_attached :drink_image
+  has_one_attached :gift_card_image
 
   validates :food_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :drink_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
+  validates :gift_card_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :styles, presence: true
   # accepts_nested_attributes_for :recipe_images
 

@@ -496,6 +496,8 @@ en:
     subject_colon: 'Subject:'
     view_guest_questions: View Guest Questions
   recipes:
+    enable_gift_card_sales: Enable Gift Card Sales
+    upload_gift_card_pic: Upload Gift Card Picture
     enable_reservation: Enable reservation
     all_displayed_recipe_not_contain_allergen: All displayed recipes do not contain %{allergens}
     subscription: Subscription Recipe
