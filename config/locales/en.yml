@@ -432,35 +432,6 @@ en:
     subtotal: Sub-Total
   line_items:
     note: 'Add a note!'
-  pages:
-    index:
-      be_inspired_to_play: Be inspired to play with your food again! Tell stories
-        of great meals and good times!
-      be_my_guest_use_my_recipes: Be my guest! use my recipes and see how...
-      bruno: Bruno.
-      cooking_is_action: Cooking is an action regardless if you consider it an art
-        or a craft, and food is our fuel, I look forward to cook up a zestier future!
-      craft_your_shareable: Craft your shareable editable e-book, preserve heirloom
-        recipes and create new favorite.
-      in_the_early_nineties: In the early nineties, I built my open kitchen restaurant
-        and received many media rave reviews including three stars articles. A pioneer
-        in the home replacement all-natural meals in the 90’, we shipped mail order
-        boxes of fully cooked delicious meals packaged in eco-friendly containers
-        to homes, here a “Good News Article”
-      i_have_been_in_foods: I have been in foods service since my teen years, my first
-        summer job was making artisanal gelato, then I was blessed to work and travel
-        in high-end hotel and resorts throughout the world for many years with top
-        Chefs and mentors, luckily not yellers as we see in some TV shows.
-      one_pot_and_one_skillet: one pot and one skillet. The recipes are created using
-        raw ingredients selected from supermarkets weekly fliers.
-      or_ads_of_any_kind: or strolling ads of any kind in your iTopRecipe app.
-      to_use_and_receive_new_recipes: To use and receive new recipes and ask chef
-        tips.
-      we_do_no_place_banners: We do no place banners, dropdowns,
-      we_never_share_contact_info: We never share your contact information.
-      you_can_start_creating: you can start creating your iTopRecipes ebook masterpiece.
-        By sharing recipes and tips, I aim to boost the variety of delicious meals
-        home cooks can prepare using
     new:
       edit_app_name: Edit App Name
       edit_page_text: Edit Page Text
