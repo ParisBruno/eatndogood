@@ -122,6 +122,22 @@
   .collapsible-item-title, .collapsible-item-body {
     text-align: center !important;
   }
+  .gift-card-styling{
+    width: max-content;
+    padding: 15px;
+    border: 1px solid #9999994f;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+    -webkit-box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+  }
+  .gift-card-title{
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #808080 !important;
+    text-decoration: none !important;
+  }
+  .gift-card-title:hover {
+    text-decoration: none !important;
+  }
   /* Dropdown CSS Start */
   .collapsible-item-title-link-icon{
     display: none;
@@ -153,7 +169,7 @@
   @media screen and (min-width: 768px) {
    .col-md-3.thumb-sec {
       position: absolute;
-      right: -36% !important;
+      right: -34% !important;
       top: 0;
     }
     .thumb-sec{
@@ -268,7 +284,7 @@
   </div>
 </div>
 
-<div class="row w-100 justify-content-center">
+<div class="row w-100 justify-content-center m-0">
   <% unless @recipe.is_draft %>
     <% if session[:user_role] != 'super_admin' %>
       <div class="recipes-q margin-top-18">
@@ -290,9 +306,12 @@
             <% end %>
           <% end %>
           <% if @recipe.enable_gift_card.present? && @recipe.gift_card_image.present? %>
-            <%= link_to current_app_user ? new_app_gift_card_path(current_app) : new_app_user_registration_path(current_app) do %>
-              <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
-            <% end %>
+            <%= link_to current_app_user ? new_app_gift_card_path(current_app, recipe: @recipe) : new_app_user_registration_path(current_app), class: "gift-card-title" do %>
+                <div class="gift-card-styling">
+                  <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
+                  <div><%= t('gift_cards.buy') %></div>
+                </div>
+              <% end %>
           <% end %>
           <div class="row justify-content-center mt-2 margin-bottom-21">
             <ul class="dots">

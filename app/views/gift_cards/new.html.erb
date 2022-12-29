@@ -121,7 +121,8 @@
 
         <table>
           <tr>
-            <td colspan="6" class="gift-image"><%= image_tag('gift_card.png') %></td>
+            <% @recipe = Recipe.find(params[:recipe]) %>
+            <td colspan="6" class="gift-image"><%= image_tag(@recipe.gift_card_image,class:'img') if @recipe.present? %></td>
           </tr>
           <tr>
             <td class="label-price" colspan="6">

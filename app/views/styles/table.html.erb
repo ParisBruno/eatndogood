@@ -71,7 +71,7 @@
 </style>
 
 <div class="page-title">
-  <p><%= link_to t('forms.new_style'), new_app_style_path(@current_app), class: "btn btn-success float-right top-heading", style: "margin-right: 20px; margin-left: -10%;" %></p>
+  <p><%= link_to t('forms.new_style'), new_app_style_path(@current_app), class: "btn btn-success float-right top-heading", style: "margin-right: 20px; margin-left: -10%;" if current_app_user.present? %></p>
   <%= render 'shared/page_title', title: t('common.styles') %>
 </div>
 
