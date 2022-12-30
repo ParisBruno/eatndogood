@@ -18,8 +18,8 @@ en:
     models:
       question: Question
   allergens:
-    name: 'See Recipes Without %{name}'
-    recipe_without_allergen: 'Recipes Without %{name}'
+    name: 'See Product Without %{name}'
+    recipe_without_allergen: 'Products Without %{name}'
     name_text: Enter Allergen (%{lang})
     image: Image
     add: Add Allergen
@@ -34,19 +34,18 @@ en:
     account_credentials: Account Credentials
     account_created_successfully: Welcome %{full_name} to RockyStepsWay App!
     account_updated_successfully: Your account was updated successfully
-    chef_and_all_associated_services_deleted: Chef and all associated recipes have been deleted!
-    cannot_delete_chef_admin_account: Cannot delete chef admin account
-    chef_upgrade_plan: Your account has already reached limit the number of chefs. To add more chef, please upgrade your plan.
+    chef_and_all_associated_services_deleted: Staff member and all his/her files have been deleted!
+    cannot_delete_chef_admin_account: Cannot delete admin account
+    chef_upgrade_plan: Your database reached limit. Please upgrade your plan.
     only_edit_or_delete_own_account: You can only edit or delete your own account
-    add_chef: Add Chef
+    add_chef: Add Coallegue
     add_chef_account: Create team member account
-    add_chef_contributor: Add Chef/Contributor
+    add_chef_contributor: Add Coallegu
     add_summary_bio: Add summary bio
-    admin_chef_name_will_appear: "(Admin/Chef username will appear in front page and
-      recipes creator in their all recipes)."
+    admin_chef_name_will_appear: "(Admin username will appear in the header)."
     cart_func: Cart Functionalities
     change_your_pic: Change your pic
-    confirm_delete_account: Are you sure! You want to delete chef account?
+    confirm_delete_account: Are you sure! You want to delete this account?
     create_account: Create my account
     delete_profile: Delete Profile
     delivery_price: Delivery price
@@ -54,15 +53,17 @@ en:
     edit_profile: Edit profile
     edit_your_profile: Edit Your Profile
     admin_panel: Admin panel
-    go_back_to_chef_list: Go Back To Chef List
+    go_back_to_chef_list: Go Back To Team List
     new_contributor: New Contributor
-    note_chefname_must_be_url_friendly: 'Note: Chefname must be url friendly like:
+    note_chefname_must_be_url_friendly: 'Note: name must be url friendly like:
       john_doe or johndoe.'
-    thank_you_for_creating_acc: Thank you for creating your account enjoy the recipes!
+    thank_you_for_creating_acc: Thank you for creating your account enjoy!
     update_account: Update my account
     upload_image_preview: Uploaded Image Preview Holder
     upload_profile_pic: Upload profile picture
     write_few_words_about_yourself: Please write few words about yourself.
+    x_chefs_remaining_html: "%{x}&nbsp; team slots remaining in database! Please upgrade your
+      account by click %{link}"
     coupon_title: Title
     coupon_percent_off: Percent off(%)
     coupon_amount_off: Amount off
@@ -84,23 +85,23 @@ en:
     modal_title: Modal Title
     modal_close: Close
     edit_name: 'Edit %{name}'
-    footer_text: 'Powered by Innovative Chefs %{time} Onward'
+    footer_text: 'Powered by Innovative Doers %{time} Onward'
     edit: Edit
     delete: Delete
     name: Name
-    no_recipe: No recipes yet!
+    no_recipe: No products yet!
     successfully_created: '%{name} was successfully created.'
     successfully_updated: '%{name} was successfully updated.'
     not_found: '%{name} not found!'
     successfully_destroyed: '%{name} was successfully destroyed.'
-    has_recipe_not_destroyed: '%{name} has recipes and cannot be destroyed.'
+    has_recipe_not_destroyed: '%{name} has products and cannot be destroyed.'
     admin: Admin
     allergens: Allergens
     allergens_colon: 'Allergens:'
-    all_recipes: All Recipes
+    all_recipes: All Products
     back: Back
-    chef: Chef
-    chefs: Chefs
+    chef: Coallegue
+    chefs: Team
     drafts: Drafts
     draft: DRAFT
     confirm: Are you sure?
@@ -109,7 +110,7 @@ en:
     ingredients: Ingredients
     ingredients_colon: 'Ingredients:'
     note_allow_chars: 'Note: Allow only %{from} to %{to} characters'
-    recipe_note_allow_chars: 'Note: Allow only 100 characters'
+    recipe_note_allow_chars: 'Note: Allow only 50 characters'
     no_image: No image'
     no_recipes_found: No Recipies found!
     no_recipes_found_admin_html: No Recipe Found! Please add recipe by click %{link}
@@ -117,19 +118,19 @@ en:
     read_less: Read less
     read_more_1_min: Read more, 1 min
     recipes: Recipes
-    recipes_for_food: Recipes for %{name} food
-    recipes_with: 'Recipes with: %{name}'
+    recipes_for_food: Products for %{name} food
+    recipes_with: 'Products with: %{name}'
     register: Register
     styles: Categories
     styles_colon: 'Categories:'
     take_a_tour_as_guest: Sign Up
     see_meals: See meals by category,<br> ingredients and allergens.
-    menu: Browse as a Guest
+    menu: Browse
     add_to_home_screen: Add App to Home-Screen
     update: Update
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Welcome guest, your info is private and safe"
-    user_infos_title_2: "2) We collect address info for you to find recipes create from your area"
+    user_infos_title_2: "We use addresses to find RSW groups in your area"
     user_address_title: "Your address (not required)"
     placeholder:
       first_name: 'First Name'
@@ -149,7 +150,6 @@ en:
       <p>By using our services, you agree to our use of cookies.</p>
       <p>We do not share or sell contact information.</p>
   gift_cards:
-    buy: Buy a Gift Card
     create_card_number: We will create a card ID number, email an elegant e-card to the recipient and copy you.
     gift_from: From
     gift_to: To
@@ -158,7 +158,7 @@ en:
     gift_reenter_email: Re-enter Email
     may_take: May take up to 24-48 hours.
     other_amount: Other amount
-    purchase_fee: A $3.95 purchase fee per card will apply
+    purchase_fee: You pay only the value of the e-gift card. There are no additional fees.
     send_inbox: Send a copy to your inbox
     select_value: Select Card Value
     shopping: Continue Shopping
@@ -193,10 +193,10 @@ en:
     admin_removed: Admin removed successfully!
     allegren_created: Congratulation you just created a New Allergen.
     allergen_removed: Allergen removed successfully!
-    chef_created: Chef account has been created succesfully
-    chef_created_credentials_sent_to_email: Chef account has been created succesfully
+    chef_created: Coallegue account has been created succesfully
+    chef_created_credentials_sent_to_email: Coallegue account has been created succesfully
       and email of login credentials sent to to %{name} email inbox
-    chef_removed: Chef removed!
+    chef_removed: Coallegue removed!
     email_address_not_found: Email address not found
     email_has_been_delivered: Email have been delivered successfully!
     email_sent_password_reset_instr: Email sent with password reset instructions
@@ -235,7 +235,7 @@ en:
     you_cant_create_more_guests_than: Your can not create more than %{guests} guests!
     you_cant_delete_your_profile: You can not delete your own profile
     you_can_edit_only_your_profile: You can only edit your own profile
-    you_can_edit_only_your_recipes: You can only edit your own recipes
+    you_can_edit_only_your_recipes: You can only edit your own products
     you_can_like_dislike_once: You can only like/dislike a recipe once
     you_can_not_create_chef_upgrade_plan: Your can not create chef account, Please
       upgrade your plan!
@@ -245,6 +245,8 @@ en:
     you_must_be_logged_in: You must be logged in to perform that action
     you_must_log_out_from_app: Please Logout from %{current_app} before accessing
       %{destination_app}
+    you_received_notification_email_you_cant_create_more_recipes: You received a notification
+      email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
     date: Date
@@ -296,7 +298,7 @@ en:
     paypal_client_secret: PayPal client-secret
     store_address: Store address
     return_to_list: Click here to see the full list and to edit, or delete
-    return_to_recipes: Cancel request and return to recipes listing
+    return_to_recipes: Cancel request and return to product listing
     send_all_emails: Send email to all guests
     send_emails: Send emails
     select_language: Select language
@@ -331,6 +333,8 @@ en:
     the_link_to_your_app: '"The link to you app will be automatically included at
       the end of your message."'
     update_profile: Update Profile
+    x_guests_remaining_html: "%{guests_left}&nbsp; guests remaining! Please upgrade
+      your account by click %{link}"
   ingredients:
     add: Add Ingredient
     delete: Delete Ingredient
@@ -354,7 +358,7 @@ en:
     admin_login: Admin Login
     admin_page: Admin Page
     allergens: Allergens
-    all_recipes: All Recipes
+    all_recipes: All Products
     chef_list: Chef List
     chef_login: Chef Login
     create_chef: Create Team Member Account
@@ -365,7 +369,7 @@ en:
     guest_notifications: Guest Notifications
     home: Home
     ingredients: Ingredients
-    list_chefs: List Chefs
+    list_chefs: Team List
     login: Login
     logout: Logout
     log_in: Log in
@@ -373,7 +377,7 @@ en:
     new_ingredient: New Ingredient
     new_recipe: New Recipe
     new_style: New Category
-    recipes: Recipes
+    recipes: Products
     sales_reports: Sales reports
     sales_point: Point of Sale
     managers: Manager
@@ -465,34 +469,34 @@ en:
     enable_gift_card_sales: Enable Gift Card Sales
     upload_gift_card_pic: Upload Gift Card Picture
     enable_reservation: Enable reservation
-    all_displayed_recipe_not_contain_allergen: All displayed recipes do not contain %{allergens}
+    all_displayed_recipe_not_contain_allergen: All displayed products do not contain %{allergens}
     subscription: Subscription Recipe
     choose_2_photo: Choose 2 images
-    recipes: recipes
+    recipes: products
     crafted_by: 'Crafted by:'
     delete_recipe: Delete Recipe
     suuccessfully_selected: Your selection was succesful
-    edit_delete_own_recipe: You can only edit or delete your own recipes
-    reach_limit: Your account has already reached limit the number of recipes. To add more recipe, please upgrade your plan.
+    edit_delete_own_recipe: You can only edit or delete your own products
+    reach_limit: Your account has already reached limit the number of products. To add more recipe, please upgrade your plan.
     description_placeholder: |2-
-       For better recipe layout follow those guidelines, READ the tips then start typing your recipe.<br>
-       1) Write some tips to make this one a top of the line recipe<br>
-       2) Ingredients: (create a list from most to the least important items)<br>
-       3) Preparation tips:<br>
-       4) Variables, if any:<br>
-       5) Select a category or ingredient, or create a new category or an ingredient in menu bar<br>
-       6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. D'ont worry about making mistakes you can edit the recipes anytime.<br>
+      Follow those guidelines for description and layout, read the tips, then start typing.<br><br>
+      1) Product description<br>
+      2) Ingredients (create a list from the most to the least important items)<br>
+      3) Preparation and health stats<br>
+      4) Product Story and pairing <br>
+      5) Select a category or ingredient, or create a new category or an ingredient in menu bar<br>
+      6) Upload your masterpiece picture using the Choose File button, max picture size 300x400 px. Don't worry about making mistakes you can edit the recipes anytime.<br>
     drafts: Recipe Drafts
     edit_recipe: Edit Recipe
     max_pic_size: Max picture size %{mb} megabytes
     rec_pic_size: The recommended picture size is 1366 x 768px
-    new_title: Create A New Masterpiece Recipe
+    new_title: Create A New Masterpiece
     edit_title: Edit An Existing Recipe
     question_about_this_recipe: Question or to request a reservation, click here!
-    return_to_recipes_listing: Return to Recipes Listing
+    return_to_recipes_listing: Return to product listing
     save_submit: Click Here to Save Your Masterpiece
     save_draft: Save as Draft
-    show_all_recipes: Scroll to browse all, or go to 
+    show_all_recipes: Scroll to browse all, or go to
     show_all_drafts: Showing all drafts
     tips_ingredients_preparation: 'Tips, ingredients and preparation:'
     upload_drink_pic: Upload drink picture
@@ -521,7 +525,7 @@ en:
     make_catering: Ask about catering & personal chef services
     make_reservation: Make Reservation
     make_reservation_successfully: Make Reservation successfully
-    sent_catering_question_to_chef: Sent catering question to chef
+    sent_catering_question_to_chef: Sent question/s
     make_question_successfully: Question was successfully created
     update_question_successfully: Question was successfully updated
     destroy_question_successfully: Question was successfully destroyed.
@@ -587,7 +591,7 @@ en:
     search_reservation: Search Reservation
     name: Name
     client_name: Client Name
-    scheduled_at: "Scehduled At:"
+    scheduled_at: "Scheduled At:"
     no_slot_booked: No Reservation Present.
     icon: Upload Icon
     number_of_people: Number of people
@@ -652,4 +656,4 @@ en:
     confirm_password: Confirm new password
     change_password: Change my password
   subscription:
-    subscribed_successfully: Subscribed successfully!, Get your credentials from your email, Thanks!
+    subscribed_successfully: Subscribed successfully!, Your login credentials are in your inbox, Thanks!
