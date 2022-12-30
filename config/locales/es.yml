@@ -46,8 +46,6 @@ es:
     upload_image_preview: Cargador de vista previa de la imagen cargada
     upload_profile_pic: Cargar imagen de perfil
     write_few_words_about_yourself: Por favor escribe algunas palabras sobre ti.
-    x_chefs_remaining_html: "%{x}&nbsp; chefs restantes para agregar! Actualice su
-      cuenta haciendo clic en %{link}"
     coupon_title: Título
     coupon_percent_off: Porciento descontado(%)
     coupon_active: Está activo
@@ -84,7 +82,7 @@ es:
     styles_colon: 'el catégorie:'
     take_a_tour_as_guest: Inscribirse
     see_meals: Consulte las comidas por categoría,<br> ingredientes y alérgenos.
-    menu: Navegar como invitada
+    menu: Navegar
     add_to_home_screen: Agregar aplicación a la pantalla de inicio
     updated_x_hours_ago: 'updated: %{x} ago'
   gift_cards:
@@ -175,9 +173,6 @@ es:
     you_created_new_style: Felicidades, solo creas un nuevo catégorie.
     you_have_logged_out: te has desconectado
     you_must_be_logged_in: Debes iniciar sesión para realizar esa acción.
-    you_received_notification_email_you_cant_create_more_recipes: Recibió un correo
-      electrónico de notificación, por favor revise su bandeja de entrada! No puedes
-      crear más de %{recipes}
     you_registered_guest: "¡Gracias! Te has registrado con éxito como invitado."
   forms:
     action: Acción
@@ -237,8 +232,6 @@ es:
     the_link_to_your_app: '"El enlace a su aplicación se incluirá automáticamente
       al final de su mensaje."'
     update_profile: Actualización del perfil
-    x_guests_remaining_html: "%{guests_left}&nbsp;¡Quedan invitados! Por favor actualice
-      su cuenta haciendo clic %{link}"
   ingredients:
     delete: Eliminar Ingrediente
     submit: Escriba el nombre de su nuevo ingrediente y luego haga clic o toque para

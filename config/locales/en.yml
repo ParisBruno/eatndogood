@@ -62,8 +62,6 @@ en:
     upload_image_preview: Uploaded Image Preview Holder
     upload_profile_pic: Upload profile picture
     write_few_words_about_yourself: Please write few words about yourself.
-    x_chefs_remaining_html: "%{x}&nbsp; team slots remaining in database! Please upgrade your
-      account by click %{link}"
     coupon_title: Title
     coupon_percent_off: Percent off(%)
     coupon_amount_off: Amount off
@@ -110,7 +108,7 @@ en:
     ingredients: Ingredients
     ingredients_colon: 'Ingredients:'
     note_allow_chars: 'Note: Allow only %{from} to %{to} characters'
-    recipe_note_allow_chars: 'Note: Allow only 50 characters'
+    recipe_note_allow_chars: 'Note: Allow only 100 characters'
     no_image: No image'
     no_recipes_found: No Recipies found!
     no_recipes_found_admin_html: No Recipe Found! Please add recipe by click %{link}
@@ -245,8 +243,6 @@ en:
     you_must_be_logged_in: You must be logged in to perform that action
     you_must_log_out_from_app: Please Logout from %{current_app} before accessing
       %{destination_app}
-    you_received_notification_email_you_cant_create_more_recipes: You received a notification
-      email please check your inbox! You can not create more than %{recipes} recipe!
     you_registered_guest: Thanks! You have successfully registered as a guest.
   forms:
     date: Date
@@ -333,8 +329,6 @@ en:
     the_link_to_your_app: '"The link to you app will be automatically included at
       the end of your message."'
     update_profile: Update Profile
-    x_guests_remaining_html: "%{guests_left}&nbsp; guests remaining! Please upgrade
-      your account by click %{link}"
   ingredients:
     add: Add Ingredient
     delete: Delete Ingredient

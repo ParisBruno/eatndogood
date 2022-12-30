@@ -50,8 +50,6 @@ fr:
     upload_image_preview: Titulaire d'aperçu de l'image téléchargée
     upload_profile_pic: Télécharger une photo de profil
     write_few_words_about_yourself: Écrivez quelques mots sur vous-même
-    x_chefs_remaining_html: "%{x}&nbsp; chefs restants pour ajouter! Veuillez mettre
-      à jour votre compte en cliquant dessus %{link}"
     coupon_title: Titre
     coupon_percent_off: Pour cent de reduction(%)
     coupon_active: C'est actif
@@ -89,7 +87,7 @@ fr:
     styles_colon: 'la catégorie:'
     take_a_tour_as_guest: S'inscrire
     see_meals: Voir les repas par catégorie,<br> ingrédients et allergènes.
-    menu: Naviguer en tant qu'invité
+    menu: Feuilleter
     add_to_home_screen: Ajouter une application à l'écran d'accueil
     update: 'Mise à jour '
     updated_x_hours_ago: 'updated: %{x} ago'
@@ -199,9 +197,6 @@ fr:
     you_must_be_logged_in: Vous devez être connecté pour effectuer cette action
     you_must_log_out_from_app: 'Vous devez vous déconnecter de %{current_app} avant
       d''accéder à %{destination_app} '
-    you_received_notification_email_you_cant_create_more_recipes: Vous avez reçu un
-      e-mail de notification, veuillez vérifier votre boîte de réception! Vous ne
-      pouvez pas créer plus de %{recipes}
     you_registered_guest: Merci! Vous avez enregistré avec succès en tant qu'invité.
   forms:
     action: Action
@@ -269,8 +264,6 @@ fr:
     the_link_to_your_app: '"Le lien vers votre application sera automatiquement inclus
       à la fin de votre message."'
     update_profile: Mettre à jour le profil
-    x_guests_remaining_html: "%{guests_left}&nbsp; invités restants! Veuillez mettre
-      à jour votre compte en cliquant dessus %{link}"
   ingredients:
     add: 'Ajouter un ingrédient '
     delete: Supprimer l'ingrédient
