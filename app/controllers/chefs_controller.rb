@@ -8,7 +8,6 @@ class ChefsController < ApplicationController
   before_action :check_admin, only: [:admin]
   before_action :set_manager, only: [:managers]
   before_action :set_selected_languages, only: [:edit, :update]
-  before_action :check_limit_chefs, only: [:new, :create]
   protect_from_forgery prepend: true, with: :exception
   skip_before_action :verify_authenticity_token
   
@@ -131,15 +130,6 @@ class ChefsController < ApplicationController
   end
   
   private
-
-  def check_limit_chefs
-    plan = current_app.plan
-    current_chefs_count = current_app.chefs.count
-    if !plan.chefs_limit.nil? && (current_chefs_count >= plan.chefs_limit)
-      flash[:danger] = t('chefs.chef_upgrade_plan')
-      redirect_to app_chefs_path(current_app)
-    end
-  end
 
   def slug=(value)
      if value.present?

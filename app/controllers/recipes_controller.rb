@@ -6,7 +6,6 @@ class RecipesController < ApplicationController
   # before_action :require_same_user, only: [:edit, :update, :destroy]
   # before_action :require_user_like, only: [:like]
   before_action :set_chef_ids
-  before_action :check_limit_recipes, only: [:new, :create]
   
   def index
     flash.discard
@@ -131,17 +130,6 @@ class RecipesController < ApplicationController
   end
   
   private
-
-    def check_limit_recipes
-      recipes_count = Recipe.where(chef_id: @chef_ids).count
-
-      recipes_limit = current_app.plan.recipes_limit
-
-      if !recipes_limit.nil? && recipes_count >= recipes_limit
-        flash[:danger] = t('recipes.reach_limit')
-        redirect_to recipes_path
-      end
-    end
 
     def make_tags
       @recipe.tag_list = (@recipe.styles.pluck(:name) + @recipe.ingredients.pluck(:name) + @recipe.allergens.pluck(:name)).map(&:inspect).join(', ')

@@ -10,19 +10,50 @@
 
 plan_categories = [
   {
-    name: 'Family & Friends',
+    name: 'ITR-250',
     status: 'yes'
   },
   {
-    name: 'Professionals',
+    name: 'ITR-500',
     status: 'yes'
   },
   {
-    name: 'Entrepreneurs',
+    name: 'ITR-1000',
     status: 'yes'
   },
   {
-    name: 'Enterprise',
+    name: 'G4J-250',
+    status: 'yes'
+  },
+  {
+    name: 'G4J-500',
+    status: 'yes'
+  },
+  {
+    name: 'G4J-1000',
+    status: 'yes'
+  },
+  {
+    name: 'RSW-250',
+    status: 'yes'
+  },
+  {
+    name: 'RSW-500',
+    status: 'yes'
+  },
+  {
+    name: 'RSW-1000',
+    status: 'yes'
+  },{
+    name: 'S4Y-250',
+    status: 'yes'
+  },
+  {
+    name: 'S4Y-500',
+    status: 'yes'
+  },
+  {
+    name: 'S4Y-1000',
     status: 'yes'
   }
 ]
@@ -31,76 +62,64 @@ plan_categories.each do |cate|
   PlanCategory.find_or_create_by!(cate)
 end
 
-family_cate = PlanCategory.where(name: 'Family & Friends').first
-professional_cate = PlanCategory.where(name: 'Professionals').first
-entrep_cate = PlanCategory.where(name: 'Entrepreneurs').first
-enterprise_cate = PlanCategory.where(name: 'Enterprise').first
+itr_250 = PlanCategory.where(name: 'ITR-250').first
+g4j_250 = PlanCategory.where(name: 'G4J-250').first
+rsw_250 = PlanCategory.where(name: 'RSW-250').first
+s4y_250 = PlanCategory.where(name: 'S4Y-250').first
 
 plans = [
   
   {
-    code: 'V1',
-    title: '10 chefs',
-    chefs_limit: 10,
-    guests_limit: 0,
-    recipes_limit: 110,
-    plan_category_id: !family_cate.nil? ? family_cate.id : 0
-  },
-  {
-    code: 'V2',
-    title: '20 chefs',
-    chefs_limit: 20,
-    guests_limit: 0,
-    recipes_limit: 220,
-    plan_category_id: !family_cate.nil? ? family_cate.id : 0
-  },
-  {
-    code: 'V1',
-    title: '100 guests',
-    chefs_limit: 1,
-    guests_limit: 100,
-    recipes_limit: 110,
-    plan_category_id: !professional_cate.nil? ? professional_cate.id : 0
-  },
-  {
-    code: 'V2',
-    title: '250 guests',
-    chefs_limit: 1,
+    title: itr_250.name,
     guests_limit: 250,
-    recipes_limit: 110,
-    plan_category_id: !professional_cate.nil? ? professional_cate.id : 0
+    plan_category_id: itr_250.id
   },
   {
-    code: 'V1',
-    title: '250 guests',
+    title: g4j_250.name,
     guests_limit: 250,
-    recipes_limit: 150,
-    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
+    plan_category_id: g4j_250.id
   },
   {
-    code: 'V2',
-    title: '500 guests',
-    guests_limit: 500,
-    recipes_limit: 150,
-    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
+    title: rsw_250.name,
+    guests_limit: 250,
+    plan_category_id: rsw_250.id
   },
   {
-    code: 'V3',
-    title: '1000 guests',
-    guests_limit: 1000,
-    recipes_limit: 150,
-    plan_category_id: !entrep_cate.nil? ? entrep_cate.id : 0
+    title: s4y_250.name,
+    guests_limit: 250,
+    plan_category_id: s4y_250.id
+  }
+]
+
+plan_categories.each do |cate|
+  PlanCategory.find_or_create_by!(cate)
+end
+
+itr_250 = PlanCategory.where(name: 'ITR-250').first
+g4j_250 = PlanCategory.where(name: 'G4J-250').first
+rsw_250 = PlanCategory.where(name: 'RSW-250').first
+s4y_250 = PlanCategory.where(name: 'S4Y-250').first
+
+plans = [
+  {
+    title: itr_250.name,
+    guests_limit: 250,
+    plan_category_id: itr_250.id
   },
   {
-      title: 'Enterprise',
-      recipes_limit: 200,
-      plan_category_id: !enterprise_cate.nil? ? enterprise_cate.id : 0
+    title: g4j_250.name,
+    guests_limit: 250,
+    plan_category_id: g4j_250.id
   },
   {
-      title: 'Free',
-      chefs_limit: 0,
-      guests_limit: 0,
-      recipes_limit: 10
+    title: rsw_250.name,
+    guests_limit: 250,
+    plan_category_id: rsw_250.id
+  },
+  {
+    title: s4y_250.name,
+    guests_limit: 250,
+    plan_category_id: s4y_250.id
   }
 ]
 
