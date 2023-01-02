@@ -425,6 +425,7 @@ en:
     subtotal: Sub-Total
   line_items:
     note: 'Add a note!'
+  pages:
     new:
       edit_app_name: Edit App Name
       edit_page_text: Edit Page Text
