@@ -17,6 +17,13 @@ class AdminMailer < ApplicationMailer
     mail(to: receiver, from: current_app.main_admin&.email, subject: subject)
   end
 
+  def send_guest_limit_notification(current_app, left_guests)
+    @app = current_app
+    @left_guests = left_guests
+    admin_email = current_app.main_admin&.email
+    mail(from: admin_email, to: admin_email, subject: 'Guest Limit Becoming Over!')
+  end
+
   def inactive_guests_email(receiver, guests, current_app)
     @guests  = guests
     mail(from: current_app.main_admin&.email, to: receiver.email, subject: 'List of inactive guests')

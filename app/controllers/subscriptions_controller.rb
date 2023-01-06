@@ -39,7 +39,10 @@ class SubscriptionsController < ApplicationController
     end
     stripe_user = Stripe::Customer.update( stripe_user.id, {email: email}, ) if email != stripe_user.email
     password = SecureRandom.hex(8)
+    sub_id = Stripe::Subscription.list({customer: stripe_user.id}).data.first.id
     CreateAppWithAdmin.call(
+      sub_id: sub_id,
+      stripe_customer_id: stripe_user.id,
       name: stripe_user.name,
       email: stripe_user.email,
       password: password,

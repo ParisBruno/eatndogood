@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_28_053701) do
+ActiveRecord::Schema.define(version: 2023_01_03_132701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(version: 2022_11_28_053701) do
     t.text "selected_languages", default: ["en_primary"], array: true
     t.string "parent_type"
     t.string "created_from"
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
     t.index ["plan_id"], name: "index_apps_on_plan_id"
     t.index ["slug"], name: "index_apps_on_slug", unique: true
   end
@@ -214,6 +216,10 @@ ActiveRecord::Schema.define(version: 2022_11_28_053701) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.datetime "available_on"
+    t.datetime "discontinue_on"
+    t.index ["available_on"], name: "index_ingredient_translations_on_available_on"
+    t.index ["discontinue_on"], name: "index_ingredient_translations_on_discontinue_on"
     t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
     t.index ["locale"], name: "index_ingredient_translations_on_locale"
   end
@@ -222,6 +228,8 @@ ActiveRecord::Schema.define(version: 2022_11_28_053701) do
     t.string "name"
     t.bigint "app_id"
     t.integer "sort"
+    t.datetime "available_on"
+    t.datetime "discontinue_on"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
   end
 
@@ -418,6 +426,7 @@ ActiveRecord::Schema.define(version: 2022_11_28_053701) do
     t.boolean "is_draft", default: false
     t.boolean "is_subscription", default: false
     t.boolean "enable_reservation", default: false
+    t.boolean "enable_gift_card", default: false
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 

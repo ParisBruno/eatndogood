@@ -45,4 +45,9 @@ module ApplicationHelper
   def week_days
     [['Monday', 0], ['Tuesday', 1], ['Wednesday', 2], ['Thursday', 3], ['Friday', 4], ['Saturday', 5], ['Sunday', 6]]
   end
+
+  def get_plan_price(guests)
+    plan = Stripe::Plan.retrieve(ENV["#{guests}_PRODUCT"])
+    "$#{(plan.amount.to_i / 100.0).to_i}/month"
+  end
 end
