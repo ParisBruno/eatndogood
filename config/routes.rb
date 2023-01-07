@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     end
     devise_for :users, :controllers => { :passwords => "passwords" }
     get '/', to: 'pages#welcome'
+    post 'update', to: "apps#update"
     get 'add_additional_params', to: 'carts#add_additional_params'
     get 'return_stripe', to: 'orders#return_stripe'
     post 'coupon_codes', to: "chefs#add_coupon", as: "add_coupon_codes"
@@ -83,7 +84,9 @@ Rails.application.routes.draw do
     resources :team, controller: 'chefs', as: 'chefs'
 
     resources :agreements
-    resources :subscriptions, only: %i[index]
+    resources :subscriptions, only: %i[index] do
+      get 'edit', on: :collection
+    end
     get 'buy', to: 'subscriptions#buy'
     get 'subscribed', to: 'subscriptions#subscribed'
     resources :questions

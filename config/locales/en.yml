@@ -126,6 +126,7 @@ en:
     menu: Browse
     add_to_home_screen: Add App to Home-Screen
     update: Update
+    upgrade: Upgrade
     updated_x_hours_ago: 'updated: %{x} ago'
     user_infos_title_1: "Welcome guest, your info is private and safe"
     user_infos_title_2: "We use addresses to find RSW groups in your area"
@@ -652,3 +653,11 @@ en:
     change_password: Change my password
   subscription:
     subscribed_successfully: Subscribed successfully!, Your login credentials are in your inbox, Thanks!
+    current_guest_limit: Your Current guest limit is %{guest_limit}.You can upgrade it.
+    update_slot: "%{slot} More Slots"
+    update_subscription: Upgrade Subscription
+    subscribed_successfully: Subscribed successfully!, Get your credentials from your email, Thanks!
+    reach_limit: "Your %{app_name} app guests limit becoming over! Only %{left_guests} more guests are able to signup. Upgrade your guests limit with following link:"
+  schedule:
+     thanks: "Thank You!"
+     service_type: "Service Type:"

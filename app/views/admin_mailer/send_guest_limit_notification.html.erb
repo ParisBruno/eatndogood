@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div style="width: 100%; heigh: auto;">
+      <h3><%= t('subscription.reach_limit', app_name: @app.name, left_guests: @left_guests) %></h3>
+      <%= link_to t('Upgrade Subscription'), edit_app_subscriptions_url(@app) %>
+    </div>
+  </body>
+</html>
