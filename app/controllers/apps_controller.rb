@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
 
   def update
-    # Update plan in itoprecipes database
+    # Update plan in rockystepsway database
     title = "RSW-#{params[:guest]}"
     plan_category = PlanCategory.find_or_create_by(name: title, status: 'yes')
     plan = Plan.find_or_create_by(title: title, guests_limit: params[:guest], plan_category_id: plan_category.id, status: 'yes')
@@ -11,6 +11,7 @@ class AppsController < ApplicationController
     price_id = ENV["#{params[:guest]}_PRODUCT"]
     Stripe::SubscriptionItem.create({ subscription: @app.stripe_subscription_id, price: price_id, proration_behavior: 'create_prorations' })
     Stripe::SubscriptionItem.delete(old_item_id)
-    redirect_to table_app_styles_path(@app), notice: t('common.successfully_updated', name: 'App')
+    flash[:success] = t('common.successfully_updated', name: 'App')
+    redirect_to table_app_styles_path(@app)
   end
 end

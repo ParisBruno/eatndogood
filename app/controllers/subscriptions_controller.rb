@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :set_price_id, only: [:buy, :subscribed]
+  before_action :require_logged_in, only: [:edit]
 
   def buy
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
