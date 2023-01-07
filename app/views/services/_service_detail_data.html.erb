@@ -11,7 +11,7 @@
   <%= service.start_day.present? ? "#{week_days[service.start_day].first} - #{week_days[service.end_day].first}" : "-" %>
 </td>
 <td class="border booking-time <%= "font-weight-bold" if index.zero? && type_index.zero? %>" data-start-time="<%= service.start_time&.strftime("%H:%M:%S") %>" data-end-time="<%= service.end_time&.strftime("%H:%M:%S") %>">
-  <%= service.start_time.present? ? "#{service.start_time.strftime("%H:%M %p")} - #{service.end_time.strftime("%H:%M %p")}" : "-" %>
+  <%= service.start_time.present? ? "#{service.start_time.strftime("%l:%M %p")} - #{service.end_time.strftime("%l:%M %p")}" : "-" %>
 </td>
 <td class="border-0 buttons <%= "font-weight-bold" if index.zero? && type_index.zero? %>">
   <% if service.border_class != "green-border" %>

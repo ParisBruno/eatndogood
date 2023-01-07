@@ -25,11 +25,11 @@
     </td>
     <td class="border">
       <div class="d-flex">
-        <div class="px-1 edit-service">
-          <%= f.time_field :start_time, class: "form-control", placeholder: t('services.start_time'), autofocus: true %>
+        <div class="px-1 edit-service d-flex">
+          <%= f.time_select :start_time, {ampm: true, time_separator: '', include_blank: true}, class: "form-control service-select" %>
         </div>
-        <div class="px-1 edit-service">
-          <%= f.time_field :end_time, class: "form-control", placeholder: t('services.end_time'), autofocus: true %>
+        <div class="px-1 edit-service d-flex">
+          <%= f.time_select :end_time, {ampm: true, time_separator: '', include_blank: true}, class: "form-control service-select" %>
         </div>
       </div>
     </td>

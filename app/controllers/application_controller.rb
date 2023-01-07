@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   def set_app
     if controller_name != 'pictures'
       # raise current_app_user.inspect
-      app = App.find_by_slug(params[:app])
+      app = App.find_by_slug(params[:app]) || App.find_by_id(params[:app])
       if params[:app].nil? || app.nil? || (current_app.parent_type != "rockystepsway" && params[:app] != "rockystepswaylive")
         redirect_to '/rockystepswaylive'
       else

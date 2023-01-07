@@ -34,6 +34,9 @@
   #new_service_slot input {
     font-size: 15px !important;
   }
+  #service_slot_start_time_4i{
+    margin-right: 5px;
+  }
 </style>
 
 <%= render 'shared/page_title', title: t('schedule.services')%>
@@ -108,11 +111,11 @@
                   <div class="ml-0 booking-timings">
                     <%= f.hidden_field :booked, value: true %>
                     <%= f.hidden_field :service_id %>
-                    <div id="timeSlots">
-                      <span class='text-danger' id="time-error"></span>
-                      <%= f.time_field("start_time", class: "form-control select-height", required: true, disabled: true) %>
-                      <span id='timing-note'></span>
+                    <span class='text-danger' id="time-error"></span>
+                    <div class ="d-flex" id="timeSlots">
+                      <%= f.time_select :start_time, {ampm: true, time_separator: '', include_blank: true, required: true, disabled: true}, class: "form-control select-height" %>
                     </div>
+                    <span id='timing-note'></span>
                   </div>
                 </div>
               </div>
@@ -243,26 +246,33 @@
   });
 
   $(document).on('click', '.reserve-button', function(e) {
-    var slotVal = $('#service_slot_start_time').val();
-    var time = slotVal.match(/^(\d+)[ :,](\d+)$/);
-    hour = time[1];
-    min = time[2];
+    hour = parseInt($('#service_slot_start_time_4i').val());
+    min = parseInt($('#service_slot_start_time_5i').val());
+    if (hour == 0) { hour = 24 }
 
-    if (slotVal != '') {
-      var slots =  $('#service_slot_start_time').data('slots').replaceAll("&quot;", "").replace("[", "").replace(']', "").split(',');
+    if (hour != '') {
+      var slots = $('#service_slot_start_time_4i').data('slots').replaceAll("&quot;", "").replace("[", "").replace(']', "").split(',');
       var submit = false;
       var service_id = '';
       $(slots).each(function() {
         var range = this.split(' - ');
+        // Get start time data
+        var modifier = range[0].trim().split(" ")[1];
         var start_time = range[0].trim().split(" ")[0];
         var time = start_time.match(/^(\d+)[ :,](\d+)$/);
         var start_time_hour = time[1];
+        if (start_time_hour == 12) { start_time_hour = 0 }
+        if (modifier == 'PM') { start_time_hour = parseInt(start_time_hour, 10) + 12; }
         var start_time_min = time[2];
+        // Get end time data
+        var modifier = range[1].trim().split(" ")[1];
         var end_time = range[1].trim().split(" ")[0];
         var time = end_time.match(/^(\d+)[ :,](\d+)$/);
         var end_time_hour = time[1];
+        if (end_time_hour == 12) { end_time_hour = 0 }
+        if (modifier == 'PM') { end_time_hour = parseInt(end_time_hour, 10) + 12; }
         var end_time_min = time[2];
-        if (end_time_min == 0) { end_time_min = 60 }
+        if (hour == 24) { hour = 0 }
         if ((hour > start_time_hour || (hour == start_time_hour && min >= start_time_min)) && (hour < end_time_hour || (hour ==end_time_hour && min < end_time_min))) {
           service_id = parseInt(range[2]);
           submit = true;

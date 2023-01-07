@@ -11,7 +11,7 @@
         <% else %>
           <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe if service.icon.present? %>
         <% end %>
-        <p class="text-center pt-2"><%= "#{service.start_time.strftime("%H:%M %p")} - #{service.end_time.strftime("%H:%M %p")}" %></p>
+        <p class="text-center pt-2"><%= "#{service.start_time.strftime("%l:%M %p")} - #{service.end_time.strftime("%l:%M %p")}" %></p>
       </div>
     </div>
   <% end %>

@@ -5,11 +5,19 @@
     <% @timings = @timings + " and " unless index == @avail_slots.count-1 %>
   <% end %>
   $('#timing-note').text("<%= text+@timings %>");
-  $('#service_slot_start_time').attr('disabled', false);
-  $('#service_slot_start_time').attr('data-slots', "<%= @avail_slots.map{|x| "#{x[0]} - #{x[1]} - #{x[2]}"} %>");
+  $('#service_slot_start_time_1i').attr('disabled', false);
+  $('#service_slot_start_time_2i').attr('disabled', false);
+  $('#service_slot_start_time_3i').attr('disabled', false);
+  $('#service_slot_start_time_4i').attr('disabled', false);
+  $('#service_slot_start_time_5i').attr('disabled', false);
+  $('#service_slot_start_time_4i').attr('data-slots', "<%= @avail_slots.map{|x| "#{x[0]} - #{x[1]} - #{x[2]}"} %>");
   $('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: @avail_slots.map{|x| x[2]}}) %>");
 <% else %>
-  $('#service_slot_start_time').attr('disabled', true);
+  $('#service_slot_start_time_1i').attr('disabled', true);
+  $('#service_slot_start_time_2i').attr('disabled', true);
+  $('#service_slot_start_time_3i').attr('disabled', true);
+  $('#service_slot_start_time_4i').attr('disabled', true);
+  $('#service_slot_start_time_5i').attr('disabled', true);
   $('#timing-note').text("No timings available!");
   $('#services').html("<%= escape_javascript (render partial: 'services', locals: {service_ids: nil}) %>");
 <% end %>

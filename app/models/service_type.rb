@@ -78,7 +78,7 @@ class ServiceType < ApplicationRecord
                      date.wday
                    end
       end
-      slots << [slot[0].strftime("%H:%M %p"), slot[1]&.strftime("%H:%M %p"), date.strftime("%d/%m/%y"), slot.last, slot[3], slot[2]]
+      slots << [slot[0].strftime("%l:%M %p"), slot[1]&.strftime("%l:%M %p"), date.strftime("%d/%m/%y"), slot.last, slot[3], slot[2]]
     end
     slots
   end

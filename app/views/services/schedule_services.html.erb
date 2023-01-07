@@ -56,6 +56,9 @@
   .edit-service{
     width: -webkit-fill-available;
   }
+  #service_start_time_4i, #service_end_time_4i {
+    margin-right: 10px;
+  }
   @media screen and (max-width: 1091px) {
     .form-control{
       width: auto !important;
@@ -77,12 +80,12 @@
             <tbody>
               <tr class="font-weight-bold">
                 <td style='width: 15%'><%= t('services.upload_icon') %></td>
-                <td style='width: 25%'><%= t('services.name') %></td>
-                <td style='width: 15%'><%= t('services.customers') %></td>
-                <td style='width: 15%'><%= t('services.start_day') %></td>
-                <td style='width: 15%'><%= t('services.end_day') %></td>
-                <td style='width: 10%'><%= t('services.start_time') %></td>
-                <td style='width: 10%'><%= t('services.end_time') %></td>
+                <td style='width: 15%'><%= t('services.name') %></td>
+                <td style='width: 10%'><%= t('services.customers') %></td>
+                <td style='width: 10%'><%= t('services.start_day') %></td>
+                <td style='width: 10%'><%= t('services.end_day') %></td>
+                <td style='width: 15%'><%= t('services.start_time') %></td>
+                <td style='width: 15%'><%= t('services.end_time') %></td>
                 <td style='width: 10%; border: 0 !important;' class="empty-header" ></td>
               </tr>
               <%= form_for(Service.new, url: app_services_path(current_app), :html => {remote: true }) do |f| %>
@@ -108,10 +111,14 @@
                     <%= f.select :end_day, week_days, {include_blank: "Select"}, class: "form-control service-select", placeholder: t('services.end_day'), autofocus: true %>
                   </td>
                   <td class="border-0">
-                    <%= f.time_field :start_time, class: "form-control", placeholder: t('services.start_time'), autofocus: true %>
+                    <div class="d-flex">
+                      <%= f.time_select :start_time, {ampm: true, time_separator: '', include_blank: true}, class: "form-control service-select" %>
+                    </div>
                   </td>
                   <td class="border-0">
-                    <%= f.time_field :end_time, class: "form-control", placeholder: t('services.end_time'), autofocus: true %>
+                    <div class="d-flex">
+                      <%= f.time_select :end_time, {ampm: true, time_separator: '', include_blank: true}, class: "form-control service-select" %>
+                    </div>
                   </td>
                   <td class="border-0">
                     <%= f.submit t('services.create'), class: "btn btn-success btn-lg" %>
@@ -154,8 +161,16 @@
     var customers = detailRow.find('#service_customers').val();
     var start_day = detailRow.find('#service_start_day').val();
     var end_day = detailRow.find('#service_end_day').val();
-    var start_time = detailRow.find('#service_start_time').val();
-    var end_time = detailRow.find('#service_end_time').val();
+    var start_time_1 = detailRow.find('#service_start_time_1i').val();
+    var start_time_2 = detailRow.find('#service_start_time_2i').val();
+    var start_time_3 = detailRow.find('#service_start_time_3i').val();
+    var start_time_4 = detailRow.find('#service_start_time_4i').val();
+    var start_time_5 = detailRow.find('#service_start_time_5i').val();
+    var end_time_1 = detailRow.find('#service_end_time_1i').val();
+    var end_time_2 = detailRow.find('#service_end_time_2i').val();
+    var end_time_3 = detailRow.find('#service_end_time_3i').val();
+    var end_time_4 = detailRow.find('#service_end_time_4i').val();
+    var end_time_5 = detailRow.find('#service_end_time_5i').val();
     var icon = CKEDITOR.instances['service_icon_'+serviceId].getData();
     $.ajax({
       method: "PUT",
@@ -165,8 +180,16 @@
                 customers: customers,
                 start_day: start_day,
                 end_day: end_day,
-                start_time: start_time,
-                end_time: end_time,
+                "start_time(1i)": start_time_1,
+                "start_time(2i)": start_time_2,
+                "start_time(3i)": start_time_3,
+                "start_time(4i)": start_time_4,
+                "start_time(5i)": start_time_5,
+                "end_time(1i)": end_time_1,
+                "end_time(2i)": end_time_2,
+                "end_time(3i)": end_time_3,
+                "end_time(4i)": end_time_4,
+                "end_time(5i)": end_time_5,
                 icon: icon,
                 app_id: <%= current_app.id %>,
                 user_id: <%= current_app_user.id %>,

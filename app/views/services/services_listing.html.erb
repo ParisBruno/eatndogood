@@ -79,7 +79,7 @@
               </div>
               <p class="text-center mt-2"><%= service.customers == 1 ? "#{t('services.for_one_customer')}" : "#{t('services.for_service_customer', customers: service.customers)}" %></p>
               <p class="text-center font-weight-bold">
-                <%= booked_slots.first.start_time.strftime("%H:%M %p") if booked_slots.present? %>
+                <%= booked_slots.first.start_time.strftime("%l:%M %p") if booked_slots.present? %>
               </p>
             </div>
           <% end %>
