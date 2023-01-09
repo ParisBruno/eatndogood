@@ -658,6 +658,3 @@ en:
     update_subscription: Upgrade Subscription
     subscribed_successfully: Subscribed successfully!, Get your credentials from your email, Thanks!
     reach_limit: "Your %{app_name} app guests limit becoming over! Only %{left_guests} more guests are able to signup. Upgrade your guests limit with following link:"
-  schedule:
-     thanks: "Thank You!"
-     service_type: "Service Type:"
