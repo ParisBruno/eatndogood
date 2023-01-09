@@ -25,7 +25,7 @@ class ServicesController < ApplicationController
   end
 
   def create
-    params[:service][:icon] = params[:service][:icon].split('>').last+">"
+    params[:service][:icon] = params[:service][:icon].split('>').last+">" if params[:service][:icon] != ''
     @service = Service.new(service_params)
     @service.save
     @services = current_app.services

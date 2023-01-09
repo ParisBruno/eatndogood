@@ -4,6 +4,7 @@ class Service < ApplicationRecord
   belongs_to :app
   set_sortable :sort
   belongs_to :service_type
+  validates_associated :service_type
   has_many :service_slots, dependent: :destroy
   validates :icon, presence: true
   validates :start_day, presence: true, if: -> { end_day.present? || end_time.present? || start_time.present? }

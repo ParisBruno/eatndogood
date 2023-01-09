@@ -99,7 +99,7 @@
                     <span class="selected-icon text-success"></span>
                   </td>
                   <td class="border-0">
-                    <%= f.select :service_type_id, current_app.service_types.map{|type| [type.name, type.id]}, {include_blank: "Select"}, required: true, class: "form-control service-select", placeholder: t('services.name'), autofocus: true %>
+                    <%= f.select :service_type_id, current_app.service_types.map{|type| [type.name, type.id]}, {include_blank: "Select"}, class: "form-control service-select", placeholder: t('services.name'), autofocus: true %>
                   </td>
                   <td class="border-0">
                     <%= f.number_field :customers, min: 1, class: "form-control", placeholder: t('services.customers'), autofocus: true %>
