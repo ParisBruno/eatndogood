@@ -24,6 +24,6 @@ class Style < ApplicationRecord
   end
 
   def self.agreement_style
-    where(name: "EXERCISES").last
+    find(138)
   end
 end
