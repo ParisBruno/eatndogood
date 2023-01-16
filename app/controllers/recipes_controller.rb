@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
       flash[:success] = t('common.not_found', name: 'Recipe')
       redirect_to app_recipes_path(current_app)
     else
-      redirect_to new_app_agreement_path(@current_app) if ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.name}.include?("EXERCISES")
+      return app_recipes_path(current_app, 489) if ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
       @comment = Comment.new
       @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
     end

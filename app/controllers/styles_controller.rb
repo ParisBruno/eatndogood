@@ -17,7 +17,7 @@ class StylesController < ApplicationController
       flash[:success] = t('common.not_found', name: 'Category')
       redirect_to table_app_styles_path(current_app)
     else
-      redirect_to new_app_agreement_path(@current_app) if @style.name == "EXERCISES" && ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
+      redirect_to app_recipe_path(current_app, 489) if @style.id == 138 && ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
       users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
       recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: users.includes(:chef_info).pluck("chefs.id")})
       recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
