@@ -4,7 +4,7 @@ class CreateAppWithAdmin
   def call
     plan = Plan.find context.plan_id
     ActiveRecord::Base.transaction do
-      app = App.create!(name: context.name, plan_id: plan.id, stripe_customer_id: context.stripe_customer_id, stripe_subscription_id: context.sub_id, parent_type: "rockystepsway")
+      app = App.create!(name: context.name, plan_id: plan.id, stripe_customer_id: context.stripe_customer_id, stripe_subscription_id: context.sub_id, parent_type: "rockystepsway", created_from: context.created_from)
       user = User.find_by(email: context.email)
       if user.blank?
         password = context.password
