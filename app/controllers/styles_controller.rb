@@ -1,7 +1,7 @@
 class StylesController < ApplicationController
   before_action :set_apps
   before_action :set_style, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin_or_chef, except: [:show, :index]
+  before_action :require_admin_or_chef, except: [:show, :index, :table]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /styles
