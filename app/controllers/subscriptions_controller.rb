@@ -27,18 +27,6 @@ class SubscriptionsController < ApplicationController
 
     stripe_user = Stripe::Customer.list({limit: 1}).data[0]
     flash[:success] = t('subscription.subscribed_successfully')
-    if user = User.find_by(email: stripe_user.email)
-      email = stripe_user.email
-      x = 0
-      while User.find_by(email: email).present?
-        x = x + 1
-        array = email.split('@')
-        array[0] = array[0].split('+').first if array[0].include?('+')
-        array[1] = "+#{x}@" + array[1]
-        email = array.join()
-      end
-    end
-    stripe_user = Stripe::Customer.update( stripe_user.id, {email: email}, ) if email != stripe_user.email
     password = SecureRandom.hex(8)
     sub_id = Stripe::Subscription.list({customer: stripe_user.id}).data.first.id
     CreateAppWithAdmin.call(
