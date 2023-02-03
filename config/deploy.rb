@@ -3,7 +3,7 @@ lock "~> 3.11.1"
 
 set :application, 'rockystepsway'
 set :repo_url, 'git@github.com:ParisBruno/rockystepsway.git' # Edit this to match your repository
-set :branch, :master
+set :branch, :main
 set :deploy_to, '/home/deploy/rockystepsway'
 set :pty, true
 set :linked_files, %w{config/database.yml .env.production}
