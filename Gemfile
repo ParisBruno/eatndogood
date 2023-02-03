@@ -64,6 +64,8 @@ gem 'wkhtmltopdf-binary'
 gem 'active_storage_validations'
 gem 'cookies_eu'
 gem 'stripe-rails'
+gem 'ed25519'
+gem "bcrypt_pbkdf"
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
