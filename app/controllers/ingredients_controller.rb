@@ -44,7 +44,7 @@ class IngredientsController < ApplicationController
   end
 
   def index
-    @ingredients = Ingredient.where(app_id: @app_ids).paginate(page: params[:page], per_page: 5)
+    @ingredients = Ingredient.where(app_id: current_app.id).paginate(page: params[:page], per_page: 5)
   end
 
   def destroy
@@ -60,7 +60,7 @@ class IngredientsController < ApplicationController
   end
 
   def table
-    @ingredients = Ingredient.where(app_id: @app_ids).order(:sort)
+    @ingredients = Ingredient.where(app_id: current_app.id).order(:sort)
   end
 
   def update_positions
@@ -81,6 +81,6 @@ class IngredientsController < ApplicationController
   end
   
   def set_ingredient
-    @ingredient = Ingredient.where(id: params[:id], app_id: @app_ids).last
+    @ingredient = Ingredient.where(id: params[:id], app_id: current_app.id).last
   end
 end

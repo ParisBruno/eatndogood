@@ -7,7 +7,7 @@ class StylesController < ApplicationController
   # GET /styles
   # GET /styles.json
   def index
-    @styles = Style.where(app_id: @app_ids)
+    @styles = Style.where(app_id: current_app.id)
   end
 
   # GET /styles/1
@@ -91,7 +91,7 @@ class StylesController < ApplicationController
   end
 
   def table
-    @styles = Style.where(app_id: @app_ids).order(:sort)
+    @styles = Style.where(app_id: current_app.id).order(:sort)
   end
 
   def update_positions
@@ -107,7 +107,7 @@ class StylesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_style
-      @style = Style.where(id: params[:id], app_id: @app_ids).last
+      @style = Style.where(id: params[:id], app_id: current_app.id).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

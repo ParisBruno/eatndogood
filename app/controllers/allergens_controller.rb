@@ -8,7 +8,7 @@ class AllergensController < ApplicationController
   # GET /allergens
   # GET /allergens.json
   def index
-    @allergens = Allergen.where(app_id: @app_ids).all
+    @allergens = Allergen.where(app_id: current_app.id).all
   end
 
   # GET /allergens/1
@@ -74,7 +74,7 @@ class AllergensController < ApplicationController
   end
 
   def table
-    @allergens = Allergen.where(app_id: @app_ids).order(:sort)
+    @allergens = Allergen.where(app_id: current_app.id).order(:sort)
   end
 
   def update_positions
@@ -90,7 +90,7 @@ class AllergensController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_allergen
-      @allergen = Allergen.where(id: params[:id], app_id: @app_ids).last
+      @allergen = Allergen.where(id: params[:id], app_id: current_app.id).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_chef_ids
-    users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
+    users = current_app.users
     @chef_ids = users.includes(:chef_info).pluck("chefs.id")
   end
 
