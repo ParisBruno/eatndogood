@@ -169,3 +169,6 @@ Page.find_or_create_by(name: "Welcome", title: "Welcome!", content: "Lorem Ipsum
 Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", app_id: app4.id)
 user = User.create(email: "rockystepsway@gmail.com", password: "admin123", admin: true, first_name: "RockyUser", password_confirmation: "admin123", app_id: app4.id, chef: true)
 Chef.find_or_create_by!(user_id: user.id, admin: true)
+
+# Create agreement category
+Style.create(id: 138, name: "Exercise", app_id: app4.id)
