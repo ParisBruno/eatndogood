@@ -10,7 +10,7 @@ namespace :fundraise_app do
       fundraise_app.styles.each do |style|
         image = style.image.attached? ? style.image.blob : nil
         get_style = Style.find_by(name: style.name, app_id: app.id)
-        get_style.update(image: image)
+        get_style.update(image: image) if get_style.present?
         #new_app_styles_ids << Style.create(name: style.name, app_id: app.id, image: image).id
       end
 
@@ -18,8 +18,8 @@ namespace :fundraise_app do
       new_app_ingredients_ids = []
       fundraise_app.ingredients.each do |ingredient|
         image = ingredient.image.attached? ? ingredient.image.blob : nil
-        get_ingredient = Ingredient.find_by(name: style.name, app_id: app.id)
-        get_ingredient.update(image: image)
+        get_ingredient = Ingredient.find_by(name: ingredient.name, app_id: app.id)
+        get_ingredient.update(image: image) if get_ingredient.present?
         #new_app_ingredients_ids << Ingredient.create(name: ingredient.name, app_id: app.id, image: image).id
       end
 
@@ -27,8 +27,8 @@ namespace :fundraise_app do
       new_app_allergens_ids = []
       fundraise_app.allergens.each do |allergen|
         image = allergen.image.attached? ? allergen.image.blob : nil
-        get_allergen = Allergen.find_by(name: style.name, app_id: app.id)
-        get_allergen.update(image: image)
+        get_allergen = Allergen.find_by(name: allergen.name, app_id: app.id)
+        get_allergen.update(image: image) if get_allergen.present?
         #new_app_allergens_ids << Allergen.create(name: allergen.name, app_id: app.id, image: image).id
       end
 
@@ -59,7 +59,8 @@ namespace :fundraise_app do
         # new_recipe.allergens << fundraise_recipe_allergens.to_a
 
         # Save recipe
-        get_recipe.update(food_image: food_image, gift_card_image: gift_card_image)
+        get_recipe.update(food_image: food_image) if food_image.present?
+        get_recipe.update(gift_card_image: gift_card_image) if gift_card_image.present?
       end
     end
   end
