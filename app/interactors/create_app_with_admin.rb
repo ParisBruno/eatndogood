@@ -34,19 +34,22 @@ class CreateAppWithAdmin
     # Create styles
     new_app_styles_ids = []
     fundraise_app.styles.each do |style|
-      new_app_styles_ids << Style.create(name: style.name, app_id: app.id).id
+      image = style.image.attached? ? style.image.blob : nil
+      new_app_styles_ids << Style.create(name: style.name, app_id: app.id, image: image).id
     end
 
     # Create ingredients
     new_app_ingredients_ids = []
     fundraise_app.ingredients.each do |ingredient|
-      new_app_ingredients_ids << Ingredient.create(name: ingredient.name, app_id: app.id).id
+      image = ingredient.image.attached? ? ingredient.image.blob : nil
+      new_app_ingredients_ids << Ingredient.create(name: ingredient.name, app_id: app.id, image: image).id
     end
 
     # Create allergens
     new_app_allergens_ids = []
     fundraise_app.allergens.each do |allergen|
-      new_app_allergens_ids << Allergen.create(name: allergen.name, app_id: app.id).id
+      image = allergen.image.attached? ? allergen.image.blob : nil
+      new_app_allergens_ids << Allergen.create(name: allergen.name, app_id: app.id, image: image).id
     end
 
     # Get chef ids
@@ -56,7 +59,9 @@ class CreateAppWithAdmin
     fundraise_app_recipes = Recipe.where(chef_id: chef_ids)
 
     fundraise_app_recipes.each do |recipe|
-      new_recipe = Recipe.new(chef_id: chef.id, price: recipe.price, is_draft: recipe.is_draft, is_subscription: recipe.is_subscription, enable_reservation: recipe.enable_reservation, enable_gift_card: recipe.enable_gift_card, name: recipe.name, description: recipe.description)
+      food_image = recipe.food_image.attached? ? recipe.food_image.blob : nil
+      gift_card_image = recipe.gift_card_image.attached? ? recipe.gift_card_image.blob : nil
+      new_recipe = Recipe.new(chef_id: chef.id, price: recipe.price, is_draft: recipe.is_draft, is_subscription: recipe.is_subscription, enable_reservation: recipe.enable_reservation, enable_gift_card: recipe.enable_gift_card, name: recipe.name, description: recipe.description, food_image: food_image, gift_card_image: gift_card_image)
 
       # Assign styles to recipe
       fundraise_recipe_styles = Style.where(id: new_app_styles_ids, name: recipe.styles.to_a.pluck(:name))
