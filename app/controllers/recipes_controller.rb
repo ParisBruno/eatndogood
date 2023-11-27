@@ -160,7 +160,7 @@ class RecipesController < ApplicationController
     def set_recipe
       users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
       chef_ids = users.includes(:chef_info).pluck("chefs.id")
-      @recipe = Recipe.joins(chef: [user: :app]).where(id: params[:id], apps: { parent_type: current_app.parent_type }, chefs: { id: chef_ids }).last
+      @recipe = Recipe.joins(chef: [user: :app]).friendly.where(slug: params[:id], apps: { parent_type: current_app.parent_type }, chefs: { id: chef_ids }).last
     end
   
     def recipe_params

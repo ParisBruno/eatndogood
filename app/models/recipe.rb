@@ -30,6 +30,7 @@ class Recipe < ApplicationRecord
   validates :drink_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :gift_card_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :styles, presence: true
+  validates :name, :uniqueness => { case_sensitive: false, scope: :chef_id }
   # accepts_nested_attributes_for :recipe_images
 
   acts_as_ordered_taggable
@@ -40,6 +41,8 @@ class Recipe < ApplicationRecord
   translates :name, :description, fallbacks_for_empty_translations: true
   globalize_accessors locales: I18n.available_locales, attributes: [:name, :description]
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   def self.sizes
     {
@@ -117,6 +120,10 @@ class Recipe < ApplicationRecord
   def make_tags
     self.tag_list = self.styles.pluck(:name) + self.ingredients.pluck(:name) + self.allergens.pluck(:name)
     self.save
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 
 end

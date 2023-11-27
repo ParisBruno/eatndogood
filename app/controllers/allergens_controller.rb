@@ -90,7 +90,7 @@ class AllergensController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_allergen
-      @allergen = Allergen.where(id: params[:id], app_id: current_app.id).last
+      @allergen = Allergen.friendly.where(slug: params[:id], app_id: current_app.id).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

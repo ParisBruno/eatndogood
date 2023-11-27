@@ -2,6 +2,8 @@
 class Ingredient < ApplicationRecord
   include RailsSortable::Model
   include TranslatedUpcaser
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   
   # before_destroy :no_referenced_recipes
 
@@ -32,5 +34,9 @@ class Ingredient < ApplicationRecord
 
   def sized(image_type, size)
     self.send(image_type).variant(resize: Ingredient.sizes[size]).processed rescue nil
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 end

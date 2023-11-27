@@ -81,6 +81,6 @@ class IngredientsController < ApplicationController
   end
   
   def set_ingredient
-    @ingredient = Ingredient.where(id: params[:id], app_id: current_app.id).last
+    @ingredient = Ingredient.friendly.where(slug: params[:id], app_id: current_app.id).last
   end
 end
