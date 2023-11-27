@@ -109,7 +109,7 @@ class RecipesController < ApplicationController
   end
   
   def destroy
-    Recipe.find(params[:id]).destroy
+    @recipe.destroy
     flash[:success] = t('common.successfully_destroyed', name: 'Recipe')
     redirect_to app_recipes_path(current_app)
   end

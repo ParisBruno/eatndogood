@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_03_132701) do
+ActiveRecord::Schema.define(version: 2023_11_24_112901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,9 @@ ActiveRecord::Schema.define(version: 2023_01_03_132701) do
     t.datetime "updated_at", null: false
     t.bigint "app_id"
     t.integer "sort"
+    t.string "slug"
     t.index ["app_id"], name: "index_allergens_on_app_id"
+    t.index ["slug"], name: "index_allergens_on_slug", unique: true
   end
 
   create_table "allergens_recipes", id: false, force: :cascade do |t|
@@ -230,7 +232,9 @@ ActiveRecord::Schema.define(version: 2023_01_03_132701) do
     t.integer "sort"
     t.datetime "available_on"
     t.datetime "discontinue_on"
+    t.string "slug"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
+    t.index ["slug"], name: "index_ingredients_on_slug", unique: true
   end
 
   create_table "likes", id: :serial, force: :cascade do |t|
@@ -427,6 +431,8 @@ ActiveRecord::Schema.define(version: 2023_01_03_132701) do
     t.boolean "is_subscription", default: false
     t.boolean "enable_reservation", default: false
     t.boolean "enable_gift_card", default: false
+    t.string "slug"
+    t.index ["slug"], name: "index_recipes_on_slug", unique: true
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 
@@ -517,7 +523,9 @@ ActiveRecord::Schema.define(version: 2023_01_03_132701) do
     t.bigint "app_id"
     t.integer "sort"
     t.text "agreement_text"
+    t.string "slug"
     t.index ["app_id"], name: "index_styles_on_app_id"
+    t.index ["slug"], name: "index_styles_on_slug", unique: true
   end
 
   create_table "subcategories", force: :cascade do |t|

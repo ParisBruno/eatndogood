@@ -155,9 +155,10 @@
           </li>
           <% unless app_user_signed_in? %>
             <li class="dropdown nav-item">
-              <%= link_to t('navigation.team'), app_chefs_path(@current_app) %>
+              <a href="<%= app_chefs_path(@current_app) %>" class="btn btn-purple"><%= t('navigation.team')%></a>
             </li>
           <% end %>
+
           <% if current_app_user&.admin? || current_app_user&.chef? %>
             <li class="nav-item">
               <%= link_to t('navigation.new_recipe'), new_app_recipe_path(@current_app), class: "btn btn-success" %>
