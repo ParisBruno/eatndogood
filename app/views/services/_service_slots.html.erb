@@ -8,7 +8,7 @@
               <h3 class="text-center"><%= t('services.no_slot_booked') %></h3>
             </div>
             <div class="col-12 text-center">
-              <%= link_to t('common.create'), app_services_path(current_app, service_types: @service.service_type_id), target: '_blank', class: "px-5 btn btn-success btn-lg", style:"font-family: WhitneySSm;" %>
+              <%= link_to t('common.create'), app_services_path(current_app, service_types: @service.slug), target: '_blank', class: "px-5 btn btn-success btn-lg", style:"font-family: WhitneySSm;" %>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="collapse <%= "in" if index.zero? %>" id="serviceCollapse<%= slot.id %>">
-        <%= form_for(slot, url: app_service_slot_path(current_app, slot), method: :put, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <%= form_for(slot, url: app_service_slot_path(current_app, slot.slug), method: :put, :html => {class: "form-horizontal", role: "form"}) do |f| %>
           <div class="row schedule">
             <div class="col-12 margin-sec full-width-sec text-center">
               <div class="col-lg-8 well box-content mb-3">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-12 col-sm-4 mt-1">
-                    <%= link_to t('common.create'), app_services_path(current_app, service_types: slot.service.service_type_id), target: '_blank', class: "btn btn-success btn-lg w-100", style:"font-family: WhitneySSm;" %>
+                    <%= link_to t('common.create'), app_services_path(current_app, service_types: slot.slug), target: '_blank', class: "btn btn-success btn-lg w-100", style:"font-family: WhitneySSm;" %>
                   </div>
                   <div class="col-12 mt-1 col-sm-4">
                     <%= f.submit t('common.update'), class: "px-5 btn btn-primary btn-lg w-100" %>

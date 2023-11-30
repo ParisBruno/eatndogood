@@ -3,7 +3,7 @@
     <div class="col-6 col-sm-4 col-lg-3 px-0">
       <div class="p-2">
         <% if current_app_user.admin? || current_app_user.manager? || current_app_user.chef? %>
-          <%= link_to app_service_path(current_app, service.id), target: '_blank' do %>
+          <%= link_to app_service_path(current_app, service.slug), target: '_blank' do %>
             <div class="<%= service.border_class %> text-center">
               <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe if service.icon.present? %>
             </div>

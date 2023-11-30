@@ -2,6 +2,8 @@ class ServiceType < ApplicationRecord
   belongs_to :app
   belongs_to :user
   has_many :services, dependent: :destroy
+  extend FriendlyId
+  friendly_id :name, use: :slugged, use: [:slugged, :scoped], scope: :service
 
   def available_services
     services = self.services.where.not(start_day: nil)
@@ -81,5 +83,9 @@ class ServiceType < ApplicationRecord
       slots << [slot[0].strftime("%l:%M %p"), slot[1]&.strftime("%l:%M %p"), date.strftime("%d/%m/%y"), slot.last, slot[3], slot[2]]
     end
     slots
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 end

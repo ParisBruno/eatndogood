@@ -2,7 +2,7 @@ class Allergen < ApplicationRecord
 	include RailsSortable::Model
 	include TranslatedUpcaser
 	extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :scoped], scope: :app
 	
 	set_sortable :sort
 	belongs_to :app
@@ -25,6 +25,7 @@ class Allergen < ApplicationRecord
     self.send(image_type).variant(resize: Allergen.sizes[size]).processed rescue nil
   end
 
+  private
   def should_generate_new_friendly_id?
 	  slug.blank? || name_changed?
 	end

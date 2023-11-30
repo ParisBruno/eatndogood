@@ -3,7 +3,7 @@ class Ingredient < ApplicationRecord
   include RailsSortable::Model
   include TranslatedUpcaser
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :scoped], scope: :app
   
   # before_destroy :no_referenced_recipes
 

@@ -43,6 +43,8 @@ class User < ApplicationRecord
 
   # before_create :set_guest_admin
   before_save :downcase_slug
+  extend FriendlyId
+  friendly_id :first_name, use: [:slugged, :scoped], scope: :app
 
   def downcase_slug
     unless app.nil? && app.slug.nil?
@@ -101,5 +103,9 @@ class User < ApplicationRecord
     if (new_record? && manager?) || (manager? && managers.exclude?(self))
       errors.add(:manager, "- you can't create more than 4 managers") if managers.count >= 4
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || first_name_changed?
   end
 end

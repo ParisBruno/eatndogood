@@ -12,6 +12,18 @@ class Service < ApplicationRecord
   validates :start_time, presence: true, if: -> { end_time.present? || end_day.present? || start_day.present? }
   validates :end_time, presence: true, if: -> { start_time.present? || end_day.present? || start_day.present? }
   validate :end_date_after_start_date, if: -> { end_day.present? || start_day.present? || end_time.present? || start_time.present? }
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :scoped], scope: :user
+
+  def slug_candidates
+    [
+      :service_type_name
+    ]
+  end
+
+  def service_type_name
+    service_type.name.parameterize
+  end
 
   def booking_time
     "#{self.booking_start_at.strftime("%-d/%-m/%y %H:%M %p")} to #{self.booking_end_at.strftime("%-d/%-m/%y %H:%M %p")}"
@@ -62,5 +74,9 @@ class Service < ApplicationRecord
     if self.start_time.present? && self.end_time.present? && self.start_time> self.end_time
       errors.add(:end_time, "must be after the start time")
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 end

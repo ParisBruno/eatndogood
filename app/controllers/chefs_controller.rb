@@ -149,11 +149,11 @@ class ChefsController < ApplicationController
 
   def set_user
     # @user = User.includes(:chef_info).friendly.find(params[:id])
-    @user = User.includes(:chef_info).find(params[:id])
+    @user = current_app.users.friendly.includes(:chef_info).find_by(slug: params[:id])
   end
 
   def set_chef
-    @chef = Chef.includes(:user).find params[:id]
+    @chef = current_app.chefs.friendly.includes(:user).find_by(slug: params[:id])
   end
   
   def require_same_user

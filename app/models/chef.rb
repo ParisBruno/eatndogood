@@ -28,7 +28,18 @@ class Chef < ApplicationRecord
 
   translates :my_bio, fallbacks_for_empty_translations: true
   globalize_accessors locales: I18n.available_locales, attributes: [:my_bio]
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :scoped], scope: :user
 
+  def slug_candidates
+    [
+      :user_name
+    ]
+  end
+
+  def user_name
+    user.first_name.parameterize
+  end
   
   def admin_user
     self.user.app.main_admin
@@ -52,4 +63,7 @@ class Chef < ApplicationRecord
     end
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || user.first_name_changed?
+  end
 end

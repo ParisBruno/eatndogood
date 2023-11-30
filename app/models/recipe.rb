@@ -42,7 +42,7 @@ class Recipe < ApplicationRecord
   globalize_accessors locales: I18n.available_locales, attributes: [:name, :description]
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :scoped], scope: :chef
 
   def self.sizes
     {
@@ -125,5 +125,4 @@ class Recipe < ApplicationRecord
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
   end
-
 end

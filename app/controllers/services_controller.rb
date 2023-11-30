@@ -5,7 +5,7 @@ class ServicesController < ApplicationController
 
   def index
     @service_types = current_app.service_types
-    @service_type = params[:service_types].present? ? @service_types.find(params[:service_types]) : @service_types.first
+    @service_type = params[:service_types].present? ? @service_types.friendly.find_by(slug: params[:service_types]) : @service_types.first
   end
 
   def slots
@@ -58,7 +58,7 @@ class ServicesController < ApplicationController
 
   private
   def set_service
-    @service = Service.find(params[:id])
+    @service = current_app.services.friendly.find_by(slug: params[:id])
   end
 
   def service_params

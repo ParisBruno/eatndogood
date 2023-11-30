@@ -14,7 +14,7 @@ class ServiceSlotsController < ApplicationController
   def update
     if @service_slot.update(service_slot_params)
       flash[:success] = t('common.successfully_updated', name: 'ServiceSlot')
-      redirect_to app_service_path(current_app, @service_slot.service_id)
+      redirect_to app_service_path(current_app, @service_slot.service.slug)
     else
       render 'edit'
     end
@@ -22,12 +22,12 @@ class ServiceSlotsController < ApplicationController
 
   def destroy
     @service_slot.destroy
-    redirect_to app_service_path(current_app, @service_slot.service_id)
+    redirect_to app_service_path(current_app, @service_slot.service.slug)
   end
 
   private
   def set_service_slot
-    @service_slot = ServiceSlot.find(params[:id])
+    @service_slot = ServiceSlot.friendly.find_by(slug: params[:id])
   end
 
   def service_slot_params

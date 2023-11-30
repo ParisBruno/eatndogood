@@ -2,7 +2,7 @@ class Style < ApplicationRecord
 	include RailsSortable::Model
 	include TranslatedUpcaser
 	extend FriendlyId
-	friendly_id :name, use: :slugged
+	friendly_id :name, use: [:slugged, :scoped], scope: :app
 
   set_sortable :sort
 	belongs_to :app
