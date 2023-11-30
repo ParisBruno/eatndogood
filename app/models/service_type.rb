@@ -3,7 +3,7 @@ class ServiceType < ApplicationRecord
   belongs_to :user
   has_many :services, dependent: :destroy
   extend FriendlyId
-  friendly_id :name, use: :slugged, use: [:slugged, :scoped], scope: :service
+  friendly_id :name, use: :slugged, use: [:slugged, :scoped], scope: :user
 
   def available_services
     services = self.services.where.not(start_day: nil)

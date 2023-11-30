@@ -77,6 +77,6 @@ class Service < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || name_changed?
+    slug.blank? || service_type.name_changed?
   end
 end
