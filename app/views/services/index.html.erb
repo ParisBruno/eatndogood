@@ -57,7 +57,7 @@
               <div class="form-group mt-sm-3">
                 <div class="ml-0">
                   <%= form_tag(app_services_path(current_app), method: :get, id: "service-type-form", class: "h-100") do %>
-                    <%= select_tag "service_types", options_for_select(@service_types.map{|x| [x.name, x.id]}, params[:service_types]), class: "form-control select-height", required: true %>
+                    <%= select_tag "service_types", options_for_select(@service_types.map{|x| [x.name, x.slug]}, params[:service_types]), class: "form-control select-height", required: true %>
                   <% end %>
                 </div>
               </div>
@@ -235,7 +235,7 @@
     $.ajax({
       method: "GET",
       url: "/" + <%= current_app.id %> + "/slots",
-      data: { service_day: service_day, service_type: service_type, people: people },
+      data: { service_day: service_day, service_types: service_type, people: people },
       success: function (response) {
       },
     })

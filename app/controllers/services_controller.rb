@@ -9,7 +9,7 @@ class ServicesController < ApplicationController
   end
 
   def slots
-    service_type = ServiceType.find(params[:service_type])
+    service_type = ServiceType.friendly.find_by(slug: params[:service_types])
     @avail_slots = service_type.available_time_slots(params[:service_day], params[:people])
     respond_to do |format|
       format.js {render layout: false}
@@ -42,6 +42,7 @@ class ServicesController < ApplicationController
   end
 
   def update
+    @service = Service.find(params[:id])
     params[:service] = params[:service].except(:icon) if params[:service][:icon] == ""
     @service.update(service_params)
     respond_to do |format|
