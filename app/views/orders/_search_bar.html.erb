@@ -9,7 +9,7 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchOrdersSection">
       <div class="card-body">
-        <%= form_tag(app_orders_path, method: :get, remote: true) do |f| %>
+        <%= form_tag(app_route(app_orders_path(current_app)), method: :get, remote: true) do |f| %>
           <div class="form-group row my-4 mx-3">
             <div class="col-md-2 col-sm-4 mt-2">
               <h3>

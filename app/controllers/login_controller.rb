@@ -8,7 +8,7 @@ class LoginController < ApplicationController
 	skip_before_action :check_app_user
 
 	def new
-	  return redirect_to recipes_path if current_member.present?
+	  return redirect_to app_route(app_recipes_path(current_app)) if current_member.present?
 
 	  @disable_nav = true
 
@@ -35,7 +35,7 @@ class LoginController < ApplicationController
 	        session[:chef_id] = chef.id
 	        session[:user_role] = 'admin'
 	        flash[:success] = I18n.t('flash.you_are_logged_in')
-	        redirect_to recipes_path
+	        redirect_to app_route(app_recipes_path(current_app))
 	      else
 	        flash.now[:danger] = I18n.t 'flash.your_email_or_password_dont_match'
 	        render 'new'
@@ -52,7 +52,7 @@ class LoginController < ApplicationController
 	  session[:chef_id] = nil
 	  session[:user_role] = nil
 	  flash[:success] = I18n.t 'flash.you_have_logged_out'
-	  redirect_to app_path(current_app)
+	  redirect_to app_route(app_path(current_app))
 	end
 
 	def create_chef (user_id, admin)
@@ -134,7 +134,7 @@ class LoginController < ApplicationController
 
 	    #@user.send_password_reset_email
 	    flash[:success] = I18n.t 'flash.email_sent_password_reset_instr'
-	    redirect_to root_url
+	    redirect_to app_route(root_url(current_app))
 	  else
 	    flash[:danger] = I18n.t 'flash.email_address_not_found'
 	    render 'forgot'
@@ -156,7 +156,7 @@ class LoginController < ApplicationController
 
 	  unless @guest.present?
 	    flash[:danger] = I18n.t 'flash.wrong_url_provided'
-	    redirect_to root_url
+	    redirect_to app_route(root_url(current_app))
 	  end
 	end
 
@@ -180,7 +180,7 @@ class LoginController < ApplicationController
 	    @guest.update_attributes(user_params)
 
 	    flash[:success] = I18n.t 'flash.password_has_been_reset'
-	    redirect_to login_path
+	    redirect_to app_route(login_path(current_app))
 	  else
 	    render 'changepassword'
 	  end
@@ -206,7 +206,7 @@ class LoginController < ApplicationController
 	     @guest.update_attributes(admin_params)
 
 	    flash[:success] = I18n.t 'flash.password_has_been_reset'
-	    redirect_to login_path
+	    redirect_to app_route(login_path(current_app))
 	  else
 	    render 'changepassword'
 	  end
@@ -244,14 +244,14 @@ class LoginController < ApplicationController
 	      session[:chef_id] = guest.id
 	      session[:user_role] = 'guest'
 	      flash[:success] = I18n.t('flash.you_are_logged_in')
-	      redirect_to recipes_path
+	      redirect_to app_route(app_recipes_path(current_app))
 	    else
 	       flash.now[:danger] = I18n.t 'flash.your_email_or_password_dont_match'
-	       redirect_to login_path+'?is_guest=yes', :notice => I18n.t('flash.your_email_or_password_dont_match')
+	       redirect_to app_route(login_path+'?is_guest=yes'(current_app)), :notice => I18n.t('flash.your_email_or_password_dont_match')
 	    end
 	  else
 	    flash.now[:danger] = I18n.t 'flash.your_email_or_password_dont_match'
-	    redirect_to login_path+'?is_guest=yes', :notice => I18n.t('flash.your_email_or_password_dont_match')
+	    redirect_to app_route(login_path+'?is_guest=yes'(current_app)), :notice => I18n.t('flash.your_email_or_password_dont_match')
 	  end
 	end
 
@@ -264,6 +264,6 @@ class LoginController < ApplicationController
 	end
 
 	def logout_current_user
-		sign_out(current_app_user) if current_app_user
+		sign_out(@sessioned_user) if @sessioned_user
 	end
 end

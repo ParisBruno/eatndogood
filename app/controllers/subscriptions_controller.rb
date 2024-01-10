@@ -14,8 +14,8 @@ class SubscriptionsController < ApplicationController
           price: @price_id, quantity: 1
         },
       ],
-      success_url: app_subscribed_url(current_app, clients: params[:clients]),
-      cancel_url: app_subscriptions_url(current_app)
+      success_url: app_route(app_subscribed_url(current_app, clients: params[:clients])),
+      cancel_url: app_route(app_subscriptions_url(current_app))
     })
   end
 
@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
       created_from: current_app.slug
     )
     UserMailer.welcome_email(User.last, password,current_app).deliver_now
-    redirect_to new_app_user_session_path(current_app)
+    redirect_to app_route(new_app_user_session_path(current_app))
   end
 
   private

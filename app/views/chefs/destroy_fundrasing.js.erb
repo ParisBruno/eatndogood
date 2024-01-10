@@ -6,9 +6,10 @@ var addFundrasingBtn = document.getElementById("add-fundrasing-btn");
 addFundrasingBtn.addEventListener("click", function () {
   var title = $('#fundraising-title').val();
   var couponCheckBox = $('#fundraising-check-box').prop("checked");
+  var app_route_fundrasing_codes = "<%= app_route(app_add_fundrasing_codes_path(current_app)) %>";
   $.ajax({
     method: "POST",
-    url: "/" + <%= @current_app.id %> + "/fundrasing_codes",
+    url: app_route_fundrasing_codes,
     data: { fundrasing_code: {title: title, is_active: couponCheckBox} },
     success: function (response) {
     },

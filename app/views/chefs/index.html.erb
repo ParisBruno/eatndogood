@@ -55,16 +55,16 @@
 <div class="col-md-12 margin-sec pagination-top page-sec mb-4">
   <% if @chef_plan.present? %>
     <% unless @chef_plan.downcase.include?("Professionals".downcase) || @chef_plan.downcase.include?("Amateur".downcase) %>
-      <div class="btn-success"><%= link_to t('chefs.add_chef_contributor'), addchef_path %></div>
+      <div class="btn-success"><%= link_to t('chefs.add_chef_contributor'), app_route(addchef_path(current_app)) %></div>
     <% end %>
   <% end %>
 
   <ul class="nav nav-tabs">
     <li>
-      <%= link_to t('common.recipes'), app_recipes_path(current_app), {:style=>'font-size:16px'} %>
+      <%= link_to t('common.recipes'), app_route(app_recipes_path(current_app)), {:style=>'font-size:16px'} %>
     </li>
     <li class="active">
-      <%= link_to t('navigation.team'), app_chefs_path(current_app), {:style=>'font-size:16px'} %>
+      <%= link_to t('navigation.team'), app_route(app_chefs_path(current_app)), {:style=>'font-size:16px'} %>
     </li>
   </ul>
 </div>
@@ -75,9 +75,9 @@
       <div class="image-box-shadow pt-3">
         <div class="custom-profile-detail">
           <% unless chef.chef_avatar.attached? %>
-          <%= link_to image_tag('no_avatar.png'), app_chef_path(current_app, chef) %>
+          <%= link_to image_tag('no_avatar.png'), app_route(app_chef_path(current_app, chef)) %>
           <% else %>
-            <%= link_to image_tag(chef.chef_avatar, size: 300), app_chef_path(current_app, chef) %>
+            <%= link_to image_tag(chef.chef_avatar, size: 300), app_route(app_chef_path(current_app, chef)) %>
           <% end %>
 
           <div class="user-profile">
@@ -88,7 +88,7 @@
 
                 <% if (session[:user_role] == 'admin') && (current_member.admin?) %>
                   <% if current_member.id != chef.id %>
-                    <%= link_to t('chefs.delete_profile'), chefdestroy_path(chef.id), data: { confirm: t('chefs.confirm_delete_account') } %>
+                    <%= link_to t('chefs.delete_profile'), app_route(chefdestroy_path(current_app, chef.id)), data: { confirm: t('chefs.confirm_delete_account') } %>
                   <% end %>
                 <% end %>
               </h3>

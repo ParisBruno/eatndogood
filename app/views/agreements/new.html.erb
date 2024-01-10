@@ -49,7 +49,7 @@
   /* Dropdown CSS End */
 </style>
 
-<%= form_with(model: Agreement.new, url: app_agreements_path(current_app), html: { id: "agreement_form" }) do |f| %>
+<%= form_with(model: Agreement.new, url: app_route(app_agreements_path(current_app)), html: { id: "agreement_form" }) do |f| %>
   <div class="container mb-5">
     <div class="row mt-5">
       <div class="col-md-12">
@@ -108,7 +108,7 @@
               <a class="border agreement-btn btn btn-secondary btn-lg text-white w-100 ml-3 p-3 clear-btn">
                 <%= t('agreement.clear_form') %>
               </a>
-              <a  href="<%= table_app_styles_path(current_app) %>" class="border agreement-btn btn btn-danger btn-lg text-white w-100 ml-3 p-3">
+              <a  href="<%= app_route(table_app_styles_path(current_app)) %>" class="border agreement-btn btn btn-danger btn-lg text-white w-100 ml-3 p-3">
                 <%= t('agreement.cancel') %>
               </a>
             </div>

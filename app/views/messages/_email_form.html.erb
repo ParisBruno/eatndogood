@@ -48,8 +48,8 @@
     }
   }
 </style>
-<% sender = current_app_user %>
-<%= form_with(model: Message.new, url: send_email_app_messages_path(current_app), local: true) do |form| %>
+<% sender = @sessioned_user %>
+<%= form_with(model: Message.new, url: app_route(send_email_app_messages_path(current_app)), local: true) do |form| %>
   <div>
     <div>
       <h5 style="margin-left: 2%;"><i><%= Date.current.strftime("%A %d of %B, %Y") %></i></h3>

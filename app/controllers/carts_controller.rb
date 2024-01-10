@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[check_stripe_coupon check_coupon check_fundrasing add_additional_params check_delivery check_tip]
-  skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
+  # skip_before_action :set_app, :check_app_user, :set_header_data, except: %i[show destroy]
   
   @@coupon_id ||= []
   @@coupon_percent_off ||= []
@@ -31,13 +31,13 @@ class CartsController < ApplicationController
   end
 
   def add_additional_params
-    redirect_to new_app_order_path(current_app, params: { coupon_code: @@coupon_id,
+    redirect_to app_route(new_app_order_path(current_app, params: { coupon_code: @@coupon_id,
                                                           coupon_percent_off: @@coupon_percent_off,
                                                           coupon_amount_off: @@coupon_amount_off,
                                                           fundrasing_code: @@fundrasing_value,
                                                           delivery_price: @@delivery_price,
                                                           tip_value: @@tip_value
-                                                        })
+                                                        }))
   end
 
   def check_delivery
@@ -172,7 +172,7 @@ class CartsController < ApplicationController
     @tip = @@tip_value
 
     respond_to do |format|
-      format.html { redirect_to app_cart_path(current_app, @current_cart) }
+      format.html { redirect_to app_route(app_cart_path(current_app, @current_cart)) }
       format.js
     end
   end
@@ -188,7 +188,7 @@ class CartsController < ApplicationController
         @coupon_code_value = @@coupon_value
         @fundrasing_code_value = @@fundrasing_value
         @tip = @@tip_value
-        format.html { redirect_to app_cart_path(current_app, @current_cart) }
+        format.html { redirect_to app_route(app_cart_path(current_app, @current_cart)) }
         format.js
       else
         format.html { render action: 'show' and return }
@@ -209,7 +209,7 @@ class CartsController < ApplicationController
         @coupon_code_value = @@coupon_value
         @fundrasing_code_value = @@fundrasing_value
         @tip = @@tip_value
-        format.html { redirect_to app_cart_path(current_app, @current_cart) }
+        format.html { redirect_to app_route(app_cart_path(current_app, @current_cart)) }
         format.js
       else
         format.html { render action: 'show' and return }
@@ -222,6 +222,6 @@ class CartsController < ApplicationController
     @current_cart.destroy
     session[:cart_id] = nil
 
-    redirect_to app_recipes_path(current_app)
+    redirect_to app_route(app_recipes_path(current_app))
   end
 end

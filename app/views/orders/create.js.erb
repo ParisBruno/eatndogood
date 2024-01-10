@@ -6,5 +6,9 @@
     }).then(function (result) {
     })
 <% else %>
-   $(window.location.replace("/<%= @current_app.id %>/recipes"))
+  <% if params[:app] == nil %>
+    $(window.location.replace("/recipes"))
+  <% else %>
+    $(window.location.replace("/<%= @current_app.slug %>/recipes"))
+  <% end %>
 <% end %>

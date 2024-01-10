@@ -1,5 +1,5 @@
 class ChefsController < ApplicationController
-  before_action :authenticate_app_user!, :except => [:index, :show]
+  before_action :authenticate_based_on_app_presence, :except => [:index, :show]
   before_action :set_user, only: [:edit, :update]
   before_action :set_chef, only: [:show, :destroy]
   before_action :require_same_user, only: [:edit, :update]
@@ -30,7 +30,7 @@ class ChefsController < ApplicationController
     if @user.save
       delete_draft
       flash[:success] = t('chefs.account_created_successfully', full_name: @user.full_name)
-      redirect_to app_chef_path(current_app, @user.chef_info)
+      redirect_to app_route(app_chef_path(current_app, @user.chef_info))
     else
         render 'new'
     end
@@ -47,14 +47,14 @@ class ChefsController < ApplicationController
   def update
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:encrypted_password) if params[:user][:password].blank?
-    user = User.find current_app_user.id
+    user = User.find @sessioned_user.id
 
     if @user.update(chef_params)
       delete_draft(@user)
       bypass_sign_in @user if user.id == @user.id
       flash[:success] = t('chefs.account_updated_successfully')
       current_app.reload
-      redirect_to [current_app,@user.chef_info]
+      redirect_to app_route(app_chef_path(current_app, @user.chef_info))
     else
       render 'edit'
     end
@@ -64,15 +64,15 @@ class ChefsController < ApplicationController
     if !@chef.admin?
       @chef.destroy
       flash[:danger] = t('chefs.chef_and_all_associated_services_deleted')
-      redirect_to app_chefs_path(current_app)
+      redirect_to app_route(app_chefs_path(current_app))
     else
        flash[:danger] = t('chefs.cannot_delete_chef_admin_account')
-       redirect_to app_chef_path(current_app, @chef)
+       redirect_to app_route(app_chef_path(current_app, @chef))
     end
   end
 
   def add_coupon
-    coupon_code = CouponCode.find_or_initialize_by(title: params[:coupon_code][:title], chef_id: current_app_user.chef_info.id)
+    coupon_code = CouponCode.find_or_initialize_by(title: params[:coupon_code][:title], chef_id: @sessioned_user.chef_info.id)
     coupon_percent_off = params[:coupon_code][:coupon_percent_off].present? ? params[:coupon_code][:coupon_percent_off] : 0
     coupon_amount_off = params[:coupon_code][:coupon_amount_off].present? ? params[:coupon_code][:coupon_amount_off] : 0
     coupon_code.assign_attributes(coupon_percent_off: coupon_percent_off, coupon_amount_off: coupon_amount_off, is_active: params[:coupon_code][:is_active])
@@ -93,7 +93,7 @@ class ChefsController < ApplicationController
   end
 
   def add_fundrasing
-    fundrasing_code = FundrasingCode.find_or_initialize_by(title: params[:fundrasing_code][:title], chef_id: current_app_user.chef_info.id)
+    fundrasing_code = FundrasingCode.find_or_initialize_by(title: params[:fundrasing_code][:title], chef_id: @sessioned_user.chef_info.id)
     fundrasing_code.assign_attributes(is_active: params[:fundrasing_code][:is_active])
     fundrasing_code.save!
 
@@ -112,7 +112,7 @@ class ChefsController < ApplicationController
   end
 
   def admin
-    return redirect_to app_recipes_path(current_app) if @admin_id != current_app.main_admin.chef_info.id
+    return redirect_to app_route(app_recipes_path(current_app)) if @admin_id != current_app.main_admin.chef_info.id
 
     render 'chefs/point_of_sales'
   end
@@ -122,10 +122,10 @@ class ChefsController < ApplicationController
   end
 
   def staff
-    return redirect_to app_recipes_path(current_app) unless @staff_id
+    return redirect_to app_route(app_recipes_path(current_app)) unless @staff_id
 
     @orders = Order.where(user_id: @staff_id).order(created_at: :desc)
-    @manager = current_app_user.team_manager
+    @manager = @sessioned_user.team_manager
     render 'chefs/point_of_sales'
   end
   
@@ -157,16 +157,16 @@ class ChefsController < ApplicationController
   end
   
   def require_same_user
-    if current_app_user.id != @user.id && !current_app_user.admin?
+    if @sessioned_user.id != @user.id && !@sessioned_user.admin?
       flash[:danger] = t('chefs.only_edit_or_delete_own_account')
-      redirect_to app_chefs_path(current_app)
+      redirect_to app_route(app_chefs_path(current_app))
     end
   end
   
   def require_admin
-    if logged_in? && !current_app_user.admin?
+    if logged_in? && !@sessioned_user.admin?
       flash[:danger] = t('flash.only_admin_users_action')
-      redirect_to app_path(current_app)
+      redirect_to app_route(app_path(current_app))
     end
   end
 
@@ -185,6 +185,10 @@ class ChefsController < ApplicationController
   def set_manager
     @current_manger = current_app.users.managers.find_by(id: params[:manager_id])
 
-    redirect_to app_recipes_path(current_app) if @current_manger != current_app_user
+    redirect_to app_route(app_recipes_path(current_app)) if @current_manger != @sessioned_user
+  end
+
+  def authenticate_based_on_app_presence
+    params[:app].present? ? authenticate_app_user! : authenticate_user!
   end
 end

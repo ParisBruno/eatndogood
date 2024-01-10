@@ -9,8 +9,7 @@
     }
   }
 </style>
-<%= form_for([current_app,@allergen], :html => {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
-  <%= render partial: 'shared/form_locale_selector', locals: {model: "allergen", elem: "nameal"} %>
+<%= form_with(model: [current_app, @allergen], url: (@allergen.persisted? ? app_route(app_allergen_path(current_app, @allergen)) : app_route(app_allergens_path(current_app))), html: {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>  <%= render partial: 'shared/form_locale_selector', locals: {model: "allergen", elem: "nameal"} %>
   <% I18n.available_locales.each do |locale| %>
     <div class="form-group <%= "nameal_#{locale}" %>">
       <div class="control-label col-md-2" style="padding-left: 15px !important">

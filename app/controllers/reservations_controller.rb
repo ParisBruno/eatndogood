@@ -18,7 +18,7 @@ class ReservationsController < ApplicationController
 				UserMailer.reservation_email(@reservation.email, to_email, @reservation).deliver_now
   	    message = t('reservations.make_reservation_successfully')
         message = t('reservations.sent_catering_question_to_chef') if @reservation != "reservation"
-  	    format.html { redirect_to app_recipe_path(current_app, @reservation.recipe_id), notice: t('reservations.make_reservation_successfully') }
+  	    format.html { redirect_to app_route(app_recipe_path(current_app, @reservation.recipe_id)), notice: t('reservations.make_reservation_successfully') }
   	    
   	  else
   	    format.html { render :new }

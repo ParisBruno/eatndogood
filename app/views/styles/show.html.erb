@@ -1,7 +1,7 @@
 <style>
   @media screen and (max-width: 600px) {
     .category-page-title {
-      margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+      margin-top: <%= @sessioned_user ? '80px' : '10px' %>;
     }
   }
 </style>

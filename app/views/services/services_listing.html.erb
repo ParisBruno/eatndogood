@@ -38,7 +38,7 @@
       </div>
     </div>
   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchServices">
-    <%= form_tag(app_services_listing_path, method: :get) do |f| %>
+    <%= form_tag(app_route(app_services_listing_path(current_app)), method: :get) do |f| %>
       <div class="form-group mb-4 mx-3 row">
         <div class="col-lg-1">
         </div>
@@ -73,7 +73,7 @@
             <div class="col-6 col-sm-4 col-lg-3 col-xl-2 text-center p-2 service-listing" id="<%= sortable_id %>" data-service-id="<%= service.id %>">
               <% booked_slots = service.today_booked_slots(params[:date]) %>
               <div class="icon <%= service.border_class if booked_slots.present? %> ">
-                <%= link_to app_service_path(current_app, service.slug, start_time: date), target: '_blank' do %>
+                <%= link_to app_route(app_service_path(current_app, service.slug, start_time: date)), target: '_blank' do %>
                   <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe  if service.icon.present? %>
                 <% end %>
               </div>

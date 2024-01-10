@@ -4,8 +4,8 @@
       <div class="card" style="background-color: #92d050;">
         <div class="card-body">
           <p class="card-text"><%= order.user.full_name %> Order#<%= order.id %></p>
-          <%= link_to app_order_path(current_app, order), class: 'order-card-link' do %>
-            <p class="card-text"><%= t('navigation.managers') %> - <%= link_to @manager&.full_name, managers_app_messages_path(current_app, recipient_id: @manager&.id), target: '_blank' %></p>
+          <%= link_to app_route(app_order_path(current_app, order)), class: 'order-card-link' do %>
+            <p class="card-text"><%= t('navigation.managers') %> - <%= link_to @manager&.full_name, app_route(managers_app_messages_path(current_app, recipient_id: @manager&.id)), target: '_blank' %></p>
             <p class="card-text"><%= t('navigation.client_name') %> -  <%= order.name %></p>
           <% end %>
         </div>            

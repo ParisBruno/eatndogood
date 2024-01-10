@@ -13,7 +13,7 @@ class Ckeditor::ApplicationController < Ckeditor.parent_controller.constantize
     asset_response = Ckeditor::AssetResponse.new(asset, request)
     asset.data = asset_response.data
 
-    asset.user_id = current_app_user.id
+    asset.user_id = @sessioned_user.id
     if asset.save
       render asset_response.success(config.relative_url_root)
     else

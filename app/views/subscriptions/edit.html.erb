@@ -18,7 +18,7 @@
   }
 </style>
 <div class="subscription-edit">
-  <%= form_for(current_app, url: app_update_path(current_app), method: :post) do |f| %>
+  <%= form_for(current_app, url: app_route(app_update_path(current_app)), method: :post) do |f| %>
     <div class="row justify-content-center pt-5 mt-5">
       <div class="col-8 col-sm-6 col-md-5 col-lg-4 subscription-slots btn-center">
         <div class ="row">
@@ -28,7 +28,7 @@
             </h3>
           </div>
           <div class="col-12 mb-3">
-            <% guest_limit = @app.plan.guests_limit %>
+            <% guest_limit = current_app.plan.guests_limit %>
             <h3 class="px-3 text-center mt-3">
               <%= t('subscription.current_guest_limit', guest_limit: "#{guest_limit}") %>
             </h3>

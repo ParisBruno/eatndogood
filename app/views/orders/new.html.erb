@@ -70,7 +70,7 @@
   }
 </style>
 
-<%= form_for(@order, url: app_orders_path(current_app), html: { method: :post }, remote: true ) do |f| %>
+<%= form_for(@order, url: app_route(app_orders_path(current_app)), html: { method: :post }, remote: true ) do |f| %>
   <div class="row">
     <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
       <div class="col-md-5 well box-content">
@@ -109,7 +109,7 @@
               </div>
             </td>
           </tr>
-          <tr style="display: <%= app_user_signed_in? ? 'none' : 'table-row' %>;">
+          <tr style="display: <%= @sessioned_user ? 'none' : 'table-row' %>;">
             <td class="order-table" style="padding-bottom: 10px;">
               <div class="form-group">
                 <div class="control-label col-md-2">
@@ -117,12 +117,12 @@
                 </div>
                 <div class="col-md-8">
                   <%= f.password_field :password, autocomplete: 'new-password', class: "form-control",
-                        placeholder: t('activerecord.attributes.user.password').capitalize, value: app_user_signed_in? ? current_app_user.encrypted_password : '' %>
+                        placeholder: t('activerecord.attributes.user.password').capitalize, value: @sessioned_user ? @sessioned_user.encrypted_password : '' %>
                 </div>
               </div>
             </td>
           </tr>
-          <tr style="display: <%= app_user_signed_in? ? 'none' : 'table-row' %>;">
+          <tr style="display: <%= @sessioned_user ? 'none' : 'table-row' %>;">
             <td class="order-table">
               <div class="form-group">
                 <div class="control-label col-md-2">
@@ -130,7 +130,7 @@
                 </div>
                 <div class="col-md-8">
                   <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: "form-control",
-                        placeholder: t('activerecord.attributes.user.password_confirmation').capitalize, value: app_user_signed_in? ? current_app_user.encrypted_password : '' %>
+                        placeholder: t('activerecord.attributes.user.password_confirmation').capitalize, value: @sessioned_user ? @sessioned_user.encrypted_password : '' %>
                 </div>
               </div>
             </td>

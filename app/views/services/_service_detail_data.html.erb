@@ -16,6 +16,6 @@
 <td class="border-0 buttons <%= "font-weight-bold" if index.zero? && type_index.zero? %>">
   <% if service.border_class != "green-border" %>
     <input type="button" value= "<%= t('common.edit') %>" class="btn btn-primary btn-lg edit-service-btn">
-    <%= link_to t('common.delete'), [current_app, service], method: :delete, data:  { confirm: t('common.confirm') }, class: "ml-2 btn btn-danger btn-lg", remote: true %>
+    <%= link_to t('common.delete'), app_route(app_service_path(current_app, service.id)), method: :delete, data:  { confirm: t('common.confirm') }, class: "ml-2 btn btn-danger btn-lg", remote: true %>
   <% end %>
 </td>

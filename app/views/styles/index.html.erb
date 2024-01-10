@@ -1,7 +1,7 @@
 <style>
   @media screen and (max-width: 600px) {
     .category-page-title {
-      margin-top: <%= app_user_signed_in? ? '70px' : '10px' %>;
+      margin-top: <%= @sessioned_user ? '70px' : '10px' %>;
     }
   }
   ul.listing li {
@@ -19,11 +19,11 @@
     <ul class="listing">
       <div class="row justify-content-center">
         <div class="well p-0">
-          <li class="chef-title"><%= link_to style.name, app_style_path(current_app, style) %></li>
-          <% recipes_count = current_app_user&.admin? ? style.recipes.count : style.recipes.where(is_draft: false).count %>
+          <li class="chef-title"><%= link_to style.name, app_route(app_style_path(current_app, style)) %></li>
+          <% recipes_count = @sessioned_user&.admin? ? style.recipes.count : style.recipes.where(is_draft: false).count %>
           <li><%= pluralize(recipes_count, "recipe") if style.recipes %></li>
-          <li><%= link_to t('common.edit'), edit_app_style_path(current_app, style) %></li>
-          <li><%= link_to t('common.delete'), [current_app, style], method: :delete, data: { confirm: t('common.confirm') } %></li>
+          <li><%= link_to t('common.edit'), app_route(edit_app_style_path(current_app, style)) %></li>
+          <li><%= link_to t('common.delete'), app_route(app_style_path(current_app, style)), method: :delete, data: { confirm: t('common.confirm') } %></li>
         </div>
       </div>
     </ul>

@@ -12,13 +12,20 @@ class Order < ApplicationRecord
 
   enum status: { active: 0, archived: 1 }
 
-  accepts_nested_attributes_for :line_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :line_items, reject_if: :reject_line_item_if_blank, allow_destroy: true
 
   def sub_total
     sum = 0
     self.line_items.each do |line_item|
-      sum+= line_item.total_price unless line_item.recipe&.is_draft
+      sum+= line_item.total_price.to_f unless line_item.recipe&.is_draft
     end
     return sum
+  end
+
+  private
+
+  def reject_line_item_if_blank(attributes)
+    return false if attributes['recipe_id'].present? || attributes['gift_card_id'].present?
+    true
   end
 end

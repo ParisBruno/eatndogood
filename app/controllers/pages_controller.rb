@@ -7,7 +7,7 @@ class PagesController < ApplicationController
 
   def index
     if params[:set_locale]
-      redirect_to about_pages_url(locale: params[:set_locale])
+      redirect_to app_route(about_pages_url(current_app, locale: params[:set_locale]))
     end
   end
 
@@ -22,7 +22,7 @@ class PagesController < ApplicationController
 
     if @page.save
       delete_draft(@page)        
-      redirect_to about_app_pages_url(current_app)
+      redirect_to app_route(about_app_pages_url(current_app))
     else
       render :edit
     end 
@@ -44,9 +44,9 @@ class PagesController < ApplicationController
 
   def preview
     page = Page.find(params[:id])
-    redirect_to app_path(current_app) if page.nil?
+    redirect_to app_route(app_path(current_app)) if page.nil?
     @page = page.page_preview
-    redirect_to app_path(current_app) if @page.nil?
+    redirect_to app_route(app_path(current_app)) if @page.nil?
   end
 
   def update
@@ -60,7 +60,7 @@ class PagesController < ApplicationController
       else
         @page_preview.update(page_params)
       end
-      url = preview_app_page_path(current_app, @page)
+      url = app_route(preview_app_page_path(current_app, @page))
       render js: "var win = window.open('#{url}', '_blank'); win.focus();"
     else
       if @page.update(page_params)
@@ -68,7 +68,7 @@ class PagesController < ApplicationController
         # redirect_to app_page_path(current_app, @page.destination)
         delete_draft(@page)
         # render :js => "window.location = '#{app_page_path(current_app, @page.destination)}'"
-        render :js => "var win = window.open('#{app_page_path(current_app, @page.destination)}', '_blank'); win.focus();"
+        render :js => "var win = window.open('#{app_route(app_page_path(current_app, @page.destination))}', '_blank'); win.focus();"
       else
         render :edit
         # render :js => "window.location = '/jobs/index'"
@@ -99,8 +99,8 @@ class PagesController < ApplicationController
   end
 
   def get_page
-    if @app.present?
-      Page.where(destination: destination, app_id: @app.id).first
+    if current_app.present?
+      Page.where(destination: destination, app_id: current_app.id).first
     else
       Page.where(destination: destination).first
     end

@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <%= render 'form', remote: false%>
     <div class="colormatch" style="text-align:center">
-      [ <%= link_to t('forms.return_to_list'), app_ingredients_path(current_app) %> ]
+      [ <%= link_to t('forms.return_to_list'), app_route(app_ingredients_path(current_app)) %> ]
     </div>
   </div>
 </div>

@@ -11,13 +11,13 @@
         <td style='width: 12%'><%= t('chefs.coupon_active') %></td>
         <td style='width: 10%; border-top: 0 !important;' class="empty-header" ></td>
       </tr>
-      <% @current_app_user.chef_info.coupon_codes.each do |coupon_code| %>
+      <% @sessioned_user.chef_info.coupon_codes.each do |coupon_code| %>
         <tr class="large-screen-padding">
           <td><%= coupon_code.title %></td>
           <td><%= coupon_code.coupon_percent_off %></td>
           <td><%= coupon_code.coupon_amount_off %></td>
           <td><%= coupon_code.is_active %></td>
-          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_coupon_codes_path(@current_app, code_id: coupon_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_route(app_coupon_codes_path(@current_app, code_id: coupon_code.id)), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
         </tr>
       <% end %>
       <tr>

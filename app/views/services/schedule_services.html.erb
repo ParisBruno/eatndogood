@@ -88,9 +88,9 @@
                 <td style='width: 15%'><%= t('services.end_time') %></td>
                 <td style='width: 10%; border: 0 !important;' class="empty-header" ></td>
               </tr>
-              <%= form_for(Service.new, url: app_services_path(current_app), :html => {remote: true }) do |f| %>
+              <%= form_for(Service.new, url: app_route(app_services_path(current_app)), :html => {remote: true }) do |f| %>
                 <%= f.hidden_field :app_id, value: current_app.id %>
-                <%= f.hidden_field :user_id, value: current_app_user.id %>
+                <%= f.hidden_field :user_id, value: @sessioned_user.id %>
                 <tr>
                   <td class="border-0 icon-field">
                     <div>
@@ -172,9 +172,14 @@
     var end_time_4 = detailRow.find('#service_end_time_4i').val();
     var end_time_5 = detailRow.find('#service_end_time_5i').val();
     var icon = CKEDITOR.instances['service_icon_'+serviceId].getData();
+    var refactoredurl = "<%= app_route(app_service_path(current_app, 'id')) %>";
+    refactoredurl.split("/");
+    var app_route_service_path = refactoredurl.split("/");
+    app_route_service_path.pop();
+    var app_route_service = app_route_service_path.pop();
     $.ajax({
       method: "PUT",
-      url: "/" + <%= current_app.id %> + "/services/" + serviceId,
+      url: app_route_service + "/" + serviceId,
       data: {
               service: {
                 customers: customers,
@@ -192,7 +197,7 @@
                 "end_time(5i)": end_time_5,
                 icon: icon,
                 app_id: <%= current_app.id %>,
-                user_id: <%= current_app_user.id %>,
+                user_id: <%= @sessioned_user.id %>,
                 index: index,
                 type_index: type_index
               }

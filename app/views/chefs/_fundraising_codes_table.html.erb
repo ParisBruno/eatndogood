@@ -7,11 +7,11 @@
         <td style='width: 30%'><%= t('chefs.coupon_active') %></td>
         <td style='width: 10%; border-top: 0 !important;' class="empty-header" ></td>
       </tr>
-      <% @current_app_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
+      <% @sessioned_user.chef_info.fundrasing_codes.each do |fundrasing_code| %>
         <tr class="large-screen-padding">
           <td><%= fundrasing_code.title %></td>
           <td><%= fundrasing_code.is_active %></td>
-          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_fundrasing_codes_path(@current_app, code_id: fundrasing_code.id), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
+          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_route(app_fundrasing_codes_path(@current_app, code_id: fundrasing_code.id)), class: "btn btn-outline-danger", remote: true, method: :delete %></td>
         </tr>
       <% end %>
       <tr>

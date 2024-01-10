@@ -5,8 +5,8 @@
   </head>
   <body>
     <div style="width: 100%; heigh: auto;">
-      <h3><%= t('subscription.reach_limit', app_name: @app.name, left_guests: @left_guests) %></h3>
-      <%= link_to t('Upgrade Subscription'), edit_app_subscriptions_url(@app) %>
+      <h3><%= t('subscription.reach_limit', app_name: current_app.name, left_guests: @left_guests) %></h3>
+      <%= link_to t('Upgrade Subscription'), app_route(edit_app_subscriptions_url(current_app)) %>
     </div>
   </body>
 </html>

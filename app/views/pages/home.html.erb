@@ -2,7 +2,7 @@
   <h1>Welcome to MyRecipes</h1>
   <h2>The best recipe sharing app!</h2>
   <% if !user_signed_in? %>
-    <p><%= link_to "Sign up for the app", new_user_registration_path, class: "btn btn-danger btn-lg btn-xlarge" %></p>
+    <p><%= link_to "Sign up for the app", app_route(new_app_user_registration(current_app)), class: "btn btn-danger btn-lg btn-xlarge" %></p>
   <% end %>
 </div>
 
@@ -10,7 +10,7 @@
   <div class="col-lg-4">
     <h2>Explore Recipes</h2>
     <p>We have a ton of recipes for you to explore, not sure about the app yet? Don't worry just view as a guest, we're sure you'll come back to sign-up at a later time</p>
-    <p><%= link_to "View all recipes as a Guest!", recipes_path, class: "btn btn-primary btn-xlarge" %></p>
+    <p><%= link_to "View all recipes as a Guest!", app_route(app_recipes_path(current_app)), class: "btn btn-primary btn-xlarge" %></p>
   </div>
   <div class="col-lg-4">
     <h2>Unlock all features!</h2>
@@ -20,6 +20,6 @@
   <div class="col-lg-4">
     <h2>Have an ingredient, need ideas?</h2>
     <p>View our ingredients listing page and select an ingredient that you have to view recipes associated with it for cooking ideas!</p>
-    <p><%= link_to "View ingredients listing", ingredients_path, class: "btn btn-primary btn-xlarge" %></p>
+    <p><%= link_to "View ingredients listing", app_route(app_ingredients_path(current_app)), class: "btn btn-primary btn-xlarge" %></p>
   </div>
 </div>

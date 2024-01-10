@@ -61,7 +61,7 @@
 <div class="row">
   <div class="margin-sec receipy-top-sec custom-new-form" style="padding: 20px;">
     <div class=" col-md-offset-4 login-sec margin-sec full-width-sec">
-    <%= form_for([current_app, @recipe], html: { multipart: true, class: "form-horizontal autosave" }) do |f| %>
+    <%= form_with(model: [current_app, @recipe], url: (@recipe.persisted? ? app_route(app_recipe_path(current_app, @recipe)) : app_route(app_recipes_path(current_app))), html: {class: "form-horizontal autosave", role: "form",  multipart: true, id: "new_recipe"}) do |f| %>
       <%= render partial: 'shared/form_locale_selector', locals: {model: "recipe", elem: "group"} %>
       <div class="col-md-8 well box-content margin">
         <% I18n.available_locales.each do |locale| %>
@@ -71,7 +71,7 @@
                 <%= f.label :name, t('forms.name') + "(#{locale})" %>
               </div>
               <div class="col-md-12">
-                <%= f.text_field "name_#{locale}", class: "form-control", placeholder: t('recipes.write_name'), autofocus: true, maxlength: "50" %>
+                <%= f.text_field "name_#{locale}", class: "form-control", placeholder: t('recipes.write_name'), autofocus: true, maxlength: "50", id: "recipe_name_#{locale}" %>
                 <p style="color:red;" class="mt-1"><%= t('common.recipe_note_allow_chars') %></p>
               </div>
             </div>
@@ -80,7 +80,7 @@
                 <%= f.label :description, t('forms.description') + "(#{locale})" %>
               </div>
               <div class="col-md-12">
-                <%= f.cktext_area "description_#{locale}", cols: 50, class: "form-control", placeholder: t('recipes.description_placeholder'), autofocus: true %>
+                <%= f.cktext_area "description_#{locale}", cols: 50, class: "form-control", placeholder: t('recipes.description_placeholder'), autofocus: true, id: "recipe_description_#{locale}" %>
                 <p style="color:red;" class="mt-1"><%= t('common.note_allow_chars', from: 20, to: 3000) %></p>
               </div>
             </div>
@@ -187,7 +187,7 @@
     <% end %>
     </div>
     <div class="col-12 colormatch text-center mt-5">
-      [ <%= link_to t('forms.return_to_recipes'), app_recipes_path(current_app) %> ]
+      [ <%= link_to t('forms.return_to_recipes'), app_route(app_recipes_path(current_app)) %> ]
     </div>
     <!-- style modal -->
     <div class='modal fade' id='new_style_modal' tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -282,15 +282,15 @@
   $(document).ready(function() {
     $("footer").removeClass('fixed-footer');
     $('#new_style').on('ajax:success', function(e, data, status, xhr) {
-      $('#recipe_all_styles').load('<%= new_app_recipe_path(current_app)%> #recipe_all_styles')
+      $('#recipe_all_styles').load('<%= app_route(new_app_recipe_path(current_app))%> #recipe_all_styles')
       $('#new_style_modal').modal('hide')
     })
     $('#new_ingredient').on('ajax:success', function(e, data, status, xhr) {
-      $('#recipe_all_ingredients').load('<%= new_app_recipe_path(current_app)%> #recipe_all_ingredients')
+      $('#recipe_all_ingredients').load('<%= app_route(new_app_recipe_path(current_app))%> #recipe_all_ingredients')
       $('#new_ingredient_modal').modal('hide')
     })
     $('#new_allergen').on('ajax:success', function(e, data, status, xhr) {
-      $('#recipe_all_allergens').load('<%= new_app_recipe_path(current_app)%> #recipe_all_allergens')
+      $('#recipe_all_allergens').load('<%= app_route(new_app_recipe_path(current_app))%> #recipe_all_allergens')
       $('#new_allergen_modal').modal('hide')
     })
   });

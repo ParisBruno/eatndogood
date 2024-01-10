@@ -24,7 +24,7 @@
     }
   }
 </style>
-<%= form_for([current_app,@page], html: { class: "autosave", multipart: true}, remote: @page.new_record? ? false : true)do |f| %>
+<%= form_for([current_app, @page], url: (@page.persisted? ? app_route(app_page_path(current_app, @page)) : app_route(app_pages_path(current_app))), html: { class: "autosave", multipart: true}, remote: @page.new_record? ? false : true) do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "page"} %>
   <%= f.hidden_field :destination %>
   <div class="row margin-sec edit-chef new-cheif px-md-5">
@@ -38,13 +38,13 @@
           <% end %>
 
           <% if @page.destination == 'welcome' %>
-            <%= cktext_area :page, "content_#{locale}", value: (@page.present? && !@page.content.nil?) ? @page.send("content_#{locale}") :  ['Welcome', current_app_user.full_name, 'iTopRecipes app'].join('<br/>'),  cols: 100, rows: 20, class: 'form-control', required: true  %>
+            <%= cktext_area :page, "content_#{locale}", value: (@page.present? && !@page.content.nil?) ? @page.send("content_#{locale}") :  ['Welcome', @sessioned_user.full_name, 'iTopRecipes app'].join('<br/>'),  cols: 100, rows: 20, class: 'form-control', required: true  %>
           <% else %>
             <%= cktext_area :page, "title_#{locale}", value: (@page.present? && !@page.title.nil?) ? @page.send("title_#{locale}") :  'Welcome',  cols: 100, rows: 20, class: 'form-control', required: true  %>
             <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
             <% if @page.present? && @page.destination == 'welcome' %>
               <label>Edit your name</label>
-              <%= cktext_area :page, :admin_name, value: (@page.present? && !@page.admin_name.nil?) ? @page.admin_name :  current_app_user.full_name,  cols: 100, rows: 20, class: 'form-control', required: true  %>
+              <%= cktext_area :page, :admin_name, value: (@page.present? && !@page.admin_name.nil?) ? @page.admin_name :  @sessioned_user.full_name,  cols: 100, rows: 20, class: 'form-control', required: true  %>
               <span style="color:red;display:none;" id="span_err_1"><%= t('pages.new.you_can_not_write_more_chars', max: 40) %></span><br>
             <% end %>
             <% if @page.present? && @page.destination == 'welcome' %>

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:chef_id] = nil
     flash[:success] = t('flash.you_have_logged_out')
-    redirect_to app_path(current_app)
+    redirect_to app_route(app_path(current_app))
   end
   
 end

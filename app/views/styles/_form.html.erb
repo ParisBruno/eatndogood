@@ -9,7 +9,7 @@
     }
   }
 </style>
-<%= form_for([current_app, @style], :html => {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
+<%= form_with(model: [current_app, @style], url: (@style.persisted? ? app_route(app_style_path(current_app, @style)) : app_route(app_styles_path(current_app))), html: {class: "form-horizontal", role: "form"}, remote: remote) do |f| %>
   <%= render partial: 'shared/form_locale_selector', locals: {model: "style", elem: "namest"} %>
   <% I18n.available_locales.each do |locale| %>
     <div class="form-group <%= "namest_#{locale}" %>">

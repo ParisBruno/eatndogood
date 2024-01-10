@@ -156,7 +156,7 @@
   }
 </style>
 
-<%= form_with(model: order, url: order.new_record? ? app_create_staff_order_path(current_app) : app_order_path(id: order, app: current_app.slug), local: true, html: { id: "staff_order" } ) do |form| %>
+<%= form_with(model: order, url: order.new_record? ? app_route(app_create_staff_order_path(current_app)) : app_route(app_order_path(current_app, id: order)), local: true, html: { id: "staff_order" } ) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
       <ul style="padding-left: 5%;">
@@ -174,28 +174,28 @@
           <tr>
             <td colspan="2">
               <h1>
-                <%= current_app_user.business_name %>
+                <%= @sessioned_user.business_name %>
               </h1>
               <p class="text-center mb-0">
-                <%= current_app_user.store_address %>
+                <%= @sessioned_user.store_address %>
               </p>
               <p class="text-center mb-0">
-                <span><%= "#{current_app_user.city}," if current_app_user.city.present? %></span>
-                <span><%= "#{current_app_user.state}," if current_app_user.state.present? %></span>
-                <span><%= "#{current_app_user.postal_code}" if current_app_user.postal_code.present? %></span>
+                <span><%= "#{@sessioned_user.city}," if @sessioned_user.city.present? %></span>
+                <span><%= "#{@sessioned_user.state}," if @sessioned_user.state.present? %></span>
+                <span><%= "#{@sessioned_user.postal_code}" if @sessioned_user.postal_code.present? %></span>
               </p>
               <p class="text-center mb-0">
-                <%= current_app_user.phone %>
+                <%= @sessioned_user.phone %>
               </p>
               <p class="text-center mb-0">
-                <%= current_app_user.email %>
+                <%= @sessioned_user.email %>
               </p>
             </td>
           </tr>
           <tr>
             <td colspan="2">
               <p class="mb-0 text-center">
-                <span class="font-weight-bold"><%= "#{current_app_user.full_name.titleize} - " "#{order.new_record? ? "New Order" : "Order ##{order.id},"}" %></span>
+                <span class="font-weight-bold"><%= "#{@sessioned_user.full_name.titleize} - " "#{order.new_record? ? "New Order" : "Order ##{order.id},"}" %></span>
                 <span><%= "--- #{order.created_at.strftime("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")}" unless order.new_record? %></span>
               </p>
             </td>
@@ -345,10 +345,10 @@
                         <a href="#" onclick="window.print();return false;" class='btn btn-lg btn-info w-100'><%= t('forms.print') %></a>
                       </div>
                       <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
-                        <%= link_to t('forms.email'), app_send_order_email_path(order: order), class: 'btn btn-lg btn-info w-100' %>
+                        <%= link_to t('forms.email'), app_route(app_send_order_email_path(current_app, order: order)), class: 'btn btn-lg btn-info w-100' %>
                       </div>
                       <div class="col-lg-4 col-sm-12 mb-3 order-buttons">
-                        <%= link_to t('orders.delete'), app_order_path(order: order), method: :delete, class: 'btn btn-lg btn-danger w-100', data: { confirm: t('common.confirm') } %>
+                        <%= link_to t('orders.delete'), app_route(app_order_path(current_app, order: order)), method: :delete, class: 'btn btn-lg btn-danger w-100', data: { confirm: t('common.confirm') } %>
                       </div>
                     </div>
                   </div>
@@ -363,7 +363,7 @@
           <% end %>
           <tr class="pt-3" id="greetingMessage">
             <td colspan="2">
-              <%= current_app_user.greeting_message.html_safe %>
+              <%= @sessioned_user.greeting_message.html_safe %>
             </td>
           </tr>
         </tbody>

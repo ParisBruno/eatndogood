@@ -6,13 +6,13 @@
         <td colspan=2 style='width: 80%'><%= t('services.name') %></td>
         <td style='width: 20%; border-top: 0 !important;' class="empty-header" ></td>
       </tr>
-      <% @current_app_user.service_types.each do |service_type| %>
+      <% @sessioned_user.service_types.each do |service_type| %>
         <tr class="large-screen-padding" id=<%= "service_type_#{service_type.id}" %>>
           <td><%= service_type.name %></td>
           <td>
-            <%= link_to "Schedule", app_schedule_services_path(@current_app), target: '_blank' %>
+            <%= link_to "Schedule", app_route(app_schedule_services_path(@current_app)), target: '_blank' %>
           </td>
-          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_service_type_path(@current_app, id: service_type.id), class: "btn btn-outline-danger", remote: true, method: :delete, data:  { confirm: t('common.confirm') } %></td>
+          <td style='border-top: 0 !important;' class="empty-header"><%= link_to "x", app_route(app_service_type_path(@current_app, id: service_type.id)), class: "btn btn-outline-danger", remote: true, method: :delete, data:  { confirm: t('common.confirm') } %></td>
         </tr>
       <% end %>
       <tr>
@@ -44,10 +44,11 @@
 
   addServiceTypeBtn.addEventListener("click", function () {
     var name = $('#service-type-name').val();
+    var app_route_service_types_path = "<%= app_route(app_service_types_path(current_app)) %>";
     $.ajax({
       method: "POST",
-      url: "/" + <%= current_app.id %> + "/service_types",
-      data: { service_type: {name: name, app_id: <%= current_app.id %>, user_id: <%= current_app_user.id %>} },
+      url: app_route_service_types_path,
+      data: { service_type: {name: name, app_id: <%= current_app.id %>, user_id: <%= @sessioned_user.id %>} },
       success: function (response) {
       },
     })

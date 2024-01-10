@@ -35,12 +35,12 @@ margin: 10px;
 <div class="margin-bottom-30">
   <h2 class="shared-title"><%= t('recipes.shared_links') %></h2>
   <div class="icon-sec">
-    <%= link_to "<i class='fa fa-facebook fa-4x'> </i>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{app_recipe_url(@recipe)}", rel: 'noopener', target: "_blank" %> 
-    <%= link_to "<i class='fa fa-instagram fa-4x'> </i>".html_safe, "https://www.instagram.com/?url=#{app_recipe_url(@recipe)}", rel: 'noopener', target: "_blank" %>
+    <%= link_to "<i class='fa fa-facebook fa-4x'> </i>".html_safe, "https://www.facebook.com/sharer/sharer.php?u=#{app_route(app_recipe_url(current_app, @recipe))}", rel: 'noopener', target: "_blank" %>
+    <%= link_to "<i class='fa fa-instagram fa-4x'> </i>".html_safe, "https://www.instagram.com/?url=#{app_route(app_recipe_url(current_app, @recipe))}", rel: 'noopener', target: "_blank" %>
     <%= link_to "<i class='fa fa-linkedin fa-4x'> </i>".html_safe, "https://www.linkedin.com/login", rel: 'noopener', target: "_blank" %>
     <%= link_to "<i class='fa fa-twitter fa-4x'> </i>".html_safe, "https://twitter.com/login", rel: 'noopener', target: "_blank" %>
-    <%= link_to "<i class='fa fa-pinterest fa-4x'> </i>".html_safe, "http://www.pinterest.com/pin/create/button/?url=#{app_recipe_url(@recipe)}&description=#{@recipe.name}", rel: 'noopener', target: "_blank" %>
+    <%= link_to "<i class='fa fa-pinterest fa-4x'> </i>".html_safe, "http://www.pinterest.com/pin/create/button/?url=#{app_route(app_recipe_url(current_app, @recipe))}&description=#{@recipe.name}", rel: 'noopener', target: "_blank" %>
     <%= link_to image_tag('tiktok.png', width: 43), "https://www.tiktok.com/login/", class: "mr-3", target: "_blank"  %>
-    <%= link_to "<i class='fa fa-envelope fa-4x'> </i>".html_safe, "mailto:?to=&subject=#{@recipe.name}&body=#{app_recipe_url(current_app, @recipe)}" %>
+    <%= link_to "<i class='fa fa-envelope fa-4x'> </i>".html_safe, "mailto:?to=&subject=#{@recipe.name}&body=#{app_route(app_recipe_url(current_app, @recipe))}" %>
   </div>
 </div>

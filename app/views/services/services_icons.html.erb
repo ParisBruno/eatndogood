@@ -12,7 +12,7 @@
     <% @services.each do |service| %>
       <div class="col-2 text-center p-2">
         <div class="icon <%= service.border_class %>">
-          <%= link_to app_service_path(current_app, service.id) do %>
+          <%= link_to app_route(app_service_path(current_app, service.id)) do %>
             <%= service.icon.gsub(/<br\s*\/?>/, '').html_safe  if service.icon.present? %>
           <% end %>
         </div>

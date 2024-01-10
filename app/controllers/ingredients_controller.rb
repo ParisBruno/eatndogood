@@ -13,7 +13,7 @@ class IngredientsController < ApplicationController
     @ingredient.app_id = current_app.id
     if @ingredient.save
       flash[:success] = t('common.successfully_created', name: 'ingredient')
-      redirect_to app_ingredients_path(current_app)
+      redirect_to app_route(app_ingredients_path(current_app))
     else
       render 'new'
     end
@@ -26,7 +26,7 @@ class IngredientsController < ApplicationController
   def update
     if @ingredient.update(ingredient_params)
       flash[:success] = t('common.successfully_updated', name: 'ingredient')
-      redirect_to app_ingredients_path(current_app)
+      redirect_to app_route(app_ingredients_path(current_app))
     else
       render 'edit'
     end
@@ -35,10 +35,10 @@ class IngredientsController < ApplicationController
   def show
     if @ingredient.nil?
       flash[:success] = t('common.not_found', name: 'ingredient')
-      redirect_to table_app_ingredients_path(current_app)
+      redirect_to app_route(table_app_ingredients_path(current_app))
     else
       recipes = @ingredient.recipes
-      recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
+      recipes = recipes.where(is_draft: false) unless @sessioned_user&.admin?
       @ingredient_recipes = recipes.paginate(page: params[:page], per_page: 5)
     end
   end
@@ -51,11 +51,11 @@ class IngredientsController < ApplicationController
     unless @ingredient.recipes.count > 0
       @ingredient.destroy
       respond_to do |format|
-        format.html { redirect_to table_app_ingredients_path(current_app), notice: t('common.successfully_destroyed', name: 'Ingredient') }
+        format.html { redirect_to app_route(table_app_ingredients_path(current_app)), notice: t('common.successfully_destroyed', name: 'Ingredient') }
         format.json { head :no_content }
       end
     else
-      redirect_to app_ingredients_path(current_app), notice: t('common.has_recipe_not_destroyed', name: 'Ingredient')
+      redirect_to app_route(app_ingredients_path(current_app)), notice: t('common.has_recipe_not_destroyed', name: 'Ingredient')
     end
   end
 

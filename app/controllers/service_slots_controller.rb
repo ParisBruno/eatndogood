@@ -6,15 +6,15 @@ class ServiceSlotsController < ApplicationController
     if @slot.save!
       flash[:success] = t('services.booked_successfully')
       ServiceMailer.send_booking_confirmation(current_app, @slot).deliver_now if @slot.email.present?
-      ServiceMailer.send_booking_admin_confirmation(current_app, current_app_user, @slot).deliver_now
-      redirect_to app_services_path(current_app)
+      ServiceMailer.send_booking_admin_confirmation(current_app, @sessioned_user, @slot).deliver_now
+      redirect_to app_route(app_services_path(current_app))
     end
   end
 
   def update
     if @service_slot.update(service_slot_params)
       flash[:success] = t('common.successfully_updated', name: 'ServiceSlot')
-      redirect_to app_service_path(current_app, @service_slot.service.slug)
+      redirect_to app_route(app_service_path(current_app, @service_slot.service.slug))
     else
       render 'edit'
     end
@@ -22,7 +22,7 @@ class ServiceSlotsController < ApplicationController
 
   def destroy
     @service_slot.destroy
-    redirect_to app_service_path(current_app, @service_slot.service.slug)
+    redirect_to app_route(app_service_path(current_app, @service_slot.service.slug))
   end
 
   private

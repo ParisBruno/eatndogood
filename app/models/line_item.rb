@@ -15,22 +15,22 @@ class LineItem < ApplicationRecord
 
   def total_price
     if self.recipe
-      self.quantity * self.recipe.price
+      self.quantity.to_f * self.recipe.price.to_f
     elsif self.gift_card
-      self.quantity * self.gift_card.price
+      self.quantity.to_f * self.gift_card.price.to_f
     end
   end
 
   def set_amount_data
     if order
       sub_total = if recipe
-                     quantity * recipe.price
+                     quantity.to_f * recipe.price.to_f
                   elsif gift_card
-                     quantity * gift_card.price
+                     quantity.to_f * gift_card.price.to_f
                   end
 
       total_tax = if recipe && recipe.is_draft == false
-                     sub_total * (recipe.chef.user.product_tax/100)
+                     sub_total.to_f * (recipe.chef.user.product_tax.to_f/100)
                   elsif gift_card
                      quantity * 3.95
                   end
@@ -42,9 +42,9 @@ class LineItem < ApplicationRecord
                            0.0
                         end
 
-      amount = ((sub_total + coupon_discount + total_tax) * 100).to_i
+      amount = ((sub_total.to_f + coupon_discount.to_f + total_tax.to_f) * 100).to_i
 
-      update_columns(amount: amount, sub_total: (sub_total * 100).to_i,
+      update_columns(amount: amount, sub_total: (sub_total.to_f * 100).to_i,
                      total_tax: total_tax.to_f, coupon_discount: coupon_discount.to_f)
     end
   end

@@ -11,10 +11,10 @@ class GiftCardsController < ApplicationController
       price = gift_card_params[:other_price]
     end
 
-    @gift_card = GiftCard.create!(user_id: current_app_user.id,
+    @gift_card = GiftCard.create!(user_id: @sessioned_user.id,
                                     price: price,
-                                    purchaser_name: current_app_user.full_name,
-                                    purchaser_email: current_app_user.email,
+                                    purchaser_name: @sessioned_user.full_name,
+                                    purchaser_email: @sessioned_user.email,
                                     client_name: gift_card_params[:client_name],
                                     client_email: gift_card_params[:client_email],
                                     description: gift_card_params[:description]
@@ -22,7 +22,7 @@ class GiftCardsController < ApplicationController
     @gift_card.name = generate_name
     @gift_card.save!
 
-    redirect_post line_items_path(gift_card_id: @gift_card.id)
+    redirect_post app_route(app_line_items_path(current_app, gift_card_id: @gift_card.id))
   end
 
   private

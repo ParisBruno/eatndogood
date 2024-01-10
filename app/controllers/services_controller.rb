@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_action :set_service, only: [:update, :destroy, :show]
+  before_action :set_service, only: [:update, :show]
   before_action :require_logged_in_user, only: [:index]
   before_action :require_staff_and_admin, only: [:schedule_services, :services_listing, :show]
 
@@ -51,6 +51,7 @@ class ServicesController < ApplicationController
   end
 
   def destroy
+    @service = Service.find(params[:id])
     @service.destroy
     respond_to do |format|
       format.js {render layout: false}
@@ -67,12 +68,12 @@ class ServicesController < ApplicationController
   end
 
   def require_staff_and_admin
-    if current_app_user.nil? || (!current_app_user&.chef? && !current_app_user&.admin?)
-      redirect_to root_path(current_app)
+    if @sessioned_user.nil? || (!@sessioned_user&.chef? && !@sessioned_user&.admin?)
+      redirect_to app_route(root_path(current_app))
     end
   end
 
   def require_logged_in_user
-    redirect_to root_path(current_app) if current_app_user.nil?
+    redirect_to app_route(root_path(current_app)) if @sessioned_user.nil?
   end
 end

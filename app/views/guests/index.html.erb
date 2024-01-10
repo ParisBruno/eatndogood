@@ -82,7 +82,7 @@
                   
               </div>
               <div>
-                <a href="<%= guests_path %>" class="btn btn-info btn-lg guestbtn"><%= t 'guests.clear_search' %></a>
+                <a href="<%= app_route(app_guests_path(current_app)) %>" class=" btn btn-info btn-lg guestbtn"><%= t 'guests.clear_search' %></a>
               </div>
             </div>
           </form>
@@ -123,19 +123,19 @@
 
       <tr>
         <td class="font-size-12 text-nowrap"><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
-        <td class="font-size-12 text-nowrap"> <a href="<%= guests_path(keyword: guest.email) %>"><%= i %></a></td>
+        <td class="font-size-12 text-nowrap"> <a href="<%= app_route(app_guests_path(current_app, keyword: guest.email)) %>"><%= i %></a></td>
         <td class="font-size-12 text-nowrap"><input type="checkbox" <%= 'checked' if guest.agreement.present? %> onclick="return false;"></td>
         <td class="font-size-12 text-nowrap"> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
         <td class="font-size-12 text-nowrap"> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td class="font-size-12 text-nowrap"> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
         <td class="font-size-12 text-nowrap">
-          <a href="<%= (guest.chef_info.present?) ? chef_path(guest.chef_info): '#' %>">
+          <a href="<%= (guest.chef_info.present?) ? app_route(app_chef_path(current_app, guest.chef_info)): '#' %>">
             <%= (guest.chef_info.present?) ? guest.chef_info.user.full_name.capitalize : '-' %>
           </a>
         </td>
         <td class="font-size-12 text-nowrap"> <%=  guest.created_at.strftime('%m-%d-%Y') %></td>
         <td class="font-size-12 text-nowrap">
-          <%= link_to t('guests.delete_guest'), destroy_guest_path(guest), method: :delete, data: { confirm: t('guests.are_you_sure_delete_user') } %>
+          <%= link_to t('guests.delete_guest'), app_route(app_guest_path(current_app, guest.id)), method: :delete, data: { confirm: t('guests.are_you_sure_delete_user') } %>
         </td>
       </tr>
 

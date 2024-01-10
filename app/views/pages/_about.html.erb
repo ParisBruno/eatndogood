@@ -311,7 +311,7 @@
         <div class="col-md-12 text-center text-editor">
           <% if @page.present? %>
             <% font_weight = 400 # @page.title.include?('</strong>') ? 700 : 400 %>
-            <span style="font-weight: <%= font_weight %>;"><%= @page.content.gsub(/&nbsp\;/i," ").html_safe %></span>
+            <span style="font-weight: <%= font_weight %>;"><%= @page.content&.gsub(/&nbsp\;/i," ")&.html_safe %></span>
           <% else %>
             <p id="lgp">
               <center><p style="font-size:18px;"><%= t('pages.index.to_use_and_receive_new_recipes') %></p></center>
@@ -324,16 +324,17 @@
       </div>
       <div class="row" id="login-btn">
         <div class="col-md-12 text-center w-100">
-          <button class="btn btn-success btn-lg" onclick='newDoc("<%= new_app_user_session_path(current_app)+'?is_guest=yes' %>")'><%= link_to tl('navigation.login', locale), new_app_user_session_path(is_guest: :yes), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
+          <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
+            <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
         </div>
       </div>
-      <% unless current_app_user %>
+      <% unless @sessioned_user %>
         <div class="row" id="signup-btn">
           <div class="col-md-12 text-center w-100">
             <button class="btn btn-success btn-lg">
-              <%= link_to(tl('common.take_a_tour_as_guest', locale), new_app_user_registration_path(current_app),{ style: 'position:center;'}) %>
+              <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
             </button>
-            <%= link_to(tl('common.menu', locale), table_app_styles_path(current_app),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
+            <%= link_to(tl('common.menu', locale), app_route(table_app_styles_path(current_app)),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
           </div>
         </div>
       <% end %>

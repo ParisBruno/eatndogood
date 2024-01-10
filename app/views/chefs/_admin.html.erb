@@ -5,7 +5,7 @@
     <div class="card">
       <div class="card-body">
         <p class="card-text"><%= current_app.admins.first&.full_name %></p>       
-        <%= link_to app_orders_path(current_app), class: 'order-card-link' do %>
+        <%= link_to app_route(app_orders_path(current_app)), class: 'order-card-link' do %>
 
           <p class="card-text"><b><%= Order.where(user_id: current_app.user_ids).count %></b> <%= t('orders.all') %></p>
           <p class="card-text"><%= t('orders.total_sales') %> <b><%= number_to_currency(Order.closed_of_day(current_app.user_ids).sum(:amount)&./100.0) %></b></p>
@@ -28,7 +28,7 @@
               closed_orders_of_day = Order.closed_of_day(manager_ids)
             %>
 
-            <%= link_to app_orders_path(current_app, staff_ids: manager_ids), class: 'order-card-link' do %>
+            <%= link_to app_route(app_orders_path(current_app, staff_ids: manager_ids)), class: 'order-card-link' do %>
               <p class="card-text"><b><%= Order.where(user_id: manager_ids).count %></b> <%= t('orders.all') %></p>
               <p class="card-text"><b><%= Order.active_of_day(manager_ids).count %></b> <%= t('orders.active') %></p>
               <p class="card-text"><b><%= closed_orders_of_day.count %></b> <%= t('orders.closed') %></p>

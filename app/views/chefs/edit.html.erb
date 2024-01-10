@@ -1,6 +1,6 @@
 <% 
   title = t('chefs.edit_your_profile')
-  title = t('chefs.admin_panel') if current_app_user.admin?
+  title = t('chefs.admin_panel') if @sessioned_user.admin?
 %>
 <%= render 'shared/page_title', title: title %>
 
@@ -25,9 +25,10 @@
     var couponPercentOff = $('#coupon-percent-off').val();
     var couponAmountOff = $('#coupon-amount-off').val();
     var couponCheckBox = $('#coupon-check-box').prop("checked");
+    var app_route_coupon_codes_path = "<%= app_route(app_add_coupon_codes_path(current_app)) %>";
     $.ajax({
       method: "POST",
-      url: "/" + <%= @current_app.id %> + "/coupon_codes",
+      url: app_route_coupon_codes_path,
       data: { coupon_code: {title: title, coupon_percent_off: couponPercentOff, coupon_amount_off: couponAmountOff, is_active: couponCheckBox} },
       success: function (response) {
       },
@@ -37,9 +38,10 @@
   addFundrasingBtn.addEventListener("click", function () {
     var title = $('#fundraising-title').val();
     var couponCheckBox = $('#fundraising-check-box').prop("checked");
+    var app_route_fundrasing_codes = "<%= app_route(app_add_fundrasing_codes_path(current_app)) %>";
     $.ajax({
       method: "POST",
-      url: "/" + <%= @current_app.id %> + "/fundrasing_codes",
+      url: app_route_fundrasing_codes,
       data: { fundrasing_code: {title: title, is_active: couponCheckBox} },
       success: function (response) {
       },

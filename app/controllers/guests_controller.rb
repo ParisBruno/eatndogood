@@ -7,13 +7,13 @@ class GuestsController < ApplicationController
   before_action :check_sendgrid_senders, only: %i[index]
 
   def index
-    return redirect_to app_path(current_app) if current_app_user.guest?
+    return redirect_to app_route(app_path(current_app)) if @sessioned_user.guest?
 
     @keyword = params[:keyword].present? ? params[:keyword].strip : ''
 
     if @keyword.blank?
       @guests = current_app.users.guests.order('id desc').paginate(page: params[:page], per_page: 100)
-      # @guests = User.where(guest: true).where(user_id: current_app_user.id).order('id desc').paginate(page: params[:page], per_page: 100)
+      # @guests = User.where(guest: true).where(user_id: @sessioned_user.id).order('id desc').paginate(page: params[:page], per_page: 100)
     else
       @guests = current_app.users.guests.where('users.first_name LIKE ? or users.email LIKE ? or users.last_name LIKE ? or users.first_name LIKE ?', "%#{@keyword}%","%#{@keyword}%","%#{@keyword}%","%#{@keyword}%").order('id desc').paginate(page: params[:page], per_page: 100)
     end
@@ -57,7 +57,7 @@ class GuestsController < ApplicationController
       end
 
       flash[:success] = I18n.t 'flash.you_registered_guest'
-      redirect_to recipes_path(is_guest: :yes, iden: 'Guest')
+      redirect_to app_route(app_recipes_path(current_app, is_guest: :yes, iden: 'Guest'))
     else
       render 'new'
     end
@@ -66,22 +66,22 @@ class GuestsController < ApplicationController
   def destroy
     user = User.find_by(id: params[:id])&.destroy
     flash[:success] = t('flash.guest_deleted_successfully') if user
-    redirect_to app_guests_path(app: current_app.slug)
+    redirect_to app_route(app_guests_path(current_app))
   end
 
   def send_emails
     content = params[:email_content][:content]
     subject = params[:subject]
     @email_content = EmailContent.create(email_params)
-    receivers = params[:receivers].present? ? params[:receivers] : current_app_user.guests
-    return redirect_to app_path(current_app) if current_app_user.guest?
+    receivers = params[:receivers].present? ? params[:receivers] : @sessioned_user.guests
+    return redirect_to app_route(app_path(current_app)) if @sessioned_user.guest?
 
     return unless content.present?
 
     upload_attachments
 
     receivers.split(',').each do |receiver|
-      AdminMailer.notification_email(current_app, current_app_user.full_name, receiver, current_app_user.email, subject, content, @email_content.id).deliver_now
+      AdminMailer.notification_email(current_app, @sessioned_user.full_name, receiver, @sessioned_user.email, subject, content, @email_content.id).deliver_now
     end
 
     respond_to do |format|

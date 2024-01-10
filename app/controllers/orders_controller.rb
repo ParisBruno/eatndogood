@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   before_action :set_chef_ids
   before_action :set_credentials, only: %i[new create new_staff_order show]
   before_action :set_team_member, except: %i[new create paypal_create_payment paypal_execute_payment]
-  skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
+  # skip_before_action :set_app, :check_app_user, :set_header_data, only: %i[paypal_create_payment paypal_execute_payment]
 
   @@paypal_token ||= nil
   @@paypal_status ||= nil
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     set_delivery_discount_tip(params[:delivery_price], params[:coupon_code], params[:coupon_amount_off].to_f, params[:coupon_percent_off].to_f,
                               params[:tip_value], params[:fundrasing_code])
     @order = Order.new
-    @gift_card = GiftCard.where(client_email: current_app_user&.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
+    @gift_card = GiftCard.where(client_email: @sessioned_user&.email, is_active: true, price: @total_amount..Float::INFINITY).last # !!!!!!client_email
   end
 
   def new_staff_order
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
                               order_params[:coupon_percent_off].to_f, order_params[:tip_value], order_params[:fundrasing_code])
     @order = Order.new(order_params)
 
-    unless app_user_signed_in?
+    unless @sessioned_user
       @guest = User.new(email: order_params[:email], first_name: order_params[:name], app_id: current_app.id,
                             password: order_params[:password], password_confirmation: order_params[:password_confirmation],
                             address_line_1: order_params[:address], phone: order_params[:phone])
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
     @order.save!
         
     set_items_by_style(@order)
-    email = @guest&.valid? ? @guest.email : current_app_user.email
+    email = @guest&.valid? ? @guest.email : @sessioned_user.email
     UserMailer.send_receipt_to_client(email, @order.id, @items_with_styles, current_app.main_admin&.email).deliver_now
 
     if params['cash'].present?
@@ -98,7 +98,7 @@ class OrdersController < ApplicationController
 
     set_delivery_discount_tip(delivery_price, coupon&.title, coupon&.coupon_amount_off.to_f, coupon&.coupon_percent_off.to_f,
                               update_order_params[:tip_value], update_order_params[:fundrasing_code], true)      
-    set_orders_amounts(@order, current_app_user&.id)
+    set_orders_amounts(@order, @sessioned_user&.id)
 
     @order.sub_total = (@order.sub_total * 100).to_i
     @order.pay_method = 'cash'
@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
 
     set_items_by_style(@order)
     UserMailer.send_receipt_to_client(@order.email, @order.id, @items_with_styles).deliver_now if @order.email.present?
-    redirect_to app_order_path(id: @order, app: current_app.slug)
+    redirect_to app_route(app_order_path(current_app, id: @order))
   end
 
   def show
@@ -121,7 +121,7 @@ class OrdersController < ApplicationController
         end
       end
     else
-      redirect_to app_orders_path(current_app), notice: t('orders.not_defined')
+      redirect_to app_route(app_orders_path(current_app)), notice: t('orders.not_defined')
     end
   end
 
@@ -130,20 +130,20 @@ class OrdersController < ApplicationController
       unless @order.line_items.present?
         @order.destroy
 
-        redirect_to app_orders_path(current_app)
+        redirect_to app_route(app_orders_path(current_app))
       else
         set_order_data(@order)
         set_delivery_discount_tip(@order.delivery_price, @order.coupon_code, @order.coupon_amount_off.to_f, @order.coupon_percent_off.to_f,
                                   @order.tip_value, update_order_params[:fundrasing_code], true)
-        set_orders_amounts(@order, current_app_user&.id)
+        set_orders_amounts(@order, @sessioned_user&.id)
         @order.sub_total = (@order.sub_total * 100).to_i
         @order.status = 1 if update_order_params[:pay_method] == 'paypal'
         @order.save!
 
-        redirect_to app_order_path(id: @order, app: current_app.slug)
+        redirect_to app_route(app_order_path(current_app, id: @order))
       end
     else
-      redirect_to app_order_path(id: @order, app: current_app.slug), alert: @order.errors.full_messages.join
+      redirect_to app_route(app_order_path(current_app, id: @order)), alert: @order.errors.full_messages.join
     end
   end
 
@@ -159,16 +159,16 @@ class OrdersController < ApplicationController
     order.save!
 
     flash[:success] = I18n.t 'flash.client_create_order'
-    redirect_to app_recipes_path(current_app)
+    redirect_to app_route(app_recipes_path(current_app))
   rescue Stripe::InvalidRequestError => e
     flash[:danger] = e.message
-    redirect_to app_recipes_path(current_app)
+    redirect_to app_route(app_recipes_path(current_app))
   end
 
   def paypal_create_payment
     amount = order_params[:amount]
 
-    unless app_user_signed_in?
+    unless @sessioned_user
       errors = []
       errors << "<li>email has already been taken</li>" if User.exists?(email: order_params[:email])
       errors << "<li>email is invalid</li>" unless order_params[:email] =~ URI::MailTo::EMAIL_REGEXP
@@ -219,13 +219,13 @@ class OrdersController < ApplicationController
   def send_order_email
     OrderMailer.receipt_email(params[:order], current_app).deliver_now
     flash[:success] = t('orders.email_send_to_client')
-    redirect_to app_order_path(id: params[:order], app: current_app.slug)
+    redirect_to app_route(app_order_path(current_app, id: params[:order]))
   end
 
   def destroy
     @order.destroy
     flash[:success] = I18n.t 'flash.order_removed'
-    redirect_to app_orders_path(current_app)
+    redirect_to app_route(app_orders_path(current_app))
   end
 
   private
@@ -241,8 +241,8 @@ class OrdersController < ApplicationController
     @gift_card = GiftCard.find_by(id: gift_card_id)
     @gift_card&.reduce_price(total_amount)
 
-    Cart.destroy(session[:cart_id])
-    session[:cart_id] = nil
+    Cart.destroy(@current_cart.id)
+    # session[:cart_id] = nil
 
     if order.line_items.where.not(gift_card_id: nil).present?
       order.line_items.pluck(:gift_card_id).compact.each do |gift_card_id|
@@ -274,8 +274,8 @@ class OrdersController < ApplicationController
       order.pay_method = 'stripe'
       order.save!
       
-      Cart.destroy(session[:cart_id])
-      session[:cart_id] = nil
+      Cart.destroy(@current_cart.id)
+      # session[:cart_id] = nil
 
       @session_id = stripe_session[:session_id]
       flash[:success] = I18n.t 'flash.client_create_order'
@@ -371,7 +371,7 @@ class OrdersController < ApplicationController
     @total_tax = 0
     order.line_items.each do |line_item|
       if line_item.recipe && line_item.recipe.is_draft == false
-        item_tax = line_item.quantity * line_item.recipe.price * (line_item.recipe.chef.user.product_tax/100)
+        item_tax = line_item.quantity * line_item.recipe.price.to_f * (line_item.recipe.chef.user.product_tax.to_f/100)
         @total_tax += item_tax
         users << line_item.recipe.chef.user
       elsif line_item.gift_card

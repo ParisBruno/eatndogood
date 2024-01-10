@@ -60,7 +60,7 @@
   }
   @media screen and (max-width: 600px) {
     .page-title {
-      margin-top: <%= app_user_signed_in? ? '80px' : '10px' %>;
+      margin-top: <%= @sessioned_user ? '80px' : '10px' %>;
     }
   }
   @media screen and (min-width: 280px) and (max-width: 912px) {
@@ -71,7 +71,7 @@
 </style>
 
 <div class="page-title">
-  <p><%= link_to t('forms.new_ingredient'), new_app_ingredient_path(@current_app), class: "btn btn-success float-right top-heading", style: "margin-right: 20px; margin-left: -10%;" if current_app_user&.admin? || current_app_user&.chef? %></p>
+  <p><%= link_to t('forms.new_ingredient'), app_route(new_app_ingredient_path(@current_app)), class: "btn btn-success float-right top-heading", style: "margin-right: 20px; margin-left: -10%;" if @sessioned_user&.admin? || @sessioned_user&.chef? %></p>
   <%= render 'shared/page_title', title: t('common.ingredients') %>
 </div>
 
@@ -83,7 +83,7 @@
           <div class="col-lg-1 col-md-2 col-xs-2">
           </div>
           <% if ingredient.image.attached? %>
-            <%= link_to app_ingredient_path(@current_app, ingredient) do %>
+            <%= link_to app_route(app_ingredient_path(@current_app, ingredient)) do %>
               <div class="col-lg-10 col-md-8 col-xs-8">
                 <% image = ingredient.sized(:image, :thumb) %>
                 <%=image_tag(image, class:'category-style', size: "140x100", alt: t('common.no_image')) if image.present? %>
@@ -94,7 +94,7 @@
           </div>
           <div class="col-lg-12 col-md-12 col-xs-12">
             <h2 class="text-wrap">
-              <%= link_to ingredient.name.capitalize, app_ingredient_path(@current_app, ingredient), class: 'category-title' %>
+              <%= link_to ingredient.name.capitalize, app_route(app_ingredient_path(@current_app, ingredient)), class: 'category-title' %>
             </h2>
           </div>
         </div>

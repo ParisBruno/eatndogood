@@ -184,7 +184,6 @@
         </tr>
       </thead>
       <tbody>
-    <% @current_app_slug = current_app.slug %>
     <% @current_cart.line_items.order(:created_at).each do |line_item| %>
       <% if line_item.recipe %>
         <% unless line_item.recipe.is_draft %>
@@ -200,16 +199,16 @@
           </td>
           <td colspan="1" class="quantity-arrow-td">
             <div class="quantity-arrow">
-              <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
+              <%= button_to app_route(app_line_item_add_path(current_app, id: line_item)), class: 'change-item-up btn', remote: true, method: :post do %>
                 <span class="fa fa-sort-up"></span>
               <% end %>
-              <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
+              <%= button_to app_route(app_line_item_reduce_path(current_app, id: line_item)), class: 'change-item-down btn', remote: true, method: :post do %>
                 <span class="fa fa-sort-down"></span>
               <% end %>
             </div>
           </td>
           <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
-          <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+          <td class="remove-item"><%= button_to "x", app_route(app_line_item_path(current_app, line_item)), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
         </tr>
         <% end %>
       <% elsif line_item.gift_card %>
@@ -225,16 +224,16 @@
           </td>
           <td colspan="1" class="quantity-arrow-td">
             <div class="quantity-arrow">
-              <%= button_to line_item_add_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-up btn', remote: true, method: :post do %>
+              <%= button_to app_route(app_line_item_add_path(current_app, id: line_item)), class: 'change-item-up btn', remote: true, method: :post do %>
                 <span class="fa fa-sort-up"></span>
               <% end %>
-              <%= button_to line_item_reduce_path(id: line_item), params: { app: @current_app_slug }, class: 'change-item-down btn', remote: true, method: :post do %>
+              <%= button_to app_route(app_line_item_reduce_path(current_app, id: line_item)), class: 'change-item-down btn', remote: true, method: :post do %>
                 <span class="fa fa-sort-down"></span>
               <% end %>
             </div>
           </td>
           <td colspan="3" class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
-          <td class="remove-item"><%= button_to "x", line_item_path(line_item), params: { app: @current_app_slug }, class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
+          <td class="remove-item"><%= button_to "x", app_route(app_line_item_path(current_app, line_item)), class: "remove-item-btn btn btn-outline-danger", remote: true, method: :delete %></td>
         </tr>
       <% end %>
     <% end %>
@@ -247,7 +246,7 @@
   </div>
   <table class="checkout">
     <tr>
-      <td class="home-delivery"><%= check_box_tag 'check-delivery', @delivery_check_value, @delivery_check_value, data: { url: check_delivery_path(app: @current_app_slug), remote: true, method: :post } %> <%= t('recipes.home_delivery') %>: </td>
+      <td class="home-delivery"><%= check_box_tag 'check-delivery', @delivery_check_value, @delivery_check_value, data: { url: check_delivery_path(app: @current_app.slug), remote: true, method: :post } %> <%= t('recipes.home_delivery') %>: </td>
       <td class="delivery-price"><%= number_to_currency(@total_delivery) %></td>
     </tr>
     <tr>
@@ -273,10 +272,10 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_add_additional_params_path(current_app), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_route(app_add_additional_params_path(current_app)), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_cart_path(app: @current_app_slug, id: @current_cart.id), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: { confirm: t('common.confirm')} %></td> 
+      <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_route(app_cart_path(current_app, id: @current_cart.id)), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: { confirm: t('common.confirm')} %></td>
     </tr>
   </table>
 </div>

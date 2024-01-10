@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_24_112901) do
+ActiveRecord::Schema.define(version: 2023_12_30_063702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.integer "sort"
     t.string "slug"
     t.index ["app_id"], name: "index_allergens_on_app_id"
-    t.index ["slug"], name: "index_allergens_on_slug", unique: true
+    t.index ["slug"], name: "index_allergens_on_slug"
   end
 
   create_table "allergens_recipes", id: false, force: :cascade do |t|
@@ -105,6 +105,10 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "app_id"
+    t.index ["app_id"], name: "index_carts_on_app_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -134,6 +138,8 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.integer "chef_avatar_file_size"
     t.datetime "chef_avatar_updated_at"
     t.integer "admin_id"
+    t.string "slug"
+    t.index ["slug"], name: "index_chefs_on_slug"
   end
 
   create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
@@ -146,7 +152,9 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.integer "data_height"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["type"], name: "index_ckeditor_assets_on_type"
+    t.index ["user_id"], name: "index_ckeditor_assets_on_user_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -234,7 +242,7 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.datetime "discontinue_on"
     t.string "slug"
     t.index ["app_id"], name: "index_ingredients_on_app_id"
-    t.index ["slug"], name: "index_ingredients_on_slug", unique: true
+    t.index ["slug"], name: "index_ingredients_on_slug"
   end
 
   create_table "likes", id: :serial, force: :cascade do |t|
@@ -432,7 +440,7 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.boolean "enable_reservation", default: false
     t.boolean "enable_gift_card", default: false
     t.string "slug"
-    t.index ["slug"], name: "index_recipes_on_slug", unique: true
+    t.index ["slug"], name: "index_recipes_on_slug"
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
 
@@ -474,7 +482,9 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["service_id"], name: "index_service_slots_on_service_id"
+    t.index ["slug"], name: "index_service_slots_on_slug"
   end
 
   create_table "service_types", force: :cascade do |t|
@@ -483,7 +493,9 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["app_id"], name: "index_service_types_on_app_id"
+    t.index ["slug"], name: "index_service_types_on_slug"
     t.index ["user_id"], name: "index_service_types_on_user_id"
   end
 
@@ -500,8 +512,10 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.bigint "service_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["app_id"], name: "index_services_on_app_id"
     t.index ["service_type_id"], name: "index_services_on_service_type_id"
+    t.index ["slug"], name: "index_services_on_slug"
     t.index ["user_id"], name: "index_services_on_user_id"
   end
 
@@ -525,7 +539,7 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.text "agreement_text"
     t.string "slug"
     t.index ["app_id"], name: "index_styles_on_app_id"
-    t.index ["slug"], name: "index_styles_on_slug", unique: true
+    t.index ["slug"], name: "index_styles_on_slug"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -603,9 +617,11 @@ ActiveRecord::Schema.define(version: 2023_11_24_112901) do
     t.text "selected_payment_methods", default: ["cash"], array: true
     t.string "business_name"
     t.string "title"
+    t.string "slug"
     t.index ["app_id"], name: "index_users_on_app_id"
     t.index ["email", "app_id"], name: "index_users_on_email_and_app_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

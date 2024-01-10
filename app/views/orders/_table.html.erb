@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% orders.each do |order| %>
-      <tr data-link="<%= app_order_path(current_app, order) %>" role="button">
+      <tr data-link="<%= app_route(app_order_path(current_app, order)) %>" role="button">
         <td class="order-id"><%= "##{order.id}" %></td>
         <td class="order-data">
           <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>

@@ -4,6 +4,8 @@ class Cart < ApplicationRecord
   has_many :line_items
   has_many :recipes, through: :line_items
   has_many :gift_cards, through: :line_items
+  belongs_to :user
+  belongs_to :app
 
   def show
     @cart = @current_cart

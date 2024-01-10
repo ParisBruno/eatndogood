@@ -15,12 +15,12 @@ class StylesController < ApplicationController
   def show
     if @style.nil?
       flash[:success] = t('common.not_found', name: 'Category')
-      redirect_to table_app_styles_path(current_app)
+      redirect_to app_route(table_app_styles_path(current_app))
     else
-      redirect_to app_recipe_path(current_app, 489) if @style.id == 138 && ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?))
+      redirect_to app_route(app_recipe_path(current_app, 489)) if @style.id == 138 && ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?))
       users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
       recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: users.includes(:chef_info).pluck("chefs.id")})
-      recipes = recipes.where(is_draft: false) unless current_app_user&.admin?
+      recipes = recipes.where(is_draft: false) unless @sessioned_user&.admin?
       @recipes = recipes.paginate(page: params[:page], per_page: 5)
     end
   end
@@ -41,7 +41,7 @@ class StylesController < ApplicationController
     @style.app_id = current_app.id
     respond_to do |format|
       if @style.save
-        format.html { redirect_to table_app_styles_path(current_app), notice: t('common.successfully_created', name: 'Category')}
+        format.html { redirect_to app_route(table_app_styles_path(current_app)), notice: t('common.successfully_created', name: 'Category')}
         format.json { render :show, status: :created, location: @style }
       else
         format.html { render :new }
@@ -56,10 +56,10 @@ class StylesController < ApplicationController
     respond_to do |format|
       if @style.update(style_params)
         if !params[:style][:agreement_text_en].nil?
-          path = new_app_agreement_path(@current_app)
+          path = app_route(new_app_agreement_path(@current_app))
           notice = t('common.successfully_updated', name: 'Agreement')
         else
-          path = app_styles_path(current_app)
+          path = app_route(app_styles_path(current_app))
           notice = t('common.successfully_updated', name: 'Category')
         end
         format.html { redirect_to path, notice: notice }
@@ -82,11 +82,11 @@ class StylesController < ApplicationController
     unless @style.recipes.count > 0
       @style.destroy
       respond_to do |format|
-        format.html { redirect_to app_styles_path(current_app), notice: t('common.successfully_destroyed', name: 'Category')}
+        format.html { redirect_to app_route(app_styles_path(current_app)), notice: t('common.successfully_destroyed', name: 'Category')}
         format.json { head :no_content }
       end
     else
-      redirect_to app_styles_path(current_app), notice: t('common.has_recipe_not_destroyed', name: 'Category')
+      redirect_to app_route(app_styles_path(current_app)), notice: t('common.has_recipe_not_destroyed', name: 'Category')
     end
   end
 

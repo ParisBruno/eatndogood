@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :require_user
-  skip_before_action :verify_authenticity_token, :set_app, only: %i[error_message]
+  skip_before_action :verify_authenticity_token, only: %i[error_message]
   
   def create
     @message = Message.new(message_params)
@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
 
   def managers
     @recipient = User.find_by(id: params[:recipient_id])
-    redirect_to app_managers_path(current_app), notice: t('chefs.not_defined') unless @recipient
+    redirect_to app_route(app_managers_path(current_app)), notice: t('chefs.not_defined') unless @recipient
   end
 
   def send_email
@@ -26,12 +26,12 @@ class MessagesController < ApplicationController
       @blob = Base64.encode64(file_content)
     end
     UserMailer.message_to_manager_email(email_message_params, @filename, @content_type, @blob, current_app).deliver_now
-    redirect_to app_managers_path(current_app), notice: t('chefs.success_email')
+    redirect_to app_route(app_managers_path(current_app)), notice: t('chefs.success_email')
   end
   
   def error_message
     UserMailer.error_message_from_user(params[:message], current_app).deliver_now
-    redirect_to app_recipes_path(current_app)
+    redirect_to app_route(app_recipes_path(current_app))
   end
 
   private

@@ -7,8 +7,8 @@
   .login-sec .field input {
       width: 90%;
   }
-  #app_user_password {
-    width: 96%;
+  .app_user_password {
+    width: 96% !important;
   }
   #toggle-password-id {
     width: 20px;
@@ -45,7 +45,7 @@
           <%= f.label :password, t('forms.password') %>
         </div>
         <div class="row">
-          <%= f.password_field :password, autocomplete: 'current-password', class: "form-control md-col-12 " %>
+          <%= f.password_field :password, autocomplete: 'current-password', class: "form-control md-col-12 app_user_password" %>
           <div class='input-group-addon md-col-2' id="toggle-password-id">
             <a href="" class="toggle-password">
               <%= fa_icon "eye" %>
@@ -63,6 +63,6 @@
       </div>
     <% end %>
 
-    <%= link_to t('logins.forgot_password'), new_app_user_password_path(current_app) %>
+    <%= link_to t('logins.forgot_password'), app_route(new_app_user_password_path(current_app)) %>
   </div>
 </div>

@@ -4,11 +4,20 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to <%= link_to root_url, root_url %></h1>
-    <p>
-      A guest have successfully registered on <%= link_to root_url, root_url %>,
-      <br>
-    </p>
+    <% current_app = @guest.app %>
+    <% if current_app.slug == 'rockystepswaylive' %>
+      <h1>Welcome to <%= link_to root_url, root_url %></h1>
+      <p>
+        A guest have successfully registered on <%= link_to root_url, root_url %>,
+        <br>
+      </p>
+    <% else %>
+      <h1>Welcome to <%= link_to app_url(current_app), app_url(current_app) %></h1>
+      <p>
+        A guest have successfully registered on <%= link_to app_url(current_app), app_url(current_app) %>,
+        <br>
+      </p>
+    <% end %>
     <p>
      Here are the guest information:
     </p>

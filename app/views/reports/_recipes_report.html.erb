@@ -76,7 +76,7 @@
 <div class="report-table">
   <h3 style="text-align: center; padding-bottom: 5px;"><%= t('reports.recipe_title') %></h3>
   <div class="report-filter">
-    <%= form_for('recipe_sales', url: app_recipe_sales_path(@current_app), remote: true) do |f| %>
+    <%= form_for('recipe_sales', url: app_route(app_recipe_sales_path(@current_app)), remote: true) do |f| %>
       <%= f.date_field :date_from, value: recipe_date_from, class: 'date-field-report form-control col-md-4' %>
       <%= f.date_field :date_to, value: recipe_date_to, class: 'date-field-report form-control col-md-4' %>
       <%= f.submit t('common.create_report'), class: 'button-field-report btn btn-primary btn-lg' %>
@@ -162,7 +162,7 @@
   </table>
 
   <div>
-    <%= button_to t('common.excel_download'), app_recipe_sales_path(@current_app, format: :xlsx),
+    <%= button_to t('common.excel_download'), app_route(app_recipe_sales_path(@current_app, format: :xlsx)),
                   class: 'excel-download btn btn-outline-success', disabled: recipes.keys.empty? ? true : false,
                   params: { recipes: recipes, date_from: recipe_date_from, date_to: recipe_date_to,
                             gross_sales: @recipe_gross_sales, coupon_discount: @recipe_coupon_discount, 

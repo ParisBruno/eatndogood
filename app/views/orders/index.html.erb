@@ -41,7 +41,7 @@
 <%= render 'shared/page_title', title: t('orders.all') %>
 
 <div class="order-table">
-  <%= link_to t('orders.new'), app_new_staff_order_path(current_app), class: 'btn btn-lg btn-primary mb-3' %>
+  <%= link_to t('orders.new'), app_route(app_new_staff_order_path(current_app)), class: 'btn btn-lg btn-primary mb-3' %>
   <%= render 'search_bar' %>
   <div id="orderTable">
     <%= render 'table', orders: @orders %>

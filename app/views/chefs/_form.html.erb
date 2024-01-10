@@ -196,11 +196,10 @@
   }
 </style>
 <%= render 'shared/errors', obj: @user %>
-<% @current_app_user = current_app_user %>
 <% @current_app = current_app %>
 
 <div class="row">
-  <%= form_for(@user, url: !@user.id.nil? ? app_chef_path(current_app, @user) : app_chefs_path, :html => {class: "form-horizontal autosave p-0", role: "form",  multipart: true }) do |f| %>
+  <%= form_with(model: [current_app, @user], url: (@user.persisted? ? app_route(app_chef_path(current_app, @user)) : app_route(app_chefs_path(current_app))), html: {class: "form-horizontal", role: "form",  multipart: true}) do |f| %>
     <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef">
       <div class="col-md-8 well box-content">
         <h3 class="padding-bottom-10 padding-top-10 text-center">
@@ -242,12 +241,12 @@
             </span>
           </div>
         </div>
-        <div class="<%= "padding-bottom-50" if current_page?(edit_app_chef_path(@current_app, current_app_user)) %> form-group col-12">
+        <div class="<%= "padding-bottom-50" if current_page?app_route(edit_app_chef_path(@current_app, @sessioned_user)) %> form-group col-12">
           <div class="">
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('forms.password_confirmation') %>
           </div>
         </div>
-        <% if @current_app_user != @user %>
+        <% if @sessioned_user != @user %>
           <div class="form-group col-12">
             <div class="">
               <%= f.text_field :title, class: "form-control", placeholder: t('forms.title') %>
@@ -267,7 +266,7 @@
             </div>
           </div>
         <% end %>
-        <div class="<%= "cart-functional" if current_page?(edit_app_chef_path(@current_app, current_app_user)) %>">
+        <div class="<%= "cart-functional" if current_page?app_route(edit_app_chef_path(@current_app, @sessioned_user)) %>">
           <div class="padding-top-50 padding-bottom-50">
             <% if @user.admin? %>
               <h3 class="padding-bottom-10 text-center">
@@ -291,7 +290,7 @@
             <%= render partial: 'shared/form_locale_selector', locals: {model: "ingredient", elem: "chef"} %>
           </div>
         </div>
-        <% if @current_app_user == @user && @current_app_user&.admin? && @current_app_user == @current_app.main_admin %>
+        <% if @sessioned_user == @user && @sessioned_user&.admin? && @sessioned_user == @current_app.main_admin %>
           <div class="cart-functionalities padding-bottom-50">
             <div class="cart-functional">
               <h3 class="text-center padding-bottom-10 padding-top-50">
@@ -330,17 +329,17 @@
             <div class="form-group row col-12">
               <div class="col-6 pl-0 d-lg-flex">
                 <%= f.label :product_tax, t('chefs.product_tax'), class: "mt-lg-2 small-label" %>
-                <%= f.number_field :product_tax, value: number_to_currency(@current_app_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control ml-lg-4", step: 0.01, min: 0, max: 100 %>
+                <%= f.number_field :product_tax, value: number_to_currency(@sessioned_user.product_tax.to_f, delimiter: '', unit: ''), class: "tax-input form-control ml-lg-4", step: 0.01, min: 0, max: 100 %>
               </div>
               <div class="col-6 pr-0 d-lg-flex">
                 <%= f.label :delivery_price, t('chefs.delivery_price') + ' $', class: "mt-lg-2 small-label" %>
-                <%= f.number_field :delivery_price, value: number_to_currency(@current_app_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
+                <%= f.number_field :delivery_price, value: number_to_currency(@sessioned_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
               </div>
             </div>
             <div id="paypal-fields" class="d-none">
               <div class="form-group col-12">
                 <div class="">
-                  <%= f.text_field :paypal_client_id, value: @current_app_user.paypal_client_id, class: "form-control", placeholder: t('forms.paypal_client_id') %>
+                  <%= f.text_field :paypal_client_id, value: @sessioned_user.paypal_client_id, class: "form-control", placeholder: t('forms.paypal_client_id') %>
                 </div>
               </div>
               <div class="form-group col-12">
@@ -411,7 +410,7 @@
               </div>
             </div>
           <% end %>
-          <%= c.hidden_field :admin_id, value: @current_app_user.id %>
+          <%= c.hidden_field :admin_id, value: @sessioned_user.id %>
           <div class="form-group col-12">
             <p style="text-align: center; font-size: 10px;"><%= t('recipes.max_pic_size', mb: 5) %><br><%= t('recipes.rec_pic_size') %></p>
             <div class='row'>
@@ -434,7 +433,7 @@
                                                           class: "update-account btn btn-primary btn-lg btn-xlarge w-100") %>
               </div>
              <div class="col-12 col-xl-6 px-4 pr-xl-0">
-                <% if @current_app_user.admin? %>
+                <% if @sessioned_user.admin? %>
                   <%= link_to t('chefs.delete_profile'), [current_app, @user.chef_info], class: "btn btn-danger delete-btn btn-lg w-100",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
                 <% end %>
               </div>
@@ -447,7 +446,7 @@
 </div>
 <div class="row">
   <div class="col-12 text-center colormatch mt-5">
-    [ <%= link_to t('forms.return_to_recipes'), app_recipes_path(@current_app) %> ]
+    [ <%= link_to t('forms.return_to_recipes'), app_route(app_recipes_path(@current_app)) %> ]
   </div>
 </div>
 

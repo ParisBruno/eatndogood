@@ -2,7 +2,7 @@
   .browsed-buttons {
     display: none;
     margin-bottom: 10px;
-    padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;
+    padding-top: <%= @sessioned_user ? '10px' : '0' %>;
   }
   .browsed-button-cont {
   }
@@ -44,9 +44,9 @@
 
 <%
 =begin%>
- <%= form_tag(app_recipes_path(current_app), method: :get, remote: true, id: "filterRecipes") do |f| %>
+<%= form_tag(app_route(app_recipes_path(current_app)), method: :get, remote: true, id: "filterRecipes") do |f| %>
 <%= hidden_field_tag :filter, 1 %>
-<div class="browsed-buttons" style="padding-top: <%= app_user_signed_in? ? '10px' : '0' %>;">
+<div class="browsed-buttons" style="padding-top: <%= @sessioned_user ? '10px' : '0' %>;">
   <div class="browsed-button-cont">
     <button class="brow-button dropdown nav-item">
       <a href="#" class="brow-button-text btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t('navigation.styles') %></a>
@@ -102,19 +102,19 @@
   <div class="row browsed-buttons">
     <div class="col-12 browsed-button-cont">
        <button class="brow-button dropdown nav-item w-100 ml-0 mb-2">
-         <a href="<%= table_app_styles_path(current_app) %>" class="brow-button-text btn w-100" role="button"><%= t('navigation.styles') %></a>
+         <a href="<%= app_route(table_app_styles_path(current_app)) %>" class="brow-button-text btn w-100" role="button"><%= t('navigation.styles') %></a>
       </button>
     </div>
 
     <div class="col-12 browsed-button-cont">
       <button class="brow-button dropdown nav-item w-100 ml-0 mb-2">
-        <a href="<%= table_app_ingredients_path(current_app) %>" class="brow-button-text btn w-100" role="button"><%= t('navigation.ingredients')%></a>
+        <a href="<%= app_route(table_app_ingredients_path(current_app)) %>" class="brow-button-text btn w-100" role="button"><%= t('navigation.ingredients')%></a>
       </button>
     </div>
 
     <div class="col-12 browsed-button-cont">
       <button class="brow-button dropdown nav-item w-100 ml-0 mb-2">
-        <a href="<%= table_app_allergens_path(current_app) %>" class="brow-button-text btn w-100"><%= t('navigation.allergens')%></a>
+        <a href="<%= app_route(table_app_allergens_path(current_app)) %>" class="brow-button-text btn w-100"><%= t('navigation.allergens')%></a>
       </button>
     </div>
   </div>

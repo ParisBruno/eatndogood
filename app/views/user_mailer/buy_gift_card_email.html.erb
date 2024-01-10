@@ -1,12 +1,17 @@
+<% if @app.slug == 'rockystepswaylive' %>
+  <% path = root_url %>
+<% else %>
+  <% path = root_url + @app&.slug %>
+<% end %>
 <!DOCTYPE html>
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1 style="font-size:16px"><b><%= @gift_card.purchaser_name %></b> sent your a Gift Card on <%= link_to 'MyTopRecipes.com', root_url + @app&.slug %>.</h1>
+    <h1 style="font-size:16px"><b><%= @gift_card.purchaser_name %></b> sent your a Gift Card on <%= link_to 'MyTopRecipes.com', path %>.</h1>
     <br>
-    <h1 style="font-size:14px">Click here to enjoy your Gift Card: <%= link_to 'MyTopRecipes.com', root_url + @app&.slug %></h1>
+    <h1 style="font-size:14px">Click here to enjoy your Gift Card: <%= link_to 'MyTopRecipes.com', path %></h1>
 
     <div class="gift-card" style="background-image: url('<%= root_url + image_path('gift-card-email.jpg') %>'); border-radius: 12px; width: 480px; height: 280px; padding: 5px; margin: 8px; border: solid 1px black; font-family: Arial Narrow, sans-serif;">
         <p style="font-size:48px; font-weight:500; color: white; padding: 0; margin: 0; padding-top: 5px; padding-left: 5px;">Gift Card</p>

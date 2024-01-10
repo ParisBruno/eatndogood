@@ -3,14 +3,14 @@ class AgreementsController < ApplicationController
     agreement = Agreement.new(agreement_params)
     if agreement.save
       cookies[:agreement] = true
-      if current_app_user.nil?
+      if @sessioned_user.nil?
         create_guest_user(agreement)
       else
-        agreement.update(user_id: current_app_user.id)
+        agreement.update(user_id: @sessioned_user.id)
       end
       AgreementMailer.copy_email(agreement, @current_app).deliver_now
       flash[:success] = t('agreement.agreement_submit_email_send')
-      redirect_to app_style_path(@current_app, Style.agreement_style)
+      redirect_to app_route(app_style_path(@current_app, Style.agreement_style))
     end
   end
 

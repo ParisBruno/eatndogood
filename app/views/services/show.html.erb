@@ -46,7 +46,7 @@
     </div>
   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchOrdersSection">
     <div class="card-body container pt-0">
-      <%= form_tag(app_service_path, method: :get) do |f| %>
+      <%= form_tag(app_route(app_service_path(current_app)), method: :get) do |f| %>
         <div class="form-group mb-4 mx-3 row">
           <div class="col-lg-2">
           </div>

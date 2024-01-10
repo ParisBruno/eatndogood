@@ -326,12 +326,12 @@
               <%= render partial: 'shared/locale_selector', locals: { selected_languages: selected_languages } %>
             <% end %>
             <div>
-                <% if current_app_user.blank? && @admin_id.blank? && @guest_email.blank? %>
-                    <%=link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
-                <% elsif current_app_user.present? %>
-                    <%= link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
+                <% if @sessioned_user.blank? && @admin_id.blank? && @guest_email.blank? %>
+                    <%=link_to t('welcome.enter'), app_route(about_app_pages_path(current_app)), class: "btn-enter" %>
+                <% elsif @sessioned_user.present? %>
+                    <%= link_to t('welcome.enter'), app_route(about_app_pages_path(current_app)), class: "btn-enter" %>
                 <% else %>
-                    <%= link_to t('welcome.enter'), about_app_pages_path(current_app), class: "btn-enter" %>
+                    <%= link_to t('welcome.enter'), app_route(about_app_pages_path(current_app)), class: "btn-enter" %>
                 <% end %>
             </div>
           </form>

@@ -2,7 +2,7 @@
   <%= render 'service_detail_data', service: service, index: index, type_index: type_index %>
 <tr>
 <tr class="d-none service-<%= service.id %>-edit-row" data-id=<%= service.id %>>
-  <%= form_for(service, url: app_service_path(current_app, service), remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+  <%= form_for(service, url: app_route(app_service_path(current_app, service)), remote: true, :html => {class: "form-horizontal", role: "form"}) do |f| %>
     <td class="border icon-field">
       <div>
         <%= f.cktext_area :icon, value: nil, cols: 50, class: "form-control", placeholder: t('services.icon'), autofocus: true, id: "service_icon_#{f.object.id}"  %>

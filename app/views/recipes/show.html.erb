@@ -244,16 +244,16 @@
             <% end %>
           </div>
           <div class="detail-list">
-            <% if (current_app_user and (@recipe.chef.id == current_app_user.id) || current_app_user.admin?) %>
-              <%= link_to t('recipes.delete_recipe'), [current_app, @recipe], class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px; font-family: WhitneySSm;",  method: :delete, data: { confirm: t('common.confirm') } %>
+            <% if (@sessioned_user and (@recipe.chef.id == @sessioned_user.id) || @sessioned_user.admin?) %>
+              <%= link_to t('recipes.delete_recipe'), app_route(app_recipe_path(current_app, @recipe)), class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px; font-family: WhitneySSm;",  method: :delete, data: { confirm: t('common.confirm') } %>
             <% end %>
-            <% if (current_app_user and (@recipe.chef.id == current_app_user.id)|| current_app_user.admin? ) %>
-              <%= link_to t('recipes.edit_recipe'), edit_app_recipe_path(current_app, @recipe), class: "btn btn-success pull-right btn-lg edit-btn", style: 'font-family: WhitneySSm;' %>
+            <% if (@sessioned_user and (@recipe.chef.id == @sessioned_user.id)|| @sessioned_user.admin? ) %>
+              <%= link_to t('recipes.edit_recipe'), app_route(edit_app_recipe_path(current_app, @recipe)), class: "btn btn-success pull-right btn-lg edit-btn", style: 'font-family: WhitneySSm;' %>
             <% end %>
           </div>
           <div class="text-center position-absolute reservation-btn reservation-btn-media">
-            <% if @recipe.enable_reservation? %>
-              <%= link_to t('reservations.scheduling_reservation'), app_services_path(current_app), class: "btn btn-lg btn-primary pull-center text-white", style: 'font-family: WhitneySSm;' %>
+            <% if @recipe.enable_reservation? && current_app.services.present? %>
+              <%= link_to t('reservations.scheduling_reservation'), app_route(app_services_path(current_app)), class: "btn btn-lg btn-primary pull-center text-white", style: 'font-family: WhitneySSm;' %>
             <% end %>
           </div>
           <div class="recipe-name">
@@ -289,24 +289,24 @@
     <% if session[:user_role] != 'super_admin' %>
       <div class="recipes-q margin-top-18">
         <center>
-          <% if current_app_user && current_app_user.id != @recipe.chef.id %>
+          <% if @sessioned_user && @sessioned_user.id != @recipe.chef.id %>
             <% if @recipe.is_reservation_enable %>
               <h3>
-                <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation") %>" class="btn btn-success">
+                <a href="<%= app_route(new_app_reservation_path(current_app, @recipe, user_id: @sessioned_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "reservation")) %>" class="btn btn-success">
                   <%= t('reservations.make_reservation')%>
                 </a> 
               </h3>
             <% end %>
             <% if @recipe.is_ask_catering_enable %>
               <h3>
-                <a href="<%= new_app_reservation_path(current_app, @recipe, user_id: current_app_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering") %>" class="btn btn-success">
+                <a href="<%= app_route(new_app_reservation_path(current_app, @recipe, user_id: @sessioned_user.id, email: @recipe.chef.admin_user.email, recipe_id: @recipe.id, type: "catering")) %>" class="btn btn-success">
                   <%= t('reservations.make_catering') %>
                 </a> 
               </h3>
             <% end %>
           <% end %>
           <% if @recipe.enable_gift_card.present? && @recipe.gift_card_image.present? %>
-            <%= link_to current_app_user ? new_app_gift_card_path(current_app, recipe: @recipe) : new_app_user_registration_path(current_app), class: "gift-card-title" do %>
+            <%= link_to @sessioned_user ? app_route(new_app_gift_card_path(current_app, recipe: @recipe)) : app_route(new_app_user_registration_path(current_app)), class: "gift-card-title" do %>
                 <div class="gift-card-styling">
                   <%= image_tag(@recipe.gift_card_image, class:'img', alt: t('common.no_image') ,size: "240x130") %>
                   <div><%= t('gift_cards.buy') %></div>
@@ -343,9 +343,9 @@
 <center>
   <h5 class="margin-bottom-30">
     <% if session[:user_role] == 'super_admin' %>
-      <%= link_to t('recipes.return_to_recipes_listing'), allrecipe_path, class: 'btn btn-primary btn-lg', style: "color:white !important" %>
+      <%= link_to t('recipes.return_to_recipes_listing'), app_route(allrecipe_path(current_app)), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     <% else %>
-      <%= link_to t('recipes.return_to_recipes_listing'), app_recipes_path(current_app), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
+      <%= link_to t('recipes.return_to_recipes_listing'), app_route(app_recipes_path(current_app)), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     <% end %>
   </h5>
   <br><br><br><br><br>
@@ -354,16 +354,16 @@
 <div class="row justify-content-center buy-button">
   <div class="m-2">
     <% if !@recipe.price&.zero? && @recipe.price.present? %>
-      <% if app_user_signed_in? %>
+      <% if @sessioned_user %>
         <% unless @recipe.is_draft %>
-          <%= button_to line_items_path(recipe_id: @recipe.id), params: { app: current_app.slug }, class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
+          <%= button_to app_route(app_line_items_path(current_app, recipe_id: @recipe.id)), class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
             <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
           <% end %>
         <% else %>
-        <%= link_to t('recipes.add_to_cart'), new_app_user_registration_path(current_app), { class: 'btn btn-success btn-lg'} %>
+        <%= link_to t('recipes.add_to_cart'), app_route(new_app_user_registration_path(current_app)), { class: 'btn btn-success btn-lg'} %>
         <% end %>
       <% else %>
-        <%= link_to new_app_user_registration_path(@current_app), class: "btn btn-secondary btn-lg my-cart", style: 'font-family: WhitneySSm;' do %>
+        <%= link_to app_route(new_app_user_registration_path(@current_app)), class: "btn btn-secondary btn-lg my-cart", style: 'font-family: WhitneySSm;' do %>
           <%= t('recipes.start_order') %>
           <span class="fa fa-shopping-cart"></span>
         <% end %>
@@ -371,8 +371,10 @@
     <% end %>
   </div>
   <div class="mt-4">
-    <% unless @current_cart.line_items.count == 0 %>
-      <%= link_to t('recipes.my_cart'), app_cart_path(@current_app, id: @current_cart.id), class: "btn btn-lg btn-success my-cart" %>
+    <% if @current_cart.present? %>
+      <% unless @current_cart.line_items.count == 0 %>
+        <%= link_to t('recipes.my_cart'), app_route(app_cart_path(@current_app, id: @current_cart.id)), class: "btn btn-lg btn-success my-cart" %>
+      <% end %>
     <% end %>
   </div>
 </div>

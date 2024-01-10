@@ -56,14 +56,14 @@
             <div class="col-12 col-sm-6 col-xl-5">
               <div class="form-group mt-sm-3">
                 <div class="ml-0">
-                  <%= form_tag(app_services_path(current_app), method: :get, id: "service-type-form", class: "h-100") do %>
+                  <%= form_tag(app_route(app_services_path(current_app)), method: :get, id: "service-type-form", class: "h-100") do %>
                     <%= select_tag "service_types", options_for_select(@service_types.map{|x| [x.name, x.slug]}, params[:service_types]), class: "form-control select-height", required: true %>
                   <% end %>
                 </div>
               </div>
             </div>
           </div>
-          <%= form_for(ServiceSlot.new, url: app_service_slots_path(current_app)) do |f| %>
+          <%= form_for(ServiceSlot.new, url: app_route(app_service_slots_path(current_app))) do |f| %>
             <div class="row">
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="form-group mt-1 mt-sm-3 mb-0">
@@ -232,9 +232,10 @@
     var service_type = $('#service_types').val();
     var people = $('#service_slot_number_of_people').val();
     var service_day = $('#service_slot_day').val();
+    var app_route_slots = "<%= app_route(app_slots_path(current_app)) %>";
     $.ajax({
       method: "GET",
-      url: "/" + <%= current_app.id %> + "/slots",
+      url: app_route_slots,
       data: { service_day: service_day, service_types: service_type, people: people },
       success: function (response) {
       },

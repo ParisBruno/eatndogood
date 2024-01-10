@@ -1,7 +1,7 @@
 <%
-  categories = link_to t('navigation.styles'), table_app_styles_path(current_app)
-  ingredients = link_to t('navigation.ingredients'), table_app_ingredients_path(@current_app)
-  allergens = link_to t('navigation.allergens'), table_app_allergens_path(current_app)
+  categories = link_to t('navigation.styles'), app_route(table_app_styles_path(current_app))
+  ingredients = link_to t('navigation.ingredients'), app_route(table_app_ingredients_path(@current_app))
+  allergens = link_to t('navigation.allergens'), app_route(table_app_allergens_path(current_app))
 %>
 <h1 align="center" class="title-heading">
   <% if title != t('recipes.show_all_recipes') %>

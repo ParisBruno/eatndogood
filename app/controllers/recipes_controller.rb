@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
     flash.discard
     if params[:filter]
       recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params)
-      if (current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)
+      if (@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)
         exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
         recipes = recipes.where.not(id: exercise_recipes_id)
       end
@@ -26,7 +26,7 @@ class RecipesController < ApplicationController
       end
     else
       recipes = Recipe.where(chef_id: @chef_ids, is_draft: false)
-      if (current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)
+      if (@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)
         exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
         recipes = recipes.where.not(id: exercise_recipes_id)
       end
@@ -37,9 +37,9 @@ class RecipesController < ApplicationController
   def show
     if @recipe.nil?
       flash[:success] = t('common.not_found', name: 'Recipe')
-      redirect_to app_recipes_path(current_app)
+      redirect_to app_route(app_recipes_path(current_app))
     else
-      return app_recipes_path(current_app, 489) if ((current_app_user.present? && !current_app_user.admin? && current_app_user.agreement.nil?) || (current_app_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
+      return app_route(app_recipes_path(current_app, 489)) if ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
       @comment = Comment.new
       @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
     end
@@ -57,7 +57,7 @@ class RecipesController < ApplicationController
   def create
     selected_locale = params['recipe']['locale']
     name = recipe_params["name_#{selected_locale}"]
-    @recipe = Recipe.find_or_initialize_by(name: name, chef_id: current_app_user.chef_info.id)
+    @recipe = Recipe.find_or_initialize_by(name: name, chef_id: @sessioned_user.chef_info.id)
     @recipe.assign_attributes(recipe_params)
     @recipe.name = name
     @recipe.description = recipe_params["description_#{selected_locale}"]
@@ -70,9 +70,9 @@ class RecipesController < ApplicationController
       # upload_images
       delete_draft
       flash[:success] = t('common.successfully_created', name: 'Recipe')
-      redirect_to app_recipe_path(current_app, @recipe)
+      redirect_to app_route(app_recipe_path(current_app, @recipe))
     else
-      redirect_to new_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_category')
+      redirect_to app_route(new_app_recipe_path(current_app, @recipe)), alert: t('recipes.choose_category')
     end
   end
   
@@ -102,26 +102,26 @@ class RecipesController < ApplicationController
       make_tags
       delete_draft
       flash[:success] =  t('common.successfully_updated', name: 'Recipe')
-      redirect_to app_recipe_path(current_app, @recipe)
+      redirect_to app_route(app_recipe_path(current_app, @recipe))
     else
-      redirect_to edit_app_recipe_path(current_app, @recipe), alert: t('recipes.choose_style')
+      redirect_to app_route(edit_app_recipe_path(current_app, @recipe)), alert: t('recipes.choose_style')
     end
   end
   
   def destroy
     @recipe.destroy
     flash[:success] = t('common.successfully_destroyed', name: 'Recipe')
-    redirect_to app_recipes_path(current_app)
+    redirect_to app_route(app_recipes_path(current_app))
   end
   
   def like
     like = Like.create(like: params[:like], app: current_app, recipe: @recipe)
     if like.valid?
       flash[:success] = t('recipes.suuccessfully_selected')
-      redirect_back fallback_location: app_path(current_app)
+      redirect_back fallback_location: app_route(app_path(current_app))
     else
       flash[:danger] = t('flash.you_can_like_dislike_once')
-      redirect_back fallback_location: app_path(current_app)
+      redirect_back fallback_location: app_route(app_path(current_app))
     end
   end
 
@@ -173,13 +173,13 @@ class RecipesController < ApplicationController
     # end
     
     def require_same_user
-      if current_app_user != @recipe.chef.user
-        redirect_to app_recipes_path(current_app), alert: t('recipes.edit_delete_own_recipe')
+      if @sessioned_user != @recipe.chef.user
+        redirect_to app_route(app_recipes_path(current_app)), alert: t('recipes.edit_delete_own_recipe')
       end  
     end
     
     def require_user_like
-      if !app_user_signed_in?
+      if !@sessioned_user
         flash[:danger] = t('flash.you_must_be_logged_in')
         redirect_to :back
       end

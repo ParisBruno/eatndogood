@@ -115,13 +115,13 @@
   }
 </style>
   <div class="row">
-    <%= form_for(@gift_card, url: app_gift_cards_path(current_app), html: { method: :post }) do |f| %>
+    <%= form_for(@gift_card, url: app_route(app_gift_cards_path(current_app)), html: { method: :post }) do |f| %>
       <div class="col-md-offset-4 login-sec margin-sec full-width-sec edit-chef card-sec">
         <div class="col-lg-8 well box-content">
 
         <table>
           <tr>
-            <% @recipe = Recipe.find(params[:recipe]) %>
+            <% @recipe = Recipe.find_by(name: params[:recipe]) %>
             <td colspan="6" class="gift-image"><%= image_tag(@recipe.gift_card_image,class:'img') if @recipe.present? %></td>
           </tr>
           <tr>
@@ -134,11 +134,11 @@
           </tr>
           <tr>
             <td class="gift-label"><%= t('gift_cards.gift_from') %>: </td>
-            <td colspan="5"><p class="gift-from"><%= current_app_user.full_name %></p></td>
+            <td colspan="5"><p class="gift-from"><%= @sessioned_user.full_name %></p></td>
           </tr>
           <tr>
             <td class="gift-label"></td>
-            <td colspan="5"><p class="gift-from"><%= current_app_user.email %></p></td>
+            <td colspan="5"><p class="gift-from"><%= @sessioned_user.email %></p></td>
           </tr>
           <tr>
             <td class="gift-label"><%= t('gift_cards.gift_to') %>: </td>
@@ -166,7 +166,7 @@
                   <%= f.button t('gift_cards.send_inbox'), class: 'send-button btn btn-info btn-lg', disabled: true %>
                 </div>
                 <div class="col-md-4">
-                  <%= link_to t('gift_cards.shopping'), app_recipes_path(current_app), class: 'shop-button btn btn-primary btn-lg' %>
+                  <%= link_to t('gift_cards.shopping'), app_route(app_recipes_path(current_app)), class: 'shop-button btn btn-primary btn-lg' %>
                 </div>
               </div>
             </td>

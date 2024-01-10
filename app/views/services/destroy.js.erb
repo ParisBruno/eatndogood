@@ -1,6 +1,7 @@
 var service = $("#service_"+<%= params[:id] %>);
 if (service.siblings('tr.service-tr').length == 1) {
   service.closest('table').remove();
+  $('#avail-service-btn').addClass('d-none');
 } else {
   service.remove();
   $($('.service-tr')[1]).find('td').addClass('font-weight-bold');

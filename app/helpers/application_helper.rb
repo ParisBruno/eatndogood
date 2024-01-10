@@ -33,7 +33,7 @@ module ApplicationHelper
   end
 
   def is_payment_method?(type)
-    current_app_user.selected_payment_methods.include?(type)
+    @sessioned_user.selected_payment_methods.include?(type)
   end
 
   def show_svg(path)
@@ -49,5 +49,13 @@ module ApplicationHelper
   def get_plan_price(guests)
     plan = Stripe::Plan.retrieve(ENV["#{guests}_PRODUCT"])
     "$#{(plan.amount.to_i / 100.0).to_i}/month"
+  end
+
+  def app_route(path, options = {})
+    if params[:app].nil? && path == "/rockystepswaylive"
+      "/"
+    else
+      params[:app].nil? ? path.remove("/rockystepswaylive") : path
+    end
   end
 end

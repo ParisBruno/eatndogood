@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[create]
-  skip_before_action :set_app, :check_app_user, :set_header_data
+  # skip_before_action :set_app, :check_app_user, :set_header_data
 
   def create
     @gift_card = GiftCard.find_by(id: params[:gift_card_id])
@@ -15,7 +15,7 @@ class LineItemsController < ApplicationController
       end
 
       flash[:success] = I18n.t 'flash.gift_add_to_cart' if @line_item.save
-      redirect_to new_app_gift_card_path(current_app)
+      redirect_to app_route(new_app_gift_card_path(current_app))
       return
     end
 
@@ -31,7 +31,7 @@ class LineItemsController < ApplicationController
     end
 
     flash[:success] = I18n.t 'flash.recipe_add_to_cart' if @line_item.save
-    redirect_to app_recipe_path(current_app, @recipe.id)
+    redirect_to app_route(app_recipe_path(current_app, @recipe.slug))
   end
 
   private
