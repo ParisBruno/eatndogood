@@ -109,6 +109,7 @@
           <button type="button" class="btn btn-primary sendEmails font-size-12" id="export"><%= t 'forms.export' %></button>
         </th>
         <th width="5%" class="font-size-12 text-nowrap"><%= t 'forms.s_no' %></th>
+        <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.agreement' %></th>
         <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.first_name' %></th>
         <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.last_name' %></th>
         <th class="font-size-15 text-nowrap" width="17%"><%= t 'forms.email' %></th>
@@ -175,34 +176,37 @@
           <button type="button" class="close" data-dismiss="modal" style="font-size:26px;">&times;</button>
         </div>
         <div class="modal-body">
-           <div class="form-group">
-             <div class="control-label col-md-12"><%= label_tag t 'forms.subject' %></div>
+          <div class="form-group">
+            <div class="control-label col-md-12"><%= label_tag t 'forms.subject' %></div>
              
-             <div class="col-md-12">
-               <%= text_field_tag :subject, '',class: "form-control" %>
-             </div>
-           </div>
+            <div class="col-md-12">
+              <% if current_app.slug != 'rockystepswaylive' %>
+                <%= hidden_field_tag :app, current_app.slug %>
+              <% end %>
+              <%= text_field_tag :subject, '',class: "form-control" %>
+            </div>
+          </div>
 
-           <div class="form-group">
-             <div class="control-label col-md-12"><%= label_tag t 'guests.email_content' %></div>
+          <div class="form-group">
+            <div class="control-label col-md-12"><%= label_tag t 'guests.email_content' %></div>
              
-             <div class="col-md-12">
-               <%= cktext_area :email_content, :content,  {class: "form-control", placeholder: ""}%>
-             </div>
-           </div>
+            <div class="col-md-12">
+              <%= cktext_area :email_content, :content,  {class: "form-control", placeholder: ""}%>
+            </div>
+          </div>
 
            
-           <%= hidden_field_tag :receivers, '' %>
-           <%= hidden_field_tag :send_all, '' %>
-           <span id="error_span" style="display:none;color:red;"></span>
-           <span id="suc_span" style="display:none;color:green;"><%= t 'guests.email_sent_success' %></span>
-           <div class="form-group">
-             <div class="control-label col-md-8"><%= label_tag :attachments %></div>
+          <%= hidden_field_tag :receivers, '' %>
+          <%= hidden_field_tag :send_all, '' %>
+          <span id="error_span" style="display:none;color:red;"></span>
+          <span id="suc_span" style="display:none;color:green;"><%= t 'guests.email_sent_success' %></span>
+          <div class="form-group">
+            <div class="control-label col-md-8"><%= label_tag :attachments %></div>
              
-             <div class="control-label col-md-8">
-               <%= file_field_tag "attachments[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png,.pdf,.docx,.doc,.txt' %>
-             </div>
-           </div>
+            <div class="control-label col-md-8">
+              <%= file_field_tag "attachments[]", type: :file, multiple: true, accept: 'image/jpeg,image/gif,image/png,.pdf,.docx,.doc,.txt' %>
+            </div>
+          </div>
            
         </div>
         <div class="modal-footer">

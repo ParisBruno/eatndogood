@@ -15,10 +15,10 @@ addCouponBtn.addEventListener("click", function () {
   var couponPercentOff = $('#coupon-percent-off').val();
   var couponAmountOff = $('#coupon-amount-off').val();
   var couponCheckBox = $('#coupon-check-box').prop("checked");
-  var app_route_destroy_coupon_codes = "<%= app_route(app_coupon_codes_path(current_app)) %>";
+  var app_route_add_coupon_codes = "<%= app_route(app_add_coupon_codes_path(current_app)) %>";
   $.ajax({
     method: "POST",
-    url: app_route_destroy_coupon_codes,
+    url: app_route_add_coupon_codes,
     data: { coupon_code: {title: title, coupon_percent_off: couponPercentOff, coupon_amount_off: couponAmountOff, is_active: couponCheckBox} },
     success: function (response) {
     },

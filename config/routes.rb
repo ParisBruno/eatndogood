@@ -18,29 +18,11 @@ Rails.application.routes.draw do
   # get '/live', to: 'pages#welcome'
 
   get '/recipes/ask-question', to: "recipes#email_question", as: "askquestion"
-
-  # resources :recipes do
-  #   resources :comments, only: [:create]
-  #   member do
-  #     post 'like'
-  #   end
-  # end
-
-
-  #woocommerce api
-  get '/fetchapi', to: "login#fetchapi"
-  get '/api/forgotpasswordwp', to: "login#forgotpasswordwp"
-  get '/api/deleteuserwp', to: "login#deleteuserwp"
-  get '/api/checkuserinrorapp', to: "login#checkuserinrorapp"
-  get '/api/updateplaninrorapp', to: "login#updateplaninrorapp"
-  #end woocommerce api
-
   get 'guests', to: 'guests#index'
   post 'sendUserEmailContent', to: 'guests#send_emails', :defaults => { :format => 'json' }
   get "signupguest" => "guests#new", :as=>"newguestwithoutid"
   get "newguest/:id/:email", to: "guests#new", as: "newguest"
   post 'guests/create',to: "guests#create", as: 'guestCreation'
-  # delete 'guest/:id', to: 'guests#destroy', as: "destroy_guest"
 
   get 'recipes', to: 'recipes#index'
   get 'team', to: 'chefs#index'
@@ -103,7 +85,7 @@ Rails.application.routes.draw do
     delete 'fundrasing_codes/:code_id', to: "chefs#destroy_fundrasing", as: "fundrasing_codes"
     get 'recipe_drafts', to: "recipes#drafts", as: "recipe_drafts"
     resources :autosaves, only: %i[index create]
-    resources :guests, only: %i[index send_emails]
+    resources :guests, only: %i[index send_emails destroy]
     resources :team, controller: 'chefs', as: 'chefs'
 
     resources :agreements
@@ -185,7 +167,7 @@ Rails.application.routes.draw do
   post 'fundrasing_codes', to: "chefs#add_fundrasing", as: "add_fundrasing_codes"
   delete 'fundrasing_codes/:code_id', to: "chefs#destroy_fundrasing", as: "fundrasing_codes"
   resources :autosaves, only: %i[index create]
-  resources :guests, only: %i[index send_emails]
+  resources :guests, only: %i[index send_emails destroy]
   resources :team, controller: 'chefs', as: 'chefs'
 
   resources :agreements
