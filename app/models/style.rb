@@ -26,7 +26,7 @@ class Style < ApplicationRecord
   end
 
   def self.agreement_style
-    find(28)
+    find(138)
   end
 
   def should_generate_new_friendly_id?
