@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
       flash[:success] = t('common.not_found', name: 'Recipe')
       redirect_to app_route(app_recipes_path(current_app))
     else
-      return app_route(app_recipes_path(current_app, 489)) if ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
+      return app_route(app_recipes_path(current_app, "underdog-plan-outlines")) if ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
       @comment = Comment.new
       @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
     end
