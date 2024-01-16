@@ -71,6 +71,16 @@
   .text-editor h1{
    font-size: revert;
   }
+  .navigation-btns {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 280px) {
+    .navigation-btns {
+      display: block;
+    }
+  }
 
   @media (max-width: 600px) {
     .see-meals {
@@ -111,14 +121,6 @@
   }
   #login-btn a, #signup-btn button:nth-child(1) a {
     background: none !important;
-  }
-  @media (min-width: 768px) {
-    #signup-btn {
-      margin-left: -46px;
-    }
-  }
-  #signup-btn button:nth-child(1) {
-    padding: 8px 16px;
   }
   @media (min-width: 768px) {
     #signup-btn button:nth-child(1) {
@@ -322,21 +324,41 @@
            <% end %>
         </div>
       </div>
-      <div class="row" id="login-btn">
-        <div class="col-md-12 text-center w-100">
-          <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
-            <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
+      <% if current_app.slug == 'rockystepswaylive' %>
+        <div class="navigation-btns">
+          <div class="row" id="login-btn" style="padding: 5px;">
+            <div class="col-md-12 text-center w-100">
+              <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
+                <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
+            </div>
+          </div>
+          <% unless @sessioned_user %>
+            <div class="row" id="signup-btn" style="padding: 5px;">
+              <div class="col-md-12 text-center w-100">
+                <button class="btn btn-success btn-lg">
+                  <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
+                </button>
+              </div>
+            </div>
+          <% end %>
         </div>
-      </div>
-      <% unless @sessioned_user %>
-        <div class="row" id="signup-btn">
+      <% else %>
+        <div class="row" id="login-btn">
           <div class="col-md-12 text-center w-100">
-            <button class="btn btn-success btn-lg">
-              <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
-            </button>
-            <%= link_to(tl('common.menu', locale), app_route(table_app_styles_path(current_app)),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
+            <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
+              <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
           </div>
         </div>
+        <% unless @sessioned_user %>
+          <div class="row" id="signup-btn">
+            <div class="col-md-12 text-center w-100">
+              <button class="btn btn-success btn-lg">
+                <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
+              </button>
+              <%= link_to(tl('common.menu', locale), app_route(table_app_styles_path(current_app)),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
