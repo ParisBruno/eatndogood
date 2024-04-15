@@ -102,29 +102,12 @@ class ApplicationController < ActionController::Base
   #   { app: set_app }
   # end
 
-  def set_app
-    if controller_name != 'pictures'
-      # raise @sessioned_user.inspect
-      app = App.find_by_slug(params[:app]) || App.find_by_id(params[:app])
-      if params[:app].nil? || app.nil? || (current_app.parent_type != "rockystepsway" && params[:app] != "rockystepswaylive")
-        redirect_to '/rockystepswaylive'
-      else
-        if params["action"] == "buy" && @sessioned_user.present?
-          params[:app] = @sessioned_user.app.name
-        end
-        @app = current_app
-        # @app.tap do
-        #   session[:app_id] = @app.id if session[:app].nil?
-        # end
-      end
-    end
-  end
-
   def current_app
     # @current_app ||= App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find(session[:app_id])
     
     # x = Rails.cache.fetch([@sessioned_user&.app, "current_app"]) do
-      app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "rockystepswaylive")
+      # app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "rockystepswaylive")
+      app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "eatndogood")
       @old_app =  app unless app.nil?
       gon.current_app = app.slug
       app
@@ -308,10 +291,6 @@ class ApplicationController < ActionController::Base
     Devise.setup do |config|
       config.mailer_sender = current_app.main_admin.email
     end
-  end
-
-  def set_apps
-    @app_ids = current_app.created_from == "fundraise" ? [current_app.id, App.fundraise.id] : current_app.id
   end
 
   def verify_app

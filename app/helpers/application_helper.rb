@@ -52,10 +52,10 @@ module ApplicationHelper
   end
 
   def app_route(path, options = {})
-    if params[:app].nil? && path == "/rockystepswaylive"
+    if params[:app].nil? && path == "/eatndogoodlive"
       "/"
     else
-      params[:app].nil? ? path.remove("/rockystepswaylive") : path
+      params[:app].nil? ? path.remove("/eatndogoodlive") : path
     end
   end
 end

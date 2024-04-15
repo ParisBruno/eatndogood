@@ -32,7 +32,7 @@ en:
     additional_languages: additional languages available upon request
     available_languages: Available Languages
     account_credentials: Account Credentials
-    account_created_successfully: Welcome %{full_name} to RockyStepsWay App!
+    account_created_successfully: Welcome %{full_name} to EatnDoGood App!
     account_updated_successfully: Your account was updated successfully
     chef_and_all_associated_services_deleted: Staff member and all his/her files have been deleted!
     cannot_delete_chef_admin_account: Cannot delete admin account

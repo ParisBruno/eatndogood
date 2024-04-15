@@ -1,5 +1,4 @@
 class AllergensController < ApplicationController
-  before_action :set_apps
   before_action :set_allergen, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index, :table]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]

@@ -73,15 +73,11 @@ class App < ApplicationRecord
       # Page.find_or_create_by(name: "Welcome", title: "Welcome To", content: ["Welcome To", app_name, "iTopRecipes App"].join("<br/>"), destination: "welcome", app_id: self.id, admin_name: main_admin.full_name)
       # Page.find_or_create_by(name: "About", title: "About page", content: "about page", destination: "about", app_id: self.id, admin_name: main_admin.full_name)
     # end
-    welcome = { name: "Welcome", title: "Welcome To", content: ["Welcome To", name, "RockyStepsWay App"].join("<br/>"), destination: "welcome"}
+    welcome = { name: "Welcome", title: "Welcome To", content: ["Welcome To", name, "EatnDoGood App"].join("<br/>"), destination: "welcome"}
     about = { name: "About", title: "About page", content: "about page", destination: "about" }
     [welcome,about].map do |elem|
       page_creation(elem)
     end
-  end
-
-  def self.fundraise
-    App.where(slug: "fundraise").last
   end
 
   private

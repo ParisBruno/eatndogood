@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   def limit_guests
     app = App.find(self.app_id)
-    if self.guest? && app.name != "rockystepswaylive" && app.slug != "fundraise"
+    if self.guest? && app.name != "eatndogood"
       app_guests = app.guests.count
       app_guests_limit = app.plan.guests_limit
       left_guests_limit = [6, 11, 21]

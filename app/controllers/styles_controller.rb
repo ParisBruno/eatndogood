@@ -1,5 +1,4 @@
 class StylesController < ApplicationController
-  before_action :set_apps
   before_action :set_style, only: [:show, :edit, :update, :destroy]
   before_action :require_admin_or_chef, except: [:show, :index, :table]
   before_action :require_logged_in, only: [:new, :create, :edit, :update, :destroy]
@@ -18,7 +17,7 @@ class StylesController < ApplicationController
       redirect_to app_route(table_app_styles_path(current_app))
     else
       redirect_to app_route(app_recipe_path(current_app, "underdog-plan-outlines")) if @style.id == 138 && ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?))
-      users = current_app.created_from == "fundraise" ? User.where(app_id: [current_app.id, App.fundraise.id]) : current_app.users
+      users = current_app.users
       recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: users.includes(:chef_info).pluck("chefs.id")})
       recipes = recipes.where(is_draft: false) unless @sessioned_user&.admin?
       @recipes = recipes.paginate(page: params[:page], per_page: 5)
