@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
     
     # x = Rails.cache.fetch([@sessioned_user&.app, "current_app"]) do
       # app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "rockystepswaylive")
-      app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "eatndogood")
+      app = App.find_by_slug(params[:app]) || @sessioned_user&.app || App.find_by(name: "eatndogoodlive")
       @old_app =  app unless app.nil?
       gon.current_app = app.slug
       app

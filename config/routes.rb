@@ -88,7 +88,6 @@ Rails.application.routes.draw do
     resources :guests, only: %i[index send_emails destroy]
     resources :team, controller: 'chefs', as: 'chefs'
 
-    resources :agreements
     resources :subscriptions, only: %i[index] do
       get 'edit', on: :collection
     end
@@ -129,7 +128,6 @@ Rails.application.routes.draw do
         post 'about/edit'
         get 'welcome', to: 'welcome'
         get 'about',   to: 'about'
-        get 'agreement',   to: 'agreement'
       end
     end
     resources :carts, only: %i[show destroy]
@@ -170,7 +168,6 @@ Rails.application.routes.draw do
   resources :guests, only: %i[index send_emails destroy]
   resources :team, controller: 'chefs', as: 'chefs'
 
-  resources :agreements
   resources :subscriptions, only: %i[index] do
     get 'edit', on: :collection
   end
@@ -208,7 +205,6 @@ Rails.application.routes.draw do
       post 'about/edit'
       get 'welcome', to: 'welcome'
       get 'about',   to: 'about'
-      get 'agreement',   to: 'agreement'
     end
   end
   resources :carts, only: %i[show destroy]

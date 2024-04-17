@@ -10,10 +10,9 @@ class Style < ApplicationRecord
 	validates :name, :uniqueness => { case_sensitive: false, scope: :app_id }
 	has_and_belongs_to_many :recipes
 	has_one_attached :image
-	translates :name, :agreement_text, fallbacks_for_empty_translations: true
-  globalize_accessors :locales => I18n.available_locales, :attributes => [:name, :agreement_text]
+	translates :name, fallbacks_for_empty_translations: true
+  globalize_accessors :locales => I18n.available_locales, :attributes => [:name]
 	before_save :upcase_name
-	has_many :agreements, dependent: :destroy
 
 	def self.sizes
     {
@@ -23,10 +22,6 @@ class Style < ApplicationRecord
 	
 	def sized(image_type, size)
     self.send(image_type).variant(resize: Style.sizes[size]).processed rescue nil
-  end
-
-  def self.agreement_style
-    find(138)
   end
 
   def should_generate_new_friendly_id?

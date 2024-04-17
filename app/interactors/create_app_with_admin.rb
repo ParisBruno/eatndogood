@@ -19,7 +19,6 @@ class CreateAppWithAdmin
       )
       chef = create_chef(user.id)
       app.create_pages
-      # create_app_data(app, chef) if app.created_from == "EatnDoGood"
       create_app_data(app, chef)
     end
   end

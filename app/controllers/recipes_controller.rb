@@ -10,12 +10,7 @@ class RecipesController < ApplicationController
   def index
     flash.discard
     if params[:filter]
-      recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params)
-      if (@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)
-        exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
-        recipes = recipes.where.not(id: exercise_recipes_id)
-      end
-      @recipes = recipes.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+      @recipes = Recipe.where(chef_id:@chef_ids, is_draft: false).filters(params).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
       if params[:allergen_ids]
         selected_allergens = params[:allergen_ids].map(&:to_i)
         allergens = Allergen.where(id: selected_allergens)
@@ -25,12 +20,7 @@ class RecipesController < ApplicationController
         @display_flash = true
       end
     else
-      recipes = Recipe.where(chef_id: @chef_ids, is_draft: false)
-      if (@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)
-        exercise_recipes_id = Style.agreement_style.recipes.pluck(:id)
-        recipes = recipes.where.not(id: exercise_recipes_id)
-      end
-      @recipes = recipes.order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
+      @recipes = Recipe.where(chef_id: @chef_ids, is_draft: false).order(created_at: :desc).includes(:styles).includes(:allergens).includes(:ingredients).paginate(page: params[:page], per_page: 10)
     end
   end
   
@@ -39,7 +29,6 @@ class RecipesController < ApplicationController
       flash[:success] = t('common.not_found', name: 'Recipe')
       redirect_to app_route(app_recipes_path(current_app))
     else
-      return app_route(app_recipes_path(current_app, "underdog-plan-outlines")) if ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?)) && @recipe.styles.map{|x| x.id}.include?(138)
       @comment = Comment.new
       @comments = @recipe.comments.paginate(page: params[:page], per_page: 5)
     end

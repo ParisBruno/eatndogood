@@ -16,9 +16,7 @@ class StylesController < ApplicationController
       flash[:success] = t('common.not_found', name: 'Category')
       redirect_to app_route(table_app_styles_path(current_app))
     else
-      redirect_to app_route(app_recipe_path(current_app, "underdog-plan-outlines")) if @style.id == 138 && ((@sessioned_user.present? && !@sessioned_user.admin? && @sessioned_user.agreement.nil?) || (@sessioned_user.nil? && cookies[:agreement].nil?))
-      users = current_app.users
-      recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: users.includes(:chef_info).pluck("chefs.id")})
+      recipes = @style.recipes.joins(chef: [user: :app]).where(chefs: {id: current_app.users.includes(:chef_info).pluck("chefs.id")})
       recipes = recipes.where(is_draft: false) unless @sessioned_user&.admin?
       @recipes = recipes.paginate(page: params[:page], per_page: 5)
     end
@@ -54,22 +52,10 @@ class StylesController < ApplicationController
   def update
     respond_to do |format|
       if @style.update(style_params)
-        if !params[:style][:agreement_text_en].nil?
-          path = app_route(new_app_agreement_path(@current_app))
-          notice = t('common.successfully_updated', name: 'Agreement')
-        else
-          path = app_route(app_styles_path(current_app))
-          notice = t('common.successfully_updated', name: 'Category')
-        end
-        format.html { redirect_to path, notice: notice }
+        format.html { redirect_to app_route(app_styles_path(current_app)), notice: t('common.successfully_updated', name: 'Category') }
         format.json { render :show, status: :ok, location: @style }
       else
-        if !params[:style][:agreement_text_en].nil?
-          @failed_agreement_text = true
-          format.html { render 'pages/agreement' }
-        else
-          format.html { render :edit }
-        end
+        format.html { render :edit }
         format.json { render json: @style.errors, status: :unprocessable_entity }
       end
     end

@@ -21,7 +21,7 @@ class SubscriptionsController < ApplicationController
 
   def subscribed
     # Create plan and plan category
-    title = "RSW-#{params[:clients]}"
+    title = "EnDG-#{params[:clients]}"
     plan_category = PlanCategory.find_or_create_by(name: title, status: 'yes')
     plan = Plan.find_or_create_by(title: title, guests_limit: params[:clients], plan_category_id: plan_category.id, status: 'yes')
 

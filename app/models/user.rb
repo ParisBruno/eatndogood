@@ -12,7 +12,6 @@ class User < ApplicationRecord
   
   belongs_to :app
 
-  has_one :agreement
   has_one :chef_info, class_name: 'Chef', foreign_key: 'user_id' , inverse_of: :user, dependent: :destroy
   has_many :orders #, dependent: :destroy
   has_one :cart, dependent: :destroy

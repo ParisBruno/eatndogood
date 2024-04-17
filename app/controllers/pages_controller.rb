@@ -76,10 +76,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def agreement
-    @style = Style.agreement_style
-  end
-
   private
 
   def guest_email

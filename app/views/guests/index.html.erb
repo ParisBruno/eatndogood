@@ -109,7 +109,6 @@
           <button type="button" class="btn btn-primary sendEmails font-size-12" id="export"><%= t 'forms.export' %></button>
         </th>
         <th width="5%" class="font-size-12 text-nowrap"><%= t 'forms.s_no' %></th>
-        <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.agreement' %></th>
         <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.first_name' %></th>
         <th class="font-size-15 text-nowrap" width="12%"><%= t 'forms.last_name' %></th>
         <th class="font-size-15 text-nowrap" width="17%"><%= t 'forms.email' %></th>
@@ -125,7 +124,6 @@
       <tr>
         <td class="font-size-12 text-nowrap"><%= check_box('guest', 'check', { class: 'guestCheck', data: { email: guest.email } }) %></td>
         <td class="font-size-12 text-nowrap"> <a href="<%= app_route(app_guests_path(current_app, keyword: guest.email)) %>"><%= i %></a></td>
-        <td class="font-size-12 text-nowrap"><input type="checkbox" <%= 'checked' if guest.agreement.present? %> onclick="return false;"></td>
         <td class="font-size-12 text-nowrap"> <%= !guest.first_name.nil? ? guest.first_name.capitalize : '' %></td>
         <td class="font-size-12 text-nowrap"> <%= !guest.last_name.nil? ? guest.last_name.capitalize : '' %></td>
         <td class="font-size-12 text-nowrap"> <a href="javascript:void(0)" onclick="sendEmail('<%= guest.email %>')"><%= guest.email %></a></td>
