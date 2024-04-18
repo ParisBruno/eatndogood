@@ -1,10 +1,10 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.1"
 
-set :application, 'rockystepsway'
-set :repo_url, 'git@github.com:ParisBruno/rockystepsway.git' # Edit this to match your repository
+set :application, 'eatndogood'
+set :repo_url, 'git@github.com:ParisBruno/eatndogood.git' # Edit this to match your repository
 set :branch, :main
-set :deploy_to, '/home/deploy/rockystepsway'
+set :deploy_to, '/home/deploy/eatndogood'
 set :pty, true
 set :linked_files, %w{config/database.yml .env.production}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
