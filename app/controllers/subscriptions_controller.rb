@@ -35,8 +35,7 @@ class SubscriptionsController < ApplicationController
       name: stripe_user.name,
       email: stripe_user.email,
       password: password,
-      plan_id: plan.id,
-      created_from: current_app.slug
+      plan_id: plan.id
     )
     UserMailer.welcome_email(User.last, password,current_app).deliver_now
     redirect_to app_route(new_app_user_session_path(current_app))
