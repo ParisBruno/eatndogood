@@ -324,41 +324,21 @@
            <% end %>
         </div>
       </div>
-      <% if current_app.slug == 'eatndogoodlive' %>
-        <div class="navigation-btns">
-          <div class="row" id="login-btn" style="padding: 5px;">
-            <div class="col-md-12 text-center w-100">
-              <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
-                <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
-            </div>
-          </div>
-          <% unless @sessioned_user %>
-            <div class="row" id="signup-btn" style="padding: 5px;">
-              <div class="col-md-12 text-center w-100">
-                <button class="btn btn-success btn-lg">
-                  <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
-                </button>
-              </div>
-            </div>
-          <% end %>
+      <div class="row" id="login-btn">
+        <div class="col-md-12 text-center w-100">
+          <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
+            <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
         </div>
-      <% else %>
-        <div class="row" id="login-btn">
+      </div>
+      <% unless @sessioned_user %>
+        <div class="row" id="signup-btn">
           <div class="col-md-12 text-center w-100">
-            <button class="btn btn-success btn-lg" onclick='newDoc("<%= app_route(new_app_user_session_path(current_app)+'?is_guest=yes') %>")'>
-              <%= link_to tl('navigation.login', locale), app_route(new_app_user_session_path(current_app, is_guest: :yes)), {:style=>'color: #fff; position:center;', :id => "btn"} %></button>
+            <button class="btn btn-success btn-lg">
+              <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
+            </button>
+            <%= link_to(tl('common.menu', locale), app_route(table_app_styles_path(current_app)),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
           </div>
         </div>
-        <% unless @sessioned_user %>
-          <div class="row" id="signup-btn">
-            <div class="col-md-12 text-center w-100">
-              <button class="btn btn-success btn-lg">
-                <%= link_to(tl('common.take_a_tour_as_guest', locale), app_route(new_app_user_registration_path(current_app)),{ style: 'position:center;'}) %>
-              </button>
-              <%= link_to(tl('common.menu', locale), app_route(table_app_styles_path(current_app)),{ class: 'btn btn-primary btn-lg', style: 'position:center;', id: 'menubtn'}) %>
-            </div>
-          </div>
-        <% end %>
       <% end %>
     </div>
   </div>
