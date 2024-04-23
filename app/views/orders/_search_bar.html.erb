@@ -9,7 +9,7 @@
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#searchOrdersSection">
       <div class="card-body">
-        <%= form_tag(app_route(app_orders_path(current_app)), method: :get, remote: true) do |f| %>
+        <%= form_tag(app_route(app_orders_path(current_app, staff_ids: params[:staff_ids])), method: :get, remote: true) do |f| %>
           <div class="form-group row my-4 mx-3">
             <div class="col-md-2 col-sm-4 mt-2">
               <h3>
@@ -39,6 +39,17 @@
             </div>
             <div class="col-md-3 col-sm-6">
               <%= check_box_tag :'search[status]' %>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2 col-sm-4 mt-2">
+              <h3>
+                <%= t('orders.client_name') %>
+              </h3>
+            </div>
+            <div class="col-md-3 col-sm-6 mt-2">
+              <% users = current_app.users %>
+              <% users = users.where(id: params[:staff_ids]) if params[:staff_ids].present? %>
+              <%= select_tag :'search[user_id]', options_from_collection_for_select(users, 'id', 'first_name'), :include_blank => "Select a Client", class: "form-control" %>
             </div>
           </div>
           <div class="form-group row my-4 mx-3">

@@ -12,7 +12,11 @@ class OrdersController < ApplicationController
   @@paypal_status ||= nil
 
   def index
-    user_ids = params[:staff_ids].present? ? params[:staff_ids] : current_app.user_ids
+    if params[:search].present? && params[:search][:user_id].present?
+      user_ids = [params[:search][:user_id]]
+    else
+      user_ids = params[:staff_ids].present? ? params[:staff_ids] : current_app.user_ids
+    end
     if params[:search].present?
       orders = Order.where(user_id: user_ids)
       search_params = params[:search]
@@ -21,7 +25,7 @@ class OrdersController < ApplicationController
     else
       orders = Order.where(user_id: user_ids)
     end
-    @orders = orders.order(created_at: :desc)
+    @orders = orders.order(name: :asc)
 
     respond_to do |format|
       format.html
@@ -316,12 +320,11 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:name, :email, :phone, :address, :coupon_code, :fundrasing_code, :amount, :delivery_price,
-                                  :coupon_amount_off, :coupon_percent_off, :tip_value, :gift_card_id, :password, :password_confirmation)
+                                  :coupon_amount_off, :coupon_percent_off, :tip_value, :gift_card_id, :password, :password_confirmation, :is_home_delivery, :message)
   end
 
   def update_order_params
-    params.require(:order).permit(:name, :email, :phone, :address, :pay_method, :status, :coupon_code, :fundrasing_code, :delivery_price, :tip_value,
-                                  line_items_attributes: [:id, :quantity, :recipe_id, :note, :_destroy, recipe_attributes: [:id, :name]])
+    params.require(:order).permit(:name, :email, :phone, :address, :pay_method, :status, :coupon_code, :fundrasing_code, :delivery_price, :tip_value,:message, :is_home_delivery, line_items_attributes: [:id, :quantity, :recipe_id, :note, :_destroy, recipe_attributes: [:id, :name]])
   end
 
   def set_delivery_discount_tip(delivery_price, coupon_code, coupon_amount_off, coupon_percent_off, tip_value, fundrasing_code, update_order = false)

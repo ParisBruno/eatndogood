@@ -110,6 +110,9 @@
   input:focus{
     outline: none;
   }
+  textarea:focus{
+    outline: none;
+  }
   .note-field{
     margin-top: -2px;
   }
@@ -154,6 +157,9 @@
       padding: 0px !important;
     }
   }
+  #staff_order input[type='checkbox'] {
+    height: 15px !important;
+  }
 </style>
 
 <%= form_with(model: order, url: order.new_record? ? app_route(app_create_staff_order_path(current_app)) : app_route(app_order_path(current_app, id: order)), local: true, html: { id: "staff_order" } ) do |form| %>
@@ -187,17 +193,20 @@
               <p class="text-center mb-0">
                 <%= @sessioned_user.phone %>
               </p>
-              <p class="text-center mb-0">
-                <%= @sessioned_user.email %>
-              </p>
+              <!--<p class="text-center mb-0">
+                <%#= @sessioned_user.email %>
+              </p>-->
             </td>
           </tr>
           <tr>
             <td colspan="2">
-              <p class="mb-0 text-center">
-                <span class="font-weight-bold"><%= "#{@sessioned_user.full_name.titleize} - " "#{order.new_record? ? "New Order" : "Order ##{order.id},"}" %></span>
-                <span><%= "--- #{order.created_at.strftime("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")}" unless order.new_record? %></span>
-              </p>
+              <div class="mb-0">
+                <span class="font-weight-bold"><%= "#{@sessioned_user.full_name.titleize}" "#{order.new_record? ? " - New Order" : ""}" %></span>
+              </div>
+              <div class="text-right">
+                <span><%= "(#{order.created_at.strftime ("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")})" unless order.new_record? %></span>
+                <span class="font-weight-bold"><%= 'H' if order.is_home_delivery? %></span>
+              </div>
             </td>
           </tr>
           <% if order.new_record? %>
@@ -211,20 +220,41 @@
               <td colspan="2"><%= form.text_field :phone, class: 'order-field order-field-height', id: 'new_order_phone', placeholder: t('orders.phone') %></td>
             </tr>
             <tr>
-              <td colspan="2"><%= form.text_area :address, class: "order-field order-field-height", id: 'new_order_address', placeholder: t('orders.home_address') %></td>
+              <td colspan="2"><%= form.text_field :address, class: "order-field order-field-height", id: 'new_order_address', placeholder: t('orders.home_address') %></td>
+            </tr>
+            <tr>
+              <td colspan="2"><%= form.text_area :message, class: "order-field order-field-height", placeholder: t('orders.custom_message') %></td>
             </tr>
           <% else %>
             <tr>
-              <td colspan="2" class="text-left"><%= order.name if order.name.present? %></td>
+              <td colspan="2" class="text-left">
+                <span class="font-weight-bold">Client Name:</span>
+                <span><%= order.name if order.name.present? %></span>
+              </td>
             </tr>
             <tr>
-              <td colspan="2" class="text-left"><%= order.email if order.email.present? %></td>
+              <% if order.address.present? %>
+                <td colspan="2" class="text-left">
+                    <span class="font-weight-bold">Address:</span>
+                    <span><%= order.address %></span>
+                </td>
+              <% end %>
             </tr>
             <tr>
-              <td colspan="2" class="text-left"><%= order.phone if order.phone.present? %></td>
+              <% if order.phone.present? %>
+                <td colspan="2" class="text-left">
+                    <span class="font-weight-bold">Phone:</span>
+                    <span><%= order.phone %></span>
+                </td>
+              <% end %>
             </tr>
             <tr>
-              <td colspan="2" class="text-left"><%= order.address if order.address.present? %></td>
+              <% if order.email.present? %>
+                <td colspan="2" class="text-center pb-4">
+                    <span class="font-weight-bold">Email:</span>
+                    <span><%= order.email %></span>
+                </td>
+              <% end %>
             </tr>
           <% end %>
           <tr>
@@ -269,6 +299,12 @@
             <% end %>
           </tr>
           <tr>
+            <% if order.new_record? %>
+              <td class="text-right order-item"><%= t('orders.home_delivery') %></td>
+              <td class="text-right pl-5"><%= form.check_box :is_home_delivery %></td>
+            <% end %>
+          </tr>
+          <tr>
             <td class="text-right order-item"><%= t('orders.tip') %></td>
             <td class="text-right pl-5"><%= form.number_field :tip_value, class: 'order-field line-item-field w-50', step: 1, min: 0 %></td>
           </tr>
@@ -288,16 +324,6 @@
             <% elsif order.fundrasing_code.present? %>
               <td class="text-right order-item"><%= t('recipes.fundraising_code') %></td>
               <td class="text-right pl-5"><%= order.fundrasing_code %></td>
-            <% end %>
-          </tr>
-          <tr class="order-total-row">
-            <td class="text-right order-item"><%= t('recipes.total') %></td>
-            <% if order.new_record? %>
-              <td class="text-right font-weight-bold">$0.00</td>
-            <% else %>
-              <td class="text-right pl-5 font-weight-bold">
-                <%= number_to_currency(order.amount&./100.0) %>  
-              </td>
             <% end %>
           </tr>
           <tr>
@@ -325,6 +351,30 @@
             <%# else %>
               <!-- <td class="text-right pl-4"><%#= form.text_field :pay_method, class: 'text-left order-field order-field-height order-paymethod ml-1', id: 'staff-order-paymethod', readonly: true %></td> -->
             <%# end %>
+          </tr>
+          <tr class="order-total-row">
+            <% if order.new_record? %>
+              <td class="order-item text-right"><%= t('recipes.total') %></td>
+              <td class="text-right font-weight-bold pl-3">$0.00</td>
+            <% else %>
+              <td class="order-item">
+                <div class="d-flex justify-content-center">
+                  <div><%= t('recipes.total_units') %></div>
+                  <div class="pl-3"><%= order.line_items.count %></div>
+                </div>
+              </td>
+              <td class="order-item">
+                <div class="d-flex justify-content-center">
+                  <div><%= t('recipes.total') %></div>
+                  <div class="pl-3">
+                    <%= number_to_currency(order.amount&./100.0) %>
+                  </div>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+          <tr>
+            <td colspan="2" class="py-4"><%= order.message if order.message.present? %></td>
           </tr>
           <tr>
             <td colspan="6" class="order-item pb-4 text-center">

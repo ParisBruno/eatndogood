@@ -424,6 +424,8 @@ en:
     delete: Delete order
     tax_desc: Individual for each recipe
     subtotal: Sub-Total
+    home_delivery: Home Delivery
+    custom_message: Message
   line_items:
     note: 'Add a note!'
   pages:
@@ -509,6 +511,7 @@ en:
     home_delivery: Home delivery
     subtotal: Subtotal
     total: Total
+    total_units: Total units
     proceed_checkout: Proceed to checkout
     empty_cart: Empty cart
     coupone_code: Create activate or deactivate coupon codes
