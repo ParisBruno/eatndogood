@@ -478,6 +478,11 @@ section.chef_info {
   height: auto;
   object-position: top center;
 }
+@media screen and (min-width: 992px) {
+  .custom-image-one img {
+    max-height: 400px;
+  }
+}
 
 .img-responsive {
   display: block;
