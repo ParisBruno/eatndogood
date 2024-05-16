@@ -1,6 +1,11 @@
 $("#orderTable").html("<%= escape_javascript (render partial: 'table', :locals => { :orders => @orders }) %>");
-$("#searchedOrders").text("Searched Orders")
+<% if params[:search].present? %>
+  $("#searchedOrders").text("Searched Orders")
+<% end %>
 
 $("tr[data-link]").click(function() {
   window.location = $(this).data("link")
 })
+<% if params[:order_ids].present? %>
+  window.print();
+<% end %>

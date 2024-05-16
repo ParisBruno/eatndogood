@@ -12,21 +12,27 @@ class OrdersController < ApplicationController
   @@paypal_status ||= nil
 
   def index
-    if params[:search].present? && params[:search][:user_id].present?
-      user_ids = [params[:search][:user_id]]
+    if params[:order_ids].present?
+      @selected_orders = Order.where(id: params[:order_ids])
+      @orders = Order.where(id: params[:orders])
     else
-      user_ids = params[:staff_ids].present? ? params[:staff_ids] : current_app.user_ids
+      if params[:search].present? && params[:search][:user_id].present?
+        user_ids = [params[:search][:user_id]]
+      else
+        user_ids = params[:staff_ids].present? ? params[:staff_ids] : current_app.user_ids
+      end
+      if params[:search].present?
+        orders = Order.where(user_id: user_ids)
+        search_params = params[:search]
+        orders = orders.where(status: search_params[:status]) if search_params[:status].present?
+        orders = orders.where(is_home_delivery: search_params[:is_home_delivery]) if search_params[:is_home_delivery] && !search_params[:is_home_delivery].blank?
+        orders = orders.where('created_at BETWEEN ? AND ?', search_params[:start_date], search_params[:end_date]) if search_params[:start_date].present? && search_params[:end_date].present?
+        @orders = orders.order(name: :asc)
+      else
+        orders = Order.where(user_id: user_ids)
+        @orders = orders.order(name: :asc)
+      end
     end
-    if params[:search].present?
-      orders = Order.where(user_id: user_ids)
-      search_params = params[:search]
-      orders = orders.where(status: search_params[:status]) if search_params[:status].present?
-      orders = orders.where(is_home_delivery: search_params[:is_home_delivery]) if search_params[:is_home_delivery] && !search_params[:is_home_delivery].blank?
-      orders = orders.where('created_at BETWEEN ? AND ?', search_params[:start_date], search_params[:end_date]) if search_params[:start_date].present? && search_params[:end_date].present?
-    else
-      orders = Order.where(user_id: user_ids)
-    end
-    @orders = orders.order(name: :asc)
 
     respond_to do |format|
       format.html

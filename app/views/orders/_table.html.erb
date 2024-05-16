@@ -1,6 +1,33 @@
-<table>
+<style type="text/css">
+  .print-page {
+    display: none;
+  }
+  @media print {
+    #searchOrdersSection, #searchedOrders, .new-order, .title-heading, .hide-on-print {
+      display: none !important;
+    }
+    .new-order-btn {
+      display: none !important;
+    }
+    #print-button {
+      display: none !important;
+    }
+    .print-page {
+      display: block;
+    }
+    .pagey {
+      page-break-after: always;
+    }
+  }
+</style>
+
+<table class="hide-on-print order-data-table">
   <thead>
     <tr>
+      <td>
+        <span><%= "Select all" %></span>
+        <span><input type="checkbox" id="select-all" value="0"><span>
+      </td>
       <td><%= 'Id' %></td>
       <td><%= t('orders.full_name') %></td>
       <td><%= t('orders.home_address') %></td>
@@ -8,19 +35,188 @@
     </tr>
   </thead>
   <tbody>
-    <% orders.each do |order| %>
-      <tr data-link="<%= app_route(app_order_path(current_app, order)) %>" role="button">
-        <td class="order-id"><%= "##{order.id}" %></td>
-        <td class="order-data">
-          <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
-          <p style="margin-bottom: 0;"><%= order.email %></p>
-          <p style="margin-bottom: 0;"><%= order.phone %></p>
-        </td>
-        <td><%= order.address %></td>
-        <td class="order-amount">
-          <%= number_to_currency(order.amount&./100.0) %>
-        </td>
-      </tr>
+    <%= form_tag(app_route(app_orders_path(current_app)), method: :get, id: 'print-form', remote: true) do |f| %>
+      <% orders.each do |order| %>
+        <tr>
+          <%= hidden_field_tag :order , order.id %>
+          <td><%= check_box_tag "order_ids[]", order.id %></td>
+          <td class="order-id"><%= link_to "##{order.id}", app_route(app_order_path(current_app, order)) %></td>
+          <td class="order-data">
+            <%= link_to app_route(app_order_path(current_app, order)) do %>
+              <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
+              <p style="margin-bottom: 0;"><%= order.email %></p>
+              <p style="margin-bottom: 0;"><%= order.phone %></p>
+            <% end %>
+          </td>
+          <td><%= link_to order.address %></td>
+          <td class="order-amount">
+            <%= link_to number_to_currency(order.amount&./100.0), app_route(app_order_path(current_app, order)) %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+<div class="print-page">
+  <% if @selected_orders.present? %>
+    <% @selected_orders.each do |order| %>
+      <div class="box-shadow pagey">
+        <div class="order-table">
+          <table>
+            <tbody>
+              <tr>
+                <td colspan="2">
+                   <span><%= @sessioned_user.full_name.titleize %></span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="p-3">
+                  <div class="text-right">
+                    <span><%= "(#{order.created_at.strftime ("%m/%d/%y")} - #{order.created_at.strftime("%I:%M %p")})" unless order.new_record? %></span>
+                    <span class="font-weight-bold"><%= 'H' if order.is_home_delivery? %></span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-left p-3">
+                  <span class="font-weight-bold">Client Name:</span>
+                  <span><%= order.name if order.name.present? %></span>
+                </td>
+              </tr>
+              <tr>
+                <% if order.address.present? %>
+                  <td colspan="2" class="text-left p-3">
+                      <span class="font-weight-bold">Address:</span>
+                      <span><%= order.address %></span>
+                  </td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if order.phone.present? %>
+                  <td colspan="2" class="text-left p-3">
+                      <span class="font-weight-bold">Phone:</span>
+                      <span><%= order.phone %></span>
+                  </td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if order.email.present? %>
+                  <td colspan="2" class="padding-b p-3">
+                      <span class="font-weight-bold">Email:</span>
+                      <span><%= order.email %></span>
+                  </td>
+                <% end %>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <% order.line_items.each do |line_item| %>
+                    <% recipe_ids = line_item.recipe_id %>
+                    <% recipes = Recipe.where(id: recipe_ids) %>
+                    <% recipes.each do |recipe| %>
+                      <div class="my-2">
+                        <table>
+                          <tr>
+                            <td width="60%" class="text-left p-3">
+                              <%= recipe.name %>
+                            </td>
+                            <td class="text-right font-weight-bold p-3" width="20%">
+                              <%= line_item.quantity %>
+                            </td>
+                            <td class="text-right p-3" width="20%">
+                              <%= number_with_precision(recipe.price.to_f * line_item.quantity.to_f, :precision => 2) %>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right order-item p-3" width="50%"><%= t('orders.subtotal') %></td>
+                <td class="text-right pl-5 p-3"><%= number_to_currency(order.sub_total) %></td>
+              </tr>
+              <tr>
+                <td class="text-right order-item p-3"><%= t('orders.tax') %></td>
+                <td class="text-right pl-5 p-3"><%= number_to_currency(order.total_tax) %></td>
+              </tr>
+              <tr>
+                <td class="text-right order-item p-3"><%= t('orders.delivery') %></td>
+                <td class="text-right pl-5 p-3"><%= number_to_currency(order.delivery_price) %></td>
+              </tr>
+              <tr>
+                <% if order.coupon_code.present? %>
+                  <td class="text-right order-item p-3"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+                  <td class="text-right pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if order.fundrasing_code.present? %>
+                  <td class="text-right order-item p-3"><%= t('recipes.fundraising_code') %></td>
+                  <td class="text-right pl-5"><%= order.fundrasing_code %></td>
+                <% end %>
+              </tr>
+              <tr>
+                <td class="text-right order-item p-3"><%= t('orders.pay_method') %></td>
+                <td class="text-right pl-5 font-weight-bold p-3">
+                  <%= order.pay_method %>
+                </td>
+              </tr>
+              <tr class="order-total-row">
+                <td class="order-item p-3">
+                  <div class="d-flex">
+                    <div><%= t('recipes.total_units') %></div>
+                    <div class="pl-5"><%= order.line_items.count %></div>
+                  </div>
+                </td>
+                <td class="order-item p-3">
+                  <div class="d-flex">
+                    <div><%= t('recipes.total') %></div>
+                    <div class="pl-5">
+                      <%= number_to_currency(order.amount&./100.0) %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="py-4 p-3"><%= order.message if order.message.present? %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<script>
+  $('#print-button').on('click', function() {
+    // Get the IDs of checked orders
+    var selectedOrderIds = [];
+    var allOrderIds = [];
+    $('.order-data-table input[type="checkbox"]:checked').each(function() {
+      selectedOrderIds.push($(this).val());
+    });
+    $('.order-data-table input[type="checkbox"]').each(function() {
+      allOrderIds.push($(this).val());
+    });
+
+    // Send an Ajax request to the index page with the checked order IDs
+    $.ajax({
+      url: '<%= orders_path %>',
+      type: 'GET',
+      data: { order_ids: selectedOrderIds, orders: allOrderIds },
+      dataType: 'script', // Expecting JavaScript response
+      cache: true
+    });
+  });
+  $('#select-all').on('click', function() {
+    // Check or uncheck all checkboxes based on the "Select All" checkbox state
+    $('.order-data-table input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+  });
+  $('#print-button').click(function () {
+    if (!$('.order-data-table input[type="checkbox"]').is(':checked')) {
+      alert('Please check the box');
+      return false;
+    }
+  });
+</script>
