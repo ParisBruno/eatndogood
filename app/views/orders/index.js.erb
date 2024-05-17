@@ -6,6 +6,7 @@ $("#orderTable").html("<%= escape_javascript (render partial: 'table', :locals =
 $("tr[data-link]").click(function() {
   window.location = $(this).data("link")
 })
+
 <% if params[:order_ids].present? %>
   window.print();
 <% end %>

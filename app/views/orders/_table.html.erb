@@ -25,7 +25,6 @@
   <thead>
     <tr>
       <td>
-        <span><%= "Select all" %></span>
         <span><input type="checkbox" id="select-all" value="0"><span>
       </td>
       <td><%= 'Id' %></td>
@@ -35,25 +34,22 @@
     </tr>
   </thead>
   <tbody>
-    <%= form_tag(app_route(app_orders_path(current_app)), method: :get, id: 'print-form', remote: true) do |f| %>
-      <% orders.each do |order| %>
-        <tr>
-          <%= hidden_field_tag :order , order.id %>
-          <td><%= check_box_tag "order_ids[]", order.id %></td>
-          <td class="order-id"><%= link_to "##{order.id}", app_route(app_order_path(current_app, order)) %></td>
-          <td class="order-data">
-            <%= link_to app_route(app_order_path(current_app, order)) do %>
-              <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
-              <p style="margin-bottom: 0;"><%= order.email %></p>
-              <p style="margin-bottom: 0;"><%= order.phone %></p>
-            <% end %>
-          </td>
-          <td><%= link_to order.address %></td>
-          <td class="order-amount">
-            <%= link_to number_to_currency(order.amount&./100.0), app_route(app_order_path(current_app, order)) %>
-          </td>
-        </tr>
-      <% end %>
+    <% orders.each do |order| %>
+      <tr>
+        <td><%= check_box_tag "order_ids[]", order.id %></td>
+        <td class="order-id"><%= link_to "##{order.id}", app_route(app_order_path(current_app, order)) %></td>
+        <td class="order-data">
+          <%= link_to app_route(app_order_path(current_app, order)) do %>
+            <p style="font-weight:600; margin-bottom: 0;"><%= order.name %></p>
+            <p style="margin-bottom: 0;"><%= order.email %></p>
+            <p style="margin-bottom: 0;"><%= order.phone %></p>
+          <% end %>
+        </td>
+        <td><%= link_to order.address %></td>
+        <td class="order-amount">
+          <%= link_to number_to_currency(order.amount&./100.0), app_route(app_order_path(current_app, order)) %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>
@@ -189,7 +185,7 @@
   <% end %>
 </div>
 <script>
-  $('#print-button').on('click', function() {
+  $('#print-button').unbind().click(function() {
     // Get the IDs of checked orders
     var selectedOrderIds = [];
     var allOrderIds = [];
@@ -205,14 +201,16 @@
       url: '<%= orders_path %>',
       type: 'GET',
       data: { order_ids: selectedOrderIds, orders: allOrderIds },
-      dataType: 'script', // Expecting JavaScript response
+      dataType: 'script',
       cache: true
     });
   });
+
   $('#select-all').on('click', function() {
     // Check or uncheck all checkboxes based on the "Select All" checkbox state
     $('.order-data-table input[type="checkbox"]').prop('checked', $(this).prop('checked'));
   });
+
   $('#print-button').click(function () {
     if (!$('.order-data-table input[type="checkbox"]').is(':checked')) {
       alert('Please check the box');
