@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_22_073340) do
+ActiveRecord::Schema.define(version: 2024_05_30_035549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -442,6 +442,8 @@ ActiveRecord::Schema.define(version: 2024_04_22_073340) do
     t.boolean "enable_reservation", default: false
     t.boolean "enable_gift_card", default: false
     t.string "slug"
+    t.integer "inventory_count"
+    t.boolean "is_inventory_count", default: false
     t.index ["slug"], name: "index_recipes_on_slug"
     t.index ["subcategory_id"], name: "index_recipes_on_subcategory_id"
   end
@@ -636,6 +638,7 @@ ActiveRecord::Schema.define(version: 2024_04_22_073340) do
   add_foreign_key "apps", "plans"
   add_foreign_key "apps", "plans", name: "apps_plan_id_fk"
   add_foreign_key "chefs", "users", name: "chefs_user_id_fk"
+  add_foreign_key "ckeditor_assets", "users"
   add_foreign_key "comments", "chefs", name: "comments_chef_id_fk"
   add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
   add_foreign_key "coupon_codes", "chefs"

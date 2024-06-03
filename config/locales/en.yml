@@ -520,6 +520,9 @@ en:
     write_name: Write Recipe name
     choose_style: Choose style, please
     choose_category: Choose category, please
+    inventory_count: Inventory Countdown start at
+    sold_out: Sold Out and the site cannot be added to the cart anymore
+    available: available
   reservations:
     scheduling_reservation: Schedule a reservation
     make_catering: Ask about catering & personal chef services

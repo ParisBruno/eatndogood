@@ -12,6 +12,9 @@ class LineItem < ApplicationRecord
   validates_length_of :quantity, :maximum => 4
 
   after_save :set_amount_data
+  after_destroy :increase_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  after_create :decrease_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  before_update :adjust_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
 
   def total_price
     if self.recipe
@@ -47,5 +50,31 @@ class LineItem < ApplicationRecord
       update_columns(amount: amount, sub_total: (sub_total.to_f * 100).to_i,
                      total_tax: total_tax.to_f, coupon_discount: coupon_discount.to_f)
     end
+  end
+
+  private
+
+  def increase_inventory_count
+    inventory_count = recipe.inventory_count + quantity
+    recipe.update(inventory_count: inventory_count)
+  end
+
+  def decrease_inventory_count
+    inventory_count = recipe.inventory_count - quantity
+    recipe.update(inventory_count: inventory_count)
+  end
+
+  def adjust_inventory_count
+    if order_id_was != order_id
+      inventory_count = recipe.inventory_count - quantity
+    elsif quantity_was < quantity
+      inventory_count = recipe.inventory_count - (quantity - quantity_was)
+    elsif quantity_was > quantity
+      inventory_count = recipe.inventory_count + (quantity_was - quantity)
+    else
+      inventory_count = recipe.inventory_count
+    end
+
+    recipe.update(inventory_count: inventory_count) if inventory_count != recipe.inventory_count_was
   end
 end
