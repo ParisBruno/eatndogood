@@ -149,7 +149,7 @@ class OrdersController < ApplicationController
         set_orders_amounts(@order, @sessioned_user&.id)
         @order.sub_total = (@order.sub_total * 100).to_i
         @order.status = 1 if update_order_params[:pay_method] == 'paypal'
-        @order.save!
+        @order.save
 
         redirect_to app_route(app_order_path(current_app, id: @order))
       end

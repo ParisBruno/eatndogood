@@ -9,6 +9,7 @@ class LineItem < ApplicationRecord
   accepts_nested_attributes_for :recipe
 
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
+  validate :quantity_less_than_or_equal_to_inventory_count
   validates_length_of :quantity, :maximum => 4
 
   after_save :set_amount_data
@@ -57,14 +58,17 @@ class LineItem < ApplicationRecord
   def increase_inventory_count
     inventory_count = recipe.inventory_count + quantity
     recipe.update(inventory_count: inventory_count)
+    update_autosave
   end
 
   def decrease_inventory_count
     inventory_count = recipe.inventory_count - quantity
     recipe.update(inventory_count: inventory_count)
+    update_autosave
   end
 
   def adjust_inventory_count
+    return if errors.present?
     if order_id_was != order_id
       inventory_count = recipe.inventory_count - quantity
     elsif quantity_was < quantity
@@ -75,6 +79,26 @@ class LineItem < ApplicationRecord
       inventory_count = recipe.inventory_count
     end
 
-    recipe.update(inventory_count: inventory_count) if inventory_count != recipe.inventory_count_was
+    if inventory_count != recipe.inventory_count_was
+      recipe.update(inventory_count: inventory_count)
+      update_autosave
+    end
+  end
+
+  def update_autosave
+    app = order.user.app
+    url = "/recipes/#{recipe.slug}"
+    as = app.autosaves.where(form: url).last
+    if as.present?
+      payload = JSON.parse as.payload
+      payload["22"]["value"] = recipe.inventory_count
+      as.update(payload: payload.to_json)
+    end
+  end
+
+  def quantity_less_than_or_equal_to_inventory_count
+    if recipe.is_inventory_count.present? && quantity > recipe.inventory_count
+      errors.add(:base, "Only #{recipe.inventory_count} left!")
+    end
   end
 end

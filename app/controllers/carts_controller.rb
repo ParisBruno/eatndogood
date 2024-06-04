@@ -191,6 +191,7 @@ class CartsController < ApplicationController
         format.html { redirect_to app_route(app_cart_path(current_app, @current_cart)) }
         format.js
       else
+        format.js
         format.html { render action: 'show' and return }
       end
     end

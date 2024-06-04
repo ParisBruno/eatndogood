@@ -171,7 +171,18 @@
 </style>
 
 <div>
-  <h1 class="title"><%= t('recipes.my_cart') %></h1>
+  <h1 class="title">
+    <%= t('recipes.my_cart') %>
+    <% if @line_item.present? && @line_item.errors.any? %>
+      <div id="error_explanation">
+        <ul style="padding-left: 5%;">
+        <% @line_item.errors.full_messages.each do |message| %>
+          <li style="font-size: 12px; color: red;"><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </h1>
    <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
