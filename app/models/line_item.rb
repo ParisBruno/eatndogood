@@ -97,7 +97,7 @@ class LineItem < ApplicationRecord
   end
 
   def quantity_less_than_or_equal_to_inventory_count
-    if recipe.is_inventory_count.present? && quantity > recipe.inventory_count
+    if recipe.present? && recipe.is_inventory_count.present? && quantity > recipe.inventory_count
       errors.add(:base, "Only #{recipe.inventory_count} left!")
     end
   end

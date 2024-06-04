@@ -60,6 +60,8 @@ class RecipesController < ApplicationController
       delete_draft
       flash[:success] = t('common.successfully_created', name: 'Recipe')
       redirect_to app_route(app_recipe_path(current_app, @recipe))
+    elsif @recipe.styles.present?
+      redirect_to app_route(edit_app_recipe_path(current_app, @recipe)), alert: t('recipes.inventory_count_present')
     else
       redirect_to app_route(new_app_recipe_path(current_app, @recipe)), alert: t('recipes.choose_category')
     end
@@ -92,6 +94,8 @@ class RecipesController < ApplicationController
       delete_draft
       flash[:success] =  t('common.successfully_updated', name: 'Recipe')
       redirect_to app_route(app_recipe_path(current_app, @recipe))
+    elsif @recipe.styles.present?
+      redirect_to app_route(edit_app_recipe_path(current_app, @recipe)), alert: t('recipes.inventory_count_present')
     else
       redirect_to app_route(edit_app_recipe_path(current_app, @recipe)), alert: t('recipes.choose_style')
     end

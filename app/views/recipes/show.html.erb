@@ -358,13 +358,15 @@
   <% if !@recipe.price&.zero? && @recipe.price.present? %>
     <% if @sessioned_user %>
       <% unless @recipe.is_draft %>
-        <% if !@recipe.inventory_count&.zero? && @recipe.is_inventory_count? == true  %>
-          <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 col-md-8 px-0' %> text-center">
-              <h2 class="text-white inventory-bg py-2 rounded shadow m-auto">
-                <span><%= @recipe.inventory_count %></span>
-                <span class="pl-2"><%= t('recipes.available') %></span>
-              </h2>
-          </div>
+        <% if !@recipe.is_inventory_count || (@recipe.is_inventory_count && !@recipe.inventory_count.zero?)  %>
+          <% if @recipe.is_inventory_count %>
+            <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 col-md-8 px-0' %> text-center">
+                <h2 class="text-white inventory-bg py-2 rounded shadow m-auto">
+                  <span><%= @recipe.inventory_count %></span>
+                  <span class="pl-2"><%= t('recipes.available') %></span>
+                </h2>
+            </div>
+          <% end %>
           <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-8' : 'col-md-6' %> text-center">
             <%= button_to app_route(app_line_items_path(current_app, recipe_id: @recipe.id)), class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
               <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>

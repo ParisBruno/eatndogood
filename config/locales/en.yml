@@ -519,6 +519,7 @@ en:
     fundraising_code: Fundraising Code
     write_name: Write Recipe name
     choose_style: Choose style, please
+    inventory_count_present: Inventory count must be present if checked!
     choose_category: Choose category, please
     inventory_count: Inventory Countdown start at
     sold_out: Sold Out and the site cannot be added to the cart anymore

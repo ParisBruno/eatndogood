@@ -174,8 +174,8 @@
   <h1 class="title">
     <%= t('recipes.my_cart') %>
     <% if @line_item.present? && @line_item.errors.any? %>
-      <div id="error_explanation">
-        <ul style="padding-left: 5%;">
+      <div class="mt-3" id="error_explanation">
+        <ul style="list-style: none;">
         <% @line_item.errors.full_messages.each do |message| %>
           <li style="font-size: 12px; color: red;"><%= message %></li>
         <% end %>
@@ -200,9 +200,12 @@
         <% unless line_item.recipe.is_draft %>
         <tr>
           <td colspan="5">
-            <h4><%= line_item.recipe.name %></h4>
+            <h4 class="recipe-name"><%= line_item.recipe.name %></h4>
           </td>
           <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.recipe.price.to_f) %>$</td>
+          <% if line_item.recipe.present? && line_item.recipe.inventory_count.present? && line_item.recipe.is_inventory_count? == true %>
+            <td class="hidden inventory_count_value"><%= line_item.recipe.inventory_count %></td>
+          <% end %>
           <td colspan="2" class="quantity-item">
             <div>
               <span id="quantity"><%= line_item.quantity %></span>
@@ -228,6 +231,9 @@
             <h4><%= line_item.gift_card.name %></h4>
           </td>
           <td colspan="3" class="price-item"><%= "%0.2f" % (line_item.gift_card.price.to_f) %>$</td>
+          <% if line_item.recipe.present? && line_item.recipe.inventory_count.present? && line_item.recipe.is_inventory_count? == true %>
+            <td class="hidden inventory_count_value"><%= line_item.recipe.inventory_count %></td>
+          <% end %>
           <td colspan="2" class="quantity-item">
             <div>
               <span id="quantity"><%= line_item.quantity %></span>
@@ -250,6 +256,7 @@
     <% end %>
       </tbody>
     </table>
+      <p class="show-error-message text-center" style="color: red;"></p>
   </div>
   <div>
     <p class="coupon-code"><%= text_field_tag :coupon_input, @coupon_code_value, placeholder: t('recipes.coupone_code') %></p>
@@ -283,7 +290,8 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="order-button"><%= button_to t('recipes.proceed_checkout'), app_route(app_add_additional_params_path(current_app)), class: "order btn btn-primary btn-lg", method: :get, disabled: @current_cart.line_items.count == 0 %></td>
+      <td colspan="2" class="order-button"><%= button_tag t('recipes.proceed_checkout'), onclick: "checkAndProceed(this);", class: "order btn btn-primary btn-lg checkout-btn", type: "button", disabled: @current_cart.line_items.count == 0 %>
+      </td>
     </tr>
     <tr>
       <td colspan="2" class="order-button"><%= button_to t('recipes.empty_cart'), app_route(app_cart_path(current_app, id: @current_cart.id)), class: "empty-cart btn btn-danger btn-lg", disabled: @current_cart.line_items.count == 0, method: :delete, data: { confirm: t('common.confirm')} %></td>
@@ -292,62 +300,84 @@
 </div>
 
 <script type="text/javascript">
-    // var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
-    // var stripe = Stripe(publishableKey);
-    var checkoutCoupon = document.getElementById("coupon_input");
-    var checkoutFundCoupon = document.getElementById("fundrasing_input");
-    
-    checkoutCoupon.addEventListener("change", function () {
-      fetch("/check-coupon", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 'coupon_code': checkoutCoupon.value }),
-      })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (result) {
-        var couponCode = document.getElementById("coupon_input");
-        if (result.error) {
-          couponCode.setCustomValidity(result.error);
-          couponCode.reportValidity();
-          couponCode.value = "";   
-        } else {
-          couponCode.style.border = '2px solid lime'
-          return result;
-        }
-      })  
-      .catch(function (error) {
-        console.log("Error: ", error);
-      })
-    });
+  // var publishableKey = "<%= Rails.configuration.stripe[:publishable_key] %>"
+  // var stripe = Stripe(publishableKey);
+  var checkoutCoupon = document.getElementById("coupon_input");
+  var checkoutFundCoupon = document.getElementById("fundrasing_input");
 
-    checkoutFundCoupon.addEventListener("change", function () {
-      fetch("/check-fundrasing", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 'coupon_code': checkoutFundCoupon.value }),
-      })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (result) {
-        var couponCode = document.getElementById("fundrasing_input");
-        if (result.error) {
-          couponCode.setCustomValidity(result.error);
-          couponCode.reportValidity();
-          couponCode.value = "";   
-        } else {
-          couponCode.style.border = '2px solid lime'
-          return result;
+  checkoutCoupon.addEventListener("change", function () {
+    fetch("/check-coupon", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'coupon_code': checkoutCoupon.value }),
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (result) {
+      var couponCode = document.getElementById("coupon_input");
+      if (result.error) {
+        couponCode.setCustomValidity(result.error);
+        couponCode.reportValidity();
+        couponCode.value = "";   
+      } else {
+        couponCode.style.border = '2px solid lime'
+        return result;
+      }
+    })  
+    .catch(function (error) {
+      console.log("Error: ", error);
+    })
+  });
+
+  checkoutFundCoupon.addEventListener("change", function () {
+    fetch("/check-fundrasing", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'coupon_code': checkoutFundCoupon.value }),
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (result) {
+      var couponCode = document.getElementById("fundrasing_input");
+      if (result.error) {
+        couponCode.setCustomValidity(result.error);
+        couponCode.reportValidity();
+        couponCode.value = "";   
+      } else {
+        couponCode.style.border = '2px solid lime'
+        return result;
+      }
+    })  
+    .catch(function (error) {
+      console.log("Error: ", error);
+    })
+  });
+
+  function checkAndProceed(button) {
+    if (!button.disabled) {
+      var elements = document.querySelectorAll('.inventory_count_value');
+      var hasZero = false;
+
+      elements.forEach(function(element) {
+        var textValue = element.textContent;
+        
+        if (textValue === "0") {
+          var parentTr = element.closest('tr');
+          var recipeNameElement = parentTr.querySelector('.recipe-name').textContent;
+          $('.show-error-message').html(''+recipeNameElement+' not available. Please remove it');
+          hasZero = true;
         }
-      })  
-      .catch(function (error) {
-        console.log("Error: ", error);
-      })
-    });
+      });
+      
+      if (!hasZero) {
+        window.location.href = "<%= app_route(app_add_additional_params_path(current_app)) %>";
+      }
+    }
+  }
 </script>

@@ -29,6 +29,7 @@ class Recipe < ApplicationRecord
   validates :food_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :drink_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
   validates :gift_card_image, blob: { content_type: %w(image/png image/jpeg image/jpg image/gif)}
+  validates :inventory_count, presence: true, if: -> { is_inventory_count? }
   validates :styles, presence: true
   validates :name, :uniqueness => { case_sensitive: false, scope: :chef_id }
   # accepts_nested_attributes_for :recipe_images
