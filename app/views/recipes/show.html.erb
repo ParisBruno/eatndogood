@@ -167,6 +167,9 @@
   }
   /* Dropdown CSS End */
   @media screen and (min-width: 768px) {
+    .mr-8 {
+      margin-right: 80px;
+    }
    .col-md-3.thumb-sec {
       position: absolute;
       right: -34% !important;
@@ -374,14 +377,14 @@
           </div>
         <% end %>
         <% if @recipe.inventory_count&.zero? && @recipe.is_inventory_count? == true  %>
-          <button class="btn btn-success btn-lg"><%= t('recipes.sold_out') %></button>
+          <button class="btn btn-success btn-lg" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
         <% end %>
       <% else %>
         <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-8' : 'col-md-6' %> text-center">
           <% if @recipe.inventory_count.present? && @recipe.is_inventory_count? == true  %>
-            <%= link_to t('recipes.add_to_cart'), app_route(new_app_user_registration_path(current_app)), { class: 'btn btn-success btn-lg'} %>
+            <%= link_to t('recipes.add_to_cart'), app_route(new_app_user_registration_path(current_app)), { class: 'btn btn-success btn-lg mr-8'} %>
           <% else %>
-            <button class="btn btn-success btn-lg"><%= t('recipes.sold_out') %></button>
+            <button class="btn btn-success btn-lg" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
           <% end %>
         </div>
       <% end %>
@@ -393,9 +396,9 @@
     <% end %>
   <% end %>
   <% if @current_cart.present? %>
-    <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-0' : 'col-sm-2 col-md-4' %> text-center text-md-left mt-2">
+    <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-0' : 'col-sm-2 col-md-6' %> text-center text-md-left mt-2">
       <% unless @current_cart.line_items.count == 0 %>
-        <%= link_to t('recipes.my_cart'), app_route(app_cart_path(@current_app, id: @current_cart.id)), class: "btn btn-lg btn-success my-cart" %>
+        <%= link_to t('recipes.my_cart'), app_route(app_cart_path(@current_app, id: @current_cart.id)), class: "btn btn-lg btn-success my-cart w-100" %>
       <% end %>
     </div>
   <% end %>
