@@ -13,9 +13,9 @@ class LineItem < ApplicationRecord
   validates_length_of :quantity, :maximum => 4
 
   after_save :set_amount_data
-  after_destroy :increase_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
-  after_create :decrease_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
-  before_update :adjust_inventory_count, if: -> { self.order.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  after_destroy :increase_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  after_create :decrease_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  before_update :adjust_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
 
   def total_price
     if self.recipe
