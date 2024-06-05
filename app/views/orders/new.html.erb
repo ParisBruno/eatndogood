@@ -184,14 +184,14 @@
               <% if line_item.recipe && line_item.recipe.is_draft == false %>
                 <tr>
                   <td colspan="3" class="product-item" id="product-item">
-                    <%= line_item.recipe.name %>, <%= line_item.quantity %>x<%= number_to_currency(line_item.recipe.price) %>
+                    <%= line_item.recipe.name %>, <%= line_item.quantity %><span class="mx-1">x</span><%= number_to_currency(line_item.recipe.price) %>
                   </td>
                   <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.recipe.price.to_f) %>$ </td>
                 </tr>
               <% elsif line_item.gift_card %>
                 <tr>
                   <td colspan="3" class="product-item" id="product-item">
-                    <%= line_item.gift_card.name %>, <%= line_item.quantity %>x<%= number_to_currency(line_item.gift_card.price) %>
+                    <%= line_item.gift_card.name %>, <%= line_item.quantity %><span class="mx-1">x</span><%= number_to_currency(line_item.gift_card.price) %>
                   </td>
                   <td class="total-item"><%= "%0.2f" % (line_item.quantity * line_item.gift_card.price.to_f) %>$ </td>
                 </tr>

@@ -236,6 +236,23 @@
   .inventory-bg {
     background-color: #0069d9;
   }
+  .sold-out button {
+    background: #F86E8C !important;
+    color: #ffffff !important;
+    font-size: 40px !important;
+    padding: 0px 30px;
+    border-radius: 0px !important;
+  }
+  @media screen and (max-width: 720px) {
+    .margin-bottom-40 {
+      margin-bottom: 40px;
+    }
+  }
+  @media (min-width: 540px) and (max-width: 720px) {
+    .w-50 {
+      max-width: 50% !important;
+    }
+  }
 </style>
 <div class="recipe-margin-sec top-space">
   <div class="col-md-12 recipe-margin-sec top-space recipe-detail">
@@ -346,7 +363,7 @@
   <% end %>
 </div>
 
-<center>
+<center class="margin-bottom-40">
   <h5 class="margin-bottom-30">
     <% if session[:user_role] == 'super_admin' %>
       <%= link_to t('recipes.return_to_recipes_listing'), app_route(allrecipe_path(current_app)), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
@@ -363,7 +380,7 @@
       <% unless @recipe.is_draft %>
         <% if !@recipe.is_inventory_count || (@recipe.is_inventory_count && !@recipe.inventory_count.zero?)  %>
           <% if @recipe.is_inventory_count %>
-            <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 col-md-8 px-0' %> text-center">
+            <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 px-0' %> text-center w-50">
                 <h2 class="text-white inventory-bg py-2 rounded shadow m-auto">
                   <span><%= @recipe.inventory_count %></span>
                   <span class="pl-2"><%= t('recipes.available') %></span>
@@ -371,20 +388,26 @@
             </div>
           <% end %>
           <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-8' : 'col-md-6' %> text-center">
-            <%= button_to app_route(app_line_items_path(current_app, recipe_id: @recipe.id)), class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
-              <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
-            <% end %>
+            <div class="<%= @recipe.is_inventory_count ? 'mr-o' : 'mr-8' %>">
+              <%= button_to app_route(app_line_items_path(current_app, recipe_id: @recipe.id)), class: "btn btn-#{@current_cart.line_items.count == 0 ? 'secondary' : 'success'} btn-lg", style: 'font-family: WhitneySSm;' do %>
+                <%= @current_cart.line_items.count == 0 ? t('recipes.start_order') : t('recipes.add_to_cart') %> <span class="fa fa-shopping-cart"></span>
+              <% end %>
+            </div>
           </div>
         <% end %>
         <% if @recipe.inventory_count&.zero? && @recipe.is_inventory_count? == true  %>
-          <button class="btn btn-success btn-lg" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
+          <div class="sold-out">
+            <button class="btn" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
+          </div>
         <% end %>
       <% else %>
         <div class="<%= @current_cart.line_items.count == 0 ? 'col-md-8' : 'col-md-6' %> text-center">
           <% if @recipe.inventory_count.present? && @recipe.is_inventory_count? == true  %>
             <%= link_to t('recipes.add_to_cart'), app_route(new_app_user_registration_path(current_app)), { class: 'btn btn-success btn-lg mr-8'} %>
           <% else %>
-            <button class="btn btn-success btn-lg" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
+            <div class="sold-out">
+              <button class="btn" style="font-size: 12px;"><%= t('recipes.sold_out') %></button>
+            </div>
           <% end %>
         </div>
       <% end %>

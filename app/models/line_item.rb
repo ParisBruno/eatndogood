@@ -13,9 +13,9 @@ class LineItem < ApplicationRecord
   validates_length_of :quantity, :maximum => 4
 
   after_save :set_amount_data
-  after_destroy :increase_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
-  after_create :decrease_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
-  before_update :adjust_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count && recipe.inventory_count.nonzero? }
+  after_destroy :increase_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count }
+  after_create :decrease_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count }
+  before_update :adjust_inventory_count, if: -> { self.order.present? && recipe.present? && recipe.is_inventory_count }
 
   def total_price
     if self.recipe
@@ -97,8 +97,13 @@ class LineItem < ApplicationRecord
   end
 
   def quantity_less_than_or_equal_to_inventory_count
-    if recipe.present? && recipe.is_inventory_count.present? && quantity > recipe.inventory_count
+    if id.nil? && recipe.present? && recipe.is_inventory_count.present? && recipe.inventory_count.zero?
       errors.add(:base, "Only #{recipe.inventory_count} left!")
+    elsif quantity > quantity_was && recipe.present? && recipe.is_inventory_count.present?
+      quantity_diff = quantity - quantity_was
+      if quantity_diff > recipe.inventory_count || quantity_diff.zero?
+        errors.add(:base, "Only #{recipe.inventory_count} left!")
+      end
     end
   end
 end
