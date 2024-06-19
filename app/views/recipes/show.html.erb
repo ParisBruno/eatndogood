@@ -14,6 +14,11 @@
     position: absolute;
   }
 
+  @media screen and (max-width: 430px) {
+    .pull-center{
+      bottom: 10px;
+    }
+  }
   .buy-button{
     position: fixed;
     bottom: 20px;
@@ -295,7 +300,7 @@
                 </span>
               </h2>
             <% end %>
-            <div style="margin-top: 15px; margin-bottom: 15px;">
+            <div style="margin-top: 15px; margin-bottom: 45px;">
               <%= @recipe.description.html_safe %>
             </div>
             <div class="chef_info center">
@@ -363,7 +368,7 @@
   <% end %>
 </div>
 
-<center class="margin-bottom-40">
+<center class="margin-bottom-40 mr-5">
   <h5 class="margin-bottom-30">
     <% if session[:user_role] == 'super_admin' %>
       <%= link_to t('recipes.return_to_recipes_listing'), app_route(allrecipe_path(current_app)), class: 'btn btn-primary btn-lg', style: "color:white !important" %>
