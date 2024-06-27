@@ -408,6 +408,7 @@ en:
     tip: Tips($)
     delivery: Delivery
     discount: Coupon discount
+    discount_code: Type coupon code here
     not_defined: Order is not defined
     all: orders
     active: active orders (per day)
@@ -422,7 +423,7 @@ en:
     save: Update order
     create: Create order
     delete: Delete order
-    tax_desc: Individual for each recipe
+    tax_desc: $0.00
     subtotal: Sub-Total
     home_delivery: Home Delivery
     custom_message: Message

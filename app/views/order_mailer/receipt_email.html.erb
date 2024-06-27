@@ -53,7 +53,7 @@
       <td colspan="1"><%= number_to_currency(@order.tip_value) %></td>
     </tr>
     <tr>
-      <td colspan="3"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+      <td colspan="3"><%= t('orders.discount') %></td>
       <td colspan="1"><%= @order.coupon_code.present? ? @order.coupon_code + ' / ' + number_to_currency(@order.coupon_discount) : '---' %></td>
     </tr>
     <% if @order.fundrasing_code.present? %>

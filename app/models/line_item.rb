@@ -38,6 +38,8 @@ class LineItem < ApplicationRecord
                   elsif gift_card
                      quantity * 3.95
                   end
+
+      delivery_price = recipe.chef.user.delivery_price.to_f
    
       coupon_discount = if order.coupon_code.present?
                            coupon_code = CouponCode.find_by(title: order.coupon_code)
@@ -46,7 +48,7 @@ class LineItem < ApplicationRecord
                            0.0
                         end
 
-      amount = ((sub_total.to_f + coupon_discount.to_f + total_tax.to_f) * 100).to_i
+      amount = ((sub_total.to_f + coupon_discount.to_f + total_tax.to_f + delivery_price.to_f + order.tip_value.to_f) * 100).to_i
 
       update_columns(amount: amount, sub_total: (sub_total.to_f * 100).to_i,
                      total_tax: total_tax.to_f, coupon_discount: coupon_discount.to_f)

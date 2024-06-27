@@ -160,6 +160,9 @@
   #staff_order input[type='checkbox'] {
     height: 15px !important;
   }
+  .select-tag option:first-child  {
+    display: none !important;
+  }
 </style>
 
 <%= form_with(model: order, url: order.new_record? ? app_route(app_create_staff_order_path(current_app)) : app_route(app_order_path(current_app, id: order)), local: true, html: { id: "staff_order" } ) do |form| %>
@@ -310,10 +313,10 @@
           </tr>
           <tr>
             <% if order.new_record? %>
-              <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+              <td class="text-right order-item"><%= t('orders.discount_code') %></td>
               <td class="pl-5 font-weight-bold"><%= form.text_field :coupon_code, class: 'order-field line-item-field', id: 'coupon_code_input', onblur: 'checkCoupon();' %></td>
             <% elsif order.coupon_code.present? %>
-              <td class="text-right order-item"><%= t('recipes.coupone_code') + ' / ' + t('orders.discount') %></td>
+              <td class="text-right order-item"><%= t('orders.discount') %></td>
               <td class="text-right pl-5"><%= order.coupon_code + ' / ' + number_to_currency(order.coupon_discount) %></td>
             <% end %>
           </tr>
