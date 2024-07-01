@@ -13,6 +13,7 @@ class ReportsController < ApplicationController
       @categories = params['categories']
       @category_gross_sales = params['gross_sales']
       @category_coupon_discount = params['coupon_discount']
+      @category_tips_total = params['tip_total']
       @sale = params['sale']
       @credit_card_sales = params['credit_card_sales']
       @category_fundrasing = params['category_fundrasing']
@@ -49,6 +50,7 @@ class ReportsController < ApplicationController
     if request.params['format'] == 'xlsx'
       @recipe_gross_sales = params['gross_sales']
       @recipe_coupon_discount = params['coupon_discount']
+      @recipe_tips_total = params['tip_total']
       @sale = params['sale']
       @credit_card_sales = params['credit_card_sales']
       @recipe_fundrasing = params['recipe_fundrasing']
@@ -111,6 +113,8 @@ class ReportsController < ApplicationController
 
     order_ids = line_items.pluck(:order_id).uniq
     orders = Order.where(id: order_ids)
+    recipe_tips = orders.where.not(tip_value: 0)
+
     @recipe_coupon_count = orders.where.not(coupon_code: '').count
     @recipe_fundrasing_count = orders.where.not(fundrasing_code: '').count
     
@@ -118,6 +122,7 @@ class ReportsController < ApplicationController
     @recipe_total_item = line_items.sum(:quantity)
     @recipe_gross_sales = line_items.sum(:sub_total)
     @recipe_tax = line_items.sum(:total_tax)
+    @recipe_tips_total = recipe_tips.sum(:tip_value)
 
     @recipes = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method
@@ -152,6 +157,7 @@ class ReportsController < ApplicationController
     @category_coupon_discount = 0
     order_ids = line_items.pluck(:order_id).uniq
     orders = Order.where(id: order_ids)
+    category_tips = orders.where.not(tip_value: 0)
 
     @category_coupon_count = orders.where.not(coupon_code: '').count
     @category_fundrasing_count = orders.where.not(fundrasing_code: '').count
@@ -160,6 +166,7 @@ class ReportsController < ApplicationController
     @category_total_item = line_items.sum(:quantity)
     @category_gross_sales = line_items.sum(:sub_total)
     @category_tax = line_items.sum(:total_tax)
+    @category_tips_total = category_tips.sum(:tip_value)
 
     @categories = line_items.each_with_object(Hash.new(0)) do |line_item, hash|
       case line_item.order.pay_method

@@ -548,6 +548,7 @@ en:
     tax_sales: Sale Tax
     gross_sales: Gross Sales
     coupon_sales: Coupon
+    tips: Tips
     coupon_count: Total coupon
     fundrasing_sales: Fundraising
     fundrasing_count: Total fundraising

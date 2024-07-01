@@ -110,7 +110,11 @@
         <td class="total-report-label" colspan="2"><%= t('reports.fundrasing_sales') %></td>
         <td><%= number_to_currency(@category_fundrasing) %></td>
       <tr>
-      <% @net_sales = @sale + @credit_card_sales - @category_fundrasing %>
+      <tr class="coupon-report">
+        <td class="total-report-label" colspan="2"><%= t('reports.tips') %></td>
+        <td><%= number_to_currency(@category_tips_total) %></td>
+      <tr>
+      <% @net_sales = @sale + @category_tips_total + @credit_card_sales - @category_fundrasing %>
       <tr class="total-report">
         <td class="total-report-label" colspan="2"><%= t('reports.total_sales') %></td>
         <td><%= number_to_currency(@net_sales) %></td>
@@ -147,6 +151,6 @@
                             net_sales: @net_sales, cash_total: @category_cash_total,
                             credit_total: @category_credit_total, coupon_count: @category_coupon_count,
                             fundrasing_count: @category_fundrasing_count, tax: @category_tax,
-                            total_item: @category_total_item } %>
+                            total_item: @category_total_item, tip_total: @category_tips_total } %>
   </div>
 </div>

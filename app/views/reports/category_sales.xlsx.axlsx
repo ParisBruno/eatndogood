@@ -14,6 +14,7 @@ wb.add_worksheet(name: "Category Name") do |sheet|
   sheet.add_row [ t('reports.sale'), "", @sale ]
   sheet.add_row [ t('reports.credit_card_sales'), "", @credit_card_sales ]
   sheet.add_row [ t('reports.fundrasing_sales'), "", @category_fundrasing ]
+  sheet.add_row [ t('reports.tips'), "", @category_tips_total ]
   sheet.add_row [ t('reports.total_sales'), "", @net_sales.to_f ]
   sheet.add_row [ t('reports.cash_sales'), "", (@category_cash_total.to_f/100.0).to_s ]
   sheet.add_row [ t('reports.credit_sales'), "", (@category_credit_total.to_f/100.0).to_s ]

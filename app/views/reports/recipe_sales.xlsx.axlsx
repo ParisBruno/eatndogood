@@ -17,6 +17,7 @@ wb.add_worksheet(name: "Recipe Name") do |sheet|
   sheet.add_row [ t('reports.sale'), "", @sale ]
   sheet.add_row [ t('reports.credit_card_sales'), "", @credit_card_sales ]
   sheet.add_row [ t('reports.fundrasing_sales'), "", @recipe_fundrasing ]
+  sheet.add_row [ t('reports.tips'), "", @recipe_tips_total ]
   sheet.add_row [ t('reports.total_sales'), "", @net_sales.to_f ]
   sheet.add_row [ t('reports.cash_sales'), "", (@recipe_cash_total.to_f/100.0).to_s ]
   sheet.add_row [ t('reports.credit_sales'), "", (@recipe_credit_total.to_f/100.0).to_s ]
