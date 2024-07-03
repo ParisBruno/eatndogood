@@ -335,6 +335,10 @@
                 <%= f.label :delivery_price, t('chefs.delivery_price') + ' $', class: "mt-lg-2 small-label" %>
                 <%= f.number_field :delivery_price, value: number_to_currency(@sessioned_user.delivery_price.to_f, delimiter: '', unit: ''), class: "delivery-input form-control ml-lg-4", step: 5, min: 0, max: 10 %>
               </div>
+              <div class="col-6 pl-0 d-lg-flex mt-2">
+                <%= f.label :is_home_delivery, t('recipes.home_delivery'), class: "mt-lg-2 small-label" %>
+                <%= f.check_box :is_home_delivery,  class: "ml-4" %>
+              </div>
             </div>
             <div id="paypal-fields" class="d-none">
               <div class="form-group col-12">
@@ -428,7 +432,7 @@
         <div class="form-group">
           <div class="col-md-12 text-center px-0">
             <div class="row">
-               <div class="col-12 col-xl-6 px-4 pb-2 pl-xl-0">
+               <div class="col-12 col-xl-6 px-4 pb-2 px-md-0">
                 <%= f.submit(@user.new_record? ? t('chefs.create_account') : t('chefs.update_account'), 
                                                           class: "update-account btn btn-primary btn-lg btn-xlarge w-100") %>
               </div>

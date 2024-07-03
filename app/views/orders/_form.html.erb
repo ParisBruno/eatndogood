@@ -1,4 +1,19 @@
 <style>
+  .select-tag option:hover:not(:disabled) {
+    box-shadow: 0 0 10px 100px #1fbd24 inset !important;
+    color: white;
+    background-color: #1fbd24;
+  }
+  .select-tag option:checked:not(:disabled) {
+    box-shadow: 0 0 10px 100px #1fbd24 inset !important;
+    color: white;
+    background-color: #1fbd24;
+    border: 1px solid #ced4da;
+  }
+  .select-tag option:disabled {
+    color: gray;
+    background-color: white;
+  }
   .order-table {
     margin-left: 6%;
     margin-right: 3%;
@@ -299,12 +314,6 @@
             <% elsif !order.delivery_price.zero? %>
               <td class="text-right order-item"><%= t('orders.delivery') %></td>
               <td class="text-right pl-5"><%= number_to_currency(order.delivery_price) %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <% if order.new_record? %>
-              <td class="text-right order-item"><%= t('orders.home_delivery') %></td>
-              <td class="text-right pl-5"><%= form.check_box :is_home_delivery %></td>
             <% end %>
           </tr>
           <tr>

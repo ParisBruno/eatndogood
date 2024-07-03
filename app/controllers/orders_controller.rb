@@ -99,6 +99,12 @@ class OrdersController < ApplicationController
                     else
                       0.0
                     end
+
+    @order.is_home_delivery = if set_order_data(@order)[0].is_home_delivery
+                                true
+                              else
+                                false
+                              end
     
     coupon = CouponCode.find_by(title: update_order_params[:coupon_code], is_active: true)
     
