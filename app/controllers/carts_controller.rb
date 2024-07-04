@@ -36,12 +36,13 @@ class CartsController < ApplicationController
                                                           coupon_amount_off: @@coupon_amount_off,
                                                           fundrasing_code: @@fundrasing_value,
                                                           delivery_price: @@delivery_price,
-                                                          tip_value: @@tip_value
+                                                          tip_value: @@tip_value,
+                                                          home_delivery: @@delivery_value
                                                         }))
   end
 
   def check_delivery
-    if params['check-delivery'] == 'false'
+    if params['check-delivery'] == 'true'
       @@delivery_value = true
       @delivery_check_value = true
       set_delivery_and_tax

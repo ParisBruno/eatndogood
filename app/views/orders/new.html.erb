@@ -154,6 +154,7 @@
                   <%= f.label :home_address, t('orders.home_address') %><br>
                 </div>
                 <div class="col-md-8">
+                  <%= f.hidden_field :is_home_delivery, value: params[:home_delivery] %>
                   <%= f.text_field :address, required: true, class: "form-control", placeholder: t('orders.home_address') %>
                   <%= f.text_field :coupon_code, id: 'coupon-id', value: @coupon_code, hidden: true %>
                   <%= f.text_field :fundrasing_code, id: 'fundrasing-id', value: @fundrasing_code, hidden: true %>

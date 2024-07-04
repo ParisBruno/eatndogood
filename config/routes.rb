@@ -153,6 +153,9 @@ Rails.application.routes.draw do
     post 'line_items' => "line_items#create"
     get 'line_items/:id' => "line_items#show", as: "line_item"
     delete 'line_items/:id' => "carts#destroy_item"
+    post 'check-delivery', to: 'carts#check_delivery'
+    post 'check-tip', to: 'carts#check_tip'
+
   end
 
   # Base apps routes start
@@ -218,14 +221,14 @@ Rails.application.routes.draw do
   post 'recipe-sales', to: 'reports#recipe_sales', as: "recipe_sales"
   post 'category-sales', to: 'reports#category_sales', as: "category_sales"
   post 'create-staff-order', to: 'orders#create_staff_order', as: "create_staff_order"
+  post 'check-delivery', to: 'carts#check_delivery'
+  post 'check-tip', to: 'carts#check_tip'
   # Base apps routes end
 
   resources :charges
   post 'check-stripe-coupon', to: 'carts#check_stripe_coupon'
   post 'check-coupon', to: 'carts#check_coupon'
   post 'check-fundrasing', to: 'carts#check_fundrasing'
-  post 'check-delivery', to: 'carts#check_delivery'
-  post 'check-tip', to: 'carts#check_tip'
   post 'paypal_create_payment', to: 'orders#paypal_create_payment', as: "paypal_create_payment"
   post 'paypal_execute_payment', to: 'orders#paypal_execute_payment', as: "paypal_execute_payment"
   post 'error_message', to: 'messages#error_message'

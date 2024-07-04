@@ -39,7 +39,11 @@ class LineItem < ApplicationRecord
                      quantity * 3.95
                   end
 
-      delivery_price = recipe.chef.user.delivery_price.to_f
+      delivery_price = if recipe
+                         recipe.chef.user.delivery_price.to_f
+                       elsif gift_card
+                         0
+                       end
    
       coupon_discount = if order.coupon_code.present?
                            coupon_code = CouponCode.find_by(title: order.coupon_code)

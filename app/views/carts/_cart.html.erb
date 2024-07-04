@@ -264,12 +264,12 @@
   </div>
   <table class="checkout">
     <tr>
-      <td class="home-delivery"><%= check_box_tag 'check-delivery', @delivery_check_value, @delivery_check_value, data: { url: check_delivery_path(app: @current_app.slug), remote: true, method: :post } %> <%= t('recipes.home_delivery') %>: </td>
+      <td class="home-delivery"><%= check_box_tag 'check-delivery', @delivery_check_value, @delivery_check_value, data: { url: app_route(app_check_delivery_path(current_app)), remote: true, method: :post }, onchange: "$(this).data('params', 'check-delivery=' + this.checked)" %> <%= t('recipes.home_delivery') %>: </td>
       <td class="delivery-price"><%= number_to_currency(@total_delivery) %></td>
     </tr>
     <tr>
       <td class="tip"><%= t('orders.tip') %>: </td>
-      <td class="tip-price"><%= number_field_tag 'tip', @tip, step: 1, min: 0, data: { url: check_tip_path, remote: true, method: :post } %></td>
+      <td class="tip-price"><%= number_field_tag 'tip', @tip, step: 1, min: 0, data: { url: app_route(app_check_tip_path(current_app)), remote: true, method: :post } %></td>
     </tr>
     <tr>
       <td class="tax"><%= t('orders.tax') %>: </td>
