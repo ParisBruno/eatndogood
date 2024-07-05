@@ -239,7 +239,11 @@
     }
   }
   .inventory-bg {
-    background-color: #0069d9;
+    background-color: #0047AB;
+    font-weight: bold;
+    color: #FFD302 !important;
+    border-radius: 8px;
+    padding: 13px 0px;
   }
   .sold-out button {
     background: #F86E8C !important;
@@ -251,6 +255,16 @@
   @media screen and (max-width: 720px) {
     .margin-bottom-40 {
       margin-bottom: 40px;
+    }
+  }
+  @media screen and (max-width: 720px) {
+    .margin-bottom-30 {
+      margin-bottom: 50px !important;
+    }
+  }
+  @media screen and (max-width: 280px) {
+    .margin-bottom-30 {
+      margin-bottom: 70px !important;
     }
   }
   @media (min-width: 540px) and (max-width: 720px) {
@@ -386,7 +400,7 @@
         <% if !@recipe.is_inventory_count || (@recipe.is_inventory_count && !@recipe.inventory_count.zero?)  %>
           <% if @recipe.is_inventory_count %>
             <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 px-0' %> text-center w-50">
-                <h2 class="text-white inventory-bg py-2 rounded shadow m-auto">
+                <h2 class="inventory-bg shadow m-auto">
                   <span><%= @recipe.inventory_count %></span>
                   <span class="pl-2"><%= t('recipes.available') %></span>
                 </h2>
