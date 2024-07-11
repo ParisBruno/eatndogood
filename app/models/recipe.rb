@@ -4,7 +4,6 @@ class Recipe < ApplicationRecord
   validates :description, presence: true
   belongs_to :chef
   validates :chef_id, presence: true
-  default_scope -> { order(updated_at: :desc)}
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
   has_many :comments, dependent: :destroy

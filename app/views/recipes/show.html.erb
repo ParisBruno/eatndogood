@@ -230,7 +230,7 @@
       margin-top: 0px !important;
     }
   }
-   @media screen and (width: 540px) {
+  @media screen and (width: 540px) {
     .recipe-detail .thumb-sec .image-box-shadow {
       margin-top: 15px !important;
     }
@@ -239,18 +239,26 @@
     }
   }
   .inventory-bg {
-    background-color: #0047AB;
-    font-weight: bold;
-    color: #FFD302 !important;
+    background: #6ee06e;
+    background-image: -webkit-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -moz-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -ms-linear-gradient(top, #6ee06e, #449d44);
+    background-image: -o-linear-gradient(top, #6ee06e, #449d44);
+    background-image: linear-gradient(to bottom, #6ee06e, #449d44);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
     border-radius: 8px;
     padding: 13px 0px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    font-size: 40px;
   }
   .sold-out button {
-    background: #F86E8C !important;
+    background: #FFAF54 !important;
     color: #ffffff !important;
     font-size: 40px !important;
     padding: 0px 30px;
-    border-radius: 0px !important;
+    border-radius: 8px !important;
   }
   @media screen and (max-width: 720px) {
     .margin-bottom-40 {
@@ -399,7 +407,7 @@
       <% unless @recipe.is_draft %>
         <% if !@recipe.is_inventory_count || (@recipe.is_inventory_count && !@recipe.inventory_count.zero?)  %>
           <% if @recipe.is_inventory_count %>
-            <div class="<%= @current_cart.line_items.count == 0 ? 'col-8 col-md-6' : 'col-8 px-0' %> text-center w-50">
+            <div class="<%= @current_cart.line_items.count == 0 ? 'col-12 col-md-6' : 'col-12 col-md-7 px-0' %> text-center w-50">
                 <h2 class="inventory-bg shadow m-auto">
                   <span><%= @recipe.inventory_count %></span>
                   <span class="pl-2"><%= t('recipes.available') %></span>
