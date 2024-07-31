@@ -219,6 +219,11 @@
                     <%= link_to t('navigation.reservation_page'), app_route(app_services_path(@current_app)), target: '_blank' %>
                   </li>
                 <% end %>
+                <% if @sessioned_user.chef? %>
+                  <li>
+                    <%= link_to t('navigation.deliveries'), app_route(app_deliveries_path(@current_app)) %>
+                  </li>
+                <% end %>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to t('navigation.logout'), app_route(destroy_app_user_session_path(current_app)), method: :delete %></li>
               </ul>

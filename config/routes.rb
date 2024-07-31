@@ -45,6 +45,11 @@ Rails.application.routes.draw do
   get 'staff', to: 'chefs#staff', as: "staff"
   get 'messages/managers', to: 'messages#managers'
   get 'managers', to: 'chefs#managers', as: "managers"
+  resources :deliveries do
+    collection do
+      put 'assign_driver'
+    end
+  end
 
   post 'line_items/:id/add' => "carts#add_quantity", as: "line_item_add"
   post 'line_items/:id/reduce' => "carts#reduce_quantity", as: "line_item_reduce"
@@ -87,6 +92,11 @@ Rails.application.routes.draw do
     resources :autosaves, only: %i[index create]
     resources :guests, only: %i[index send_emails destroy]
     resources :team, controller: 'chefs', as: 'chefs'
+    resources :deliveries do
+      collection do
+        put 'assign_driver'
+      end
+    end
 
     resources :subscriptions, only: %i[index] do
       get 'edit', on: :collection

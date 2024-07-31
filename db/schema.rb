@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_03_060333) do
+ActiveRecord::Schema.define(version: 2024_07_30_054816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,19 @@ ActiveRecord::Schema.define(version: 2024_07_03_060333) do
     t.datetime "updated_at", null: false
     t.decimal "coupon_amount_off", precision: 5, scale: 2, default: "0.0"
     t.index ["chef_id"], name: "index_coupon_codes_on_chef_id"
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.text "location"
+    t.integer "status", default: 0, null: false
+    t.text "note"
+    t.string "image"
+    t.bigint "app_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_deliveries_on_app_id"
+    t.index ["user_id"], name: "index_deliveries_on_user_id"
   end
 
   create_table "email_contents", force: :cascade do |t|
@@ -643,6 +656,8 @@ ActiveRecord::Schema.define(version: 2024_07_03_060333) do
   add_foreign_key "comments", "chefs", name: "comments_chef_id_fk"
   add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
   add_foreign_key "coupon_codes", "chefs"
+  add_foreign_key "deliveries", "apps"
+  add_foreign_key "deliveries", "users"
   add_foreign_key "fundrasing_codes", "chefs"
   add_foreign_key "gift_cards", "users"
   add_foreign_key "ingredients", "apps"

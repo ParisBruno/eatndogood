@@ -295,6 +295,7 @@ en:
     paypal_client_secret: PayPal client-secret
     store_address: Store address
     return_to_list: Click here to see the full list and to edit, or delete
+    return_to_delivery_list: Click here to see the full list
     return_to_recipes: Cancel request and return to product listing
     send_all_emails: Send email to all guests
     send_emails: Send emails
@@ -346,6 +347,7 @@ en:
     reset_password: Reset password
     update_password: Update password
   navigation:
+    deliveries: Deliveries
     reservation_page: Create A Reservation
     scheduling_page: Service Scheduler
     update_agreement_page: Update Agreement Page
@@ -668,3 +670,22 @@ en:
     update_subscription: Upgrade Subscription
     subscribed_successfully: Subscribed successfully!, Get your credentials from your email, Thanks!
     reach_limit: "Your %{app_name} app guests limit becoming over! Only %{left_guests} more guests are able to signup. Upgrade your guests limit with following link:"
+  delivery:
+    title: Deliveries
+    location: Location
+    driver: Driver
+    status: Status
+    add: Add Delivery
+    update: Update Delivery
+    create: Create Delivery
+    edit: Edit Delivery
+    search: Search
+    delivered: Delivered
+    canceled: Canceled
+    note: Note
+    assing_driver: 'Assign Driver'
+    select_driver: 'Select a driver'
+    select_status: 'Select status'
+    after_assign_delivery_text: "After assign delivery you can't change it again!"
+    user: "User"
+    note_field_by_user: "Filled by team member!"

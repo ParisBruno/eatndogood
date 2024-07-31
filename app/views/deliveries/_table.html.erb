@@ -1,0 +1,99 @@
+<table class="delivery-table table table-striped table-bordered text-center">
+  <thead>
+    <tr>
+      <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+        <th width="5%" class="text-nowrap font-size-12">
+          <span><input type="checkbox" id="select-all" value="0"><span>
+        </th>
+         <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.driver' %></th>
+      <% end %>
+      <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.location' %></th>
+      <th width="15%" class="font-size-12 text-wrap"><%= t 'delivery.status' %></th>
+      <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.note' %></th>
+      <th width="20%" class="font-size-12 text-wrap"><%= t 'forms.action' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @deliveries.each_with_index do |delivery, index| %>
+      <% driver = User.find_by(id: delivery.user_id) %>
+      <tr class="clickable-row" data-index="<%= index %>">
+        <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+          <% if delivery.status == 'not_assigned' %>
+            <td class="font-size-12 text-wrap text-center">
+              <%= check_box_tag "delivery_ids[]", delivery.id, false, class: "delivery-checkbox" %>
+            </td>
+          <% else %>
+            <td class="font-size-12 text-wrap text-center">
+              <%= check_box_tag "delivery_ids[]", nil, false, disabled: true %>
+            </td>
+          <% end %>
+          <td class="font-size-12 text-wrap">
+            <%= driver.email if driver.present? %>
+          </td>
+        <% end %>
+        <td class="font-size-12 text-wrap"><%= delivery.location %></td>
+        <td class="font-size-12 text-wrap"><%= delivery.status.humanize %></td>
+        <td class="font-size-12 text-wrap"><%= delivery.note %></td>
+        <td class="font-size-12 text-wrap">
+          <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+            <%= link_to t('common.edit'), app_route(edit_app_delivery_path(current_app, delivery)), class: "mr-4" %>
+            <%= link_to t('common.delete'), app_route(app_delivery_path(current_app, delivery.id)), method: :delete, data: { confirm: t('common.confirm') } %>
+          <% else %>
+            <div class="d-flex justify-content-center">
+              <%= link_to t('common.update'), app_route(edit_app_delivery_path(current_app, delivery)), class: "mr-4" %>
+            </div>
+          <% end %>
+        </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+  // Toggle all deliveries selection
+  $('#select-all').on('click', function() {
+    $('.delivery-table input[type="checkbox"]:not(:disabled)').prop('checked', $(this).prop('checked'));
+  });
+
+  // Submit form with selected deliveries
+  $('#assign-driver-btn').on('click', function() {
+    var selectedValues = [];
+    $('.delivery-checkbox:not(:disabled):checked').each(function() {
+      selectedValues.push($(this).val());
+    });
+    $('#selected-delivery-ids').val(JSON.stringify(selectedValues));
+    $('#assign-driver-form').submit();
+  });
+
+  // Toggle rows color on click or unclick
+  $(document).ready(function() {
+    var pastelColors = [
+      '#ffebd2', // Pastel orange
+      '#d2ffd9', // Pastel green
+      '#d2e4ff', // Pastel blue
+      '#ffd2e7', // Pastel pink
+      '#f3ffd2'  // Pastel yellow
+    ];
+
+    function toggleRowClass($checkbox) {
+      var $row = $checkbox.closest('tr');
+      var index = $row.data('index') % pastelColors.length;
+      if ($checkbox.prop('checked')) {
+        $row.css('background-color', pastelColors[index]);
+      } else {
+        $row.css('background-color', '');
+      }
+    }
+
+    $('.clickable-row').on('click', function(event) {
+      if (!$(event.target).is('a') && !$(event.target).is('input[type="checkbox"]')) {
+        var $checkbox = $(this).find('.delivery-checkbox');
+        $checkbox.prop('checked', !$checkbox.prop('checked'));
+        toggleRowClass($checkbox);
+      }
+    });
+
+    $('.delivery-checkbox').on('click', function(event) {
+      toggleRowClass($(this));
+    });
+  });
+</script>

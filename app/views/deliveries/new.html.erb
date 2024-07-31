@@ -1,0 +1,10 @@
+<%= render 'shared/page_title', title: t('delivery.create') %>
+<%= render 'form' %>
+<div class="colormatch mb-5 text-center">
+  <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+    [ <%= link_to t('forms.return_to_list'), app_route(app_deliveries_path(@current_app)) %> ]
+  <% else %>
+    [ <%= link_to t('forms.return_to_delivery_list'), app_route(app_deliveries_path(@current_app)) %> ]
+  <% end %>
+</div>
+

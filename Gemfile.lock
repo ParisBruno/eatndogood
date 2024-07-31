@@ -248,6 +248,10 @@ GEM
       actionpack (>= 3.0)
       multi_json
       request_store (>= 1.0)
+    google_maps_service (0.4.2)
+      hurley (~> 0.1)
+      multi_json (~> 1.11)
+      retriable (~> 2.0)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -264,6 +268,7 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
+    hurley (0.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
@@ -411,6 +416,7 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    retriable (2.1.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
@@ -576,6 +582,7 @@ DEPENDENCIES
   globalize (~> 5.2.0)
   globalize-accessors
   gon
+  google_maps_service
   haml-rails (~> 1.0)
   hirb
   image_processing (~> 1.2)

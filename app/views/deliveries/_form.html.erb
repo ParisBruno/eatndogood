@@ -1,0 +1,125 @@
+<style>
+  .font-medium {
+    font-size: medium;
+  }
+  .font-small {
+    font-size: small;
+  }
+  .height-35 {
+    height: 35px !important;
+  }
+</style>
+<div class="container mt-5 font-medium">
+  <%= form_with(model: [current_app, @delivery], url: (@delivery.persisted? ? app_route(app_delivery_path(current_app, @delivery)) : app_route(app_deliveries_path(current_app))), html: {class: "form-horizontal", role: "form"}, remote: false) do |f| %>
+    <% existed_delivery = f.object.new_record? ? f.object : Delivery.find(f.object.id) %>
+    <%= render 'shared/errors', obj: @delivery %>
+    <%= f.hidden_field :app_id, value: current_app.id %>
+    <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+      <div class="row">
+        <div class="col-4 col-sm-2 col-xl-1 p-0">
+          <%= f.label :location, t('delivery.location') %>
+        </div>
+        <div class="col-8 col-sm-10 col-xl-11">
+          <div class="form-group mb-4">
+            <% disabled = (!f.object.new_record? && !existed_delivery.not_assigned?) ? true : false %>
+            <%= f.text_field :location, class: "form-control font-medium", required: true, disabled: disabled %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 col-sm-2 col-xl-1 p-0">
+          <%= f.label :user, t('delivery.user') %>
+        </div>
+        <div class="col-8 col-sm-10 col-xl-11">
+          <div class="form-group mb-4">
+            <% disabled = (!f.object.new_record? && !existed_delivery.not_assigned?) ? true : false %>
+            <%= f.select :user_id, options_for_select(@team_members.map{|member| [member.full_name, member.id]}, f.object.user_id), {include_blank: "#{t('delivery.select_driver')}"}, {class: "form-control height-35 font-medium", disabled: disabled} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-4 col-sm-2 col-xl-1 mt-2 p-0">
+        <%= f.label :status, t('delivery.status') %>
+      </div>
+      <div class="col-8 col-sm-10 col-xl-11">
+        <div class="form-group mb-4">
+          <% if @sessioned_user.chef? && !@sessioned_user.manager? && !@sessioned_user.admin? %>
+            <% disabled = existed_delivery.delivered? || existed_delivery.canceled? ? true : false %>
+            <%= f.select :status, options_for_select(delivery_status, f.object.status), {include_blank: false}, {class: "form-control height-35 font-medium", disabled: disabled} %>
+          <% else %>
+            <% disabled = (!f.object.new_record? && (existed_delivery.delivered? || existed_delivery.canceled?)) ? true : false %>
+            <%= f.select :status, options_for_select(delivery_status, f.object.status), {include_blank: "#{t('delivery.select_status')}"}, {class: "form-control height-35 font-medium", disabled: disabled} %>
+            <% if @delivery.status != 'not_assigned' %>
+              <p class="text-secondary font-small mb-0"><%= t('delivery.after_assign_delivery_text') %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% if (!@sessioned_user.admin? && !@sessioned_user.manager?) && !@delivery.new_record? %>
+      <div class="row">
+        <div class="col-4 col-sm-2 col-xl-1 mt-2 p-0">
+          <%= f.label :note, t('delivery.note') %>
+        </div>
+        <div class="col-8 col-sm-10 col-xl-11">
+          <div class="form-group mb-4">
+            <%= f.text_area :note, class: "form-control font-medium" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 col-sm-2 col-xl-1 p-0">
+          <%= f.label :image, t('styles.image') %>
+        </div>
+        <div class="col-8 col-sm-10 col-xl-11">
+          <div class="form-group mb-4">
+            <% if @delivery.image.attached? %>
+              <% image = @delivery.sized(:image, :thumb) %>
+              <%= image_tag(image, class:'img mb-4 img-fluid', alt: t('common.no_image')) if image.present? %>
+            <% end %>
+            <%= f.file_field "image", type: :file, accept: 'image/jpeg,image/gif,image/png' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (@sessioned_user.admin? || @sessioned_user.manager?) && !@delivery.new_record? %>
+      <% if @delivery.note.present? %>
+        <div class="row">
+          <div class="col-4 col-sm-2 col-xl-1 mt-2 p-0">
+            <%= f.label :note, t('delivery.note') %>
+          </div>
+          <div class="col-8 col-sm-10 col-xl-11">
+            <div class="form-group mb-4">
+              <%= f.text_area :note, class: "form-control font-medium", disabled: true %>
+              <p class="text-secondary font-small mb-0"><%= t('delivery.note_field_by_user') %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if @delivery.image.attached? %>
+        <div class="row">
+          <div class="col-4 col-sm-2 col-xl-1 p-0">
+            <%= f.label :image, t('styles.image') %>
+          </div>
+          <div class="col-8 col-sm-10 col-xl-11">
+            <div class="form-group mb-4">
+              <% image = @delivery.sized(:image, :thumb) %>
+              <%= image_tag(image, class:'img mb-4 img-fluid', alt: t('common.no_image')) if image.present? %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="row">
+      <div class="col-4 col-sm-2 col-xl-1 p-0">
+      </div>
+      <div class="col-8 col-sm-10 col-xl-11">
+        <div class="form-group mb-4">
+          <%= f.submit(@delivery.new_record? ? t('delivery.create') : t('delivery.update'), class: "btn btn-primary btn-lg") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

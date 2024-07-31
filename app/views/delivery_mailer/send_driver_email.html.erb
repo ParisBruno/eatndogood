@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>New Deliveries Assigned</h1>
+    <p>Dear <%= @driver.first_name %>,</p>
+    <p>You have been assigned the following deliveries:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @deliveries.each do |delivery| %>
+          <tr>
+            <td><%= delivery.location %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>

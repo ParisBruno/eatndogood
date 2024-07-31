@@ -102,3 +102,4 @@ group :prod do
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'google_maps_service'

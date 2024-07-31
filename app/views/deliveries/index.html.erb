@@ -1,0 +1,47 @@
+<style>
+  .font-medium {
+    font-size: medium;
+  }
+  .height-35 {
+    height: 35px !important;
+  }
+  .table-responsive > .table > tbody > tr > td{
+    white-space: normal;
+   }
+</style>
+
+<%= render 'shared/page_title', title: t('delivery.title') %>
+<div class="container-fluid mt-5 font-medium">
+  <div class="row">
+    <div class="col-12 col-sm-3 col-md-5">
+      <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+        <%= form_tag((app_route(assign_driver_app_deliveries_path(current_app))), method: :put, remote: true, id: "assign-driver-form") do %>
+          <%= hidden_field_tag "selected_delivery_ids", "", id: "selected-delivery-ids" %>
+          <div class="form-group d-flex align-item-center mr-0 mr-sm-3">
+            <%= select_tag :user_id, options_for_select(@team_members.map{|member| [member.full_name, member.id]}), include_blank: "#{t('delivery.select_driver')}", class: "form-control height-35 font-medium" %>
+            <button type="button" class="btn btn-primary btn-lg ml-4" id="assign-driver-btn">
+              <%= t('delivery.assing_driver') %>
+            </button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-5 col-md-2"></div>
+    <div class="col-12 col-sm-4 col-md-5 text-right">
+      <%= form_tag(app_route(app_deliveries_path(current_app)), method: :get, remote: true) do |f| %>
+        <div class="form-group d-flex">
+          <%= select_tag :status, options_for_select(delivery_status, params[:status]), include_blank: "#{t('delivery.select_status')}", class: "form-control p-2 height-35 font-medium" %>
+          <%= submit_tag t('delivery.search'), class: "ml-4 btn btn-success btn-lg my-auto" %>
+          <%= link_to t('common.create'), app_route(new_app_delivery_path(current_app)), class: "btn btn-success btn-lg ml-3 my-auto" if @sessioned_user.admin? || @sessioned_user.manager? %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive" id="deliveries-table">
+        <%= render 'table', deliveries: @deliveries %>
+      </div>
+    </div>
+  </div>
+</div>

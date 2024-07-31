@@ -14,6 +14,7 @@ class App < ApplicationRecord
   has_many :allergens, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :autosaves, dependent: :destroy, class_name: 'Autosave'
+  has_many :deliveries, dependent: :destroy
   # has_many :guests, class_name: 'User', foreign_key: 'user_id'
   # has_many :chefs, class_name: 'Chef', foreign_key: 'admin_id'
   
