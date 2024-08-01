@@ -14,15 +14,32 @@
     <% existed_delivery = f.object.new_record? ? f.object : Delivery.find(f.object.id) %>
     <%= render 'shared/errors', obj: @delivery %>
     <%= f.hidden_field :app_id, value: current_app.id %>
+    <%= f.hidden_field :created_by_user_id, value: @sessioned_user.id %>
     <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+      <div class="row">
+        <div class="col-4 col-sm-2 col-xl-1 p-0">
+          <%= f.label :order, t('delivery.order') %>
+        </div>
+        <div class="col-8 col-sm-10 col-xl-11">
+          <div class="form-group mb-4">
+            <% disabled = (!f.object.new_record? && !existed_delivery.not_assigned?) ? true : false %>
+            <% order_id = (f.object.new_record? && params[:order_id].present?) ? @order.id : f.object.order_id %>
+            <%= f.select :order_id, options_for_select(@orders.map{|order| [order.email, order.id]}, order_id), 
+                  { include_blank: "#{t('delivery.select_order')}" },
+                  { class: "form-control height-35 font-medium", required: true, disabled: disabled,
+                    data: { locations: @orders.map { |order| [order.id, order.address] }.to_h.to_json } } %>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-4 col-sm-2 col-xl-1 p-0">
           <%= f.label :location, t('delivery.location') %>
         </div>
         <div class="col-8 col-sm-10 col-xl-11">
           <div class="form-group mb-4">
+            <% location = (f.object.new_record? && params[:order_id].present?) ? @order.address : f.object.location %>
             <% disabled = (!f.object.new_record? && !existed_delivery.not_assigned?) ? true : false %>
-            <%= f.text_field :location, class: "form-control font-medium", required: true, disabled: disabled %>
+            <%= f.text_field :location, value: location, class: "form-control font-medium", required: true, disabled: disabled %>
           </div>
         </div>
       </div>
@@ -123,3 +140,22 @@
   <% end %>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function () {
+    var orderSelect = $('select[name="delivery[order_id]"]');
+    var locationField = $('input[name="delivery[location]"]');
+
+    if (orderSelect.length && locationField.length) {
+      orderSelect.on('change', function () {
+        var locations = JSON.parse(orderSelect.attr('data-locations'));
+        var selectedOrderId = orderSelect.val();
+
+        if (locations[selectedOrderId]) {
+          locationField.val(locations[selectedOrderId]);
+        } else {
+          locationField.val('');
+        }
+      });
+    }
+  });
+</script>

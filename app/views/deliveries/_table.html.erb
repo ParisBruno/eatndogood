@@ -5,16 +5,25 @@
         <th width="5%" class="text-nowrap font-size-12">
           <span><input type="checkbox" id="select-all" value="0"><span>
         </th>
-         <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.driver' %></th>
       <% end %>
-      <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.location' %></th>
-      <th width="15%" class="font-size-12 text-wrap"><%= t 'delivery.status' %></th>
+      <th width="5%" class="font-size-12 text-wrap"><%= t 'delivery.order' %></th>
+      <th class="font-size-12 text-wrap"><%= t 'delivery.user' %></th>
+      <% if @sessioned_user.admin? || @sessioned_user.manager? %>
+        <th class="font-size-12 text-wrap"><%= t 'delivery.driver' %></th>
+      <% end %>
+      <th class="font-size-12 text-wrap"><%= t 'delivery.location' %></th>
+      <% if params[:current_location] %>
+        <th class="font-size-12 text-wrap"><%= t 'delivery.distance' %></th>
+      <% end %>
+      <th class="font-size-12 text-wrap"><%= t 'delivery.status' %></th>
       <th width="20%" class="font-size-12 text-wrap"><%= t 'delivery.note' %></th>
-      <th width="20%" class="font-size-12 text-wrap"><%= t 'forms.action' %></th>
+      <th class="font-size-12 text-wrap"><%= t 'forms.action' %></th>
     </tr>
   </thead>
   <tbody>
     <% @deliveries.each_with_index do |delivery, index| %>
+      <% distance = delivery.class == Hash && delivery[:distance] != "" ? "#{delivery[:distance]} m" : '' %>
+      <% delivery = delivery[:delivery] if delivery.class == Hash %>
       <% driver = User.find_by(id: delivery.user_id) %>
       <tr class="clickable-row" data-index="<%= index %>">
         <% if @sessioned_user.admin? || @sessioned_user.manager? %>
@@ -27,11 +36,22 @@
               <%= check_box_tag "delivery_ids[]", nil, false, disabled: true %>
             </td>
           <% end %>
+        <% end %>
+        <td class="font-size-12 text-wrap">
+          <%= link_to "##{delivery.order.id}", app_route(app_order_path(current_app, delivery.order)) %>
+        </td>
+        <td class="font-size-12 text-wrap">
+          <%= delivery.order.email %>
+        </td>
+        <% if @sessioned_user.admin? || @sessioned_user.manager? %>
           <td class="font-size-12 text-wrap">
             <%= driver.email if driver.present? %>
           </td>
         <% end %>
         <td class="font-size-12 text-wrap"><%= delivery.location %></td>
+        <% if params[:current_location] %>
+          <td class="font-size-12 text-wrap"><%= distance %></td>
+        <% end %>
         <td class="font-size-12 text-wrap"><%= delivery.status.humanize %></td>
         <td class="font-size-12 text-wrap"><%= delivery.note %></td>
         <td class="font-size-12 text-wrap">

@@ -2,6 +2,12 @@
   .print-page {
     display: none;
   }
+  .underline {
+    text-decoration: underline;
+  }
+  .underline:hover {
+    text-decoration: underline;
+  }
   @media print {
     #searchOrdersSection, #searchedOrders, .new-order, .title-heading, .hide-on-print {
       display: none !important;
@@ -24,13 +30,14 @@
 <table class="hide-on-print order-data-table">
   <thead>
     <tr>
-      <td>
+      <td width="5%">
         <span><input type="checkbox" id="select-all" value="0"><span>
       </td>
       <td><%= 'Id' %></td>
       <td><%= t('orders.full_name') %></td>
       <td><%= t('orders.home_address') %></td>
       <td class="order-amount"><%= t('orders.total') %></td>
+      <td><%= t('forms.action') %></td>
     </tr>
   </thead>
   <tbody>
@@ -48,6 +55,15 @@
         <td><%= link_to order.address %></td>
         <td class="order-amount">
           <%= link_to number_to_currency(order.amount&./100.0), app_route(app_order_path(current_app, order)) %>
+        </td>
+        <td>
+          <% if order.is_home_delivery? %>
+            <% if order.delivery.present? %>
+              <%= link_to t('orders.edit_delivery'), app_route(edit_app_delivery_path(current_app, order.delivery)), class: "text-primary ml-3 my-auto underline" %>
+            <% else %>
+              <%= link_to t('orders.create_delivery'), app_route(new_app_delivery_path(current_app, order_id: order)), class: "text-primary ml-3 my-auto underline" %>
+            <% end %>
+          <% end %>
         </td>
       </tr>
     <% end %>

@@ -5,6 +5,7 @@ class Order < ApplicationRecord
 
   has_many :line_items, dependent: :destroy, inverse_of: :order
   has_many :recipes, through: :line_items
+  has_one :delivery, dependent: :destroy
   belongs_to :user
 
   scope :active_of_day, ->(user_ids) { where(user_id: user_ids, status: 0).where('orders.created_at >= ?', Date.today.beginning_of_day) }

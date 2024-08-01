@@ -19,7 +19,8 @@ class User < ApplicationRecord
 
   has_many :service_types, dependent: :destroy
   has_many :staff, class_name: 'User', foreign_key: 'manager_id'
-  has_many :deliveries, dependent: :destroy
+  has_many :deliveries, foreign_key: :user_id, dependent: :destroy
+  has_many :created_deliveries, class_name: 'Delivery', foreign_key: :created_by_user_id, dependent: :destroy
   belongs_to :team_manager, class_name: 'User', foreign_key: 'manager_id', optional: true
 
   accepts_nested_attributes_for :chef_info, allow_destroy: true

@@ -7,6 +7,8 @@ class CreateDeliveries < ActiveRecord::Migration[5.2]
       t.string :image
       t.references :app, foreign_key: true
       t.references :user, foreign_key: true
+      t.references :order, foreign_key: true
+      t.integer :created_by_user_id, foreign_key: true
 
       t.timestamps
     end

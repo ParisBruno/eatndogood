@@ -24,6 +24,15 @@
             </button>
           </div>
         <% end %>
+      <% else %>
+        <%= form_tag app_route(app_deliveries_path(@current_app)), method: :get do %>
+          <div class="form-group d-flex align-item-center mr-0 mr-sm-3">
+            <%= text_field_tag :current_location, params[:current_location], placeholder: "#{t('delivery.enter_current_location')}", class: "form-control height-35 font-medium" %>
+            <button type="submit" class="btn btn-primary btn-lg ml-4">
+              <%= t('delivery.arrange') %>
+            </button>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <div class="col-12 col-sm-5 col-md-2"></div>

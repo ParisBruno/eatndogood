@@ -430,6 +430,8 @@ en:
     home_delivery: Home Delivery
     custom_message: Message
     print_orders: Print Orders
+    create_delivery: Create Delivery
+    edit_delivery: Edit Delivery
   line_items:
     note: 'Add a note!'
   pages:
@@ -689,3 +691,8 @@ en:
     after_assign_delivery_text: "After assign delivery you can't change it again!"
     user: "User"
     note_field_by_user: "Filled by team member!"
+    order: "Order"
+    select_order: "Select Order"
+    arrange: "Arrange"
+    enter_current_location: "Enter Current Location"
+    distance: "Distance"

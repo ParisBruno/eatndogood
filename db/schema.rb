@@ -183,9 +183,12 @@ ActiveRecord::Schema.define(version: 2024_07_30_054816) do
     t.string "image"
     t.bigint "app_id"
     t.bigint "user_id"
+    t.bigint "order_id"
+    t.integer "created_by_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_deliveries_on_app_id"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
     t.index ["user_id"], name: "index_deliveries_on_user_id"
   end
 
@@ -657,6 +660,7 @@ ActiveRecord::Schema.define(version: 2024_07_30_054816) do
   add_foreign_key "comments", "recipes", name: "comments_recipe_id_fk"
   add_foreign_key "coupon_codes", "chefs"
   add_foreign_key "deliveries", "apps"
+  add_foreign_key "deliveries", "orders"
   add_foreign_key "deliveries", "users"
   add_foreign_key "fundrasing_codes", "chefs"
   add_foreign_key "gift_cards", "users"

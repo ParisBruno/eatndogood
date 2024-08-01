@@ -1,6 +1,8 @@
 class Delivery < ApplicationRecord
   belongs_to :app
-  belongs_to :user, optional: true
+  belongs_to :order
+  belongs_to :user, foreign_key: :user_id, optional: true
+  belongs_to :created_by_user, class_name: 'User', foreign_key: :created_by_user_id, optional: true
   has_one_attached :image
   validate :user_must_be_present_if_assigned
 
