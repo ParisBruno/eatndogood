@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+      body {
+        font-family: 'Montserrat';
+      }
+      h1 {
+        color: #C70574
+      }
+    </style>
+  </head>
+  <body>
+    <% image = @delivery.sized(:image, :thumb) %>
+    <%= image_tag(image, class:'img mb-4 img-fluid', alt: t('common.no_image')) if image.present? %>
+    <h1>Your EatnDoGood food’s arrived! Enjoy every bite, and thanks a bunch for your support!</h1>
+  </body>
+</html>

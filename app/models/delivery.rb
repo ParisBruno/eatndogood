@@ -9,6 +9,7 @@ class Delivery < ApplicationRecord
   enum status: ["not_assigned", "assigned", "delivered", "canceled"]
 
   after_save :send_mail_to_driver, if: -> { self.saved_change_to_status? && self.assigned? }
+  after_save :send_order_email, if: -> { self.saved_change_to_status? && self.delivered? }
 
   def self.sizes
     {
@@ -22,6 +23,10 @@ class Delivery < ApplicationRecord
 
   def send_mail_to_driver
     DeliveryMailer.send_driver_email(self.id).deliver_now
+  end
+
+  def send_order_email
+    DeliveryMailer.send_order_delivered_email(self).deliver_now
   end
 
   private
