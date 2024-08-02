@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :require_logged_in, only: %i[edit update]
 
   before_action :set_locale, only: [:about, :welcome]
+  before_action :delete_old_delivery_images, only: [:welcome]
 
   def index
     if params[:set_locale]
@@ -77,6 +78,9 @@ class PagesController < ApplicationController
   end
 
   private
+  def delete_old_delivery_images
+    ActiveStorage::Attachment.where("record_type = ? AND created_at < ?", "Delivery", 24.hours.ago).destroy_all
+  end
 
   def guest_email
     @guest_email = params[:guest_email]
