@@ -696,3 +696,7 @@ en:
     arrange: "Arrange"
     enter_current_location: "Enter Current Location"
     distance: "Distance"
+    new_delivery_assigned: "New Deliveries Assigned"
+    dear: "Dear %{name},"
+    assigned_following_deliveries: "You have been assigned the following deliveries:"
+    delivery_successfully_completed: "Your EatnDoGood food’s arrived! Enjoy every bite, and thanks a bunch for your support!"

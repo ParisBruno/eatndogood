@@ -24,6 +24,8 @@
           <div class="form-group mb-4">
             <% disabled = (!f.object.new_record? && !existed_delivery.not_assigned?) ? true : false %>
             <% order_id = (f.object.new_record? && params[:order_id].present?) ? @order.id : f.object.order_id %>
+            <% order = f.object.order %>
+            <% @orders = [order].compact + @orders %>
             <%= f.select :order_id, options_for_select(@orders.map{|order| [order.email, order.id]}, order_id), 
                   { include_blank: "#{t('delivery.select_order')}" },
                   { class: "form-control height-35 font-medium", required: true, disabled: disabled,

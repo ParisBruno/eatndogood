@@ -15,6 +15,6 @@
   <body>
     <% image = @delivery.sized(:image, :thumb) %>
     <%= image_tag(image, class:'img mb-4 img-fluid', alt: t('common.no_image')) if image.present? %>
-    <h1>Your EatnDoGood food’s arrived! Enjoy every bite, and thanks a bunch for your support!</h1>
+    <h1><%= t('delivery.delivery_successfully_completed') %></h1>
   </body>
 </html>

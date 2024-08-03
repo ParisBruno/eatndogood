@@ -18,14 +18,14 @@
     </style>
   </head>
   <body>
-    <h1>New Deliveries Assigned</h1>
-    <p>Dear <%= @driver.first_name %>,</p>
-    <p>You have been assigned the following deliveries:</p>
+    <h1><%= t('delivery.new_delivery_assigned') %></h1>
+    <p><%= t('delivery.dear', name: @driver.first_name) %></p>
+    <p><%= t('delivery.assigned_following_deliveries') %></p>
 
     <table>
       <thead>
         <tr>
-          <th>Location</th>
+          <th><%= t('delivery.location') %></th>
         </tr>
       </thead>
       <tbody>
