@@ -21,6 +21,11 @@
 .cke_colordialog_colorcell.cke_colordialog_focused_dark {
   border-color: #FFF !important;
 }
+
+.cke_notification_warning {
+  display: none;
+}
+
 /*========== Border Styling Start ==========*/
 
 .border-bottom-secondary-1{
