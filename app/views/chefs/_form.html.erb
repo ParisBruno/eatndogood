@@ -219,7 +219,11 @@
           <%= f.fields_for :app do |ff| %>
             <div class="form-group col-12">
               <div class="">
-                <%= ff.text_field :slug, class: "form-control", placeholder: t('forms.url_slug'), autofocus: true %>
+                <% if current_app.slug == "eatndogoodlive" %>
+                  <%= ff.text_field :slug, class: "form-control", placeholder: t('forms.url_slug'), autofocus: true, disabled: true %>
+                <% else %>
+                  <%= ff.text_field :slug, class: "form-control", placeholder: t('forms.url_slug'), autofocus: true  %>
+                <% end %>
               </div>
             </div>
           <% end %>
