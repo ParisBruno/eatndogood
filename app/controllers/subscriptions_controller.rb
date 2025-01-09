@@ -49,6 +49,8 @@ class SubscriptionsController < ApplicationController
                   ENV['500_PRODUCT']
                 elsif params[:clients] == "1000"
                   ENV['1000_PRODUCT']
+                elsif params[:clients] == "unlimited"
+                  ENV['unlimited_PRODUCT']
                 end
   end
 end

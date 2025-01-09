@@ -62,9 +62,9 @@ class User < ApplicationRecord
 
   def limit_guests
     app = App.find(self.app_id)
-    if self.guest? && app.name != "eatndogood"
+    app_guests_limit = app.plan.guests_limit
+    if self.guest? && app.name != "eatndogood" && !app_guests_limit.zero?
       app_guests = app.guests.count
-      app_guests_limit = app.plan.guests_limit
       left_guests_limit = [6, 11, 21]
       left_guests = app_guests_limit-app_guests
       errors.add(:user_id, "Cannot signup to #{app.app_name} app as guest. Because this user account has reached guests limitation.") if app_guests >= app_guests_limit
