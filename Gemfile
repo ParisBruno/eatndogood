@@ -66,6 +66,7 @@ gem 'cookies_eu'
 gem 'stripe-rails'
 gem 'ed25519'
 gem "bcrypt_pbkdf"
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'

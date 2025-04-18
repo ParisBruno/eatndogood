@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_30_054816) do
+ActiveRecord::Schema.define(version: 2025_04_15_073247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2024_07_30_054816) do
     t.string "created_from"
     t.string "stripe_customer_id"
     t.string "stripe_subscription_id"
+    t.date "ssl_renew_date"
     t.index ["plan_id"], name: "index_apps_on_plan_id"
     t.index ["slug"], name: "index_apps_on_slug", unique: true
   end
